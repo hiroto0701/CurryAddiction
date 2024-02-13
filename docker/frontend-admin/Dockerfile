@@ -2,7 +2,7 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY ./frontend-admin/package*.json ./
+COPY ./frontend-admin ./
 
 RUN apk update
 
