@@ -1,22 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior() {
+    // ページ遷移のタイミングで一律最上部にスクロール
+    return { top: 0 };
+  },
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      component: () => import('@/views/templates/pages/DefaultLayout.vue'),
+      children: [
+        {
+          path: '/',
+          name: 'UserHome',
+          meta: {
+            title: 'HOME',
+            group: 'Home',
+          },
+          component: () => import('@/views/pages/UserHome.vue'),
+        },
+      ],
     },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
   ]
 })
 
