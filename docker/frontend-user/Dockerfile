@@ -2,8 +2,8 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY ./frontend-user ./
+COPY ./frontend-user/package*.json ./
 
-RUN apk update
+RUN npm install
 
 CMD ["npm", "run", "dev"]

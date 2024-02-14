@@ -52,7 +52,7 @@ services:
 
   curry_addiction_composer:
     container_name: curry_addiction_composer
-    image: composer:2.1.6
+    image: composer:latest
     volumes:
       - ./laravel:/app
     entrypoint: composer

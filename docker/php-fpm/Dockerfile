@@ -7,7 +7,7 @@ EXPOSE 5173
 COPY ./docker/php-fpm/php.ini /usr/local/etc/php-fpm/php.ini
 
 # Composer install
-COPY --from=composer:2.5.4 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # install Node.js
 COPY --from=node:18.14.2 /usr/local/bin /usr/local/bin
