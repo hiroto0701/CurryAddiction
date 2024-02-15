@@ -20,6 +20,46 @@ const router = createRouter({
           },
           component: () => import('@/views/pages/UserHome.vue'),
         },
+        // 投稿関連
+        {
+          path: '/post/register',
+          name: 'PostRegister',
+          meta: {
+            title: '新規投稿',
+            group: 'Post',
+          },
+          component: () => import('@/views/pages/Post/Register.vue'),
+        },
+        {
+          path: '/post/edit',
+          name: 'PostEditor',
+          meta: {
+            title: '投稿編集',
+            group: 'Post',
+          },
+          component: () => import('@/views/pages/Post/Editor.vue'),
+        },
+        // 検索
+        {
+          path: '/search',
+          name: 'Search',
+          meta: {
+            title: '検索',
+            group: 'Search',
+          },
+          component: () => import('@/views/pages/Search.vue'),
+        },
+        // ユーザ毎の投稿一覧ページ
+        {
+          path: '/username',
+          name: 'UserPage',
+          meta: {
+            title: 'username',
+            group: 'Account',
+          },
+          component: () => import('@/views/pages/Account/List.vue'),
+        },
+        // dashboard
       ],
     },
   ]
