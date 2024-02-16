@@ -1,3 +1,4 @@
+import { h, resolveComponent } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -13,7 +14,7 @@ const router = createRouter({
       children: [
         {
           path: '/',
-          name: 'UserHome',
+          name: 'Home',
           meta: {
             title: 'HOME',
             group: 'Home',
@@ -60,6 +61,62 @@ const router = createRouter({
           component: () => import('@/views/pages/Account/List.vue'),
         },
         // dashboard
+        {
+          path: 'dashboard',
+          name: 'Dashboard',
+          component: {
+            render() {
+              return h(resolveComponent('router-view'));
+            }
+          },
+          children: [
+            {
+              path: 'writing',
+              name: 'PostDashboard',
+              meta: {
+                title: '投稿ダッシュボード',
+                group: 'Dashboard',
+              },
+              component: () => import('@/views/pages/Dashboard/Writing.vue')
+            },
+            {
+              path: 'liked',
+              name: 'LikedPostDashboard',
+              meta: {
+                title: 'いいねした投稿',
+                group: 'Dashboard',
+              },
+              component: () => import('@/views/pages/Dashboard/LikedPosts.vue')
+            },
+            {
+              path: 'archived',
+              name: 'ArchivedPostDashboard',
+              meta: {
+                title: '保存した投稿',
+                group: 'Dashboard',
+              },
+              component: () => import('@/views/pages/Dashboard/ArchivedPosts.vue')
+            },
+            {
+              path: 'trash',
+              name: 'TrashDashboard',
+              meta: {
+                title: 'ごみ箱',
+                group: 'Dashboard',
+              },
+              component: () => import('@/views/pages/Dashboard/Trash.vue')
+            },
+            {
+              path: 'settings',
+              name: 'Settings',
+              meta: {
+                title: '設定',
+                group: 'Dashboard',
+              },
+              component: () => import('@/views/pages/Dashboard/Setting.vue')
+            },
+          ]
+        }
       ],
     },
   ]
