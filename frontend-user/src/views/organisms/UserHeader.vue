@@ -8,6 +8,7 @@ import SearchIcon from '@/views/atoms/icons/SearchIcon.vue'
 import NotificationIcon from '@/views/atoms/icons/NotificationIcon.vue'
 import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue'
 import AuthenticatedDropDown from '@/views/molecules/AuthenticatedDropDown.vue'
+import { RouterLink } from 'vue-router';
 
 
 </script>
@@ -20,11 +21,19 @@ import AuthenticatedDropDown from '@/views/molecules/AuthenticatedDropDown.vue'
             <AppLogo />
             <div class="flex items-center">
               <div class="flex items-center gap-x-3.5">
-                <HomeIcon />
-                <PlusIcon />
-                <SearchIcon />
+                <router-link :to="{ name: 'Home' }">
+                  <HomeIcon />
+                </router-link>
+                <router-link :to="{ name: 'PostRegister' }">
+                  <PlusIcon />
+                </router-link>
+                <router-link :to="{ name: 'Search' }">
+                  <SearchIcon />
+                </router-link>
                 <NotificationIcon />
-                <ProfileIcon />
+                <router-link :to="{ name: 'UserPage' }">
+                  <ProfileIcon />
+                </router-link>
               </div>
               <AuthenticatedDropDown />
             </div>

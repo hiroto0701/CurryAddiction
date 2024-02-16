@@ -3,6 +3,7 @@ import { MenuItem } from '@headlessui/vue'
 import LogoutIcon from '@/views/atoms/icons/LogoutIcon.vue'
 import SettingIcon from '@/views/atoms/icons/SettingIcon.vue'
 import MainDropDown from '@/views/atoms/MainDropDown.vue';
+
 const username = 'hiroto';
 </script>
 <template>
