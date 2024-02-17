@@ -60,15 +60,16 @@ const router = createRouter({
           },
           component: () => import('@/views/pages/Account/List.vue'),
         },
-        // dashboard
-        {
-          path: 'dashboard',
+      ],
+    },
+    // dashboard
+    {
+      path: '/dashboard',
+      component: () => import('@/views/templates/pages/DashboardLayout.vue'),
+      children: [
+         {
+          path: '',
           name: 'Dashboard',
-          component: {
-            render() {
-              return h(resolveComponent('router-view'));
-            }
-          },
           children: [
             {
               path: 'writing',
@@ -117,7 +118,7 @@ const router = createRouter({
             },
           ]
         }
-      ],
+      ]
     },
   ]
 })
