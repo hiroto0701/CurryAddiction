@@ -11,7 +11,7 @@ const props = defineProps({
 <template>
    <Menu as="div" class="relative ml-3">
     <div>
-      <MenuButton class="flex items-center gap-x-0.5 text-sm text-slate-600 hover:text-gray-950">
+      <MenuButton class="flex items-center gap-x-0.5 text-sm text-slate-600 hover:text-main">
         {{ props.username }}
         <ChevronIcon />
       </MenuButton>

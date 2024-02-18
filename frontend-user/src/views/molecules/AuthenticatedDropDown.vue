@@ -10,14 +10,14 @@ const username = 'hiroto';
 
 <template>
   <MainDropDown :username="username">
-    <MenuItem class="flex items-center gap-x-2 text-sm" v-slot="{ active }">
-      <router-link :to="{ name: 'Settings' }" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+    <MenuItem class="flex items-center gap-x-2 text-sm">
+      <router-link :to="{ name: 'Settings' }" class="block px-4 py-2 text-sm text-utility hover:bg-slate-100 hover:text-main">
         <SettingIcon />設定
       </router-link>
     </MenuItem>
     
-    <MenuItem class="flex items-center gap-x-2 text-sm" v-slot="{ active }">
-      <router-link to="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+    <MenuItem class="flex items-center gap-x-2 text-sm">
+      <router-link to="#" class="block px-4 py-2 text-sm text-utility hover:bg-slate-100 hover:text-main">
         <LogoutIcon />ログアウト
       </router-link>
     </MenuItem>
