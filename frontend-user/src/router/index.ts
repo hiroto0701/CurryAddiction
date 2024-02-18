@@ -72,7 +72,7 @@ const router = createRouter({
           name: 'Dashboard',
           children: [
             {
-              path: 'writing',
+              path: 'post',
               name: 'PostDashboard',
               meta: {
                 title: '投稿ダッシュボード',

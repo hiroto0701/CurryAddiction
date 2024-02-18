@@ -8,10 +8,11 @@ export default {
     extend: {
       fontFamily: {
         TrainOne: ['Train One', 'system-ui'],
-        inter: ['Inter', 'sans-serif']
+        body: ['Noto Sans JP', 'Inter', 'sans-serif'],
       },
       colors: {
-        'curry': 'rgba(220, 192, 159, 1)'
+        'curry': 'rgba(220, 192, 159, 1)',
+        'main': 'rgba(3, 10, 18, .81)'
       }
     },
   },
