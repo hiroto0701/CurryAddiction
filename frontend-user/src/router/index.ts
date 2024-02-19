@@ -78,7 +78,7 @@ const router = createRouter({
                 title: '投稿ダッシュボード',
                 group: 'Dashboard',
               },
-              component: () => import('@/views/pages/Dashboard/Writing.vue')
+              component: () => import('@/views/pages/Dashboard/Post.vue')
             },
             {
               path: 'liked',

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 </script>
 <template>
-  <h1>論理削除済み投稿建設予定地</h1>
+  <header class="flex items-center gap-3 text-xl text-main">
+    <h1>ごみ箱</h1>
+  </header>
 </template>
