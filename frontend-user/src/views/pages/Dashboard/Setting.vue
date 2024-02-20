@@ -61,7 +61,7 @@
 
         <!-- アカウント削除リンク -->
         <section class="flex justify-center">
-          <p class="text-red-600 text-sm">アカウントの削除</p>
+          <p class="text-red-400 text-sm">アカウントの削除</p>
         </section>
 
       </div>
