@@ -1,1 +1,2 @@
-# New-Curry-Addiction
+# CurryAddiction
+カレー専用のSNSアプリケーションです。
