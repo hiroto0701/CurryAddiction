@@ -9,7 +9,7 @@ const props = defineProps({
 });
 </script>
 <template>
-   <Menu as="div" class="relative ml-3">
+  <Menu as="div" class="relative ml-3">
     <div>
       <MenuButton class="flex items-center gap-x-0.5 text-sm text-slate-600 hover:text-main">
         {{ props.username }}
