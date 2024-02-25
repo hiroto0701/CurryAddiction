@@ -2,6 +2,10 @@
 import DashboardContent from '@/views/molecules/DashboardContent.vue'
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
 import DashboardSection from '@/views/molecules/DashboardSection.vue'
+import ChangeDisplayNameButton from '@/views/molecules/buttons/ChangeDisplayNameButton.vue'
+import GenreSettingButton from '@/views/molecules/buttons/GenreSettingButton.vue'
+import RegionSettingButton from '@/views/molecules/buttons/RegionSettingButton.vue'
+import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
 </script>
 <template>
   <DashboardContent title="設定">
@@ -20,40 +24,26 @@ import DashboardSection from '@/views/molecules/DashboardSection.vue'
     <!-- 表示名変更 -->
     <DashboardSection>
       <DashboardSectionHeader title="表示名" />
-      <p class="mt-3 text-sm text-utility">
-        hiroto
-      </p>
-      <div class="mt-4">
-        <button class="inline-flex items-center justify-center duration-500 text-main border rounded-full hover:opacity-70 hover:bg-slate-50 text-sm py-3 px-4">
-          変更する
-        </button>
-      </div>
+      <DisplayNameBrowseItem value="hiroto" class="mt-3 text-sm text-utility" />
+      <ChangeDisplayNameButton class="inline-flex items-center justify-center duration-500 text-main border rounded-full hover:opacity-70 hover:bg-slate-50 text-sm py-3 px-4 mt-4" />
     </DashboardSection>
     
     <!-- お気に入りジャンル変更 -->
     <DashboardSection>
       <DashboardSectionHeader title="カレーのジャンル" />
       <p class="mt-3 text-sm text-utility">
-        お好みのカレーのジャンルを登録できます。
+        お好みのカレーのジャンルを登録・変更できます。
       </p>
-      <div class="mt-4">
-        <button class="inline-flex items-center justify-center duration-500 text-main border rounded-full hover:opacity-70 hover:bg-slate-50 text-sm py-3 px-4">
-          変更する
-        </button>
-      </div>
+      <GenreSettingButton class="inline-flex items-center justify-center duration-500 text-main border rounded-full hover:opacity-70 hover:bg-slate-50 text-sm py-3 px-4 mt-4" />
     </DashboardSection>
 
     <!-- 都道府県変更 -->
     <DashboardSection>
       <DashboardSectionHeader title="地方・都道府県" />
       <p class="mt-3 text-sm text-utility">
-        表示する投稿の地域や都道府県を絞り込めます。
+        表示する投稿の地方や都道府県を登録・変更できます。
       </p>
-      <div class="mt-4">
-        <button class="inline-flex items-center justify-center duration-500 text-main border rounded-full hover:opacity-70 hover:bg-slate-50 text-sm py-3 px-4">
-          変更する
-        </button>
-      </div>
+      <RegionSettingButton class="inline-flex items-center justify-center duration-500 text-main border rounded-full hover:opacity-70 hover:bg-slate-50 text-sm py-3 px-4 mt-4" />
     </DashboardSection>
 
     <!-- アカウント削除リンク -->
