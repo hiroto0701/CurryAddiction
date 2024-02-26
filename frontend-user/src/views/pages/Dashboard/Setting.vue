@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
 import DashboardContent from '@/views/molecules/DashboardContent.vue'
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
 import DashboardSection from '@/views/molecules/DashboardSection.vue'
@@ -31,18 +32,14 @@ import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrow
     <!-- お気に入りジャンル変更 -->
     <DashboardSection>
       <DashboardSectionHeader title="カレーのジャンル" />
-      <p class="mt-3 text-sm text-utility">
-        お好みのカレーのジャンルを登録・変更できます。
-      </p>
+      <SectionInfo text="お好みのカレーのジャンルを登録・変更できます。" class="mt-3 text-sm text-utility" />
       <GenreSettingButton class="inline-flex items-center justify-center duration-500 text-main border rounded-full hover:opacity-70 hover:bg-slate-50 text-sm py-3 px-4 mt-4" />
     </DashboardSection>
 
     <!-- 都道府県変更 -->
     <DashboardSection>
       <DashboardSectionHeader title="地方・都道府県" />
-      <p class="mt-3 text-sm text-utility">
-        表示する投稿の地方や都道府県を登録・変更できます。
-      </p>
+      <SectionInfo text="表示する投稿の地方や都道府県を登録・変更できます。" class="mt-3 text-sm text-utility" />
       <RegionSettingButton class="inline-flex items-center justify-center duration-500 text-main border rounded-full hover:opacity-70 hover:bg-slate-50 text-sm py-3 px-4 mt-4" />
     </DashboardSection>
 
