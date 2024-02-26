@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
-import DashboardSection from '@/views/molecules/DashboardSection.vue'
-import DashboardContent from '@/views/molecules/DashboardContent.vue'
 import PostIcon from '@/views/atoms/icons/PostIcon.vue'
 import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue'
+import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
+import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
+import DashboardSection from '@/views/molecules/DashboardSection.vue'
+import DashboardContent from '@/views/molecules/DashboardContent.vue'
+import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
 </script>
 <template>
   <DashboardContent title="投稿ダッシュボード">
@@ -13,7 +15,7 @@ import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue'
           <img src="https://placehold.jp/64x64.png" class="h-full w-full rounded-full">
         </div>
         <div class="flex-1 leading-normal">
-          <div class="break-all text-md text-main">hiroto</div>
+          <DisplayNameBrowseItem value="hiroto" class="break-all text-md text-main font-body" />
           <a class="font-intel mt-1 inline-flex text-sm text-utility hover:underline" href="#">curry-addiction/hiroto</a>
         </div>
         <span>
@@ -49,6 +51,7 @@ import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue'
 
     <DashboardSection>
       <DashboardSectionHeader title="アクティビティ" />
+      <SectionInfo text="投稿したらカレンダーに色がつきます。" class="text-sm font-body text-utility mt-3" />
     </DashboardSection>
   </DashboardContent>
 </template>

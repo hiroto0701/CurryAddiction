@@ -19,7 +19,7 @@ const router = createRouter({
             title: 'HOME',
             group: 'Home',
           },
-          component: () => import('@/views/pages/UserHome.vue'),
+          component: () => import('@/views/pages/Home.vue'),
         },
         // 投稿関連
         {
