@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
-import DashboardContent from '@/views/molecules/DashboardContent.vue'
+import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
-import DashboardSection from '@/views/molecules/DashboardSection.vue'
+import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue'
 import ChangeDisplayNameButton from '@/views/molecules/buttons/ChangeDisplayNameButton.vue'
 import GenreSettingButton from '@/views/molecules/buttons/GenreSettingButton.vue'
 import RegionSettingButton from '@/views/molecules/buttons/RegionSettingButton.vue'

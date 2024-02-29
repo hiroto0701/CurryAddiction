@@ -14,9 +14,7 @@ defineProps<Props>();
 <template>
   <div class="flex flex-col justify-between h-28 pb-4">
     <CardIconsArea />
-    <div>
-      <StoreNameBrowseItem :store-name="storeName" />
-      <StoreLocationBrowseItem :location="location" :date="date" />
-    </div>
+    <StoreNameBrowseItem :store-name="storeName" />
+    <StoreLocationBrowseItem :location="location" :date="date" />
   </div>
 </template>

@@ -3,8 +3,8 @@ import PostIcon from '@/views/atoms/icons/PostIcon.vue'
 import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue'
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
 import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
-import DashboardSection from '@/views/molecules/DashboardSection.vue'
-import DashboardContent from '@/views/molecules/DashboardContent.vue'
+import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue'
+import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
 import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
 </script>
 <template>
