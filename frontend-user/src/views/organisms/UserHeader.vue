@@ -7,7 +7,7 @@ import PlusIcon from '@/views/atoms/icons/PlusIcon.vue'
 import SearchIcon from '@/views/atoms/icons/SearchIcon.vue'
 import NotificationIcon from '@/views/atoms/icons/NotificationIcon.vue'
 import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue'
-import AuthenticatedDropDown from '@/views/molecules/AuthenticatedDropDown.vue'
+import AuthenticatedDropDown from '@/views/molecules/dropdown/AuthenticatedDropDown.vue'
 import { RouterLink } from 'vue-router';
 
 
