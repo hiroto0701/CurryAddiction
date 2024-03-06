@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  readonly archived: boolean
+  readonly archived?: boolean
 }
 
 defineProps<Props>();
