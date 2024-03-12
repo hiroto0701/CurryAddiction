@@ -14,7 +14,10 @@ export default {
         'curry': 'rgba(220, 192, 159, 1)',
         'main': 'rgba(3, 10, 18, .81)',
         'utility': '#798184',
-      }
+      },
+      fontSize: {
+        mini: '0.625rem',
+      },
     },
   },
   plugins: [],
