@@ -13,6 +13,6 @@ defineProps<Props>();
 </script>
 <template>
   <FormLayout :label="label" :required="required" :optional="optional" :iconComponent="iconComponent">
-    <input type="text" class="block text-sm mt-3 px-1 pt-2 w-full border-b border-gray-200" placeholder="お店の名前">
+    <input type="text" class="mt-3 p-2 rounded w-full border border-gray-200 font-body text-sumi-900" placeholder="お店の名前">
   </FormLayout>
 </template>

@@ -13,6 +13,6 @@ defineProps<Props>();
 </script>
 <template>
   <FormLayout :label="label" :required="required" :optional="optional" :iconComponent="iconComponent">
-    <textarea class="block text-sm mt-3 p-1 w-full h-24 border border-gray-200 rounded" placeholder="味の特徴や感想を教えてください。"></textarea>
+    <textarea class="mt-3 p-2 w-full h-24 border border-gray-200 rounded font-body text-sumi-900" placeholder="味の特徴や感想を教えてください。"></textarea>
   </FormLayout>
 </template>
