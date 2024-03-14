@@ -5,7 +5,7 @@ interface Props {
 defineProps<Props>();
 </script>
 <template>
-  <header class="flex items-center gap-3 text-xl text-main">
+  <header class="flex items-center gap-3 text-xl text-sumi-900 font-body">
     <h1>{{ title }}</h1>
   </header>
 </template>

@@ -10,9 +10,8 @@ import MainDropDown from '@/views/atoms/MainDropDown.vue'
 
 const username = 'hiroto';
 </script>
-
 <template>
-   <MainDropDown :username="username">
+   <MainDropDown :username>
     <DropDownMenuItem :to="{ name: 'PostDashboard' }" label="ダッシュボード" :iconComponent="DashboardIcon" />
     <DropDownMenuItem :to="{ name: 'LikedPostDashboard' }" label="いいねした投稿" :iconComponent="HeartIcon" />
     <DropDownMenuItem :to="{ name: 'ArchivedPostDashboard' }" label="保存した投稿" :iconComponent="ArchiveIconVue" />
