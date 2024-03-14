@@ -7,7 +7,7 @@ import DashBoardSideBar from '@/views/organisms/DashboardSideBar.vue'
     <div class="flex">
       <DashBoardSideBar />
       <main class="min-h-screen min-w-0 flex-1 pb-32 md:border-l md:border-main-150">
-        <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-md mt-20">
+        <div class="mx-auto w-full max-w-screen-md mt-20">
           <RouterView />
         </div>
       </main>
