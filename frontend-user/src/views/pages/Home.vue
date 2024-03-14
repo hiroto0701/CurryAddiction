@@ -2,7 +2,7 @@
 import Card from '@/views/molecules/card/Card.vue'
 </script>
 <template>
-  <div class="grid grid-cols-1 gap-x-7 gap-y-12 xssm:grid-cols-2 md:grid-cols-3">
+  <div class="grid grid-cols-1 gap-x-7 gap-y-12 sm:grid-cols-2 md:grid-cols-3">
     <Card :src="'https://pbs.twimg.com/media/Fe6MtHRVUAQqqmF.jpg'" store-name="和平カレー" location="福岡" date="2024年12月24日" />
     <Card :src="'https://livedoor.blogimg.jp/mantaro_club/imgs/e/a/eae0ac07.jpg'" store-name="ダメヤ" location="福岡" date="2024年12月24日" />
     <Card :src="'https://umaga.net/wp-content/uploads/2021/08/DSC02736-1200x798.jpg'" store-name="ヌワラエリヤ" location="福岡" date="2024年12月24日" />
