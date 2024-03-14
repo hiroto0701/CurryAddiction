@@ -45,7 +45,7 @@ import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrow
 
     <!-- アカウント削除リンク -->
     <section class="flex justify-center">
-      <p class="text-red-400 text-sm">アカウントの削除</p>
+      <a class="text-red-400 text-sm" href="#">アカウントの削除</a>
     </section>
   </DashboardContent>
 </template>
