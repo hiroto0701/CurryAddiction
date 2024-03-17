@@ -33,7 +33,7 @@ onMounted(() => {
     <button 
       v-show="buttonActive"
       @click="pageTop"
-      class="fixed right-5 bottom-9 flex justify-center items-center w-16 h-16 border border-gray-200 rounded-full hover:bg-slate-100 duration-300"
+      class="fixed right-14 bottom-9 flex justify-center items-center w-16 h-16 border border-gray-200 rounded-full hover:bg-slate-100 duration-300"
     >
     <ArrowTopIcon class="text-sumi-900" />
     </button>
