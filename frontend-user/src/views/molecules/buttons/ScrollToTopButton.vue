@@ -24,7 +24,7 @@ const scrollWindow = (): void => {
   }
 }
 
-onMounted(() => {
+onMounted((): void => {
   window.addEventListener('scroll', scrollWindow);
 });
 </script>
