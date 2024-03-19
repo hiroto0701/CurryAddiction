@@ -53,7 +53,7 @@ onMounted((): void => {
   opacity: 1;
 }
 .opacity-leave-active{
-  transition: opacity 1s;
+  transition: opacity .3s;
 }
 .opacity-leave-to{
   opacity: 0;
