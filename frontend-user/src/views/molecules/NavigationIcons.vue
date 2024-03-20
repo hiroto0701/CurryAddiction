@@ -7,18 +7,20 @@ import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue'
 import { RouterLink } from 'vue-router';
 </script>
 <template>
-  <div class="flex items-center gap-x-3.5">
-    <router-link :to="{ name: 'Home' }">
+  <div class="flex items-center gap-0.5">
+    <router-link :to="{ name: 'Home' }" class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center">
       <HomeIcon />
     </router-link>
-    <router-link :to="{ name: 'PostRegister' }">
+    <router-link :to="{ name: 'PostRegister' }" class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center">
       <PlusIcon />
     </router-link>
-    <router-link :to="{ name: 'Search' }">
+    <router-link :to="{ name: 'Search' }" class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center">
       <SearchIcon />
     </router-link>
-    <NotificationIcon />
-    <router-link :to="{ name: 'UserPage' }">
+    <div class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center">
+      <NotificationIcon />
+    </div>
+    <router-link :to="{ name: 'UserPage' }" class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center">
       <ProfileIcon />
     </router-link>
   </div>
