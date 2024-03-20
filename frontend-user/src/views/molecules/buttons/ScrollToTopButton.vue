@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import ArrowTopIcon from '@/views/atoms/icons/ArrowTopIcon.vue'
+import TopTooltip from '@/views/molecules/tooltips/TopTooltip.vue'
 
 const buttonActive = ref<boolean>(false)
 
@@ -30,13 +31,17 @@ onMounted((): void => {
 </script>
 <template>
   <transition name="opacity">
-    <button 
-      v-show="buttonActive"
-      @click="pageTop"
-      class="fixed right-14 bottom-9 flex justify-center items-center w-16 h-16 border border-gray-200 rounded-full hover:bg-slate-100 duration-300"
-    >
-    <ArrowTopIcon class="text-sumi-900" />
-    </button>
+    <div class="fixed right-14 bottom-9">
+      <TopTooltip text="ページトップへ" v-show="buttonActive">
+        <button 
+          v-show="buttonActive"
+          @click="pageTop"
+          class="peer flex justify-center items-center w-16 h-16 border border-gray-200 rounded-full hover:bg-slate-100 duration-300"
+        >
+          <ArrowTopIcon class="text-sumi-900" />
+        </button>
+      </TopTooltip>
+    </div>
   </transition>
 </template>
 <style scoped>
