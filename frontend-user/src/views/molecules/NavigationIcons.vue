@@ -4,7 +4,7 @@ import PlusIcon from '@/views/atoms/icons/PlusIcon.vue'
 import SearchIcon from '@/views/atoms/icons/SearchIcon.vue'
 import NotificationIcon from '@/views/atoms/icons/NotificationIcon.vue'
 import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue'
-import { RouterLink } from 'vue-router';
+import { RouterLink } from 'vue-router'
 </script>
 <template>
   <div class="flex items-center gap-0.5">
