@@ -31,12 +31,12 @@ onMounted((): void => {
 </script>
 <template>
   <transition name="opacity">
-    <div class="fixed right-14 bottom-9">
+    <div class="fixed right-14 max-md:right-3 bottom-9">
       <TopTooltip text="ページトップへ" v-show="buttonActive">
         <button 
           v-show="buttonActive"
           @click="pageTop"
-          class="peer flex justify-center items-center w-16 h-16 border border-gray-200 rounded-full hover:bg-slate-100 duration-300"
+          class="peer flex justify-center items-center w-16 max-sm:w-14 aspect-square border border-gray-300 shadow-sm rounded-full bg-white opacity-70 hover:bg-slate-100 hover:opacity-100 duration-300"
         >
           <ArrowTopIcon class="text-sumi-900" />
         </button>

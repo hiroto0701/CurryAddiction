@@ -7,7 +7,7 @@ import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue'
 import { RouterLink } from 'vue-router'
 </script>
 <template>
-  <div class="flex items-center gap-0.5">
+  <div class="flex items-center gap-0.5 max-md:hidden">
     <router-link :to="{ name: 'Home' }" class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center">
       <HomeIcon />
     </router-link>
