@@ -8,6 +8,7 @@ const router = createRouter({
     return { top: 0 };
   },
   routes: [
+    
     {
       path: '/',
       component: () => import('@/views/templates/pages/DefaultLayout.vue'),
@@ -23,26 +24,46 @@ const router = createRouter({
         },
         // 投稿関連
         {
-          path: '/post/register',
-          name: 'PostRegister',
-          meta: {
-            title: '新規投稿',
-            group: 'Post',
+          path: 'post',
+          name: 'Post',
+          component: {
+            render() {
+              return h(resolveComponent('router-view'))
+            }
           },
-          component: () => import('@/views/pages/Post/Register.vue'),
-        },
-        {
-          path: '/post/edit',
-          name: 'PostEditor',
-          meta: {
-            title: '投稿編集',
-            group: 'Post',
-          },
-          component: () => import('@/views/pages/Post/Editor.vue'),
+          children: [
+            {
+              path: 'register',
+              name: 'PostRegister',
+              meta: {
+                title: '新規投稿',
+                group: 'Post',
+              },
+              component: () => import('@/views/pages/Post/Register.vue'),
+            },
+            {
+              path: 'view/:id',
+              name: 'PostViewer',
+              meta: {
+                title: '投稿詳細',
+                group: 'Post',
+              },
+              component: () => import('@/views/pages/Post/Viewer.vue')
+            },
+            {
+              path: 'edit/:id',
+              name: 'PostEditor',
+              meta: {
+                title: '投稿編集',
+                group: 'Post',
+              },
+              component: () => import('@/views/pages/Post/Editor.vue'),
+            },
+          ]
         },
         // 検索
         {
-          path: '/search',
+          path: 'search',
           name: 'Search',
           meta: {
             title: '検索',
@@ -52,7 +73,7 @@ const router = createRouter({
         },
         // ユーザ毎の投稿一覧ページ
         {
-          path: '/username',
+          path: 'username',
           name: 'UserPage',
           meta: {
             title: 'username',

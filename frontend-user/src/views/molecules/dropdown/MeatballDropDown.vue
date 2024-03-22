@@ -30,11 +30,11 @@
   </script>
   <template>
     <transition name="opacity">
-      <Menu as="div" class="fixed left-14 bottom-9" v-show="buttonActive" v-slot="{ open }">
+      <Menu as="div" class="fixed left-14 max-sm:left-3 bottom-9" v-show="buttonActive" v-slot="{ open }">
         <TopTooltip :open text="メニュー">
           <MenuButton 
-            class="peer flex justify-center items-center w-16 h-16 border border-gray-200 rounded-full hover:bg-slate-100 duration-300"
-            :class="[open ? 'w-24' : '']"
+            class="peer flex justify-center items-center w-16 h-16 max-sm:w-14 max-sm:h-14 border border-gray-300 shadow-sm rounded-full bg-white opacity-70 hover:bg-slate-100 hover:opacity-100 duration-300"
+            :class="[open ? 'max-sm:w-20 w-24' : '']"
           >
             <MeatballMenuIcon class="w-7 text-sumi-900" v-show="!open" />
             <span class="font-body text-sm text-sumi-500" v-show="open">閉じる</span>
