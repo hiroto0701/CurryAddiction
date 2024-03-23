@@ -8,20 +8,16 @@
   import SearchIcon from '@/views/atoms/icons/SearchIcon.vue'
   import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue'
   import TopTooltip from '@/views/molecules/tooltips/TopTooltip.vue'
-    
-  const buttonActive = ref<boolean>(false);
   
+  const buttonVisibility = ref<boolean>(false);
+
   let scroll: number = 0;
   
   const scrollWindow = (): void => {
     const top: number = 100;
     scroll = window.scrollY;
     
-    if (top <= scroll) {
-      buttonActive.value = true;
-    } else {
-      buttonActive.value = false;
-    }
+    buttonVisibility.value = top <= scroll;
   }
 
   onMounted(() => {
@@ -30,7 +26,7 @@
   </script>
   <template>
     <transition name="opacity">
-      <Menu as="div" class="fixed left-14 max-sm:left-3 bottom-9" v-show="buttonActive" v-slot="{ open }">
+      <Menu as="div" class="fixed left-14 max-sm:left-3 bottom-9" v-show="buttonVisibility" v-slot="{ open }">
         <TopTooltip :open text="メニュー">
           <MenuButton 
             class="peer flex justify-center items-center w-16 h-16 max-sm:w-14 max-sm:h-14 border border-gray-300 shadow-sm rounded-full bg-white opacity-70 hover:bg-slate-100 hover:opacity-100 duration-300"

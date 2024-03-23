@@ -8,7 +8,34 @@ const router = createRouter({
     return { top: 0 };
   },
   routes: [
-    
+    {
+      path: '/login',
+      component: () => import('@/views/templates/pages/UnAuthenticatedLayout.vue'),
+      children: [
+        {
+          path: '',
+          name: 'Login',
+          meta: {
+            title: 'ログイン'
+          },
+          component: () => import('@/views/pages/Login.vue'),
+        },
+      ]
+    },
+    {
+      path: '/signup',
+      component: () => import('@/views/templates/pages/UnAuthenticatedLayout.vue'),
+      children: [
+        {
+          path: '',
+          name: 'Signup',
+          meta: {
+            title: '新規登録'
+          },
+          component: () => import('@/views/pages/Signup.vue'),
+        },
+      ]
+    },
     {
       path: '/',
       component: () => import('@/views/templates/pages/DefaultLayout.vue'),
