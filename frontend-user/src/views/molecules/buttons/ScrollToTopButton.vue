@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 import ArrowTopIcon from '@/views/atoms/icons/ArrowTopIcon.vue'
 import TopTooltip from '@/views/molecules/tooltips/TopTooltip.vue'
 
-const buttonActive = ref<boolean>(false)
+const buttonVisibility = ref<boolean>(false);
 
 let scroll: number = 0
 
@@ -18,11 +18,7 @@ const scrollWindow = (): void => {
   const top: number = 100;
   scroll = window.scrollY;
   
-  if (top <= scroll) {
-    buttonActive.value = true;
-  } else {
-    buttonActive.value = false;
-  }
+  buttonVisibility.value = top <= scroll;
 }
 
 onMounted((): void => {
@@ -32,9 +28,9 @@ onMounted((): void => {
 <template>
   <transition name="opacity">
     <div class="fixed right-14 max-md:right-3 bottom-9">
-      <TopTooltip text="ページトップへ" v-show="buttonActive">
+      <TopTooltip text="ページトップへ" v-show="buttonVisibility">
         <button 
-          v-show="buttonActive"
+          v-show="buttonVisibility"
           @click="pageTop"
           class="peer flex justify-center items-center w-16 max-sm:w-14 aspect-square border border-gray-300 shadow-sm rounded-full bg-white opacity-70 hover:bg-slate-100 hover:opacity-100 duration-300"
         >
