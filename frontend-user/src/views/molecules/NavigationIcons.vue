@@ -11,7 +11,7 @@ import { RouterLink } from 'vue-router'
     <router-link :to="{ name: 'Home' }" class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center">
       <HomeIcon />
     </router-link>
-    <router-link :to="{ name: 'PostRegister' }" class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center">
+    <router-link :to="{ name: 'PostCreate' }" class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center">
       <PlusIcon />
     </router-link>
     <router-link :to="{ name: 'Search' }" class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center">

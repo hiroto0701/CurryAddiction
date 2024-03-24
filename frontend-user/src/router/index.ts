@@ -60,13 +60,13 @@ const router = createRouter({
           },
           children: [
             {
-              path: 'register',
-              name: 'PostRegister',
+              path: 'new',
+              name: 'PostCreate',
               meta: {
                 title: '新規投稿',
                 group: 'Post',
               },
-              component: () => import('@/views/pages/Post/Register.vue'),
+              component: () => import('@/views/pages/Post/Create.vue'),
             },
             {
               path: 'view/:id',
@@ -135,7 +135,7 @@ const router = createRouter({
                 title: 'いいねした投稿',
                 group: 'Dashboard',
               },
-              component: () => import('@/views/pages/Dashboard/LikedPosts.vue')
+              component: () => import('@/views/pages/Dashboard/LikedPost.vue')
             },
             {
               path: 'archived',
@@ -144,7 +144,7 @@ const router = createRouter({
                 title: '保存した投稿',
                 group: 'Dashboard',
               },
-              component: () => import('@/views/pages/Dashboard/ArchivedPosts.vue')
+              component: () => import('@/views/pages/Dashboard/ArchivedPost.vue')
             },
             {
               path: 'trash',
