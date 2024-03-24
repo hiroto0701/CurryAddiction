@@ -6,17 +6,15 @@ interface Props {
   type: string
 }
 
-defineProps<Props>();
-
+defineProps<Props>()
 const value = ref<string>('')
 const isFocused = ref<boolean>(false)
 </script>
-
 <template>
   <div class="relative">
     <label
       :for="type"
-      class="absolute font-body text-sumi-500 pl-3 font-semibold transition-all duration-300"
+      class="absolute font-body text-sumi-400 pl-3 font-semibold transition-all duration-300"
       :class="{
         'text-mini top-1': isFocused || value,
         'text-sm top-5': !isFocused && !value,
@@ -32,5 +30,6 @@ const isFocused = ref<boolean>(false)
       @blur="isFocused = false"
       class="w-full font-body text-sumi-900 px-3 pt-4 h-14 rounded-lg transition-all duration-300"
     />
+    <slot />
   </div>
 </template>
