@@ -8,7 +8,7 @@ interface Props {
 
 defineProps<Props>();
 
-const value = ref<string>('');
+const value = defineModel<string>();
 const isFocused = ref<boolean>(false);
 </script>
 <template>

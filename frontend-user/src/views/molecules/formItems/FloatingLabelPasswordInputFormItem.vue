@@ -11,13 +11,12 @@ interface Props {
 defineProps<Props>();
 
 const isPasswordVisible = ref<boolean>(false);
-const password = defineModel<string>('password');
+const password = ref<string>('');
 
 const togglePasswordVisibility = (): void => {
   isPasswordVisible.value = !isPasswordVisible.value;
 }
 </script>
-
 <template>
   <FloatingLabelFormItem :label :type="isPasswordVisible ? 'text' : 'password'" v-model="password">
     <template v-slot:default="{ value }">
