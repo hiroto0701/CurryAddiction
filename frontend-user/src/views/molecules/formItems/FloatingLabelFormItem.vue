@@ -6,9 +6,10 @@ interface Props {
   type: string
 }
 
-defineProps<Props>()
-const value = ref<string>('')
-const isFocused = ref<boolean>(false)
+defineProps<Props>();
+
+const value = ref<string>('');
+const isFocused = ref<boolean>(false);
 </script>
 <template>
   <div class="relative">
@@ -30,6 +31,6 @@ const isFocused = ref<boolean>(false)
       @blur="isFocused = false"
       class="w-full font-body text-sumi-900 px-3 pt-4 h-14 rounded-lg transition-all duration-300"
     />
-    <slot />
+    <slot :value />
   </div>
 </template>
