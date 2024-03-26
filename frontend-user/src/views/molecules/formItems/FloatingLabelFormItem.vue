@@ -5,7 +5,6 @@ interface Props {
   label: string
   type: string
 }
-
 defineProps<Props>();
 
 const value = defineModel<string>();

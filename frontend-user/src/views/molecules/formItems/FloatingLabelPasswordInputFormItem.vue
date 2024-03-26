@@ -22,9 +22,9 @@ const togglePasswordVisibility = (): void => {
     <template v-slot:default="{ value }">
       <div v-if="value">
         <PasswordHiddenIcon
-        v-show="!isPasswordVisible"
-        class="absolute top-5 right-5 text-sumi-400"
-        @click="togglePasswordVisibility"
+          v-show="!isPasswordVisible"
+          class="absolute top-5 right-5 text-sumi-400"
+          @click="togglePasswordVisibility"
         />
         <PasswordVisibleIcon
           v-show="isPasswordVisible"

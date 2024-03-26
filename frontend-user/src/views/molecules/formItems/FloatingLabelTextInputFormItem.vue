@@ -11,5 +11,5 @@ defineProps<Props>();
 const email = ref<string>('')
 </script>
 <template>
-  <FloatingLabelFormItem :label :type v-model="email"  />
+  <FloatingLabelFormItem :label :type v-model="email" />
 </template>
