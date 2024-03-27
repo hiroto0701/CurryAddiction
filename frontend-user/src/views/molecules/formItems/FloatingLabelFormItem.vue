@@ -7,11 +7,11 @@ interface Props {
 }
 defineProps<Props>();
 
-const value = defineModel<string>();
-const isFocused = ref<boolean>(false);
+const value = defineModel<string>()
+const isFocused = ref<boolean>(false)
 </script>
 <template>
-  <div class="relative">
+  <div class="relative w-full">
     <label
       :for="type"
       class="absolute font-body text-sumi-400 pl-3 font-semibold transition-all duration-300"
