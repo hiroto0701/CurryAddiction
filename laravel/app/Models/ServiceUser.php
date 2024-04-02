@@ -26,6 +26,19 @@ class ServiceUser extends Authenticatable
 
     protected $table = 'service_users';
 
+    protected $fillable = [
+        'user_id',
+        'status',
+        'handle_name',
+        'display_name',
+        'email',
+        'password',
+        'profile_path',
+        'favorite_genres_ids',
+        'region_ids',
+        'prefecture_ids',
+    ];    
+
     public const STATUS_DISABLED = 0;
     public const STATUS_ENABLED = 1;
 
