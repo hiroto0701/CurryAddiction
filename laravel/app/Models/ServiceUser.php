@@ -15,9 +15,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $email
  * @property string $password
  * @property string $profile_path
- * @property array|null $favorite_genres_ids
- * @property array|null $region_ids
- * @property array|null $prefecture_ids
  * @property User $user
  */
 class ServiceUser extends Authenticatable
@@ -34,8 +31,6 @@ class ServiceUser extends Authenticatable
         'email',
         'password',
         'profile_path',
-        'favorite_genres_ids',
-        'region_ids',
         'prefecture_ids',
     ];    
 
