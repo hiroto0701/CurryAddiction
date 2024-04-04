@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property int $id
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
  */
 class User extends Model
 {
+    use HasFactory;
     use SoftDeletes;
 
     public const TYPE_SERVICE_USER = 1;

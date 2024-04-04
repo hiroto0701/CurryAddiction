@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property int $id
@@ -19,6 +20,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class ServiceUser extends Authenticatable
 {
+    use HasFactory;
     use SoftDeletes;
 
     protected $table = 'service_users';
