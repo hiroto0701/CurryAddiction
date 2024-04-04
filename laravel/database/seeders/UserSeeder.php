@@ -3,17 +3,21 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use App\Models\ServiceUser;
 
 class UserSeeder extends Seeder
 {
-    public function run(): void
+    public function run()
     {
-        DB::table('users')->insert([
-            [
-                'status' => User::TYPE_SERVICE_USER,
-            ],
-        ]);
+        $users = User::factory()->count(10)->create();
+    
+        foreach ($users as $user) {
+            if ($user->type == User::TYPE_SERVICE_USER) {
+                $user->service_user()->save(ServiceUser::factory()->make([
+                    'user_id' => $user->id,
+                ]));
+            }
+        }
     }
 }

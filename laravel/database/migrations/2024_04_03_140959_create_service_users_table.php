@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('service_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->enum('status', [1, 2])->default(1);
+            $table->enum('status', [0, 1])->default(1);
             $table->string('handle_name', 20)->unique();
             $table->string('display_name', 20);
             $table->string('email')->unique();

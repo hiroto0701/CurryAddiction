@@ -9,19 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 class ServiceUserSeeder extends Seeder
 {
-    public function run(): void
+    public function run()
     {
-        $users = User::where('status', User::TYPE_SERVICE_USER)->get();
-
-        foreach ($users as $user) {
-            ServiceUser::factory()->create([
-                'user_id' => $user->id,
-                'handle_name' => 'testuser',
-                'display_name' => 'testuser',
-                'email' => 'test@example.com',
-                'password' => Hash::make('password'),
-                'profile_path' => 'test/test/test.png'
-            ]);
-        }
+        // 何もしない
     }
 }
