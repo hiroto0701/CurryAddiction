@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Domains\Staff\Controller;
 
 use App\Domains\Staff\Controller\Request\LoginRequest;
-use App\Domains\Staff\Controller\Resource\StaffResource;
 use App\Models\ManagementCompany;
 use App\Models\Staff;
 use App\Models\User;
@@ -20,9 +19,8 @@ class LoginAction extends Controller
 
   /**
    * @param LoginRequest $request
-   * @return StaffResource
    */
-  public function __invoke(LoginRequest $request): StaffResource
+  public function __invoke(LoginRequest $request)
   {
       // 認証
       if (!Auth::guard('staffs')->attempt($request->only(['email', 'password']) + [
