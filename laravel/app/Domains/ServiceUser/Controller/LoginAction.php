@@ -15,34 +15,20 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginAction extends Controller
 {
-  public const OPERATION_OVERVIEW = '管理会社社員ログイン';
-
   /**
    * @param LoginRequest $request
    */
   public function __invoke(LoginRequest $request)
   {
-      // 認証
-      if (!Auth::guard('staffs')->attempt($request->only(['email', 'password']) + [
-          'status' => Staff::STATUS_ENABLED,
-          function($query) {
-              $query->whereHas('company', function($query) {
-                  $query->whereIn('status', [ManagementCompany::STATUS_ENABLED, ManagementCompany::STATUS_SUSPEND]);
-              });
-          },
-      ] + ['token' => $request->token])) {
-          throw new AuthenticationException();
-      }
+    // 他の認証はログアウト
+    Auth::guard('guests')->logout();
+    Auth::guard('brokers')->logout();
+    Auth::guard('administrators')->logout();
+    // セッションを再生成
+    $request->session()->regenerate();
 
-      // 他の認証はログアウト
-      Auth::guard('guests')->logout();
-      Auth::guard('brokers')->logout();
-      Auth::guard('administrators')->logout();
-      // セッションを再生成
-      $request->session()->regenerate();
+    $this->addOperationLog(OperationLog::OPERATION_TYPE_LOGIN, "管理会社社員ID", User::AuthStaff()->id);
 
-      $this->addOperationLog(OperationLog::OPERATION_TYPE_LOGIN, "管理会社社員ID", User::AuthStaff()->id);
-
-      return new StaffResource(User::AuthStaff());
+    return new StaffResource(User::AuthStaff());
   }
 }
