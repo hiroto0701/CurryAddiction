@@ -20,6 +20,18 @@ class LoginAction extends Controller
    */
   public function __invoke(LoginRequest $request)
   {
+    // 認証
+    if (!Auth::guard('staffs')->attempt($request->only(['email', 'password']) + [
+        'status' => Staff::STATUS_ENABLED,
+        function($query) {
+            $query->whereHas('company', function($query) {
+                $query->whereIn('status', [ManagementCompany::STATUS_ENABLED, ManagementCompany::STATUS_SUSPEND]);
+            });
+        },
+    ] + ['token' => $request->token])) {
+        throw new AuthenticationException();
+    }
+
     // 他の認証はログアウト
     Auth::guard('guests')->logout();
     Auth::guard('brokers')->logout();
