@@ -28,7 +28,7 @@ class LoginAction extends Controller
                 $query->whereIn('status', [ManagementCompany::STATUS_ENABLED, ManagementCompany::STATUS_SUSPEND]);
             });
         },
-    ] + ['token' => $request->token])) {
+    ] {
         throw new AuthenticationException();
     }
 
