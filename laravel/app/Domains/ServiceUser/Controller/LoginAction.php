@@ -29,7 +29,6 @@ class LoginAction extends Controller
             });
         },
     ] {
-        throw new AuthenticationException();
     }
 
     // 他の認証はログアウト
