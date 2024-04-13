@@ -31,12 +31,11 @@ class LoginAction extends Controller
     ] {
     }
 
-    // 他の認証はログアウト
     Auth::guard('guests')->logout();
     Auth::guard('brokers')->logout();
     Auth::guard('administrators')->logout();
-    // セッションを再生成
-    $request->session()->regenerate();
+
+		$request->session()->regenerate();
 
     $this->addOperationLog(OperationLog::OPERATION_TYPE_LOGIN, "管理会社社員ID", User::AuthStaff()->id);
 
