@@ -1,44 +1,42 @@
-<?php
+<?php 
 
 declare(strict_types=1);
 
-namespace App\Domains\Staff\Controller;
+namespace App\Domains\ServiceUser\Controller;
 
-use App\Domains\Staff\Controller\Request\LoginRequest;
-use App\Models\ManagementCompany;
-use App\Models\Staff;
-use App\Models\User;
-use App\Models\OperationLog;
+use App\Http\Controllers\Controller;
+use App\Domains\ServiceUser\Controller\Request\LoginRequest;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\AuthManager;
+use Illuminate\Http\JsonResponse;
 
 class LoginAction extends Controller
 {
-  /**
-   * @param LoginRequest $request
-   */
-  public function __invoke(LoginRequest $request)
-  {
-    // 認証
-    if (!Auth::guard('staffs')->attempt($request->only(['email', 'password']) + [
-        'status' => Staff::STATUS_ENABLED,
-        function($query) {
-            $query->whereHas('company', function($query) {
-                $query->whereIn('status', [ManagementCompany::STATUS_ENABLED, ManagementCompany::STATUS_SUSPEND]);
-            });
-        },
-    ] {
+    /**
+     * @param AuthManager $auth
+     */
+    public function __construct(
+        private readonly AuthManager $auth,
+    ) {
     }
 
-    Auth::guard('guests')->logout();
-    Auth::guard('brokers')->logout();
-    Auth::guard('administrators')->logout();
+    /**
+     * @param LoginRequest $request
+     * @return JsonResponse
+     * @throws AuthenticationException
+     */
+    public function __invoke(LoginRequest $request): JsonResponse
+    {
+        $credentials = $request->only(['email', 'password']);
 
-		$request->session()->regenerate();
+        if ($this->auth->guard()->attempt($credentials)) {
+            $request->session()->regenerate();
 
-    $this->addOperationLog(OperationLog::OPERATION_TYPE_LOGIN, "管理会社社員ID", User::AuthStaff()->id);
+            return new JsonResponse([
+                'message' => 'Authenticated.',
+            ]);
+        }
 
-    return new StaffResource(User::AuthStaff());
-  }
+        throw new AuthenticationException();
+    }
 }
