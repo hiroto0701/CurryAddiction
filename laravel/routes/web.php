@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::post('/login', \App\Domains\ServiceUser\Controller\LoginAction::class);
+
