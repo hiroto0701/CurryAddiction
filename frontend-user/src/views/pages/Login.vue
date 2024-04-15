@@ -24,6 +24,7 @@ const handleLogin = async () => {
     .catch(error => {
       // ログイン失敗時の処理
       error.value = error.response.data.message
+      console.log(error);
     })
   })
 }
