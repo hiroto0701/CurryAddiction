@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+
 
 /**
  * @property int $id
@@ -20,8 +22,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class ServiceUser extends Authenticatable
 {
+    use HasApiTokens, Notifiable;
     use HasFactory;
-    use SoftDeletes;
 
     protected $table = 'service_users';
 
