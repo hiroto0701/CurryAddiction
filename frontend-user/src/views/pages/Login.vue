@@ -22,8 +22,9 @@ const handleLogin = async () => {
     })
     .catch(error => {
       // ログイン失敗時の処理
-      error.value = error.response.data.message
-      console.log(error);
+      if (error.response.status === 422) {
+        console.table(error.response.data.errors)
+      }
     })
   })
 }
