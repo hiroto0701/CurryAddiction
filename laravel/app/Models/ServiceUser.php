@@ -38,8 +38,8 @@ class ServiceUser extends Authenticatable
         'prefecture_ids',
     ];    
 
-    public const STATUS_DISABLED = 0;
-    public const STATUS_ENABLED = 1;
+    public const STATUS_DISABLED = 0;   // 利用不可
+    public const STATUS_ENABLED = 1;    // 利用可
 
     public const STATUSES = [
         self::STATUS_DISABLED => '使用不可',
