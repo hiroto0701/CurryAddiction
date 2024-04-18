@@ -6,19 +6,20 @@ namespace App\Domains\ServiceUser\Controller;
 
 use App\Http\Controllers\Controller;
 use App\Domains\ServiceUser\Controller\Request\LoginRequest;
+use App\Domains\ServiceUser\Controller\Resource\ServiceUserResource;
 use App\Models\ServiceUser;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class LoginAction extends Controller
 {
     /**
      * @param LoginRequest $request
-     * @return JsonResponse
+     * @return ServiceUserResource
      * @throws AuthenticationException
      */
-    public function __invoke(LoginRequest $request): JsonResponse
+    public function __invoke(LoginRequest $request): ServiceUserResource
     {
         if (!Auth::guard('service_users')->attempt($request->only(['email', 'password']) + ['status' => ServiceUser::STATUS_ENABLED])) {
             throw new AuthenticationException();
@@ -26,8 +27,6 @@ class LoginAction extends Controller
     
         $request->session()->regenerate();
     
-        return new JsonResponse([
-            'message' => 'Authenticated.',
-        ]);
+        return new ServiceUserResource(User::AuthServiceUser());
     }    
 }

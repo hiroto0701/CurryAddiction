@@ -18,7 +18,7 @@ const handleLogin = async () => {
     })
     .then(response => {
       // ログイン成功時の処理
-      console.table(response);
+      console.table(response.data.data);
     })
     .catch(error => {
       // ログイン失敗時の処理
