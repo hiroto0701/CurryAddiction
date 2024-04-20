@@ -1,6 +1,6 @@
-import axios from 'axios'
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import axios, { AxiosError } from 'axios';
+import { ref } from 'vue';
+import { defineStore } from 'pinia';
 
 interface AccountState {
   id: number | null;
@@ -9,6 +9,14 @@ interface AccountState {
   handle_name: string | null;
   email: string | null;
   profile_path: string | null;
+  errors: Record<string, string[]>;
+}
+
+interface LoginErrorResponse {
+  error: string;
+}
+
+interface ValidationErrorResponse {
   errors: Record<string, string[]>;
 }
 
@@ -23,35 +31,57 @@ export const useAccountStore = defineStore('account', () => {
     errors: {},
   });
 
-  function setData(data: string[]) {
-    state.value.id = data.id;
-    state.value.status = data.status;
-    state.value.display_name = data.display_name;
-    state.value.handle_name = data.handle_name;
-    state.value.email = data.email;
-    state.value.profile_path = data.profile_path;
+  function setData(data: AccountState): void {
+    state.value = { ...data };
   }
 
-  function resetData() {
-    state.value.id = null;
-    state.value.status = null;
-    state.value.display_name = null;
-    state.value.handle_name = null;
-    state.value.email = null;
-    state.value.profile_path = null;
+  function resetData(): void {
+    state.value = {
+      id: null,
+      status: null,
+      display_name: null,
+      handle_name: null,
+      email: null,
+      profile_path: null,
+      errors: {},
+    };
   }
 
-  function setErrors(errors) {
+  function setErrors(errors: Record<string, string[]>): void {
     state.value.errors = { ...errors };
   }
-  
-  function resetErrors() {
+
+  function resetErrors(): void {
     state.value.errors = {};
   }
 
-  const async function login() {
-    resetErrors()
-  }
+  const login = async (payload: { email: string; password: string }): Promise<boolean> => {
+    resetErrors();
+    try {
+      await axios.get('/sanctum/csrf-cookie');
+      const response = await axios.post('/login', {
+        email: payload.email,
+        password: payload.password,
+      });
+      setData(response.data.data);
+      return true;
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          const { response } = error;
+          if (response.status === 422) {
+            setErrors(response.data.errors as ValidationErrorResponse['errors']);
+            console.table(response.data.errors)
+            return false;
+          } else if (response.status === 401) {
+            setErrors({ auth: ['メールアドレスまたはパスワードが違います。'] } as Record<string, string[]>);
+            return false;
+          }
+        }
+      }
+      throw error;
+    }
+  };
 
-  return { state, login}
-})
+  return { state, login };
+});

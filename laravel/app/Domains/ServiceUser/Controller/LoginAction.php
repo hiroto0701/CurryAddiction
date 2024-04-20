@@ -26,7 +26,6 @@ class LoginAction extends Controller
         }
     
         $request->session()->regenerate();
-    
         return new ServiceUserResource(User::AuthServiceUser());
     }    
 }
