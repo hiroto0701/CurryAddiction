@@ -9,7 +9,6 @@ import NotificationIcon from '@/views/atoms/icons/NotificationIcon.vue'
 import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue'
 import AuthenticatedDropDown from '@/views/molecules/dropdown/AuthenticatedDropDown.vue'
 
-
 </script>
 <template>
   <MainHeader>
