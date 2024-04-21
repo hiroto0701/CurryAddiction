@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue'
 
 interface Props {
   label: string
@@ -28,8 +29,9 @@ const isFocused = ref<boolean>(false)
       v-model="value"
       @focus="isFocused = true"
       @blur="isFocused = false"
-      class="w-full font-body text-sumi-900 px-3 pt-4 h-14 rounded-lg transition-all duration-300"
+      class="w-full font-body text-sumi-900 px-3 pt-4 h-14 rounded-lg transition-all duration-300 border-2 border-red-400"
     />
+    <ErrorIcon class="absolute top-5 right-3" />
     <slot :value />
   </div>
 </template>

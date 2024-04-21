@@ -56,7 +56,6 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   const login = async (payload: { email: string; password: string }): Promise<boolean> => {
-    resetErrors();
     try {
       await axios.get('/sanctum/csrf-cookie');
       const response = await axios.post('/login', {
@@ -64,6 +63,7 @@ export const useAccountStore = defineStore('account', () => {
         password: payload.password,
       });
       setData(response.data.data);
+      resetErrors();
       return true;
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
@@ -71,7 +71,6 @@ export const useAccountStore = defineStore('account', () => {
           const { response } = error;
           if (response.status === 422) {
             setErrors(response.data.errors as ValidationErrorResponse['errors']);
-            console.table(response.data.errors)
             return false;
           } else if (response.status === 401) {
             setErrors({ auth: ['メールアドレスまたはパスワードが違います。'] } as Record<string, string[]>);
@@ -83,5 +82,5 @@ export const useAccountStore = defineStore('account', () => {
     }
   };
 
-  return { state, login };
+  return { state, setErrors, resetErrors, login };
 });
