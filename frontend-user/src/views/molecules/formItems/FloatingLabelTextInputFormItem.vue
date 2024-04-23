@@ -5,11 +5,12 @@ import FloatingLabelFormItem from '@/views/molecules/formItems/FloatingLabelForm
 interface Props {
   label: string
   type: string
+  isError: boolean
 }
-defineProps<Props>();
+defineProps<Props>()
 
 const email = ref<string>('')
 </script>
 <template>
-  <FloatingLabelFormItem :label :type v-model="email" />
+  <FloatingLabelFormItem :label :type :is-error v-model="email" />
 </template>
