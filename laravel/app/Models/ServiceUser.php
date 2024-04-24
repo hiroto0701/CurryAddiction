@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Traits\OperatorRecordable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
 
 /**
  * @property int $id
@@ -24,6 +25,8 @@ class ServiceUser extends Authenticatable
 {
     use HasApiTokens, Notifiable;
     use HasFactory;
+    use SoftDeletes;
+    use OperatorRecordable;
 
     protected $table = 'service_users';
 
@@ -36,7 +39,7 @@ class ServiceUser extends Authenticatable
         'password',
         'profile_path',
         'prefecture_ids',
-    ];    
+    ];
 
     public const STATUS_DISABLED = 0;   // 利用不可
     public const STATUS_ENABLED = 1;    // 利用可
