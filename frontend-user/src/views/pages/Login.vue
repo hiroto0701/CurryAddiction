@@ -43,9 +43,9 @@ const userLogin = (): void => {
 </script>
 
 <template>
-  <div class="flex justify-center my-20">
+  <!-- <div class="flex justify-center my-20">
     <div class="animate-spin h-5 w-5 border-2 border-blue-400 rounded-full" style="border-top-color: transparent"></div>
-  </div>
+  </div> -->
   <div class="flex flex-col items-center w-full p-10 bg-sumi-100 rounded-xl">
     <h1 class="font-body text-sumi-900 font-bold text-xl">ログイン</h1>
     <div class="w-full flex justify-between mt-5">
