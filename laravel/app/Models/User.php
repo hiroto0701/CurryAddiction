@@ -67,10 +67,10 @@ class User extends Model
     //     return null;
     // }
 
-    // public static function AuthId($default = null): ?int
-    // {
-    //     return self::AuthUser()->user_id ?? $default;
-    // }
+    public static function AuthId($default = null): ?int
+    {
+        return self::AuthUser()->user_id ?? $default;
+    }
 
     // public static function AuthType($type = null): mixed
     // {

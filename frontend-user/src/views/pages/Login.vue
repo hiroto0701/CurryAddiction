@@ -6,7 +6,7 @@ import FloatingLabelPasswordInputFormItem from '@/views/molecules/formItems/Floa
 import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
 import GotoSignupPageButton from '@/views/molecules/buttons/GotoSignupPageButton.vue'
 
-const accountStore = useAccountStore();
+const accountStore = useAccountStore()
 const email = ref<string>('')
 const password = ref<string>('')
 const errors = ref<Record<string, string[]>>({})
