@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ServiceUser;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -19,8 +19,8 @@ class ServiceUserFactory extends Factory
     public function definition(): array
     {
         return [
-            'handle_name' => $this->faker->unique()->userName(20),
-            'display_name' => $this->faker->name(20),
+            'handle_name' => $this->faker->unique()->userName(5),
+            'display_name' => $this->faker->name(5),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => Hash::make('password'),
             'profile_path' => $this->faker->imageUrl(),
