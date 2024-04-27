@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { useAccountStore } from '@/stores/account'
 import Card from '@/views/molecules/card/Card.vue'
 import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
 import PostIcon from '@/views/atoms/icons/PostIcon.vue'
 import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
 
+const accountStore = useAccountStore()
 </script>
 <template>
   <div class="mb-12 overflow-hidden rounded-2xl border p-6 md:p-7">
@@ -13,7 +15,7 @@ import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
         <img src="https://placehold.jp/64x64.png" class="h-full w-full rounded-full">
       </div>
       <div class="flex-1 leading-normal">
-        <DisplayNameBrowseItem value="hiroto" class="break-all text-md text-sumi-900 font-body" />
+        <DisplayNameBrowseItem :value="accountStore.state.display_name" class="break-all text-md text-sumi-900 font-body" />
         <span class="font-body mt-1 inline-flex text-sm text-sumi-500">curry-addiction/hiroto</span>
       </div>
       <span>

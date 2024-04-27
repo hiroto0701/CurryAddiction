@@ -1,24 +1,25 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios'
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
+import { useCommonStore } from '@/stores/common'
 
 interface AccountState {
-  id: number | null;
-  status: string | null;
-  display_name: string | null;
-  handle_name: string | null;
-  email: string | null;
-  profile_path: string | null;
-  errors: Record<string, string[]>;
+  id: number | null
+  status: string | null
+  display_name: string | null
+  handle_name: string | null
+  email: string | null
+  profile_path: string | null
+  errors: Record<string, string[]>
 }
 
 interface LoginErrorResponse {
-  error: string;
+  error: string
 }
 
 interface ValidationErrorResponse {
-  errors: Record<string, string[]>;
+  errors: Record<string, string[]>
 }
 
 export const useAccountStore = defineStore('account', () => {
@@ -33,7 +34,7 @@ export const useAccountStore = defineStore('account', () => {
   });
 
   function setData(data: AccountState): void {
-    state.value = { ...data };
+    state.value = { ...data }
   }
 
   function resetData(): void {
@@ -45,18 +46,25 @@ export const useAccountStore = defineStore('account', () => {
       email: null,
       profile_path: null,
       errors: {},
-    };
+    }
   }
 
   function setErrors(errors: Record<string, string[]>): void {
-    state.value.errors = { ...errors };
+    state.value.errors = { ...errors }
   }
 
   function resetErrors(): void {
-    state.value.errors = {};
+    state.value.errors = {}
+  }
+  
+  // axiosのエラーかどうかチェック
+  function isAxiosError(error: any): error is AxiosError {
+    return !!error.isAxiosError
   }
 
-  const router = useRouter();
+  // ログイン処理
+  const router = useRouter()
+  const commonStore = useCommonStore()
   const login = async (payload: { email: string; password: string }): Promise<boolean> => {
     try {
       await axios.get('/sanctum/csrf-cookie')
@@ -68,13 +76,15 @@ export const useAccountStore = defineStore('account', () => {
       if (response.status === 200) {
         setData(response.data.data)
         resetErrors()
-
+        commonStore.setFlashMessage('ログインしました')
         router.push({ name: 'Home' })
+        setTimeout(() => {
+          commonStore.clearFlashMessage()
+          console.log(commonStore.state.flashMessage)
+        }, 10000)
       }
-
       return true
     } catch (error: unknown) {
-      // エラー処理
       if (axios.isAxiosError(error)) {
         if (error.response) {
           const { response } = error
@@ -91,5 +101,5 @@ export const useAccountStore = defineStore('account', () => {
     }
   }
 
-  return { state, setErrors, resetErrors, login };
-});
+  return { state, setErrors, resetErrors, login }
+})

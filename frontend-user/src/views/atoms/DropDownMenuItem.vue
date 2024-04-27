@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { MenuItem } from '@headlessui/vue'
-import { type Component } from 'vue';
-import { type RouteLocationRaw, useRouter } from 'vue-router';
+import { type Component } from 'vue'
+import { type RouteLocationRaw, useRouter } from 'vue-router'
 
 interface Props {
-  readonly to: RouteLocationRaw;
-  readonly label: string;
-  readonly iconComponent: Component;
+  readonly to: RouteLocationRaw
+  readonly label: string
+  readonly iconComponent: Component
 }
-defineProps<Props>();
+defineProps<Props>()
 
 const router = useRouter();
 
 function navigateAndClose(route: RouteLocationRaw, close: () => void): void {
   router.push(route).then((): void => {
     close()
-  });
+  })
 }
 
 </script>
