@@ -8,7 +8,10 @@ import ArchiveIcon from '@/views/atoms/icons/ArchiveIcon.vue'
 import TrashIcon from '@/views/atoms/icons/TrashIcon.vue'
 import HeaderDropDown from '@/views/molecules/dropdown/HeaderDropdown.vue'
 
-const username = 'hiroto';
+interface Props {
+  readonly username: null | string
+}
+defineProps<Props>()
 </script>
 <template>
    <HeaderDropDown :username>

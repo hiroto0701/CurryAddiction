@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  readonly value: string
+  readonly value: null | string
 }
 
 defineProps<Props>();

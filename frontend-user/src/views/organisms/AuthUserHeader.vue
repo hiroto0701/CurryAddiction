@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { useAccountStore } from '@/stores/account'
 import AppLogo from '@/views/atoms/icons/AppLogo.vue'
-import MainHeader from '@/views/atoms/MainHeader.vue';
+import MainHeader from '@/views/atoms/MainHeader.vue'
 import AuthenticatedHeaderDropDown from '@/views/molecules/dropdown/AuthenticatedHeaderDropDown.vue'
 import NavigationIcons from '@/views/molecules/NavigationIcons.vue'
 
+const accountStore = useAccountStore()
 
 </script>
 <template>
@@ -14,7 +16,7 @@ import NavigationIcons from '@/views/molecules/NavigationIcons.vue'
           <AppLogo />
           <div class="flex items-center">
             <NavigationIcons />
-            <AuthenticatedHeaderDropDown />
+            <AuthenticatedHeaderDropDown :username="accountStore.state.display_name" />
           </div>
         </div>
       </div>

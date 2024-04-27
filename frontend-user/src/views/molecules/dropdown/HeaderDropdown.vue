@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItems } from '@headlessui/vue'
 import ChevronIcon from '@/views/atoms/icons/ChevronIcon.vue'
-// Todo
-// ユーザ名の部分はpropsで定義する
-// ドロップダウンの選択肢はslotにして、コンポーネントによって中身を変えたい
+
 interface Props {
-  readonly username: string;
+  readonly username: null | string
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <Menu as="div" class="relative ml-3">
