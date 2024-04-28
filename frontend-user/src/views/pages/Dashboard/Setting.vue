@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useAccountStore } from '@/stores/account'
 import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
@@ -7,6 +8,8 @@ import ChangeDisplayNameButton from '@/views/molecules/buttons/ChangeDisplayName
 import GenreSettingButton from '@/views/molecules/buttons/GenreSettingButton.vue'
 import RegionSettingButton from '@/views/molecules/buttons/RegionSettingButton.vue'
 import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
+
+const accountStore = useAccountStore()
 </script>
 <template>
   <DashboardContent title="設定">
@@ -25,7 +28,7 @@ import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrow
     <!-- 表示名変更 -->
     <DashboardSection>
       <DashboardSectionHeader title="表示名" />
-      <DisplayNameBrowseItem value="hiroto" class="mt-3 text-sm text-utility" />
+      <DisplayNameBrowseItem :value="accountStore.state.display_name" class="mt-3 text-sm text-utility" />
       <ChangeDisplayNameButton class="inline-flex items-center justify-center duration-500 text-main border rounded-full hover:opacity-70 hover:bg-slate-50 text-sm py-3 px-4 mt-4" />
     </DashboardSection>
     

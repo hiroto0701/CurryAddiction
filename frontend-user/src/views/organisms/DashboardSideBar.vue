@@ -23,7 +23,7 @@ const getTextColorClass = (routeName: string): string => {
       <DashBoardSidebarItem :to="{ name: 'LikedPostDashboard' }" label="いいねした投稿" :iconComponent="HeartIcon" :isActive="router.currentRoute.value.name === 'LikedPostDashboard'" :textColorClass="getTextColorClass('LikedPostDashboard')" />
       <DashBoardSidebarItem :to="{ name: 'ArchivedPostDashboard' }" label="保存した投稿" :iconComponent="ArchiveIcon" :isActive="router.currentRoute.value.name === 'ArchivedPostDashboard'" :textColorClass="getTextColorClass('ArchivedPostDashboard')" />
       <DashBoardSidebarItem :to="{ name: 'TrashDashboard' }" label="ごみ箱" :iconComponent="TrashIcon" :isActive="router.currentRoute.value.name === 'TrashDashboard'" :textColorClass="getTextColorClass('TrashDashboard')" />
-      <DashBoardSidebarItem :to="{ name: 'Settings' }" label="設定" :iconComponent="SettingIcon" :isActive="router.currentRoute.value.name === 'Settings'" :textColorClass="getTextColorClass('Settings')" />
+      <DashBoardSidebarItem :to="{ name: 'Setting' }" label="設定" :iconComponent="SettingIcon" :isActive="router.currentRoute.value.name === 'Settings'" :textColorClass="getTextColorClass('Settings')" />
     </div>
   </aside>
 </template>

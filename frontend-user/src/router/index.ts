@@ -156,8 +156,8 @@ const router = createRouter({
               component: () => import('@/views/pages/Dashboard/Trash.vue')
             },
             {
-              path: 'settings',
-              name: 'Settings',
+              path: 'setting',
+              name: 'Setting',
               meta: {
                 title: '設定',
                 group: 'Dashboard',

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useAccountStore } from '@/stores/account'
+import { RouterLink } from 'vue-router'
 import Card from '@/views/molecules/card/Card.vue'
 import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
 import PostIcon from '@/views/atoms/icons/PostIcon.vue'
 import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
+import Setting from '../Dashboard/Setting.vue'
 
 const accountStore = useAccountStore()
 </script>
@@ -19,9 +21,9 @@ const accountStore = useAccountStore()
         <span class="font-body mt-1 inline-flex text-sm text-sumi-500">curry-addiction/hiroto</span>
       </div>
       <span>
-        <a class="inline-flex items-center justify-center duration-500 hover:opacity-70 hover:bg-slate-50 text-sumi-900 font-body border rounded-full text-xs py-2.5 px-3.5" href="/dashboard/settings">
+        <router-link class="inline-flex items-center justify-center duration-500 hover:opacity-70 hover:bg-slate-50 text-sumi-900 font-body border rounded-full text-xs py-2.5 px-3.5" :to="{ name: 'Setting' }">
           設定
-        </a>
+        </router-link>
       </span>
     </div>
     <div>
