@@ -3,7 +3,7 @@ interface Props {
   readonly value: null | string
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <p>{{ value }}</p>

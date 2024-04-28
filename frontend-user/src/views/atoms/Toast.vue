@@ -1,5 +1,5 @@
 <template>
-  <div class="toast w-fit p-3 fixed top-20 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-emerald-500 rounded-xl">
+  <div class="toast w-fit p-3 fixed top-20 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-emerald-500 rounded-xl" role="alert">
     <slot />
   </div>
 </template>

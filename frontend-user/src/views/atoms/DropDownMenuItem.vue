@@ -10,7 +10,7 @@ interface Props {
 }
 defineProps<Props>()
 
-const router = useRouter();
+const router = useRouter()
 
 function navigateAndClose(route: RouteLocationRaw, close: () => void): void {
   router.push(route).then((): void => {

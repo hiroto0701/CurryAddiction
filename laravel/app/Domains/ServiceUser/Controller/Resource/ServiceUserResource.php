@@ -17,6 +17,7 @@ class ServiceUserResource extends JsonResource
             'display_name' => $this->display_name,
             'email' => $this->email,
             'profile_path' => $this->profile_path,
+            'created_at' => $this->created_at,
         ];
     }
 }

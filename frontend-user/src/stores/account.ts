@@ -11,6 +11,7 @@ interface AccountState {
   handle_name: string | null
   email: string | null
   profile_path: string | null
+  created_at: Date | null
   errors: Record<string, string[]>
 }
 
@@ -30,6 +31,7 @@ export const useAccountStore = defineStore('account', () => {
     handle_name: null,
     email: null,
     profile_path: null,
+    created_at: null,
     errors: {},
   });
 
@@ -45,6 +47,7 @@ export const useAccountStore = defineStore('account', () => {
       handle_name: null,
       email: null,
       profile_path: null,
+      created_at: null,
       errors: {},
     }
   }
@@ -81,7 +84,7 @@ export const useAccountStore = defineStore('account', () => {
         setTimeout(() => {
           commonStore.clearFlashMessage()
           console.log(commonStore.state.flashMessage)
-        }, 10000)
+        }, 4000)
       }
       return true
     } catch (error: unknown) {
