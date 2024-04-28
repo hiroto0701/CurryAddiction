@@ -12,9 +12,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // $this->call([
+        //     UserSeeder::class,
+        //     ServiceUserSeeder::class,
+        // ]);
+
+        // データ削除 
+        // \App\Models\User::truncate();
+        // \App\Models\ServiceUser::truncate();
+
         $this->call([
-            UserSeeder::class,
-            ServiceUserSeeder::class,
+            \Database\Seeders\Dev\AccountSeeder::class,
         ]);
     }
 }

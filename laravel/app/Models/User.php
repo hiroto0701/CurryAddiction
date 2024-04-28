@@ -58,38 +58,38 @@ class User extends Model
         return null;
     }
 
-    // public static function AuthAdministrator(): ?Administrator
-    // {
-    //     $administrator = Auth::guard('administrators')->user();
-    //     if ($administrator instanceof Administrator) {
-    //         return $administrator;
-    //     }
-    //     return null;
-    // }
+    public static function AuthAdministrator(): ?Administrator
+    {
+        $administrator = Auth::guard('administrators')->user();
+        if ($administrator instanceof Administrator) {
+            return $administrator;
+        }
+        return null;
+    }
 
     public static function AuthId($default = null): ?int
     {
         return self::AuthUser()->user_id ?? $default;
     }
 
-    // public static function AuthType($type = null): mixed
-    // {
-    //     if (self::AuthServiceUser()) {
-    //         return ($type !== null) ? $type === self::TYPE_SERVICE_USER : self::TYPE_SERVICE_USER;
-    //     }
-    //     if (self::AuthAdministrator()) {
-    //         return ($type !== null) ? $type === self::TYPE_ADMINISTRATOR : self::TYPE_ADMINISTRATOR;
-    //     }
-    //     return ($type !== null) ? false : null;
-    // }
+    public static function AuthType($type = null): mixed
+    {
+        if (self::AuthServiceUser()) {
+            return ($type !== null) ? $type === self::TYPE_SERVICE_USER : self::TYPE_SERVICE_USER;
+        }
+        if (self::AuthAdministrator()) {
+            return ($type !== null) ? $type === self::TYPE_ADMINISTRATOR : self::TYPE_ADMINISTRATOR;
+        }
+        return ($type !== null) ? false : null;
+    }
 
     public function service_user(): HasOne
     {
         return $this->hasOne(ServiceUser::class);
     }
 
-    // public function administrator(): HasOne
-    // {
-    //     return $this->hasOne(Administrator::class);
-    // }
+    public function administrator(): HasOne
+    {
+        return $this->hasOne(Administrator::class);
+    }
 }
