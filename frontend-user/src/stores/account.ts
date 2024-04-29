@@ -83,8 +83,7 @@ export const useAccountStore = defineStore('account', () => {
         router.push({ name: 'Home' })
         setTimeout(() => {
           commonStore.clearFlashMessage()
-          console.log(commonStore.state.flashMessage)
-        }, 4000)
+        }, 3000)
       }
       return true
     } catch (error: unknown) {
@@ -104,5 +103,14 @@ export const useAccountStore = defineStore('account', () => {
     }
   }
 
-  return { state, setErrors, resetErrors, login }
+  const logout = async(): Promise<boolean> => {
+    try {
+      await axios.post('/logout')
+      return true
+    } catch(error: unknown) {
+      throw error
+    }
+  }
+
+  return { state, setErrors, resetErrors, login, logout }
 })
