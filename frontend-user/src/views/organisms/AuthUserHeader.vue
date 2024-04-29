@@ -7,6 +7,9 @@ import NavigationIcons from '@/views/molecules/NavigationIcons.vue'
 
 const accountStore = useAccountStore()
 
+const doLogout = () => {
+  accountStore.logout()
+}
 </script>
 <template>
   <div>
@@ -16,7 +19,10 @@ const accountStore = useAccountStore()
           <AppLogo />
           <div class="flex items-center">
             <NavigationIcons />
-            <AuthenticatedHeaderDropDown :username="accountStore.state.display_name" />
+            <AuthenticatedHeaderDropDown 
+              :username="accountStore.state.display_name" 
+              @logout="doLogout"
+              />
           </div>
         </div>
       </div>
