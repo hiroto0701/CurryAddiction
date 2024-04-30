@@ -83,7 +83,7 @@ export const useAccountStore = defineStore('account', () => {
         router.push({ name: 'Home' })
         setTimeout(() => {
           commonStore.clearFlashMessage()
-        }, 3000)
+        }, 4000)
       }
       return true
     } catch (error: unknown) {

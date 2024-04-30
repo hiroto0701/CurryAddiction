@@ -6,7 +6,6 @@ import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrow
 import PostIcon from '@/views/atoms/icons/PostIcon.vue'
 import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
-import Setting from '../Dashboard/Setting.vue'
 
 const accountStore = useAccountStore()
 </script>

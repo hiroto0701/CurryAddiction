@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { onMounted, ref } from 'vue'
+  import { useRouter } from 'vue-router'
   import { Menu, MenuButton, MenuItems } from '@headlessui/vue'
   import MeatballMenuIcon from '@/views/atoms/icons/MeatballMenuIcon.vue'
   import DropDownMenuItem from '@/views/atoms/DropDownMenuItem.vue'
@@ -9,20 +10,25 @@
   import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue'
   import TopTooltip from '@/views/molecules/tooltips/TopTooltip.vue'
   
-  const buttonVisibility = ref<boolean>(false);
+  const buttonVisibility = ref<boolean>(false)
+  const router = useRouter()
 
-  let scroll: number = 0;
+  let scroll: number = 0
   
   const scrollWindow = (): void => {
-    const top: number = 100;
-    scroll = window.scrollY;
+    const top: number = 100
+    scroll = window.scrollY
     
     buttonVisibility.value = top <= scroll;
   }
 
+const handleRouting = (routeName: string): void => {
+  router.push({ name: routeName })
+}
+
   onMounted(() => {
-    window.addEventListener('scroll', scrollWindow);
-  });
+    window.addEventListener('scroll', scrollWindow)
+  })
   </script>
   <template>
     <transition name="opacity">
@@ -38,10 +44,10 @@
         </TopTooltip>
         <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
           <MenuItems class="absolute top-[-11rem] z-10 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5">
-            <DropDownMenuItem :to="{ name: 'Home' }" label="ホーム" :iconComponent="HomeIcon" />
-            <DropDownMenuItem :to="{ name: 'PostCreate' }" label="投稿する" :iconComponent="PlusIcon" />
-            <DropDownMenuItem :to="{ name: 'Search' }" label="検索する" :iconComponent="SearchIcon" />
-            <DropDownMenuItem :to="{ name: 'UserPage' }" label="マイページ" :iconComponent="ProfileIcon" />
+            <DropDownMenuItem @click="handleRouting('Home')" label="ホーム" :iconComponent="HomeIcon" />
+            <DropDownMenuItem @click="handleRouting('PostCreate')" label="投稿する" :iconComponent="PlusIcon" />
+            <DropDownMenuItem @click="handleRouting('Search')" label="検索する" :iconComponent="SearchIcon" />
+            <DropDownMenuItem @click="handleRouting('UserPage')" label="マイページ" :iconComponent="ProfileIcon" />
           </MenuItems>
         </transition>
       </Menu>
