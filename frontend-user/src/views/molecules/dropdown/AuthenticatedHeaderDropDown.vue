@@ -11,15 +11,30 @@ import HeaderDropDown from '@/views/molecules/dropdown/HeaderDropdown.vue'
 interface Props {
   readonly username: null | string
 }
-defineProps<Props>()
+
+const props = defineProps<Props>()
+
+const emits = defineEmits<{
+  (e: 'toPostDashboard'): void
+  (e: 'toLikedPostDashboard'): void
+  (e: 'toArchivedPostDashboard'): void
+  (e: 'toTrashDashboard'): void
+  (e: 'toSetting'): void
+  (e: 'logout'): void
+}>()
+
+const handleMenuItem = (event: string) => {
+  emits(event)
+}
 </script>
+
 <template>
-   <HeaderDropDown :username>
-    <DropDownMenuItem :to="{ name: 'PostDashboard' }" label="ダッシュボード" :iconComponent="DashboardIcon" />
-    <DropDownMenuItem :to="{ name: 'LikedPostDashboard' }" label="いいねした投稿" :iconComponent="HeartIcon" />
-    <DropDownMenuItem :to="{ name: 'ArchivedPostDashboard' }" label="保存した投稿" :iconComponent="ArchiveIcon" />
-    <DropDownMenuItem :to="{ name: 'TrashDashboard' }" label="ごみ箱" :iconComponent="TrashIcon" />
-    <DropDownMenuItem :to="{ name: 'Setting' }" label="設定" :iconComponent="SettingIcon" />
-    <DropDownMenuItem :to="{ name: 'Home' }" label="ログアウト" :iconComponent="LogoutIcon" />
+  <HeaderDropDown :username="props.username">
+    <DropDownMenuItem @click="handleMenuItem('toPostDashboard')" label="ダッシュボード" :iconComponent="DashboardIcon" />
+    <DropDownMenuItem @click="handleMenuItem('toLikedPostDashboard')" label="いいねした投稿" :iconComponent="HeartIcon" />
+    <DropDownMenuItem @click="handleMenuItem('toArchivedPostDashboard')" label="保存した投稿" :iconComponent="ArchiveIcon" />
+    <DropDownMenuItem @click="handleMenuItem('toTrashDashboard')" label="ごみ箱" :iconComponent="TrashIcon" />
+    <DropDownMenuItem @click="handleMenuItem('toSetting')" label="設定" :iconComponent="SettingIcon" />
+    <DropDownMenuItem @click="handleMenuItem('logout')" label="ログアウト" :iconComponent="LogoutIcon" />
   </HeaderDropDown>
 </template>
