@@ -71,7 +71,7 @@ export const useAccountStore = defineStore('account', () => {
   const login = async (payload: { email: string; password: string }): Promise<boolean> => {
     try {
       await axios.get('/sanctum/csrf-cookie')
-      const response = await axios.post('/login', {
+      const response = await axios.post('/api/service_users/login', {
         email: payload.email,
         password: payload.password,
       })
@@ -105,7 +105,7 @@ export const useAccountStore = defineStore('account', () => {
 
   const logout = async(): Promise<boolean> => {
     try {
-      await axios.post('/logout')
+      await axios.post('/api/service_users/logout')
       return true
     } catch(error: unknown) {
       throw error

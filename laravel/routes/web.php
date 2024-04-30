@@ -12,8 +12,5 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::post('/login', \App\Domains\ServiceUser\Controller\LoginAction::class);
-Route::middleware('auth:service_users')->group(function() {
-    Route::post('/logout', \App\Domains\ServiceUser\Controller\LogoutAction::class);
-});
+
 
