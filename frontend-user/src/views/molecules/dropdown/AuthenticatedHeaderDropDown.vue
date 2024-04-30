@@ -12,24 +12,20 @@ interface Props {
   readonly username: null | string
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 
 const emits = defineEmits<{
-  (e: 'toPostDashboard'): void
-  (e: 'toLikedPostDashboard'): void
-  (e: 'toArchivedPostDashboard'): void
-  (e: 'toTrashDashboard'): void
-  (e: 'toSetting'): void
-  (e: 'logout'): void
+  (e: 'toPostDashboard' | 'toLikedPostDashboard' | 'toArchivedPostDashboard' | 'toTrashDashboard' | 'toSetting' | 'logout'): void
 }>()
 
-const handleMenuItem = (event: string) => {
+
+const handleMenuItem = (event: 'toPostDashboard' | 'toLikedPostDashboard' | 'toArchivedPostDashboard' | 'toTrashDashboard' | 'toSetting' | 'logout') => {
   emits(event)
 }
 </script>
 
 <template>
-  <HeaderDropDown :username="props.username">
+  <HeaderDropDown :username>
     <DropDownMenuItem @click="handleMenuItem('toPostDashboard')" label="ダッシュボード" :iconComponent="DashboardIcon" />
     <DropDownMenuItem @click="handleMenuItem('toLikedPostDashboard')" label="いいねした投稿" :iconComponent="HeartIcon" />
     <DropDownMenuItem @click="handleMenuItem('toArchivedPostDashboard')" label="保存した投稿" :iconComponent="ArchiveIcon" />
