@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/service_users')->group(function() {
     // 認証API
+    Route::post('/login', \App\Domains\ServiceUser\Controller\LoginAction::class);
+    Route::middleware(('auth:service_users'))->group(function() {
+        Route::post('/logout', \App\Domains\ServiceUser\Controller\LogoutAction::class);
+    });
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
