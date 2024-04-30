@@ -10,5 +10,4 @@ const commonStore = useCommonStore()
     v-if="commonStore.state.flashMessage"
     :message="commonStore.state.flashMessage"
   />
-
 </template>
