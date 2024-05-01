@@ -9,6 +9,6 @@ defineProps<Props>();
 </script>
 <template>
   <RouterLink :to="{ name: 'Signup' }">
-    <BaseButton class="mt-5 py-3 px-10 bg-transparent text-sky-500 border border-sky-500 font-semibold" :text />
+    <BaseButton class="mt-5 py-3 px-10 bg-transparent hover:bg-transparent text-sky-500 border border-sky-500 hover:border-sky-500 font-semibold" :text />
   </RouterLink>
 </template>
