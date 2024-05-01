@@ -9,7 +9,7 @@ import RegisterForm from '@/views/templates/forms/RegisterForm.vue'
 import TextInputFormItem from '@/views/molecules/formItems/TextInputFormItem.vue'
 import TextareaFormItem from '@/views/molecules/formItems/TextareaFormItem.vue'
 import SelectBoxFormItem from '@/views/molecules/formItems/SelectBoxFormItem.vue'
-import PostImgUploadFormItem from '@/views/molecules/formItems/ImgUploadFormItem.vue'
+import PostImgUploadFormItem from '@/views/molecules/formItems/PostImgUploadFormItem.vue'
 import MapFormItem from '@/views/molecules/formItems/MapFormItem.vue'
 
 const storeName = ref<string>('')

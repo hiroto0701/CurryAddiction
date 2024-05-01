@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
@@ -9,7 +10,9 @@ import GenreSettingButton from '@/views/molecules/buttons/GenreSettingButton.vue
 import RegionSettingButton from '@/views/molecules/buttons/RegionSettingButton.vue'
 import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
 import ProfileImgBrowseItem from '@/views/molecules/browseItems/ProfileImgBrowseItem.vue'
+import DisplayNameFormItem from '@/views/molecules/formItems/DisplayNameFormItem.vue'
 
+const isEditingDisplayName = ref(false);
 const accountStore = useAccountStore()
 </script>
 <template>
@@ -28,22 +31,33 @@ const accountStore = useAccountStore()
     <!-- 表示名変更 -->
     <DashboardSection>
       <DashboardSectionHeader title="表示名" />
-      <DisplayNameBrowseItem :display-name="accountStore.state.display_name" class="mt-3 text-sm text-utility" />
-      <ChangeDisplayNameButton class="inline-flex items-center justify-center duration-500 text-body border rounded-full hover:opacity-70 hover:bg-slate-50 text-sm py-3 px-4 mt-4" />
+      <DisplayNameBrowseItem
+        v-if="!isEditingDisplayName"
+        :display-name="accountStore.state.display_name"
+        class="mt-3 text-sm text-utility"
+      />
+      <DisplayNameFormItem
+        v-else
+        :initialValue="accountStore.state.display_name"
+      />
+      <ChangeDisplayNameButton
+        class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4"
+        @click="isEditingDisplayName = !isEditingDisplayName"
+      />
     </DashboardSection>
     
     <!-- お気に入りジャンル変更 -->
     <DashboardSection>
       <DashboardSectionHeader title="カレーのジャンル" />
       <SectionInfo text="お好みのカレーのジャンルを登録・変更できます。" class="mt-3 text-sm text-utility" />
-      <GenreSettingButton class="inline-flex items-center justify-center duration-500 text-main border rounded-full hover:opacity-70 hover:bg-slate-50 text-sm py-3 px-4 mt-4" />
+      <GenreSettingButton class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4" />
     </DashboardSection>
 
     <!-- 都道府県変更 -->
     <DashboardSection>
       <DashboardSectionHeader title="地方・都道府県" />
       <SectionInfo text="表示する投稿の地方や都道府県を登録・変更できます。" class="mt-3 text-sm text-utility" />
-      <RegionSettingButton class="inline-flex items-center justify-center duration-500 text-main border rounded-full hover:opacity-70 hover:bg-slate-50 text-sm py-3 px-4 mt-4" />
+      <RegionSettingButton class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4" />
     </DashboardSection>
 
     <!-- アカウント削除リンク -->
