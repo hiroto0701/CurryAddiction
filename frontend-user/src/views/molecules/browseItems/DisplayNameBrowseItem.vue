@@ -1,10 +1,10 @@
 <script setup lang="ts">
 interface Props {
-  readonly value: null | string
+  readonly displayName: null | string
 }
 
 defineProps<Props>()
 </script>
 <template>
-  <p>{{ value }}</p>
+  <p>{{ displayName }}</p>
 </template>

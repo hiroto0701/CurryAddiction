@@ -99,7 +99,7 @@ const routes = [
         path: 'username',
         name: 'UserPage',
         meta: {
-          title: 'username',
+          title: 'マイページ',
           group: 'Account',
         },
         component: () => import('@/views/pages/Account/List.vue'),
@@ -110,6 +110,7 @@ const routes = [
   {
     path: '/dashboard',
     component: () => import('@/views/templates/pages/DashboardLayout.vue'),
+    meta: { requiresAuth: true },
     children: [
        {
         path: '',

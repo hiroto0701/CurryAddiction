@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useAccountStore } from '@/stores/account'
-import { RouterLink } from 'vue-router'
 import Card from '@/views/molecules/card/Card.vue'
+import GotoSettingPageButton from '@/views/molecules/buttons/GotoSettingPageButton.vue'
 import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
-import PostIcon from '@/views/atoms/icons/PostIcon.vue'
-import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue'
+import HandleNameBrowseItem from '@/views/molecules/browseItems/HandleNameBrowseItem.vue'
+import ProfileImgBrowseItem from '@/views/molecules/browseItems/ProfileImgBrowseItem.vue'
+import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
 
 const accountStore = useAccountStore()
@@ -12,41 +13,14 @@ const accountStore = useAccountStore()
 <template>
   <div class="mb-12 overflow-hidden rounded-2xl border p-6 md:p-7">
     <div class="flex items-center gap-3.5 py-6">
-      <div class="aspect-square w-24">
-        <img src="https://placehold.jp/64x64.png" class="h-full w-full rounded-full">
-      </div>
+      <ProfileImgBrowseItem class="w-24" />
       <div class="flex-1 leading-normal">
-        <DisplayNameBrowseItem :value="accountStore.state.display_name" class="break-all text-md text-sumi-900 font-body" />
-        <span class="font-body mt-1 inline-flex text-sm text-sumi-500">curry-addiction/hiroto</span>
+        <DisplayNameBrowseItem :display-name="accountStore.state.display_name" class="break-all text-md text-sumi-900 font-body" />
+        <HandleNameBrowseItem :handle-name="accountStore.state.handle_name" />
       </div>
-      <span>
-        <router-link class="inline-flex items-center justify-center duration-500 hover:opacity-70 hover:bg-slate-50 text-sumi-900 font-body border rounded-full text-xs py-2.5 px-3.5" :to="{ name: 'Setting' }">
-          設定
-        </router-link>
-      </span>
+      <GotoSettingPageButton text="設定" />
     </div>
-    <div>
-      <dl class="leading-normal">
-        <div class="flex items-center min-h-14">
-          <dt class="flex items-center">
-            <span class="inline-flex w-7 items-center text-sumi-500">
-              <CalenderIcon class="text-sumi-500" />
-            </span>
-            <span class="font-body text-sumi-500 text-sm w-28">利用開始</span>
-          </dt>
-          <dd class="flex min-w-0 flex-1 items-center font-body text-sumi-900 text-sm">2024年1月</dd>
-        </div>
-        <div class="flex items-center border-t min-h-14">
-          <dt class="flex items-center">
-            <span class="inline-flex w-7 items-center text-sumi-500">
-              <PostIcon class="text-sumi-500" />
-            </span>
-            <span class="font-body text-sumi-500 text-sm w-28">投稿数</span>
-          </dt>
-          <dd class="flex items-center font-body text-sumi-900 text-sm">0</dd>
-        </div>
-      </dl>
-    </div>
+    <UserAnalytics sign-up-date="2024年11月" :post-summary="5" />
   </div>
   <CardDisplayAreaLayout>
     <Card :src="'https://pbs.twimg.com/media/Fe6MtHRVUAQqqmF.jpg'" store-name="和平カレー" location="福岡" date="2024年12月24日" />
