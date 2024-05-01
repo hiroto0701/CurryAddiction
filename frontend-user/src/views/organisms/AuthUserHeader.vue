@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
 import AppLogo from '@/views/atoms/icons/AppLogo.vue'
 import MainHeader from '@/views/atoms/MainHeader.vue'
 import AuthenticatedHeaderDropDown from '@/views/molecules/dropdown/AuthenticatedHeaderDropDown.vue'
 import NavigationIcons from '@/views/molecules/NavigationIcons.vue'
-import BaseModal from '@/views/atoms/modal/BaseModal.vue'
+import LogoutConfirmModal from '@/views/molecules/modals/LogoutConfirmModal.vue'
 
 const accountStore = useAccountStore()
 const router = useRouter()
@@ -17,6 +17,11 @@ const openModal = (): void => {
   document.body.style.overflow = 'hidden'
 }
 
+const closeModal = (): void => {
+  open.value = false
+  document.body.style.overflow = 'auto'
+}
+
 const handleRouting = (routeName: string): void => {
   router.push({ name: routeName })
 }
@@ -24,10 +29,10 @@ const handleRouting = (routeName: string): void => {
 const doLogout = (): void => {
   accountStore.logout().then(() => {
     router.push({ name: 'Login' })
+    document.body.style.overflow = 'auto'
   })
 }
 </script>
-
 <template>
   <div>
     <MainHeader class="bg-curry">
@@ -49,14 +54,13 @@ const doLogout = (): void => {
         </div>
       </div>
     </MainHeader>
-    <BaseModal
-      :show="open"
-      @close="open = false"
-      title="ログアウトしますか？"
-      :description="`@${accountStore.state.handle_name}としてログインしています`"
-      :confirmButtonText="'ログアウト'"
-      :confirmAction="doLogout"
-      cancelButtonText="キャンセル"
-    />
+    <teleport to="body">
+      <LogoutConfirmModal
+        v-show="open" 
+        @do-logout="doLogout" 
+        @cancel="closeModal" 
+        :closeModal
+      />
+    </teleport>
   </div>
 </template>
