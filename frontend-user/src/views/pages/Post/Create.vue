@@ -9,18 +9,18 @@ import RegisterForm from '@/views/templates/forms/RegisterForm.vue'
 import TextInputFormItem from '@/views/molecules/formItems/TextInputFormItem.vue'
 import TextareaFormItem from '@/views/molecules/formItems/TextareaFormItem.vue'
 import SelectBoxFormItem from '@/views/molecules/formItems/SelectBoxFormItem.vue'
-import ImgUploadFormItem from '@/views/molecules/formItems/ImgUploadFormItem.vue'
+import PostImgUploadFormItem from '@/views/molecules/formItems/ImgUploadFormItem.vue'
 import MapFormItem from '@/views/molecules/formItems/MapFormItem.vue'
 
-const storeName = ref<string>('');
-const comment = ref<string>('');
+const storeName = ref<string>('')
+const comment = ref<string>('')
 </script>
 <template>
   <RegisterForm title="新規投稿">
     <TextInputFormItem label="店名" :required="true" :optional="false" :iconComponent="StoreIcon" placeholder="お店の名前" v-model="storeName" />
     <TextareaFormItem label="感想" :required="false" :optional="true" :iconComponent="CommentIcon" v-model="comment" />
     <SelectBoxFormItem label="ジャンル" :required="true" :optional="false" :iconComponent="CategoryIcon" />
-    <ImgUploadFormItem label="カレーの写真" :required="true" :optional="false" :iconComponent="PhotoIcon" />
+    <PostImgUploadFormItem label="カレーの写真" :required="true" :optional="false" :iconComponent="PhotoIcon" />
     <MapFormItem label="位置情報" :required="true" :optional="false" :iconComponent="LocationIcon" />
     <button class="mx-auto font-body p-3 block w-52 text-white rounded-full bg-sky-500">投稿する</button>
   </RegisterForm>
