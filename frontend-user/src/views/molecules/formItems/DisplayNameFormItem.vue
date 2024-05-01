@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const props = defineProps({
-  initialValue: {
-    type: String,
-    required: true,
-  },
-});
+// interface Props {
+//   initialValue: string | null
+// }
+// defineProps<Props>()
 
-const displayName = ref(props.initialValue);
+// const displayName = ref(initialValue)
+const displayName = ref('test')
 </script>
 
 <template>
-  <input type="text" v-model="displayName" />
+  <input type="text" v-model="displayName" class="block w-full mt-3 text-sm border border-gray-300 p-3 rounded-lg" />
 </template>
