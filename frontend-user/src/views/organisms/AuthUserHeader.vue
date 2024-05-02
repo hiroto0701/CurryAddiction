@@ -54,13 +54,13 @@ const doLogout = (): void => {
         </div>
       </div>
     </MainHeader>
-    <teleport to="body">
+    <Teleport to="body">
       <LogoutConfirmModal
         v-show="open" 
         @do-logout="doLogout" 
         @cancel="closeModal" 
         :closeModal
       />
-    </teleport>
+    </Teleport>
   </div>
 </template>

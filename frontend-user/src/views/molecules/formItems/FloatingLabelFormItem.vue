@@ -7,7 +7,7 @@ interface Props {
   type: string
   isError: boolean
 }
-defineProps<Props>();
+defineProps<Props>()
 
 const value = defineModel<string>()
 const isFocused = ref<boolean>(false)
