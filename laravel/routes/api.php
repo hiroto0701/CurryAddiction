@@ -18,6 +18,7 @@ Route::prefix('/service_users')->group(function() {
     // 認証API
     Route::post('/login', \App\Domains\ServiceUser\Controller\LoginAction::class);
     Route::middleware(('auth:service_users'))->group(function() {
+        Route::put('/me', \App\Domains\ServiceUser\Controller\UpdateMeAction::class);
         Route::post('/logout', \App\Domains\ServiceUser\Controller\LogoutAction::class);
     });
 });
