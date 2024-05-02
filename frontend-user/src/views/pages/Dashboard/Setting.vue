@@ -22,8 +22,7 @@ const displayNameError = computed(() => 'display_name' in accountFormStore.state
 
 const toggleEditMode = (): void => {
   isEditingDisplayName.value = !isEditingDisplayName.value
-  // displayNameをrefで管理しているので入力キャンセル時に
-  // stateの値に戻す
+  // displayNameをrefで管理しているので入力キャンセル時にstateの値に戻す
   displayName.value = accountStore.state.display_name
   accountFormStore.resetErrors()
 }

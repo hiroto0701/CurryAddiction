@@ -3,6 +3,7 @@
 return [
     // 共通項目
     'maxName' => '60',
+    'maxDisplayName' => '20',
     'maxEmail' => '254',
     'maxComment' => '140',
     'minPassword' => '8',
