@@ -69,7 +69,7 @@ export const useAccountStore = defineStore('account', () => {
     state.value.display_name = displayName
   }
 
-  // ログイン処理
+  // ログイン
   const router = useRouter()
   const commonStore = useCommonStore()
   const login = async (payload: { email: string; password: string }): Promise<boolean> => {
@@ -107,12 +107,27 @@ export const useAccountStore = defineStore('account', () => {
     }
   }
 
-  const logout = async(): Promise<boolean> => {
+  // ログアウト
+  const logout = async (): Promise<void> => {
     try {
       await axios.post('/api/service_users/logout')
-      return true
-    } catch(error: unknown) {
-      throw error
+      resetData()
+      commonStore.setFlashMessage('ログアウトしました')
+      router.push({ name: 'Login' })
+      setTimeout(() => {
+        commonStore.clearFlashMessage()
+      }, 4000)
+    } catch (error: unknown) {
+      if (isAxiosError(error)) {
+        const { response } = error
+        if (response && response.status === 401) {
+          setErrors({ auth: ['ログアウトに失敗しました。'] })
+        } else {
+          setErrors({ general: ['予期せぬエラーが発生しました。'] })
+        }
+      } else {
+        setErrors({ general: ['予期せぬエラーが発生しました。'] })
+      }
     }
   }
 

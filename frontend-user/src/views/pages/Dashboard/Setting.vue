@@ -48,7 +48,7 @@ const validate = (): boolean => {
 
 const doUpdate = (displayName: string | null): void => {
   if (validate()) {
-    accountFormStore.update(displayName)
+    accountFormStore.updateDisplayName(displayName)
     isEditingDisplayName.value = false
   }
 }
