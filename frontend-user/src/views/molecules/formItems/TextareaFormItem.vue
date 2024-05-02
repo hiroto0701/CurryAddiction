@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { type Component } from 'vue';
+import { type Component } from 'vue'
 import FormLayout from '@/views/templates/FormLayout.vue'
 import { ref } from 'vue'
 
 interface Props {
-  readonly label: string;
-  readonly required: boolean;
-  readonly optional: boolean;
-  readonly iconComponent: Component;
+  readonly label: string
+  readonly required: boolean
+  readonly optional: boolean
+  readonly iconComponent: Component
 }
 
-defineProps<Props>();
+defineProps<Props>()
 
-const textValue = ref<string>('');
+const textValue = ref<string>('')
 </script>
 <template>
   <FormLayout :label="label" :required="required" :optional="optional" :iconComponent="iconComponent">
@@ -23,7 +23,7 @@ const textValue = ref<string>('');
     ></textarea>
     <span 
       class="flex justify-end"
-      :class="{'text-sumi-500': textValue.length <= 140, 'text-red-500': textValue.length > 140}"
+      :class="{'text-sumi-500': textValue.length <= 140, 'text-red-400': textValue.length > 140}"
     >
       {{ textValue.length }} / 140
     </span>

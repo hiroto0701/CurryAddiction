@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-// interface Props {
-//   initialValue: string | null
-// }
-// defineProps<Props>()
+interface Props {
+  displayName: string | null
+}
+const prop =defineProps<Props>()
 
-// const displayName = ref(initialValue)
-const displayName = ref('test')
+const displayName = ref(prop.displayName)
 </script>
 
 <template>

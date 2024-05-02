@@ -65,6 +65,10 @@ export const useAccountStore = defineStore('account', () => {
     return !!error.isAxiosError
   }
 
+  function updateDisplayName(displayName: string | null): void {
+    state.value.display_name = displayName
+  }
+
   // ログイン処理
   const router = useRouter()
   const commonStore = useCommonStore()
@@ -112,5 +116,5 @@ export const useAccountStore = defineStore('account', () => {
     }
   }
 
-  return { state, setErrors, resetErrors, login, logout }
+  return { state, setData, resetData, setErrors, resetErrors, isAxiosError, updateDisplayName, login, logout }
 })

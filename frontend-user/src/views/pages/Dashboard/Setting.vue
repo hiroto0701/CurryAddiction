@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useAccountStore } from '@/stores/account'
+import { useAccountFormStore } from '@/stores/account_form'
 import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
@@ -11,8 +12,46 @@ import ProfileImgBrowseItem from '@/views/molecules/browseItems/ProfileImgBrowse
 import DisplayNameViewer from '@/views/pages/Dashboard/components/DisplayNameViewer.vue'
 import DisplayNameEditor from '@/views/pages/Dashboard/components/DisplayNameEditor.vue'
 
-const isEditingDisplayName = ref(false);
 const accountStore = useAccountStore()
+const accountFormStore = useAccountFormStore()
+const isEditingDisplayName = ref(false)
+const errors = ref<Record<string, string[]>>({})
+const displayName = ref<string | null>(accountStore.state.display_name)
+
+const displayNameError = computed(() => 'display_name' in accountFormStore.state.errors)
+
+const toggleEditMode = (): void => {
+  isEditingDisplayName.value = !isEditingDisplayName.value
+  // displayNameをrefで管理しているので入力キャンセル時にstateの値に戻す
+  displayName.value = accountStore.state.display_name
+  accountFormStore.resetErrors()
+}
+
+const validate = (): boolean => {
+  errors.value = {}
+
+  if (!displayName.value) {
+    errors.value.display_name = ['表示名を入力してください']
+  } 
+  else if (displayName.value.length > 20) {
+    errors.value.display_name = ['表示名は20字以下で設定してください']
+  }
+
+  if (Object.keys(errors.value).length > 0) {
+    accountFormStore.setErrors(errors.value)
+    return false
+  }
+
+  accountFormStore.resetErrors()
+  return true
+}
+
+const doUpdate = (displayName: string | null): void => {
+  if (validate()) {
+    accountFormStore.update(displayName)
+    isEditingDisplayName.value = false
+  }
+}
 </script>
 <template>
   <DashboardContent title="設定">
@@ -30,25 +69,22 @@ const accountStore = useAccountStore()
     <!-- 表示名変更 -->
     <DashboardSection>
       <DashboardSectionHeader title="表示名" />
-      <!-- <div v-if="!isEditingDisplayName">
-        <DisplayNameBrowseItem
-          :display-name="accountStore.state.display_name"
-          class="mt-3 text-sm text-utility"
-        />
-        <EditDisplayNameButton
-          class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4"
-          @click="isEditingDisplayName = !isEditingDisplayName"
-        />
-      </div> -->
       <DisplayNameViewer 
         v-if="!isEditingDisplayName"
         :display-name="accountStore.state.display_name"
-        @edit="isEditingDisplayName = !isEditingDisplayName" 
+        @edit="toggleEditMode" 
        />
       <DisplayNameEditor 
         v-else
-        @cancel="isEditingDisplayName = !isEditingDisplayName"
+        :is-error="displayNameError"
+        :display-name="accountStore.state.display_name"
+        v-model="displayName"
+        @update="doUpdate(displayName)"
+        @cancel="toggleEditMode"
       />
+      <p v-show="accountFormStore.state.errors.display_name" class="font-body mt-3 text-xs text-red-400">
+        {{ accountFormStore.state.errors?.display_name?.[0] }}
+      </p>
     </DashboardSection>
     
     <!-- お気に入りジャンル変更 -->
