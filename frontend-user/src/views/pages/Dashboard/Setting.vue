@@ -46,9 +46,9 @@ const validate = (): boolean => {
   return true
 }
 
-const doUpdate = (displayName: string | null): void => {
+const doUpdate = async (displayName: string): Promise<void> => {
   if (validate()) {
-    accountFormStore.updateDisplayName(displayName)
+    await accountFormStore.updateDisplayName(displayName)
     isEditingDisplayName.value = false
   }
 }

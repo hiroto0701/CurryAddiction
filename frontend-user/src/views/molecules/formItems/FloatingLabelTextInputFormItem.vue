@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import FloatingLabelFormItem from '@/views/molecules/formItems/FloatingLabelFormItem.vue'
 
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
 }
 defineProps<Props>()
 
-const email = ref<string>('')
+const email = defineModel<string>()
 </script>
 <template>
   <FloatingLabelFormItem :label :type :is-error v-model="email" />

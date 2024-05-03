@@ -2,6 +2,7 @@
 import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue'
 import UpdateButton from '@/views/molecules/buttons/UpdateButton.vue'
 import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
+import DisplayNameFormItem from '@/views/molecules/formItems/DisplayNameFormItem.vue'
 
 interface Props {
   displayName: null | string
@@ -18,16 +19,7 @@ const emits = defineEmits<{
 </script>
 <template>
   <div class="relative">
-    <input 
-      type="text" 
-      v-model="model"
-      class="block w-full mt-3 text-sm border bg-red border-gray-300 p-3 rounded-lg"
-      :class="{ 
-        'border-2': isError,
-        'bg-red-100': isError,
-        'border-red-400': isError
-      }"  
-    >
+    <DisplayNameFormItem v-model="model" :is-error />
     <ErrorIcon v-if="isError" class="absolute top-1/2 -translate-y-1/2 right-3" />
   </div>
   <span 
