@@ -26,7 +26,7 @@ export const useAccountFormStore = defineStore('account_form', () => {
     state.value.errors = {};
   };
 
-  const updateDisplayName = async (displayName: string | null): Promise<void> => {
+  const updateDisplayName = async (displayName: string): Promise<void> => {
     try {
       resetErrors()
       const response = await axios.put('/api/service_users/me', { display_name: displayName })

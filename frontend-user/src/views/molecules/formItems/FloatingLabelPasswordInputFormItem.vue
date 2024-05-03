@@ -12,7 +12,7 @@ interface Props {
 defineProps<Props>();
 
 const isPasswordVisible = ref<boolean>(false);
-const password = ref<string>('');
+const password = defineModel<string>()
 
 const togglePasswordVisibility = (): void => {
   isPasswordVisible.value = !isPasswordVisible.value;
