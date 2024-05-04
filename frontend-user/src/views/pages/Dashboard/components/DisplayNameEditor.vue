@@ -23,6 +23,7 @@ const emits = defineEmits<{
     <ErrorIcon v-if="isError" class="absolute top-1/2 -translate-y-1/2 right-3" />
   </div>
   <span 
+    v-if="model"
     class="flex justify-end"
     :class="{'text-sumi-500': model.length <= 20, 'text-red-400': model.length > 20}"
   >
