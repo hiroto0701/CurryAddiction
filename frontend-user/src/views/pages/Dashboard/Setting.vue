@@ -32,10 +32,12 @@ const validate = (): boolean => {
 
   if (!displayName.value) {
     errors.value.display_name = ['表示名を入力してください']
-  } 
-  else if (displayName.value.length > 20) {
+  } else if (displayName.value.length > 20) {
     errors.value.display_name = ['表示名は20字以下で設定してください']
+  } else if (displayName.value.includes(' ') || displayName.value.includes('　') ) {
+    errors.value.display_name = ['表示名にスペースは使用できません']
   }
+
 
   if (Object.keys(errors.value).length > 0) {
     accountFormStore.setErrors(errors.value)
