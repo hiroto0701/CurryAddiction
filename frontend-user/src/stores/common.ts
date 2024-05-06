@@ -3,11 +3,13 @@ import { defineStore } from 'pinia'
 
 interface AppState {
   flashMessage: null | string
+  apiLoading: boolean
 }
 
 export const useCommonStore = defineStore('common', () => {
   const state = ref(<AppState>{
     flashMessage: null, 
+    apiLoading: false
   });
 
   function setFlashMessage(message: string): void {
@@ -18,5 +20,13 @@ export const useCommonStore = defineStore('common', () => {
     state.value.flashMessage = null
   }
 
-  return { state, setFlashMessage, clearFlashMessage };
+  function startApiLoading(): void {
+    state.value.apiLoading = true
+  }
+
+  function stopApiLoading(): void {
+    state.value.apiLoading = false
+  }
+
+  return { state, setFlashMessage, clearFlashMessage, startApiLoading, stopApiLoading };
 })

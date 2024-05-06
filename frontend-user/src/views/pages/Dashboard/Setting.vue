@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import { useAccountFormStore } from '@/stores/account_form'
+import { useCommonStore } from '@/stores/common'
 import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
@@ -34,10 +35,7 @@ const validate = (): boolean => {
     errors.value.display_name = ['表示名を入力してください']
   } else if (displayName.value.length > 20) {
     errors.value.display_name = ['表示名は20字以下で設定してください']
-  } else if (displayName.value.includes(' ') || displayName.value.includes('　') ) {
-    errors.value.display_name = ['表示名にスペースは使用できません']
-  }
-
+  } 
 
   if (Object.keys(errors.value).length > 0) {
     accountFormStore.setErrors(errors.value)
@@ -50,8 +48,14 @@ const validate = (): boolean => {
 
 const doUpdate = async (displayName: string | null): Promise<void> => {
   if (validate()) {
-    await accountFormStore.updateDisplayName(displayName)
-    isEditingDisplayName.value = false
+    const commonStore = useCommonStore()
+    commonStore.startApiLoading()
+    try {
+      await accountFormStore.updateDisplayName(displayName)
+    } finally {
+      commonStore.stopApiLoading()
+      isEditingDisplayName.value = false
+    }
   }
 }
 </script>

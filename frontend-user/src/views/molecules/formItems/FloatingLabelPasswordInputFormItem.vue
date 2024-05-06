@@ -9,13 +9,13 @@ interface Props {
   type: string
   isError: boolean
 }
-defineProps<Props>();
+defineProps<Props>()
 
-const isPasswordVisible = ref<boolean>(false);
+const isPasswordVisible = ref<boolean>(false)
 const password = defineModel<string>()
 
 const togglePasswordVisibility = (): void => {
-  isPasswordVisible.value = !isPasswordVisible.value;
+  isPasswordVisible.value = !isPasswordVisible.value
 }
 </script>
 <template>
