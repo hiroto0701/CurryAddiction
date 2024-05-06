@@ -23,12 +23,14 @@ const emits = defineEmits<{
     <ErrorIcon v-if="isError" class="absolute top-1/2 -translate-y-1/2 right-3" />
   </div>
   <span 
-    v-if="model"
-    class="flex justify-end"
-    :class="{'text-sumi-500': model.length <= 20, 'text-red-400': model.length > 20}"
+    class="flex justify-end" 
+    :class="{
+      'text-sumi-500': model && model.length <= 20, 
+      'text-red-400': !model || model.length > 20 || model.length === 0
+    }"
   >
-    {{ model.length }} / 20
-  </span>
+    {{ model ? model.length : 0 }} / 20
+</span>
   <UpdateButton 
     class="inline-flex items-center justify-center border text-sm py-3 px-4 mr-2"
     @click="emits('update')"

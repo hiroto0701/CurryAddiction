@@ -30,7 +30,7 @@ const isFocused = ref<boolean>(false)
       v-model="value"
       @focus="isFocused = true"
       @blur="isFocused = false"
-      class="w-full font-body text-sumi-900 px-3 pt-4 h-14 rounded-lg transition-all duration-300"
+      class="w-full font-body text-sumi-900 px-3 pr-8 pt-4 h-14 rounded-lg transition-all duration-300"
       :class="{ 
         'border-2': isError,
         'bg-red-100': isError,
