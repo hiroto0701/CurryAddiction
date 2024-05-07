@@ -7,8 +7,8 @@ import { useCommonStore } from '@/stores/common'
 interface AccountState {
   id: number | null
   status: string | null
-  display_name: string | null
-  handle_name: string | null
+  display_name: string
+  handle_name: string
   email: string | null
   profile_path: string | null
   created_at: Date | null
@@ -27,13 +27,16 @@ export const useAccountStore = defineStore('account', () => {
   const state = ref<AccountState>({
     id: null,
     status: null,
-    display_name: null,
-    handle_name: null,
+    display_name: '',
+    handle_name: '',
     email: null,
     profile_path: null,
     created_at: null,
     errors: {},
   });
+
+  const router = useRouter()
+  const commonStore = useCommonStore()
 
   function setData(data: AccountState): void {
     state.value = { ...data }
@@ -43,8 +46,8 @@ export const useAccountStore = defineStore('account', () => {
     state.value = {
       id: null,
       status: null,
-      display_name: null,
-      handle_name: null,
+      display_name: '',
+      handle_name: '',
       email: null,
       profile_path: null,
       created_at: null,
@@ -65,14 +68,32 @@ export const useAccountStore = defineStore('account', () => {
     return !!error.isAxiosError
   }
 
-  function updateDisplayName(displayName: string | null): void {
+  function updateDisplayName(displayName: string): void {
     state.value.display_name = displayName
   }
 
+  function validate(email: string, password: string): boolean {
+    const errors: Record<string, string[]> = {}
+  
+    if (!email) {
+      errors.email = ['メールアドレスを入力してください']
+    }
+  
+    if (!password) {
+      errors.password = ['パスワードを入力してください']
+    }
+  
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors)
+      return false
+    }
+  
+    resetErrors()
+    return true
+  }
+
   // ログイン
-  const router = useRouter()
-  const commonStore = useCommonStore()
-  const login = async (payload: { email: string; password: string }): Promise<boolean> => {
+  async function login(payload: { email: string; password: string }): Promise<boolean> {
     try {
       await axios.get('/sanctum/csrf-cookie')
       const response = await axios.post('/api/service_users/login', {
@@ -108,7 +129,7 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   // ログアウト
-  const logout = async (): Promise<void> => {
+  async function logout(): Promise<void> {
     try {
       await axios.post('/api/service_users/logout')
       resetData()
@@ -131,5 +152,5 @@ export const useAccountStore = defineStore('account', () => {
     }
   }
 
-  return { state, setData, resetData, setErrors, resetErrors, isAxiosError, updateDisplayName, login, logout }
+  return { state, setData, resetData, setErrors, resetErrors, isAxiosError, updateDisplayName, validate, login, logout }
 })

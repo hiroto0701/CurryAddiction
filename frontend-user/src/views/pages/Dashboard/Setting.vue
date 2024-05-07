@@ -15,11 +15,12 @@ import DisplayNameEditor from '@/views/pages/Dashboard/components/DisplayNameEdi
 
 const accountStore = useAccountStore()
 const accountFormStore = useAccountFormStore()
-const isEditingDisplayName = ref(false)
-const errors = ref<Record<string, string[]>>({})
-const displayName = ref<string | null>(accountStore.state.display_name)
+const commonStore = useCommonStore()
 
-const displayNameError = computed(() => 'display_name' in accountFormStore.state.errors)
+const isEditingDisplayName = ref(false)
+const displayName = ref<string>(accountStore.state.display_name)
+
+const displayNameError = computed((): boolean => 'display_name' in accountFormStore.state.errors)
 
 const toggleEditMode = (): void => {
   isEditingDisplayName.value = !isEditingDisplayName.value
@@ -28,30 +29,13 @@ const toggleEditMode = (): void => {
   accountFormStore.resetErrors()
 }
 
-const validate = (): boolean => {
-  errors.value = {}
-
-  if (!displayName.value) {
-    errors.value.display_name = ['表示名を入力してください']
-  } else if (displayName.value.length > 20) {
-    errors.value.display_name = ['表示名は20字以下で設定してください']
-  } 
-
-  if (Object.keys(errors.value).length > 0) {
-    accountFormStore.setErrors(errors.value)
-    return false
-  }
-
-  accountFormStore.resetErrors()
-  return true
-}
-
-const doUpdate = async (displayName: string | null): Promise<void> => {
-  if (validate()) {
-    const commonStore = useCommonStore()
+const doUpdate = async (displayName: string): Promise<void> => {
+  if (accountFormStore.DisplayNameValidate(displayName)) {
     commonStore.startApiLoading()
     try {
       await accountFormStore.updateDisplayName(displayName)
+    } catch (error) {
+      console.error('Display name update failed:', error)
     } finally {
       commonStore.stopApiLoading()
       isEditingDisplayName.value = false

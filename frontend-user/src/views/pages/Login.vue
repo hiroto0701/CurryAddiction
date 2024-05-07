@@ -1,47 +1,35 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useAccountStore } from '@/stores/account'
+import { useCommonStore } from '@/stores/common'
 import FloatingLabelTextInputFormItem from '@/views/molecules/formItems/FloatingLabelTextInputFormItem.vue'
 import FloatingLabelPasswordInputFormItem from '@/views/molecules/formItems/FloatingLabelPasswordInputFormItem.vue'
 import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
 import GotoSignupPageButton from '@/views/molecules/buttons/GotoSignupPageButton.vue'
 
 const accountStore = useAccountStore()
+const commonStore = useCommonStore()
+
 const email = ref<string>('')
 const password = ref<string>('')
-const errors = ref<Record<string, string[]>>({})
 
 const emailError = computed(() => 'email' in accountStore.state.errors)
 const passwordError = computed(() => 'password' in accountStore.state.errors)
 const authError = computed(() => 'auth' in accountStore.state.errors)
 
-const validate = (): boolean => {
-  errors.value = {}
-
-  if (!email.value) {
-    errors.value.email = ['メールアドレスを入力してください']
-  }
-
-  if (!password.value) {
-    errors.value.password = ['パスワードを入力してください']
-  }
-
-  if (Object.keys(errors.value).length > 0) {
-    accountStore.setErrors(errors.value)
-    return false
-  }
-
-  accountStore.resetErrors()
-  return true
-}
-
-const userLogin = (): void => {
-  if (validate()) {
-    accountStore.login({ email: email.value, password: password.value })
+const userLogin = async (): Promise<void> => {
+  if (accountStore.validate(email.value, password.value)) {
+    commonStore.startApiLoading()
+    try {
+      await accountStore.login({ email: email.value, password: password.value })
+    } catch (error) {
+      console.error('Login failed:', error)
+    } finally {
+      commonStore.stopApiLoading()
+    }
   }
 }
 </script>
-
 <template>
   <div class="flex flex-col items-center w-full p-10 bg-sumi-100 rounded-xl">
     <h1 class="font-body text-sumi-900 font-bold text-xl">ログイン</h1>

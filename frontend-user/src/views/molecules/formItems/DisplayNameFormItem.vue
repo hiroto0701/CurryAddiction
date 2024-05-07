@@ -3,7 +3,8 @@ interface Props {
   readonly isError: boolean
 }
 defineProps<Props>()
-const model = defineModel<string | null>()
+
+const model = defineModel<string>()
 </script>
 <template>
   <input 
