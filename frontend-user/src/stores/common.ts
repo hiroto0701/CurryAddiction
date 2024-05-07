@@ -4,12 +4,14 @@ import { defineStore } from 'pinia'
 interface AppState {
   flashMessage: null | string
   apiLoading: boolean
+  loginLoading: boolean
 }
 
 export const useCommonStore = defineStore('common', () => {
   const state = ref(<AppState>{
     flashMessage: null, 
-    apiLoading: false
+    apiLoading: false,
+    loginLoading: false,
   });
 
   function setFlashMessage(message: string): void {
@@ -28,5 +30,21 @@ export const useCommonStore = defineStore('common', () => {
     state.value.apiLoading = false
   }
 
-  return { state, setFlashMessage, clearFlashMessage, startApiLoading, stopApiLoading };
+  function startLoginLoading(): void {
+    state.value.loginLoading = true
+  }
+
+  function stopLoginLoading(): void {
+    state.value.loginLoading = false
+  }
+
+  return { 
+    state,
+    setFlashMessage, 
+    clearFlashMessage, 
+    startApiLoading, 
+    stopApiLoading,
+    startLoginLoading, 
+    stopLoginLoading, 
+  };
 })

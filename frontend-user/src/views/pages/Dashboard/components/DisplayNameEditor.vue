@@ -5,12 +5,12 @@ import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
 import DisplayNameFormItem from '@/views/molecules/formItems/DisplayNameFormItem.vue'
 
 interface Props {
-  displayName: null | string
+  readonly displayName: string
   readonly isError: boolean
 }
 defineProps<Props>()
 
-const model = defineModel<string | null>()
+const model = defineModel<string>()
 
 const emits = defineEmits<{
   (e: 'update'): void

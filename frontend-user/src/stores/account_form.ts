@@ -1,32 +1,50 @@
+import axios from 'axios'
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import axios from 'axios'
 import { useAccountStore } from '@/stores/account'
 import { useCommonStore } from '@/stores/common'
 
 interface AccountFormState {
-  display_name: string | null;
+  display_name: string;
   errors: Record<string, string[]>;
 }
 
 export const useAccountFormStore = defineStore('account_form', () => {
   const state = ref<AccountFormState>({
-    display_name: null,
+    display_name: '',
     errors: {},
   });
 
   const accountStore = useAccountStore()
   const commonStore = useCommonStore()
 
-  const setErrors = (errors: Record<string, string[]>): void => {
+  function setErrors(errors: Record<string, string[]>): void {
     state.value.errors = { ...errors };
   };
 
-  const resetErrors = (): void => {
+  function resetErrors(): void {
     state.value.errors = {};
   };
 
-  const updateDisplayName = async (displayName: string | null): Promise<void> => {
+  function DisplayNameValidate(displayName: string): boolean {
+    const errors: Record<string, string[]> = {}
+  
+    if (!displayName) {
+      errors.display_name = ['表示名を入力してください']
+    } else if (displayName.length > 20) {
+      errors.display_name = ['表示名は20字以下で設定してください']
+    }
+  
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors)
+      return false
+    }
+  
+    resetErrors()
+    return true
+  }
+
+  async function updateDisplayName(displayName: string): Promise<void> {
     try {
       resetErrors()
       const response = await axios.put('/api/service_users/me', { display_name: displayName })
@@ -54,5 +72,11 @@ export const useAccountFormStore = defineStore('account_form', () => {
     }
   };
 
-  return { state, setErrors, resetErrors, updateDisplayName }
+  return { 
+    state, 
+    setErrors, 
+    resetErrors, 
+    DisplayNameValidate, 
+    updateDisplayName, 
+  }
 })

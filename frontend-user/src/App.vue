@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import SuccessToast from '@/views/molecules/toasts/SuccessToast.vue'
 import { useCommonStore } from '@/stores/common'
+import SuccessToast from '@/views/molecules/toasts/SuccessToast.vue'
+import LoadingBounce from '@/views/atoms/LoadingBounce.vue';
 
 const commonStore = useCommonStore()
 </script>
@@ -10,4 +11,5 @@ const commonStore = useCommonStore()
     v-if="commonStore.state.flashMessage"
     :message="commonStore.state.flashMessage"
   />
+  <LoadingBounce />
 </template>
