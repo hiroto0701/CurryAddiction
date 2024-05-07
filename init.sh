@@ -1,3 +1,5 @@
+cp ./laravel/.env.example ./laravel/.env
+
 # コンテナ作成
 docker compose up -d --build
 
