@@ -19,13 +19,13 @@ const authError = computed(() => 'auth' in accountStore.state.errors)
 
 const userLogin = async (): Promise<void> => {
   if (accountStore.validate(email.value, password.value)) {
-    commonStore.startApiLoading()
+    commonStore.startLoginLoading()
     try {
       await accountStore.login({ email: email.value, password: password.value })
     } catch (error) {
       console.error('Login failed:', error)
     } finally {
-      commonStore.stopApiLoading()
+      commonStore.stopLoginLoading()
     }
   }
 }

@@ -72,5 +72,11 @@ export const useAccountFormStore = defineStore('account_form', () => {
     }
   };
 
-  return { state, setErrors, resetErrors, DisplayNameValidate, updateDisplayName }
+  return { 
+    state, 
+    setErrors, 
+    resetErrors, 
+    DisplayNameValidate, 
+    updateDisplayName, 
+  }
 })

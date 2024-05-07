@@ -152,5 +152,16 @@ export const useAccountStore = defineStore('account', () => {
     }
   }
 
-  return { state, setData, resetData, setErrors, resetErrors, isAxiosError, updateDisplayName, validate, login, logout }
+  return { 
+    state, 
+    setData, 
+    resetData, 
+    setErrors, 
+    resetErrors, 
+    isAxiosError, 
+    updateDisplayName, 
+    validate, 
+    login, 
+    logout, 
+  }
 })
