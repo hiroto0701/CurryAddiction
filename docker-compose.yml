@@ -23,7 +23,7 @@ services:
       dockerfile: ./docker/postgres/Dockerfile
     container_name: curry_addiction_db
     ports:
-      - 5432:5432
+      - 35555:5432
     environment:
       TZ: Asia/Tokyo
       POSTGRES_DB: curry_addiction

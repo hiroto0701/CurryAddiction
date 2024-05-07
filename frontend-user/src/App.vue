@@ -11,5 +11,5 @@ const commonStore = useCommonStore()
     v-if="commonStore.state.flashMessage"
     :message="commonStore.state.flashMessage"
   />
-  <LoadingBounce />
+  <LoadingBounce v-show="commonStore.state.loginLoading" />
 </template>
