@@ -74,10 +74,10 @@ export const useAccountFormStore = defineStore('account_form', () => {
       formData.append('file_data', fileData, fileData.name)
       const config = {
         headers: {
-          'content-type': 'multipart/form-data'
+          'content-type': 'multipart/form-data',
+          'X-HTTP-Method-Override': 'PUT',
         }
       };
-      config.headers['X-HTTP-Method-Override'] = 'PUT';
       const response = await axios.post('/api/service_users/avatar', formData, config);
 
       if (response.status === 200) {
