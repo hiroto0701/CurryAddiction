@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onUnmounted } from 'vue'
+import { Ref } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import { useAccountFormStore } from '@/stores/account_form'
 import { useCommonStore } from '@/stores/common'
@@ -29,8 +30,8 @@ const toggleEditMode = (): void => {
   accountFormStore.resetErrors()
 }
 
-const doUpdate = async (displayName: string): Promise<void> => {
-  if (accountFormStore.DisplayNameValidate(displayName)) {
+const doDisplayNameUpdate = async (displayName: string): Promise<void> => {
+  if (accountFormStore.displayNameValidate(displayName)) {
     commonStore.startApiLoading()
     try {
       await accountFormStore.updateDisplayName(displayName)
@@ -42,6 +43,37 @@ const doUpdate = async (displayName: string): Promise<void> => {
     }
   }
 }
+
+const fileInfo = ref<File>()
+const url = ref<string | undefined>()
+
+const fileSelected = (event: Event): void => {
+  const target = event.target as HTMLInputElement;
+  if (target.files && target.files.length > 0) {
+    fileInfo.value = target.files[0];
+    console.log('Selected file:', fileInfo.value);
+    url.value = URL.createObjectURL(fileInfo.value)
+  } else {
+    console.log('No file selected');
+  }
+}
+
+const doAvatarUpdate = async (): Promise<void> => {
+  if (fileInfo.value && accountFormStore.avatarValidate(fileInfo.value)) {
+    commonStore.startApiLoading()
+    try {
+      await accountFormStore.updateAvatar(fileInfo.value)
+    } catch (error) {
+      console.error('Avatar update failed:', error)
+    } finally {
+      commonStore.stopApiLoading()
+    }
+  }
+}
+
+onUnmounted((): void => {
+  accountFormStore.resetErrors()
+})
 </script>
 <template>
   <DashboardContent title="設定">
@@ -52,8 +84,15 @@ const doUpdate = async (displayName: string): Promise<void> => {
         <label for="profile_img" class="inline-flex h-10 items-center duration-500 gap-2 rounded-full border px-3.5 text-xs cursor-pointer hover:opacity-70">
           プロフィール画像を変更
         </label>
-        <input type="file" class="hidden" id="profile_img">
+        <input type="file" class="hidden" id="profile_img" @change="fileSelected" accept="image/png, image/jpeg">
       </div>
+      <div class="relative w-16 aspect-square" v-if="url">
+        <img class="h-full w-full rounded-full object-cover" :src="url">
+      </div>
+      <button v-if="url" @click="doAvatarUpdate()">更新</button>
+      <p v-show="accountFormStore.state.errors.avatar" class="font-body mt-3 text-xs text-red-400">
+        {{ accountFormStore.state.errors?.avatar?.[0] }}
+      </p>
     </DashboardSection>
 
     <!-- 表示名変更 -->
@@ -69,7 +108,7 @@ const doUpdate = async (displayName: string): Promise<void> => {
         :is-error="displayNameError"
         :display-name="accountStore.state.display_name"
         v-model="displayName"
-        @update="doUpdate(displayName)"
+        @update="doDisplayNameUpdate(displayName)"
         @cancel="toggleEditMode"
       />
       <p v-show="accountFormStore.state.errors.display_name" class="font-body mt-3 text-xs text-red-400">
