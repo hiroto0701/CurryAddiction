@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Domains\ServiceUser\Usecase;
 
-use App\Domains\ServiceUser\Usecase\Command\UpdateMeCommand;
+use App\Domains\ServiceUser\Usecase\Command\UpdateAvatarCommand;
 use App\Models\ServiceUser;
 use Illuminate\Support\Facades\DB;
 
-class UpdateMeInteractor
+class UpdateAvatarInteractor
 {
     /**
      * @param ServiceUser $service_user
-     * @param UpdateMeCommand $command
+     * @param UpdateAvatarCommand $command
      * @return ServiceUser
      */
-    public function handle(ServiceUser $service_user, UpdateMeCommand $command): ServiceUser
+    public function handle(ServiceUser $service_user, UpdateAvatarCommand $command): ServiceUser
     {
         return DB::transaction(function () use ($command, $service_user) {
             $service_user->display_name = $command->getDisplayName();

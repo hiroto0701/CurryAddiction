@@ -72,6 +72,10 @@ export const useAccountStore = defineStore('account', () => {
     state.value.display_name = displayName
   }
 
+  function updateProfilePath(profilePath: string): void {
+    state.value.profile_path = profilePath
+  }
+
   function validate(email: string, password: string): boolean {
     const errors: Record<string, string[]> = {}
   
@@ -160,6 +164,7 @@ export const useAccountStore = defineStore('account', () => {
     resetErrors, 
     isAxiosError, 
     updateDisplayName, 
+    updateProfilePath,
     validate, 
     login, 
     logout, 

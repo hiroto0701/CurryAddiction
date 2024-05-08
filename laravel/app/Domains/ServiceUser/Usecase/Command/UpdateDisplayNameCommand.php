@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Domains\ServiceUser\Usecase\Command;
 
-class UpdateMeCommand
+class UpdateDisplayNameCommand
 {
     private string $displayName;
 
     /**
-     * @param string $nameKana
+     * @param string $displayName
      */
     public function __construct(
         string $displayName,

@@ -6,7 +6,7 @@ namespace App\Domains\ServiceUser\Controller\Request;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMeRequest extends FormRequest
+class UpdateDisplayNameRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
