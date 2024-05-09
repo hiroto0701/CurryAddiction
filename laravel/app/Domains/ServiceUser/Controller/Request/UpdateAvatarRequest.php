@@ -26,7 +26,7 @@ class UpdateAvatarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file_data' => ['file'],
+            'file_data' => ['file', 'image', 'mimes:png,jpeg,jpg'],
         ];
     }
 }

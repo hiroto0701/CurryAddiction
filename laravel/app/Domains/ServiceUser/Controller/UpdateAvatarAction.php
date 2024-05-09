@@ -10,7 +10,6 @@ use App\Domains\ServiceUser\Usecase\Command\UpdateAvatarCommand;
 use App\Domains\ServiceUser\Usecase\UpdateAvatarInteractor;
 use App\Models\User;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Log;
 
 class UpdateAvatarAction extends Controller
 {
@@ -29,9 +28,11 @@ class UpdateAvatarAction extends Controller
 
     public function __invoke(UpdateAvatarRequest $request): ServiceUserResource
     {
-        Log::debug($request);
         $command = new UpdateAvatarCommand(
-            $request->file_data,
+            $request->file_data ? $request->file_data->get() : null,
+            $request->file_data ? $request->file_data->getClientOriginalName() : null,
+            $request->file_data ? $request->file_data->getClientOriginalExtension() : null,
+            $request->file_data ? $request->file_data->getMimeType() : null,
         );
 
         return new ServiceUserResource(
