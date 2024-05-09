@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domains\ServiceUser\Controller\Resource;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceUserResource extends JsonResource
 {
@@ -16,7 +17,7 @@ class ServiceUserResource extends JsonResource
             'handle_name' => $this->handle_name,
             'display_name' => $this->display_name,
             'email' => $this->email,
-            'profile_path' => $this->profile_path,
+            'profile_path' => Storage::disk('s3')->url($this->profile_path),
             'created_at' => $this->created_at,
         ];
     }
