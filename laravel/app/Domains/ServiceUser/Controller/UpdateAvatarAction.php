@@ -29,6 +29,7 @@ class UpdateAvatarAction extends Controller
     public function __invoke(UpdateAvatarRequest $request): ServiceUserResource
     {
         $command = new UpdateAvatarCommand(
+            User::AuthId(),
             $request->file_data ? $request->file_data->get() : null,
             $request->file_data ? $request->file_data->getClientOriginalName() : null,
             $request->file_data ? $request->file_data->getClientOriginalExtension() : null,

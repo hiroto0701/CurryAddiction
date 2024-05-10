@@ -6,6 +6,7 @@ namespace App\Domains\ServiceUser\Usecase\Command;
 
 class UpdateAvatarCommand
 {
+    private int $userId;
     private ?string $fileContent;
     private ?string $filename;
     private ?string $fileExtension;
@@ -15,15 +16,25 @@ class UpdateAvatarCommand
      * @param string $displayName
      */
     public function __construct(
+        int $userId,
         ?string $fileContent,
         ?string $filename,
         ?string $fileExtension,
         ?string $contentType,
     ) {
+        $this->userId = $userId;
         $this->fileContent = $fileContent;
         $this->filename = $filename;
         $this->fileExtension = $fileExtension;
         $this->contentType = $contentType;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->userId;
     }
 
     /**

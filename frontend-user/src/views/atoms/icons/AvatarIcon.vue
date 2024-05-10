@@ -8,14 +8,15 @@ const accountStore = useAccountStore()
 
 const isAccountPage = computed(() => router.currentRoute.value.meta.group === 'Account');
 
-const avatarPath = computed(() => {
-	return accountStore.state.profile_path
-})
-
-onMounted(() =>{
-	console.table(accountStore.state.profile_path)
+const avatar = computed(() => {
+	// return accountStore.state.avatar
+	if (accountStore.state.avatar === null) {
+		return '../../../../public/icon/default_avatar.jpg'
+	} else {
+		return accountStore.state.avatar
+	}
 })
 </script>
 <template>
-    <img :src="avatarPath" alt="" class="object-cover rounded-full bg-transparent">
+	<img :src="avatar" alt="プロフィール画像" class="object-cover rounded-full bg-transparent">
 </template>

@@ -7,7 +7,7 @@
   import HomeIcon from '@/views/atoms/icons/HomeIcon.vue'
   import PlusIcon from '@/views/atoms/icons/PlusIcon.vue'
   import SearchIcon from '@/views/atoms/icons/SearchIcon.vue'
-  import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue'
+  import AvatarIcon from '@/views/atoms/icons/AvatarIcon.vue'
   import TopTooltip from '@/views/molecules/tooltips/TopTooltip.vue'
   
   const buttonVisibility = ref<boolean>(false)
@@ -47,7 +47,7 @@ const handleRouting = (routeName: string): void => {
             <DropDownMenuItem @click="handleRouting('Home')" label="ホーム" :iconComponent="HomeIcon" />
             <DropDownMenuItem @click="handleRouting('PostCreate')" label="投稿する" :iconComponent="PlusIcon" />
             <DropDownMenuItem @click="handleRouting('Search')" label="検索する" :iconComponent="SearchIcon" />
-            <DropDownMenuItem @click="handleRouting('UserPage')" label="マイページ" :iconComponent="ProfileIcon" />
+            <DropDownMenuItem @click="handleRouting('UserPage')" label="マイページ" :iconComponent="AvatarIcon" />
           </MenuItems>
         </transition>
       </Menu>
