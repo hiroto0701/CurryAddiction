@@ -10,7 +10,7 @@ interface AccountState {
   display_name: string
   handle_name: string
   email: string | null
-  profile_path: string | null
+  avatar: string | null
   created_at: Date | null
   errors: Record<string, string[]>
 }
@@ -30,7 +30,7 @@ export const useAccountStore = defineStore('account', () => {
     display_name: '',
     handle_name: '',
     email: null,
-    profile_path: null,
+    avatar: null,
     created_at: null,
     errors: {},
   });
@@ -49,7 +49,7 @@ export const useAccountStore = defineStore('account', () => {
       display_name: '',
       handle_name: '',
       email: null,
-      profile_path: null,
+      avatar: null,
       created_at: null,
       errors: {},
     }
@@ -72,8 +72,8 @@ export const useAccountStore = defineStore('account', () => {
     state.value.display_name = displayName
   }
 
-  function updateProfilePath(profilePath: string): void {
-    state.value.profile_path = profilePath
+  function updateAvatar(avatar: string | null): void {
+    state.value.avatar = avatar
   }
 
   function validate(email: string, password: string): boolean {
@@ -164,7 +164,7 @@ export const useAccountStore = defineStore('account', () => {
     resetErrors, 
     isAxiosError, 
     updateDisplayName, 
-    updateProfilePath,
+    updateAvatar,
     validate, 
     login, 
     logout, 

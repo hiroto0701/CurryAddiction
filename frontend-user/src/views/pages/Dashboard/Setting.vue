@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, onUnmounted } from 'vue'
-import { Ref } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import { useAccountFormStore } from '@/stores/account_form'
 import { useCommonStore } from '@/stores/common'
@@ -10,7 +9,7 @@ import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHead
 import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue'
 import GenreSettingButton from '@/views/molecules/buttons/GenreSettingButton.vue'
 import RegionSettingButton from '@/views/molecules/buttons/RegionSettingButton.vue'
-import ProfileImgBrowseItem from '@/views/molecules/browseItems/ProfileImgBrowseItem.vue'
+import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue'
 import DisplayNameViewer from '@/views/pages/Dashboard/components/DisplayNameViewer.vue'
 import DisplayNameEditor from '@/views/pages/Dashboard/components/DisplayNameEditor.vue'
 
@@ -44,6 +43,8 @@ const doDisplayNameUpdate = async (displayName: string): Promise<void> => {
   }
 }
 
+// TODO
+// プレビュー機能
 const fileInfo = ref<File>()
 const url = ref<string | undefined>()
 
@@ -80,16 +81,18 @@ onUnmounted((): void => {
     <!-- プロフィール画像変更 -->
     <DashboardSection>
       <div class="flex items-center gap-5">
-        <ProfileImgBrowseItem class="w-16" />
+        <AvatarBrowseItem class="w-16" />
         <label for="profile_img" class="inline-flex h-10 items-center duration-500 gap-2 rounded-full border px-3.5 text-xs cursor-pointer hover:opacity-70">
           プロフィール画像を変更
         </label>
         <input type="file" class="hidden" id="profile_img" @change="fileSelected" accept="image/png, image/jpeg">
       </div>
+      <!-- TODO -->
+      <!-- アップロードボタンの編集 -->
       <div class="relative w-16 aspect-square" v-if="url">
         <img class="h-full w-full rounded-full object-cover" :src="url">
       </div>
-      <button v-if="url" @click="doAvatarUpdate()">更新</button>
+      <button v-show="url" @click="doAvatarUpdate()">更新</button>
       <p v-show="accountFormStore.state.errors.avatar" class="font-body mt-3 text-xs text-red-400">
         {{ accountFormStore.state.errors?.avatar?.[0] }}
       </p>

@@ -4,7 +4,7 @@ import Card from '@/views/molecules/card/Card.vue'
 import GotoSettingPageButton from '@/views/molecules/buttons/GotoSettingPageButton.vue'
 import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
 import HandleNameBrowseItem from '@/views/molecules/browseItems/HandleNameBrowseItem.vue'
-import ProfileImgBrowseItem from '@/views/molecules/browseItems/ProfileImgBrowseItem.vue'
+import ProfileImgBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue'
 import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
 

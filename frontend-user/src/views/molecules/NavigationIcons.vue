@@ -4,7 +4,7 @@ import HomeIcon from '@/views/atoms/icons/HomeIcon.vue'
 import PlusIcon from '@/views/atoms/icons/PlusIcon.vue'
 import SearchIcon from '@/views/atoms/icons/SearchIcon.vue'
 import NotificationIcon from '@/views/atoms/icons/NotificationIcon.vue'
-import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue'
+import AvatarIcon from '@/views/atoms/icons/AvatarIcon.vue'
 
 </script>
 <template>
@@ -22,7 +22,7 @@ import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue'
       <NotificationIcon />
     </div>
     <router-link :to="{ name: 'UserPage' }" class="w-8 aspect-square rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center">
-      <ProfileIcon />
+      <AvatarIcon />
     </router-link>
   </div>
 </template>

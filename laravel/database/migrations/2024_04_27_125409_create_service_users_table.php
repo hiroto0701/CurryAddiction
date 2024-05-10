@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('display_name', 20)->collation(self::COLLATION)->index();
             $table->string('email')->unique()->index();
             $table->string('password');
-            $table->text('profile_path');
+            $table->foreignId('avatar_id')->nullable()->index();
             // 共通カラム
             $this->addCommonColumns($table);
         });

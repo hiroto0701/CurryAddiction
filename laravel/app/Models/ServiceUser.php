@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\OperatorRecordable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -37,7 +38,7 @@ class ServiceUser extends Authenticatable
         'display_name',
         'email',
         'password',
-        'profile_path',
+        'avatar_id',
         'prefecture_ids',
     ];
 
@@ -61,5 +62,10 @@ class ServiceUser extends Authenticatable
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function avatar(): HasOne
+    {
+        return $this->hasOne(UploadFile::class, 'id', 'avatar_id');
     }
 }

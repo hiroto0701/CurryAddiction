@@ -6,7 +6,9 @@ namespace App\Domains\ServiceUser\Usecase;
 
 use App\Domains\ServiceUser\Usecase\Command\UpdateAvatarCommand;
 use App\Models\ServiceUser;
+use App\Models\UploadFile;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
@@ -22,15 +24,21 @@ class UpdateAvatarInteractor
     {
         return DB::transaction(function () use ($command, $service_user) {
 
-            if (!empty($command->getFilename())) {
-                $fileUuid = Uuid::uuid4();
-                $service_user->profile_path = sprintf(
-                    config('constant.avatar.uploadfiles_path_format'),
-                    User::AuthId()
-                ) . $fileUuid . '.' . $command->getFileExtension();
+            if (!empty($command->getFileContent())) {
+                $uploadDir = sprintf(config('constant.avatar.uploadfiles_path_format'), User::AuthId());
 
-                Storage::disk('s3')->put($service_user->profile_path, $command->getFileContent());
+                $uploadfile = new UploadFile();
+                $uploadfile->type = UploadFile::TYPE_AVATAR;
+                $uploadfile->user_id = $command->getUserId();
+                $uploadfile->user_id = $command->getUserId();
+                $uploadfile->uuid = Uuid::uuid4();
+                $uploadfile->path = $uploadDir . $uploadfile->uuid . '.' . $command->getFileExtension();
+                $uploadfile->content_type = $command->getContentType();
+                $uploadfile->uploaded_at = Carbon::now();
+                Storage::disk('s3')->put($uploadfile->path, $command->getFileContent());
+                $uploadfile->save();
             }
+            $service_user->avatar_id = $uploadfile->id;
             $service_user->save();
             return $service_user;
         });

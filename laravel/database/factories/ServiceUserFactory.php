@@ -23,7 +23,7 @@ class ServiceUserFactory extends Factory
             'display_name' => $this->faker->name(5),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => Hash::make('password'),
-            'profile_path' => $this->faker->imageUrl(),
+            'avatar_id' => $this->faker->randomElement([0, 1]),
             'status' => $this->faker->randomElement([0, 1]),
         ];
     }

@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         //     ServiceUserSeeder::class,
         // ]);
 
-        // データ削除 
+        // データ削除
         // \App\Models\User::truncate();
         // \App\Models\ServiceUser::truncate();
 
