@@ -36,6 +36,7 @@ class UploadFile extends Model
 
     public function serviceUser(): BelongsTo
     {
+        // service_userとのリレーション
         return $this->belongsTo(ServiceUser::class, 'id', 'avatar_id');
     }
 }
