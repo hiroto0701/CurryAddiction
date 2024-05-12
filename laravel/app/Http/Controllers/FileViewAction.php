@@ -40,7 +40,7 @@ class FileViewAction extends Controller
      */
     protected function viewAvatar(string $uuid, string $foreignKey): Response
     {
-        $uploadfile = Uploadfile::where('uuid', $uuid)->first();
+        $uploadfile = UploadFile::where('uuid', $uuid)->first();
         if ($uploadfile === null) {
             throw new NotFoundHttpException();
         }

@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('uploadfiles', function (Blueprint $table) {
+        Schema::create('upload_files', function (Blueprint $table) {
             $table->id();
             $table->smallInteger('type')->index();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->index();
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('uploadfiles');
+        Schema::dropIfExists('upload_files');
     }
 };

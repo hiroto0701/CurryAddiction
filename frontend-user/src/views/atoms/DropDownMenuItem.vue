@@ -20,7 +20,7 @@ function navigateAndClose(close: () => void): void {
       class="block w-full py-2 text-md text-sumi-500 hover:bg-slate-100 hover:text-sumi-900 font-body"
       @click="navigateAndClose(close)"
     >
-      <component :is="iconComponent" />
+      <component :is="iconComponent" class="w-6" />
       {{ label }}
     </button>
   </MenuItem>
