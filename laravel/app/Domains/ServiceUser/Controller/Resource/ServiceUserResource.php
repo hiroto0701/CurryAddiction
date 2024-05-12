@@ -17,10 +17,10 @@ class ServiceUserResource extends JsonResource
             'handle_name' => $this->handle_name,
             'display_name' => $this->display_name,
             'email' => $this->email,
-            'avatar' => route(
+            'avatar' => $this->avatar ? route(
                 'file.view',
                 ['type' => FileViewAction::TYPE_AVATAR, 'uuid' => $this->avatar->uuid]
-            ),
+            ) : null,
             'created_at' => $this->created_at,
         ];
     }

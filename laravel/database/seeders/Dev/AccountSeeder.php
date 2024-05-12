@@ -57,7 +57,7 @@ class AccountSeeder extends AbstractSeeder
 				'display_name' => 'ダミーユーザー',
 				'email' => 'test@mail.com',
 				'password' => Hash::make('password'),
-                'avatar_id' => 1
+                'avatar_id' => null
             ] + $this->commonColumns
         );
 	}
