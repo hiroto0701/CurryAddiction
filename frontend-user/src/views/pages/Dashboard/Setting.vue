@@ -22,14 +22,14 @@ const displayName = ref<string>(accountStore.state.display_name)
 
 const displayNameError = computed((): boolean => 'display_name' in accountFormStore.state.errors)
 
-const toggleEditMode = (): void => {
+function toggleEditMode(): void {
   isEditingDisplayName.value = !isEditingDisplayName.value
   // displayNameをrefで管理しているので入力キャンセル時にstateの値に戻す
   displayName.value = accountStore.state.display_name
   accountFormStore.resetErrors()
 }
 
-const doDisplayNameUpdate = async (displayName: string): Promise<void> => {
+async function doDisplayNameUpdate(displayName: string): Promise<void> {
   if (accountFormStore.displayNameValidate(displayName)) {
     commonStore.startApiLoading()
     try {
@@ -48,7 +48,7 @@ const doDisplayNameUpdate = async (displayName: string): Promise<void> => {
 const fileInfo = ref<File>()
 const url = ref<string | undefined>()
 
-const fileSelected = (event: Event): void => {
+function fileSelected(event: Event): void {
   const target = event.target as HTMLInputElement;
   if (target.files && target.files.length > 0) {
     fileInfo.value = target.files[0];
@@ -59,7 +59,7 @@ const fileSelected = (event: Event): void => {
   }
 }
 
-const doAvatarUpdate = async (): Promise<void> => {
+async function doAvatarUpdate(): Promise<void> {
   if (fileInfo.value && accountFormStore.avatarValidate(fileInfo.value)) {
     commonStore.startApiLoading()
     try {

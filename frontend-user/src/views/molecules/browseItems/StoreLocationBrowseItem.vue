@@ -7,7 +7,7 @@ interface Props {
   readonly date: string
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <div class="px-3 py-1 flex items-center gap-2.5 relative">

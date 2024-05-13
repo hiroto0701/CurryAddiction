@@ -9,7 +9,7 @@ interface Props {
   readonly date: string,
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <div class="flex flex-col justify-between h-28 pb-2">

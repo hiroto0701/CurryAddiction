@@ -7,14 +7,14 @@ const buttonVisibility = ref<boolean>(false);
 
 let scroll: number = 0
 
-const pageTop = (): void => {
+function pageTop(): void {
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
   })
 }
 
-const scrollWindow = (): void => {
+function scrollWindow(): void {
   const top: number = 100;
   scroll = window.scrollY;
   
