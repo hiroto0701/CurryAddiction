@@ -14,7 +14,7 @@ defineProps<Props>()
 const isPasswordVisible = ref<boolean>(false)
 const password = defineModel<string>()
 
-const togglePasswordVisibility = (): void => {
+function togglePasswordVisibility(): void {
   isPasswordVisible.value = !isPasswordVisible.value
 }
 </script>

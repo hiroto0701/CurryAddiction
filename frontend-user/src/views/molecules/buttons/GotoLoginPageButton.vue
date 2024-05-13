@@ -5,7 +5,7 @@ import BaseButton from '@/views/atoms/BaseButton.vue'
 interface Props {
   text: string
 }
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <RouterLink :to="{ name: 'Login' }">

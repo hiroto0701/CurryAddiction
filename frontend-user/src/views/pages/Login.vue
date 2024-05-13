@@ -17,7 +17,7 @@ const emailError = computed(() => 'email' in accountStore.state.errors)
 const passwordError = computed(() => 'password' in accountStore.state.errors)
 const authError = computed(() => 'auth' in accountStore.state.errors)
 
-const userLogin = async (): Promise<void> => {
+async function userLogin(): Promise<void> {
   if (accountStore.validate(email.value, password.value)) {
     commonStore.startLoginLoading()
     try {

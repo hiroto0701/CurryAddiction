@@ -2,7 +2,7 @@
 interface Props {
   readonly title: string
 }
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <header class="flex items-center gap-3 text-base text-main">

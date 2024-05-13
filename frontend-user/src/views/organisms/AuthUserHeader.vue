@@ -12,21 +12,21 @@ const accountStore = useAccountStore()
 const router = useRouter()
 const open = ref<boolean>(false)
 
-const openModal = (): void => {
+function openModal(): void {
   open.value = true
   document.body.style.overflow = 'hidden'
 }
 
-const closeModal = (): void => {
+function closeModal(): void {
   open.value = false
   document.body.style.overflow = 'auto'
 }
 
-const handleRouting = (routeName: string): void => {
+function handleRouting(routeName: string): void {
   router.push({ name: routeName })
 }
 
-const doLogout = (): void => {
+function doLogout(): void {
   accountStore.logout().then(() => {
     router.push({ name: 'Login' })
     document.body.style.overflow = 'auto'
