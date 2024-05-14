@@ -132,6 +132,28 @@ export const useAccountStore = defineStore('account', () => {
     }
   }
 
+  async function fetchUserData(): Promise<AccountState | null> {
+    try {
+      const response = await axios.get('/api/service_users/user')
+      setData(response.data.data)
+      return state.value
+    } catch (error) {
+      if (isAxiosError(error)) {
+        const { response } = error
+        if (response && response.status === 401) {
+          resetData()
+          return null
+        } else {
+          setErrors({ general: ['予期せぬエラーが発生しました。'] })
+          return null
+        }
+      } else {
+        setErrors({ general: ['予期せぬエラーが発生しました。'] })
+        return null
+      }
+    }
+  }
+
   // ログアウト
   async function logout(): Promise<void> {
     try {
@@ -166,7 +188,8 @@ export const useAccountStore = defineStore('account', () => {
     updateDisplayName, 
     updateAvatar,
     validate, 
-    login, 
+    login,
+    fetchUserData,
     logout, 
   }
 })

@@ -1,17 +1,34 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useAccountStore } from '@/stores/account'
 
-const accountStore = useAccountStore()
+interface Props {
+	readonly preview?: string
+}
+defineProps<Props>()
 
+const accountStore = useAccountStore()
 const avatar = computed(() => {
 	if (accountStore.state.avatar === null) {
-		return '../../../../public/icon/default_avatar.jpg'
+		const defaultAvatar = '../../../../public/icon/default_avatar.jpg'
+		return defaultAvatar
 	} else {
 		return accountStore.state.avatar
 	}
 })
 </script>
 <template>
-	<img :src="avatar" alt="プロフィール画像" class="object-cover aspect-square rounded-full bg-transparent">
+	<img
+		v-show="preview"
+		:src="preview" 
+		alt="プロフィール画像" 
+		class="object-cover aspect-square h-full w-full rounded-full bg-transparent"
+	>
+
+	<img
+		v-show="!preview"
+		:src="avatar" 
+		alt="プロフィール画像" 
+		class="object-cover aspect-square h-full w-full rounded-full bg-transparent"
+	>
 </template>

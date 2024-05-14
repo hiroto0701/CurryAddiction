@@ -177,17 +177,18 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const accountStore = useAccountStore();
-  document.title = (to.meta.title ? to.meta.title + ' | ' : '') + 'Curry Addiction';
+  const accountStore = useAccountStore()
+  document.title = (to.meta.title ? to.meta.title + ' | ' : '') + 'Curry Addiction'
   if (to.meta.requiresAuth) {
-    if (accountStore.state.id) {
-      next();
+    const userData = await accountStore.fetchUserData()
+    if (userData) {
+      next()
     } else {
-      next({ name: 'Login' });
+      next({ name: 'Login' })
     }
   } else {
-    next();
+    next()
   }
-});
+})
 
 export default router
