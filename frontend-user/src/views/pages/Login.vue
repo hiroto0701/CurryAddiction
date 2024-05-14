@@ -22,8 +22,6 @@ async function userLogin(): Promise<void> {
     commonStore.startLoginLoading()
     try {
       await accountStore.login({ email: email.value, password: password.value })
-    } catch (error) {
-      console.error('Login failed:', error)
     } finally {
       commonStore.stopLoginLoading()
     }

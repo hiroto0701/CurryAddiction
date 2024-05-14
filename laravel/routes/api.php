@@ -17,13 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/service_users')->group(function() {
     // 認証API
     Route::post('/login', \App\Domains\ServiceUser\Controller\LoginAction::class);
-    Route::middleware(('auth:service_users'))->group(function() {
+    Route::middleware((['auth:sanctum', 'auth:service_users']))->group(function() {
+        Route::get('/user', \App\Domains\ServiceUser\Controller\GetAction::class);
         Route::put('/avatar', \App\Domains\ServiceUser\Controller\UpdateAvatarAction::class);
         Route::put('/display_name', \App\Domains\ServiceUser\Controller\UpdateDisplayNameAction::class);
         Route::post('/logout', \App\Domains\ServiceUser\Controller\LogoutAction::class);
     });
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
 });
