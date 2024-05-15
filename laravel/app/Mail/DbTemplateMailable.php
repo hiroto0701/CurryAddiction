@@ -5,7 +5,7 @@ namespace App\Mail;
 use App\Models\MailTemplate;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\View\Factory;
+use Illuminate\Support\Facades\Log;
 
 abstract class DbTemplateMailable extends Mailable
 {
@@ -21,7 +21,6 @@ abstract class DbTemplateMailable extends Mailable
     /**
      * DBのmail_templatesからテンプレートを取得するメールの基底クラス
      *
-     * @param int $managementCompanyId
      * @param int $mailTemplateType
      * @param MailTemplate $rawMailTemplate
      */
@@ -63,21 +62,5 @@ abstract class DbTemplateMailable extends Mailable
             ];
         }
         return parent::buildView();
-    }
-
-    /**
-     * Subject、Bodyを書き換え(テンプレート編集プレビュー用)
-     *
-     */
-    public function buildPreview()
-    {
-        $templateSubject = optional($this->template)->subject;
-        if ($templateSubject !== null) {
-            $this->subject = Blade::render($templateSubject, $this->viewData);
-        }
-        $templateBody = optional($this->template)->body;
-        if ($templateBody !== null) {
-            $this->body = Blade::render($templateBody, $this->viewData);
-        }
     }
 }

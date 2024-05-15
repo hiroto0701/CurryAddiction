@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             \Database\Seeders\Dev\AccountSeeder::class,
+            \Database\Seeders\Dev\MailTemplateSeeder::class,
         ]);
     }
 }
