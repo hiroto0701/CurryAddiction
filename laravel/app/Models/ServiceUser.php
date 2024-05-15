@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Traits\OperatorRecordable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,7 +27,6 @@ class ServiceUser extends Authenticatable
     use HasApiTokens, Notifiable;
     use HasFactory;
     use SoftDeletes;
-    use OperatorRecordable;
 
     protected $table = 'service_users';
 
@@ -67,5 +66,11 @@ class ServiceUser extends Authenticatable
     public function avatar(): HasOne
     {
         return $this->hasOne(UploadFile::class, 'id', 'avatar_id');
+    }
+
+    // 2段階認証とのリレーション
+    public function twoStepAuthentications(): HasMany
+    {
+        return $this->hasMany(TwoStepAuthentication::class,'user_id','user_id');
     }
 }

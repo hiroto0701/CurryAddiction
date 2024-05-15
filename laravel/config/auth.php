@@ -60,7 +60,7 @@ return [
 
     'providers' => [
         'service_users' => [
-            'driver' => 'eloquent',
+            'driver' => 'service_user_eloquent_user_provider',
             'model' => App\Models\ServiceUser::class,
         ],
     ],
