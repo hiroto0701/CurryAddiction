@@ -19,7 +19,7 @@ return new class extends Migration
          */
         Schema::create('two_step_authentications', function (Blueprint $table) {
             // テーブルの作成 複合インデックス
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->string('token');
             $table->timestamp('expire_datetime');
             $table->index(['user_id', 'token']);

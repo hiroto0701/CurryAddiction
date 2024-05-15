@@ -7,7 +7,6 @@ use App\Models\MailTemplate;
 use App\Models\TwoStepAuthentication;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 
 class RegisterMailable extends DbTemplateMailable
 {
@@ -24,13 +23,11 @@ class RegisterMailable extends DbTemplateMailable
 
     public function build(): RegisterMailable
     {
-        Log::debug($this->twoStepAuthentication->user->service_users);
-        $mailAddress = 'test@mail.com';
-        // if ($this->twoStepAuthentication->user->service_users) {
-        //     $mailAddress = $this->twoStepAuthentication->user->service_user->email;
-        // } else {
-        //     $mailAddress = $this->twoStepAuthentication->user->administrator->email;
-        // }
+        if ($this->twoStepAuthentication->user->service_user) {
+            $mailAddress = $this->twoStepAuthentication->user->service_user->email;
+        } else {
+            $mailAddress = $this->twoStepAuthentication->user->administrator->email;
+        }
 
         return $this->to($mailAddress)
             ->with([
