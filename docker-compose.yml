@@ -98,3 +98,7 @@ services:
       - minio:/data
       - ./docker/minio/export:/export
       - ./docker/minio/policies:/policies
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025

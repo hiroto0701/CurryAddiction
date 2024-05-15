@@ -11,6 +11,9 @@ docker exec curry_addiction_php-fpm chmod -R 777 storage/ /bin/bash
 docker exec curry_addiction_php-fpm php artisan key:generate
 docker exec curry_addiction_php-fpm composer dump-autoload
 
+# DB生成
+docker exec curry_addiction_php-fpm php artisan migrate --seed
+
 # フロントエンドコンテナnpmインストール&再起動
 docker compose run curry_addiction_frontend-user npm install
 docker compose up -d curry_addiction_frontend-user
