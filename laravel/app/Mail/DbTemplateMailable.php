@@ -5,44 +5,39 @@ namespace App\Mail;
 use App\Models\MailTemplate;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Log;
 
 abstract class DbTemplateMailable extends Mailable
 {
     /**
      * @var ?MailTemplate
      */
-    private ?MailTemplate $template;
-
-    public $body;
-
-    public $templateType;
+    protected ?MailTemplate $template;
+    protected ?MailTemplate $defaultTemplate;
 
     /**
      * DBのmail_templatesからテンプレートを取得するメールの基底クラス
      *
      * @param int $mailTemplateType
-     * @param MailTemplate $rawMailTemplate
      */
-    public function __construct(int $mailTemplateType, MailTemplate $rawMailTemplate = null)
+    public function __construct(int $mailTemplateType)
     {
-        $this->templateType = $mailTemplateType;
-        //指定されたテンプレートを使用
-        $this->template = $rawMailTemplate;
+        $this->defaultTemplate = MailTemplate::where('type', $mailTemplateType)
+            ->first();
+        $this->template = MailTemplate::where('type', $mailTemplateType)
+            ->first();
     }
 
     /**
     * DBのテンプレートでSubjectが定義されていればSubjectを書き換え
     *
-    * @param  \Illuminate\Mail\Message  $message
-    * @return $this
+    * @param  $message
+    * @return DbTemplateMailable
     */
-    public function buildSubject($message)
+    public function buildSubject($message): DbTemplateMailable
     {
-        $templateSubject = optional($this->template)->subject;
-        if ($templateSubject !== null) {
-            $this->subject = Blade::render($templateSubject, $this->viewData);
-        }
+        $templateSubjectString = $this->template?->subject ?? $this->defaultTemplate?->subject;
+        $templateSubject = $templateSubjectString ? Blade::render($templateSubjectString, $this->viewData) : null;
+        $this->subject = $templateSubject ?? $this->subject;
         return parent::buildSubject($message);
     }
 
@@ -54,11 +49,10 @@ abstract class DbTemplateMailable extends Mailable
      */
     protected function buildView()
     {
-        $templateBody = optional($this->template)->body;
+        $templateBody = $this->template?->body ?? $this->defaultTemplate?->body;
         if ($templateBody !== null) {
-            $this->body = Blade::render($templateBody, $this->viewData);
             return [
-                'raw' => $this->body,
+                'raw' => Blade::render($templateBody, $this->viewData)
             ];
         }
         return parent::buildView();

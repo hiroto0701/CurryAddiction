@@ -15,10 +15,10 @@ class RegisterMailable extends DbTemplateMailable
 
     private TwoStepAuthentication $twoStepAuthentication;
 
-    public function __construct(TwoStepAuthentication $twoStepAuthentication, MailTemplate $rawMailTemplate = null)
+    public function __construct(TwoStepAuthentication $twoStepAuthentication)
     {
         $this->twoStepAuthentication = $twoStepAuthentication;
-        parent::__construct(MailTemplate::TYPE_SEND_TWO_STEP_AUTHENTICATION_TOKEN, $rawMailTemplate);
+        parent::__construct(MailTemplate::TYPE_SEND_TWO_STEP_AUTHENTICATION_TOKEN);
     }
 
     public function build(): RegisterMailable
