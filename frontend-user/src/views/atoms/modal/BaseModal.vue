@@ -16,7 +16,7 @@ defineProps<Props>()
       class="fixed top-6 right-6 inline-flex justify-center items-center text-white bg-gray-400 hover:bg-sumi-800 duration-300 rounded-full w-8 p-1 cursor-pointer"
       @click.self="closeModal"
     />
-    <div class="modal z-20 bg-white flex flex-col gap-4 p-8 rounded-3xl">
+    <div class="modal z-20 bg-white max-w-96 flex flex-col gap-4 p-8 rounded-3xl">
       <slot />
     </div>
   </div>

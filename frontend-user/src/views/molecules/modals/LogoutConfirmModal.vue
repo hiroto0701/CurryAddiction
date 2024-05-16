@@ -8,7 +8,7 @@ import LogoutButton from '@/views/molecules/buttons/LogoutButton.vue'
 import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
 
 interface Props {
-  closeModal: Function
+  closeModal: () => void
 }
 
 const accountStore = useAccountStore()
