@@ -8,8 +8,8 @@ interface Props {
 }
 defineProps<Props>()
 
-const email = defineModel<string>()
+const value = defineModel<string>()
 </script>
 <template>
-  <FloatingLabelFormItem :label :type :is-error v-model="email" />
+  <FloatingLabelFormItem :label :type :is-error v-model="value" />
 </template>

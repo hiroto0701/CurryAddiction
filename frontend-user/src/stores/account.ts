@@ -76,16 +76,16 @@ export const useAccountStore = defineStore('account', () => {
     state.value.avatar = avatar
   }
 
-  function validate(email: string, password: string): boolean {
+  function validate(email: string): boolean {
     const errors: Record<string, string[]> = {}
   
     if (!email) {
       errors.email = ['メールアドレスを入力してください']
     }
   
-    if (!password) {
-      errors.password = ['パスワードを入力してください']
-    }
+    // if (!password) {
+    //   errors.password = ['パスワードを入力してください']
+    // }
   
     if (Object.keys(errors).length > 0) {
       setErrors(errors)
@@ -97,12 +97,12 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   // ログイン
-  async function login(payload: { email: string; password: string }): Promise<boolean> {
+  async function login(payload: { email: string }): Promise<boolean> {
     try {
       await axios.get('/sanctum/csrf-cookie')
       const response = await axios.post('/api/service_users/login', {
         email: payload.email,
-        password: payload.password,
+        // password: payload.password,
       })
 
       if (response.status === 200) {

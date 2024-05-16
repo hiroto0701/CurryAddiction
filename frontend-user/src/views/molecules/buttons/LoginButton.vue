@@ -7,5 +7,6 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <BaseButton type="submit" class="flex items-center justify-center mt-5 w-full py-3 px-10 bg-sky-500 text-white font-semibold hover:bg-sky-500" :text />
+  <!-- <BaseButton type="submit" class="flex items-center justify-center mt-5 w-full py-3 px-10 bg-sky-500 text-white font-semibold hover:bg-sky-500" :text /> -->
+  <BaseButton type="submit" class="border border-gray-300 text-sumi-900 p-3" :text />
 </template>
