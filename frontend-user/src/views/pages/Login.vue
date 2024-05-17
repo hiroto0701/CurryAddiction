@@ -13,6 +13,7 @@ const commonStore = useCommonStore()
 
 const email = ref<string>('')
 const password = ref<string>('')
+const token = ref<string>('')
 
 
 
@@ -43,7 +44,7 @@ function openMailModal(): void {
 
 function closeMailModal(): void {
   mailOpen.value = false
-  email.value = ''
+  // email.value = ''
   accountStore.resetErrors
   document.body.style.overflow = 'auto'
 }
@@ -59,7 +60,17 @@ function closeTokenModal(): void {
   document.body.style.overflow = 'auto'
 }
 
-
+async function generateToken() {
+  try {
+    await accountStore.generateToken({ email: email.value })
+    .then(() => {
+      closeMailModal()
+      openTokenModal()
+    })
+  } finally {
+    console.log('send')
+  }
+}
 
 
 
@@ -82,13 +93,14 @@ function closeTokenModal(): void {
 // const authError = computed(() => 'auth' in accountStore.state.errors)
 
 async function userLogin(): Promise<void> {
-  if (accountStore.validate(email.value)) {
-    commonStore.startLoginLoading()
-    try {
-      await accountStore.login({ email: email.value })
-    } finally {
-      commonStore.stopLoginLoading()
-    }
+  // if (accountStore.validate(email.value)) {
+  //   commonStore.startLoginLoading()
+  // }
+  try {
+    await accountStore.login({ email: email.value, token: token.value })
+  } finally {
+    // commonStore.stopLoginLoading()
+    console.log('success')
   }
 }
 </script>
@@ -135,7 +147,7 @@ async function userLogin(): Promise<void> {
           <EmailRegisterModal
             v-show="mailOpen"
             v-model="email"
-            @do-login="userLogin"
+            @do-login="generateToken"
             :closeModal="closeMailModal"
           />
         </Teleport>
@@ -143,8 +155,10 @@ async function userLogin(): Promise<void> {
         <!-- トークン -->
         <Teleport to="body">
           <TokenSubmitModal
-            v-show="tokenOpen" 
+            v-show="tokenOpen"
+            v-model="token" 
             :closeModal="closeTokenModal"
+            @do-login="userLogin"
           />
         </Teleport>
 

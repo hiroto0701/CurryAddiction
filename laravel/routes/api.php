@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('/service_users')->group(function() {
+    // token送信
+    Route::post('/generate_token', \App\Domains\ServiceUser\Controller\GenerateAuthTokenAction::class);
     // 認証API
     Route::post('/login', \App\Domains\ServiceUser\Controller\LoginAction::class);
     Route::middleware((['auth:sanctum', 'auth:service_users']))->group(function() {
