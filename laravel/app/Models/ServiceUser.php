@@ -19,7 +19,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $display_name
  * @property string $email
  * @property string $password
- * @property string $profile_path
+ * @property int $avatar_id
  * @property User $user
  */
 class ServiceUser extends Authenticatable

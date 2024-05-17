@@ -96,13 +96,26 @@ export const useAccountStore = defineStore('account', () => {
     return true
   }
 
+
+  // tokenメール送信
+  async function generateToken(payload: { email: string }) {
+    try {
+      await axios.get('/sanctum/csrf-cookie')
+      await axios.post('/api/service_users/generate_token', {
+        email: payload.email,
+      })
+    } finally {
+      console.log('aaa')
+    }
+  }
+
   // ログイン
-  async function login(payload: { email: string }): Promise<boolean> {
+  async function login(payload: { email: string, token: string }): Promise<boolean> {
     try {
       await axios.get('/sanctum/csrf-cookie')
       const response = await axios.post('/api/service_users/login', {
         email: payload.email,
-        // password: payload.password,
+        token: payload.token,
       })
 
       if (response.status === 200) {
@@ -187,7 +200,8 @@ export const useAccountStore = defineStore('account', () => {
     isAxiosError, 
     updateDisplayName, 
     updateAvatar,
-    validate, 
+    validate,
+    generateToken, 
     login,
     fetchUserData,
     logout, 

@@ -9,7 +9,7 @@ import TokenCommitButton from '@/views/molecules/buttons/TokenCommitButton.vue'
 interface Props {
   closeModal: () => void
 }
-const token = ref<string>('')
+const token = defineModel<string>()
 const modalContent = ref<string>(`5分以内に test@mail.com に届いたコードを入力してください。`)
 
 defineProps<Props>()
