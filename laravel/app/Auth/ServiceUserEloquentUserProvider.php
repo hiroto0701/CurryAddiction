@@ -58,7 +58,7 @@ class ServiceUserEloquentUserProvider extends EloquentUserProvider implements Us
                 throw new AuthenticationTokenException(required: true);
             }
 
-            // トークンを検証する
+            // トークンを検証するよ
             $twoStepAuthentications = $user->twoStepAuthentications->filter(function ($twoStepAuthentication) use ($credentials) {
                 if ($twoStepAuthentication->token != $credentials['token']) return false;
                 if ($twoStepAuthentication->expire_datetime < Carbon::now()) return false;
