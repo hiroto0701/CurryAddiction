@@ -35,11 +35,6 @@ class RegisterMailable extends DbTemplateMailable
     //             'token' => $this->twoStepAuthentication->token,
     //         ]);
     // }
-
-
-    use Queueable;
-    use SerializesModels;
-
     private Token $token;
 
     public function __construct(Token $token)
