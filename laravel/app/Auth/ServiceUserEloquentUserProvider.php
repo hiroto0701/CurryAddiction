@@ -47,7 +47,6 @@ class ServiceUserEloquentUserProvider extends EloquentUserProvider implements Us
             if (!parent::validateCredentials($user, $credentials)) return false;
 
             if (empty($credentials['token'])) {
-                // トークンを発行してメールを送信する
                 $command = new CreateCommand(
                     $user->user_id,
                     str_pad((string)random_int(0,999999), 6, '0', STR_PAD_LEFT),
