@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useAccountStore } from '@/stores/account'
+import { useCommonStore } from '@/stores/common'
 import BaseModal from '@/views/atoms/modal/BaseModal.vue'
 import ModalBody from '@/views/atoms/modal/ModalBody.vue'
 import ModalFooter from '@/views/atoms/modal/ModalFooter.vue'
@@ -10,17 +11,17 @@ import FloatingLabelTextInputFormItem from '@/views/molecules/formItems/Floating
 interface Props {
   closeModal: () => void
 }
+defineProps<Props>()
 
 const accountStore = useAccountStore()
-const modalContent = ref<string>(`入力されたメールアドレスにログイン用リンクが送られます。`)
+const commonStore = useCommonStore()
 
+const modalContent = ref<string>(`入力されたメールアドレスにログイン用リンクが送られます。`)
 const emailError = computed(() => 'email' in accountStore.state.errors)
 
 const email = defineModel<string>()
-
-defineProps<Props>()
 const emits = defineEmits<{
-  (e: 'doLogin'): void
+  (e: 'sendEmail'): void
 }>()
 </script>
 <template>
@@ -36,7 +37,7 @@ const emits = defineEmits<{
       <p v-show="accountStore.state.errors.email" class="font-body text-xs text-red-400">
         {{ accountStore.state.errors?.email?.[0] }}
       </p>
-      <SendEmailButton @click="emits('doLogin')" />
+      <SendEmailButton :is-loading="commonStore.state.apiLoading" @click="emits('sendEmail')" />
     </ModalFooter>
   </BaseModal>
 </template>

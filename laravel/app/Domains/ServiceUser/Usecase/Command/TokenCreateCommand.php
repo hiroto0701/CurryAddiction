@@ -7,14 +7,14 @@ namespace App\Domains\ServiceUser\Usecase\Command;
 class TokenCreateCommand
 {
     private string $email;
-    private string $token;
+    private string $onetime_token;
 
     public function __construct(
         string $email,
-        string $token,
+        string $onetime_token,
     ) {
         $this->email = $email;
-        $this->token = $token;
+        $this->onetime_token = $onetime_token;
     }
 
     /**
@@ -28,8 +28,8 @@ class TokenCreateCommand
     /**
      * @return string
      */
-    public function getToken(): string
+    public function getOnetimeToken(): string
     {
-        return $this->token;
+        return $this->onetime_token;
     }
 }

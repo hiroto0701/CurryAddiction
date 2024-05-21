@@ -90,7 +90,7 @@ export const useAccountFormStore = defineStore('account_form', () => {
       } else {
         setErrors({ avatar: ['プロフィール画像の更新に失敗しました'] })
       }
-    } catch (error) {
+    } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 422) {
           setErrors(error.response.data.errors)

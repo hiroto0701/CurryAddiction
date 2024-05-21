@@ -10,14 +10,13 @@ use Throwable;
 
 class AuthenticationTokenException extends Exception
 {
-    private bool $required;
     private bool $unmatched;
+    private bool $expired;
 
-    public function __construct($message = 'Authentication token error.', $code = Response::HTTP_UNAUTHORIZED, Throwable $previous = null,
-        $required = false, $unmatched = false)
+    public function __construct($message = 'Authentication token error.', $code = Response::HTTP_UNAUTHORIZED, Throwable $previous = null, $unmatched = false, $expired = false)
     {
-        $this->required = $required;
         $this->unmatched = $unmatched;
+        $this->expired = $expired;
         parent::__construct($message, $code, $previous);
     }
 
@@ -30,8 +29,8 @@ class AuthenticationTokenException extends Exception
     {
         return response()->json([
             'message' => $this->getMessage(),
-            'is_required' => $this->required,
             'is_unmatched' => $this->unmatched,
+            'is_expired' => $this->expired,
         ], $this->getCode());
     }
 }

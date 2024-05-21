@@ -23,11 +23,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->index();
             $table->smallInteger('status')->index();
-            $table->string('handle_name', 20)->unique();
-            $table->string('display_name', 20)->collation(self::COLLATION)->index();
+            $table->string('handle_name', 20)->unique()->nullable();
+            $table->string('display_name', 20)->collation(self::COLLATION)->index()->nullable();
             $table->string('email')->unique()->index();
-            $table->string('password');
             $table->foreignId('avatar_id')->nullable()->index();
+            $table->string('onetime_token')->index()->nullable();
+            $table->timestamp('onetime_expiration')->nullable();
             // 共通カラム
             $this->addCommonColumns($table);
         });

@@ -35,7 +35,6 @@ class AccountSeeder extends AbstractSeeder
                 'email' => 'hiroto.soccer.0701@gmail.com',
                 'password' => Hash::make('admin0701'),
                 'name' => 'システム管理者',
-                'use_two_step_authentication' => true,
             ] + $this->commonColumns
         );
         if ($systemId !== User::ID_SYSTEM) {
@@ -57,9 +56,7 @@ class AccountSeeder extends AbstractSeeder
 				'handle_name' => 'service_user',
 				'display_name' => 'ダミーユーザー',
 				'email' => 'test@mail.com',
-				'password' => Hash::make('password'),
                 'avatar_id' => null,
-                'use_two_step_authentication' => true,
             ] + $this->commonColumns
         );
 	}

@@ -13,14 +13,14 @@ const modalContent = ref<string>(`カレーの魅力を発信し合える場所�
 
 defineProps<Props>()
 const emits = defineEmits<{
-  (e: 'doLogin'): void
+  (e: 'startLogin'): void
 }>()
 </script>
 <template>
   <BaseModal :closeModal>
     <ModalBody title="Curry Addiction" :content="modalContent" />
     <ModalFooter>
-      <LoginButton text="ログイン" @click="emits('doLogin')" />
+      <LoginButton text="ログイン" @click="emits('startLogin')" />
     </ModalFooter>
   </BaseModal>
 </template>

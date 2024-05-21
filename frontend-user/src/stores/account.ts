@@ -15,10 +15,6 @@ interface AccountState {
   errors: Record<string, string[]>
 }
 
-interface LoginErrorResponse {
-  error: string
-}
-
 interface ValidationErrorResponse {
   errors: Record<string, string[]>
 }
@@ -76,16 +72,12 @@ export const useAccountStore = defineStore('account', () => {
     state.value.avatar = avatar
   }
 
-  function validate(email: string): boolean {
+  function emailValidate(email: string): boolean {
     const errors: Record<string, string[]> = {}
   
     if (!email) {
       errors.email = ['メールアドレスを入力してください']
     }
-  
-    // if (!password) {
-    //   errors.password = ['パスワードを入力してください']
-    // }
   
     if (Object.keys(errors).length > 0) {
       setErrors(errors)
@@ -96,16 +88,31 @@ export const useAccountStore = defineStore('account', () => {
     return true
   }
 
+  function tokenValidate(token: string): boolean {
+    const errors: Record<string, string[]> = {}
+
+    if (!token) {
+      errors.token = ['認証コードを入力してください']
+    }
+  
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors)
+      return false
+    }
+  
+    resetErrors()
+    return true
+  }
 
   // tokenメール送信
-  async function generateToken(payload: { email: string }) {
+  async function generateToken(payload: { email: string }): Promise<void> {
     try {
       await axios.get('/sanctum/csrf-cookie')
       await axios.post('/api/service_users/generate_token', {
         email: payload.email,
       })
-    } finally {
-      console.log('aaa')
+    } catch(e) {
+      console.error(e)
     }
   }
 
@@ -136,8 +143,13 @@ export const useAccountStore = defineStore('account', () => {
             setErrors(response.data.errors as ValidationErrorResponse['errors'])
             return false
           } else if (response.status === 401) {
-            setErrors({ auth: ['メールアドレスまたはパスワードが違います。'] } as Record<string, string[]>)
-            return false
+            if (response.data.is_unmatched) {
+              setErrors({ token: ['認証コードが違います。'] } as Record<string, string[]>)
+              return false
+            } else if (response.data.is_expired) {
+              setErrors({ token: ['有効期限切れのコードです'] } as Record<string, string[]>)
+              return false
+            }
           }
         }
       }
@@ -200,7 +212,8 @@ export const useAccountStore = defineStore('account', () => {
     isAxiosError, 
     updateDisplayName, 
     updateAvatar,
-    validate,
+    emailValidate,
+    tokenValidate,
     generateToken, 
     login,
     fetchUserData,
