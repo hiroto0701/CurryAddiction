@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domains\ServiceUser\Controller;
 
 use App\Domains\ServiceUser\Controller\Request\LoginRequest;
 use App\Domains\ServiceUser\Controller\Resource\ServiceUserResource;
+use App\Exceptions\AuthenticationTokenException;
 use App\Http\Controllers\Controller;
 use App\Models\ServiceUser;
 use Illuminate\Auth\AuthenticationException;
@@ -28,11 +31,11 @@ class LoginAction extends Controller
         }
 
         if (!Hash::check($request->token, $user->onetime_token)) {
-            throw new AuthenticationException('Invalid email or token');
+            throw new AuthenticationTokenException(unmatched: true);
         }
 
         if ($user->onetime_expiration < Carbon::now()) {
-            throw new AuthenticationException('Token expired');
+            throw new AuthenticationTokenException(expired: true);
         }
 
         Auth::guard('service_users')->login($user);

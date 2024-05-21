@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useAccountStore } from '@/stores/account'
+import { useCommonStore } from '@/stores/common'
 import BaseModal from '@/views/atoms/modal/BaseModal.vue'
 import ModalBody from '@/views/atoms/modal/ModalBody.vue'
 import ModalFooter from '@/views/atoms/modal/ModalFooter.vue'
@@ -9,10 +11,15 @@ import TokenCommitButton from '@/views/molecules/buttons/TokenCommitButton.vue'
 interface Props {
   closeModal: () => void
 }
-const token = defineModel<string>()
-const modalContent = ref<string>(`5分以内に test@mail.com に届いたコードを入力してください。`)
-
 defineProps<Props>()
+
+const accountStore = useAccountStore()
+const commonStore = useCommonStore()
+
+const modalContent = ref<string>(`5分以内に test@mail.com に届いたコードを入力してください。`)
+const tokenError = computed(() => 'token' in accountStore.state.errors)
+
+const token = defineModel<string>()
 const emits = defineEmits<{
   (e: 'doLogin'): void
 }>()
@@ -24,10 +31,13 @@ const emits = defineEmits<{
       <FloatingLabelTextInputFormItem
         label="確認コード"
         type="text"
-        :is-error="false"
+        :is-error="tokenError"
         v-model="token"
       />
-      <TokenCommitButton @click="emits('doLogin')" />
+      <p v-show="accountStore.state.errors.token" class="font-body text-xs text-red-400">
+        {{ accountStore.state.errors?.token?.[0] }}
+      </p>
+      <TokenCommitButton :is-loading="commonStore.state.apiLoading" @click="emits('doLogin')" />
     </ModalFooter>
   </BaseModal>
 </template>
