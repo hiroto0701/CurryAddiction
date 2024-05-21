@@ -18,8 +18,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $handle_name
  * @property string $display_name
  * @property string $email
- * @property string $password
  * @property int $avatar_id
+ * @property string $onetime_token
+ * @property string $onetime_expiration
  * @property User $user
  */
 class ServiceUser extends Authenticatable
@@ -36,8 +37,9 @@ class ServiceUser extends Authenticatable
         'handle_name',
         'display_name',
         'email',
-        'password',
         'avatar_id',
+        'onetime_token',
+        'onetime_expiration',
         'prefecture_ids',
     ];
 
@@ -66,11 +68,5 @@ class ServiceUser extends Authenticatable
     public function avatar(): HasOne
     {
         return $this->hasOne(UploadFile::class, 'id', 'avatar_id');
-    }
-
-    // 2段階認証とのリレーション
-    public function twoStepAuthentications(): HasMany
-    {
-        return $this->hasMany(TwoStepAuthentication::class,'user_id','user_id');
     }
 }

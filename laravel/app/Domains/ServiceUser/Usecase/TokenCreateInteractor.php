@@ -6,34 +6,47 @@ namespace App\Domains\ServiceUser\Usecase;
 
 use App\Domains\ServiceUser\Usecase\Command\TokenCreateCommand;
 use App\Mail\TwoStepAuthentication\RegisterMailable;
-use App\Models\Token;
+use App\Models\ServiceUser;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Throwable;
 
 class TokenCreateInteractor
 {
-    /**
-     * @throws Throwable
-     */
     public function handle(TokenCreateCommand $command)
     {
         return DB::transaction(function () use ($command) {
-            $data = [
-                'email' => $command->getEmail(),
-                'token' => $command->getToken(),
-                'is_verified' => false,
-                'expire_datetime' => Carbon::now()->addMinutes(config('constant.two_step_authentication_valid_minute.default')),
-            ];
+            $user = ServiceUser::where('email', $command->getEmail())->first();
 
-            $token = Token::updateOrCreate(
-                ['email' => $command->getEmail()],
-                $data
-            );
+            $planeToken = $command->getOnetimeToken();
+            if ($user === null) {
+                $user = User::create([
+                    'type' => User::TYPE_SERVICE_USER,
+                ]);
 
-            Mail::send(new RegisterMailable($token));
-            return $token;
+                $service_user = $user->service_user()->create([
+                    'status' => ServiceUser::STATUS_ENABLED,
+                    'email' => $command->getEmail(),
+                    'onetime_token' => Hash::make($command->getOnetimeToken()),
+                    'onetime_expiration' => Carbon::now()->addMinutes(config('constant.two_step_authentication_valid_minute.default')),
+                ]);
+            } else {
+                $data = [
+                    'email' => $command->getEmail(),
+                    'onetime_token' => Hash::make($command->getOnetimeToken()),
+                    'onetime_expiration' => Carbon::now()->addMinutes(config('constant.two_step_authentication_valid_minute.default')),
+                ];
+
+                $service_user = ServiceUser::updateOrCreate(
+                    ['email' => $command->getEmail()],
+                    $data
+                );
+            }
+
+            Mail::send(new RegisterMailable($service_user, $planeToken));
+            return $service_user;
         });
     }
 }

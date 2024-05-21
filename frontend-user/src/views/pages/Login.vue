@@ -110,29 +110,6 @@ async function userLogin(): Promise<void> {
     <div class="w-full flex justify-between mt-5">
       <LoginButton text="ログイン" @click="openModal" />
       <form @submit.prevent="userLogin" class="w-1/2 px-10 gap-4 flex flex-col border-r border-sumi-300" novalidate>
-        <!-- <FloatingLabelTextInputFormItem
-          label="メールアドレス"
-          type="email"
-          :is-error="emailError || authError"
-          v-model="email"
-        /> -->
-        <!-- <p v-show="accountStore.state.errors.email" class="font-body text-xs text-red-400">
-          {{ accountStore.state.errors?.email?.[0] }}
-        </p> -->
-        <!-- <FloatingLabelPasswordInputFormItem
-          label="パスワード"
-          type="password"
-          :is-error="passwordError || authError"
-          v-model="password"
-        />
-        <p v-if="accountStore.state.errors.password" class="font-body text-xs text-red-400">
-          {{ accountStore.state.errors?.password?.[0] }}
-        </p>
-        <p v-if="accountStore.state.errors.auth" class="font-body text-xs text-red-400">
-          {{ accountStore.state.errors?.auth?.[0] }}
-        </p> -->
-        <!-- <LoginButton text="ログイン" /> -->
-
         <!-- ログイン -->
         <Teleport to="body">
           <LoginModal
@@ -161,14 +138,6 @@ async function userLogin(): Promise<void> {
             @do-login="userLogin"
           />
         </Teleport>
-
-
-      </form>
-
-
-      <form class="w-1/2 px-10 flex flex-col items-center">
-        <span class="font-body text-sumi-900">または</span>
-        <LoginButton text="ゲストとしてログイン" />
       </form>
     </div>
   </div>

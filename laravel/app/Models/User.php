@@ -32,6 +32,10 @@ class User extends Model
         self::TYPE_ADMINISTRATOR => 'システム管理者',
     ];
 
+    protected $fillable = [
+        'type'
+    ];
+
     protected $dates = [
         'created_at',
         'updated_at',

@@ -27,8 +27,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => ['required', 'email', 'max:'.config('validation.maxEmail')],
-            // 'password' => ['required'],
-            'token' => ['nullable', 'string'],
+            'token' => ['required', 'string'],
         ];
     }
 }
