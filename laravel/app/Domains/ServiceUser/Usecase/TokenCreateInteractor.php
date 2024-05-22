@@ -27,7 +27,7 @@ class TokenCreateInteractor
                 ]);
 
                 $service_user = $user->service_user()->create([
-                    'status' => ServiceUser::STATUS_ENABLED,
+                    'status' => ServiceUser::STATUS_PENDING,
                     'email' => $command->getEmail(),
                     'onetime_token' => Hash::make($command->getOnetimeToken()),
                     'onetime_expiration' => Carbon::now()->addMinutes(config('constant.two_step_authentication_valid_minute.default')),

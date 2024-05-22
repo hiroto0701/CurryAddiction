@@ -149,6 +149,12 @@ export const useAccountStore = defineStore('account', () => {
             } else if (response.data.is_expired) {
               setErrors({ token: ['有効期限切れのコードです'] } as Record<string, string[]>)
               return false
+            } else if (response.data.status === 'pending') {
+              router.push({ name: 'Signup' })
+              return false
+            } else {
+              setErrors({auth: ['メールアドレスまたは認証コードが違います。']})
+              return false
             }
           }
         }

@@ -45,10 +45,12 @@ class ServiceUser extends Authenticatable
 
     public const STATUS_DISABLED = 0;   // 利用不可
     public const STATUS_ENABLED = 1;    // 利用可
+    public const STATUS_PENDING = 2;    // 仮登録
 
     public const STATUSES = [
         self::STATUS_DISABLED => '使用不可',
         self::STATUS_ENABLED => '使用可',
+        self::STATUS_PENDING => '仮登録',
     ];
 
     protected $dates = [

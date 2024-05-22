@@ -7,6 +7,7 @@ namespace App\Domains\ServiceUser\Controller;
 use App\Domains\ServiceUser\Controller\Request\LoginRequest;
 use App\Domains\ServiceUser\Controller\Resource\ServiceUserResource;
 use App\Exceptions\AuthenticationTokenException;
+use App\Exceptions\UserStatusException;
 use App\Http\Controllers\Controller;
 use App\Models\ServiceUser;
 use Illuminate\Auth\AuthenticationException;
@@ -19,7 +20,9 @@ class LoginAction extends Controller
     /**
      * @param LoginRequest $request
      * @return ServiceUserResource
-     * @throws AuthenticationException
+     * @throws AuthenticationException  // 認証エラー
+     * @throws AuthenticationTokenException  // トークンエラー
+     * @throws UserStatusException  // ユーザー未登録エラー
      */
     public function __invoke(LoginRequest $request): ServiceUserResource
     {
@@ -27,7 +30,7 @@ class LoginAction extends Controller
         $user = ServiceUser::where('email', $request->email)->first();
 
         if (!$user) {
-            throw new AuthenticationException('Invalid email or token');
+            throw new AuthenticationException();
         }
 
         if (!Hash::check($request->token, $user->onetime_token)) {
@@ -36,6 +39,13 @@ class LoginAction extends Controller
 
         if ($user->onetime_expiration < Carbon::now()) {
             throw new AuthenticationTokenException(expired: true);
+        }
+
+        if ($user->status !== ServiceUser::STATUS_ENABLED) {
+            if ($user->status === ServiceUser::STATUS_PENDING) {
+                throw new UserStatusException('The user is not registered.', 401, null, 'pending');
+            }
+            throw new UserStatusException();
         }
 
         Auth::guard('service_users')->login($user);
