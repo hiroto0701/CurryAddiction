@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import { useCommonStore } from '@/stores/common'
 import BaseModal from '@/views/atoms/modal/BaseModal.vue'
@@ -10,13 +10,14 @@ import TokenCommitButton from '@/views/molecules/buttons/TokenCommitButton.vue'
 
 interface Props {
   closeModal: () => void
+  email: string
 }
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const accountStore = useAccountStore()
 const commonStore = useCommonStore()
 
-const modalContent = ref<string>(`5分以内に test@mail.com に届いたコードを入力してください。`)
+const modalContent = `5分以内に ${props.email} に届いたコードを入力してください。`
 const tokenError = computed(() => 'token' in accountStore.state.errors)
 
 const token = defineModel<string>()
@@ -26,10 +27,10 @@ const emits = defineEmits<{
 </script>
 <template>
   <BaseModal :closeModal>
-    <ModalBody title="確認コードを送りました" :content="modalContent" />
+    <ModalBody title="認証コードを送りました" :content="modalContent" />
     <ModalFooter>
       <FloatingLabelTextInputFormItem
-        label="確認コード"
+        label="認証コード"
         type="text"
         :is-error="tokenError"
         v-model="token"

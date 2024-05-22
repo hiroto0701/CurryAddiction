@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import { useCommonStore } from '@/stores/common'
 import BaseModal from '@/views/atoms/modal/BaseModal.vue'
@@ -16,7 +16,7 @@ defineProps<Props>()
 const accountStore = useAccountStore()
 const commonStore = useCommonStore()
 
-const modalContent = ref<string>(`入力されたメールアドレスにログイン用リンクが送られます。`)
+const modalContent = '入力されたメールアドレスにログイン用コードが送られます。'
 const emailError = computed(() => 'email' in accountStore.state.errors)
 
 const email = defineModel<string>()

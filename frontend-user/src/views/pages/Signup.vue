@@ -1,23 +1,18 @@
 <script setup lang="ts">
-import FloatingLabelTextInputFormItem from '@/views/molecules/formItems/FloatingLabelTextInputFormItem.vue'
-import FloatingLabelPasswordInputFormItem from '@/views/molecules/formItems/FloatingLabelPasswordInputFormItem.vue'
-import SignupButton from '@/views/molecules/buttons/SignupButton.vue'
-import GotoLoginPageButton from '@/views/molecules/buttons/GotoLoginPageButton.vue'
-
+import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
 </script>
 <template>
-  <div class="flex flex-col items-center w-1/2 mx-auto p-10 bg-sumi-100 rounded-xl">
-    <h1 class="font-body text-sumi-900 font-bold text-xl">新規会員登録</h1>
-    <div class="w-full mt-5">
-      <form class="px-5 gap-4 flex flex-col items-center">
-        <FloatingLabelTextInputFormItem label="メールアドレス" type="email" />
-        <FloatingLabelPasswordInputFormItem label="パスワード" type="password" />
-        <SignupButton text="登録" />
-      </form>
-    </div>
+  <h1 class="font-body text-sumi-900 w-fit mx-auto text-2xl">アカウントを作成します</h1>
+  <div class="flex flex-col items-center mx-auto mt-5 p-10 bg-sumi-100 rounded-xl">
+    <h2 class="font-body text-sumi-900 w-fit mx-auto text-lg">ハンドルネームを決めましょう</h2>
+    <form class="px-5 gap-4 flex flex-col items-center">
+      <div class="flex items-center mt-5">
+        <div class="font-body text-sumi-900">curry-addiction/</div>
+        <input class="block ml-1 font-body text-sumi-900 p-3 rounded-lg border border-gray-300" type="text">
+      </div>
+      <LoginButton text="確定する" />
+    </form>
   </div>
-  <div class="flex flex-col items-center mt-10">
-    <h1 class="font-body text-sumi-900 font-bold text-xl">すでに会員の方</h1>
-    <GotoLoginPageButton text="ログイン" />
-  </div>
+  <!-- 全ての状態管理をリセットしてログイン画面へ戻る -->
+  <button class="block w-fit mx-auto mt-5 pb-1 font-body text-sumi-500 hover:text-sumi-900 duration-300 border-b-2 border-dotted border-sumi-300 hover:border-sumi-900">アカウント作成をやめる</button>
 </template>

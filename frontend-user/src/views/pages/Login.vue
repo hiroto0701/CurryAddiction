@@ -9,44 +9,17 @@ import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
 
 const accountStore = useAccountStore()
 const commonStore = useCommonStore()
-
 const email = ref<string>('')
 const token = ref<string>('')
-const open = ref<boolean>(false)
-const mailOpen = ref<boolean>(false)
-const tokenOpen = ref<boolean>(false)
+const modalState = ref<'login' | 'email' | 'token' | null>(null)
 
-function openModal(): void {
-  open.value = true
+function openModal(modalName: 'login' | 'email' | 'token'): void {
+  modalState.value = modalName
   document.body.style.overflow = 'hidden'
 }
 
 function closeModal(): void {
-  open.value = false
-  document.body.style.overflow = 'auto'
-}
-
-function openMailModal(): void {
-  open.value = false
-  mailOpen.value = true
-  document.body.style.overflow = 'hidden'
-}
-
-function closeMailModal(): void {
-  mailOpen.value = false
-  // email.value = ''
-  accountStore.resetErrors
-  document.body.style.overflow = 'auto'
-}
-
-function openTokenModal(): void {
-  mailOpen.value = false
-  tokenOpen.value = true
-  document.body.style.overflow = 'hidden'
-}
-
-function closeTokenModal(): void {
-  tokenOpen.value = false
+  modalState.value = null
   document.body.style.overflow = 'auto'
 }
 
@@ -55,10 +28,8 @@ async function generateToken(): Promise<void> {
     commonStore.startApiLoading()
     try {
       await accountStore.generateToken({ email: email.value })
-      .then(() => {
-        closeMailModal()
-        openTokenModal()
-      })
+      closeModal()
+      openModal('token')
     } finally {
       commonStore.stopApiLoading()
     }
@@ -69,7 +40,10 @@ async function userLogin(): Promise<void> {
   if (accountStore.tokenValidate(token.value)) {
     commonStore.startApiLoading()
     try {
-      await accountStore.login({ email: email.value, token: token.value })
+      const loginSuccess = await accountStore.login({ email: email.value, token: token.value })
+      if (loginSuccess) {
+        closeModal()
+      } 
     } finally {
       commonStore.stopApiLoading()
     }
@@ -80,34 +54,30 @@ async function userLogin(): Promise<void> {
   <div class="flex flex-col items-center w-full p-10 bg-sumi-100 rounded-xl">
     <h1 class="font-body text-sumi-900 font-bold text-xl">ログイン</h1>
     <div class="w-full flex justify-between mt-5">
-      <LoginButton text="ログイン" @click="openModal" />
+      <LoginButton text="ログイン" @click="openModal('login')" />
       <form @submit.prevent="userLogin" class="w-1/2 px-10 gap-4 flex flex-col border-r border-sumi-300" novalidate>
-        <!-- ログイン -->
         <Teleport to="body">
-          <LoginModal
-            v-show="open" 
-            @start-login="openMailModal"
-            :closeModal
+          <LoginModal 
+            v-if="modalState === 'login'"
+            @start-login="openModal('email')"
+            :closeModal="closeModal"
           />
         </Teleport>
-
-        <!-- メール -->
         <Teleport to="body">
           <EmailRegisterModal
-            v-show="mailOpen"
+            v-if="modalState === 'email'"
             v-model="email"
             @send-email="generateToken"
-            :closeModal="closeMailModal"
+            :closeModal="closeModal"
           />
         </Teleport>
-
-        <!-- トークン -->
         <Teleport to="body">
           <TokenSubmitModal
-            v-show="tokenOpen"
-            v-model="token" 
+            v-if="modalState === 'token'"
+            v-model="token"
+            :email="email"
             @do-login="userLogin"
-            :closeModal="closeTokenModal"
+            :closeModal="closeModal"
           />
         </Teleport>
       </form>

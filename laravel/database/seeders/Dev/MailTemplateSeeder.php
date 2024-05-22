@@ -21,18 +21,24 @@ class MailTemplateSeeder extends AbstractSeeder
         DB::table('mail_templates')->insert(
             [
                 'type' => MailTemplate::TYPE_SEND_TWO_STEP_AUTHENTICATION_TOKEN,   // 確認コード通知メール1
-                'subject' => 'ログインの確認コード（Curry Addiction）',
+                'subject' => '【重要】ログインの認証コード（Curry Addiction）',
                 'body' => <<<'EOS'
-                Curry Addictionにログインするための確認コードが発行されました。
+                Curry Addictionにログインするための認証コードが発行されました。
+                ご本人確認のため、以下の認証コードを入力してください。このコードはセキュリティ保護のために送信されています。
+
                 -------------------------------------------------------
-                確認コード：
+                認証コード：
                 {!!$onetime_token!!}
                 -------------------------------------------------------
+
+                このコードは発行後5分間有効です。有効期限が過ぎると無効となりますので、ご注意ください。
+
+                本メールに心当たりがない場合は、無視してください。
 
                 このメールは送信専用となっております。
                 ご返信いただいてもお応えできかねますのでご了承ください。
 
-                本メールに心当たりがない場合は、無視してください。
+                [Curry Addiction] サポートチーム
 
                 EOS,
             ] + $this->commonColumns

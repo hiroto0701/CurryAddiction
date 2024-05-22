@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 
 interface AppState {
   flashMessage: null | string
+  errorMessage: null | string
   apiLoading: boolean
   uploading: boolean
   loginLoading: boolean
@@ -11,6 +12,7 @@ interface AppState {
 export const useCommonStore = defineStore('common', () => {
   const state = ref(<AppState>{
     flashMessage: null, 
+    errorMessage: null, 
     apiLoading: false,
     uploading: false,
     loginLoading: false,
@@ -21,6 +23,14 @@ export const useCommonStore = defineStore('common', () => {
   }
 
   function clearFlashMessage(): void {
+    state.value.flashMessage = null
+  }
+
+  function setErrorMessage(message: string): void {
+    state.value.flashMessage = message
+  }
+
+  function clearErrorMessage(): void {
     state.value.flashMessage = null
   }
 
@@ -52,6 +62,8 @@ export const useCommonStore = defineStore('common', () => {
     state,
     setFlashMessage, 
     clearFlashMessage, 
+    setErrorMessage, 
+    clearErrorMessage, 
     startApiLoading, 
     stopApiLoading,
     startUploading, 
