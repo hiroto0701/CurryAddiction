@@ -128,11 +128,12 @@ export const useAccountStore = defineStore('account', () => {
       if (response.status === 200) {
         setData(response.data.data)
         resetErrors()
-        commonStore.setFlashMessage('ログインしました')
-        router.push({ name: 'Home' })
-        setTimeout(() => {
-          commonStore.clearFlashMessage()
-        }, 4000)
+        await router.push({ name: 'Home' }).then((): void => {
+          commonStore.setFlashMessage('ログインしました')
+          setTimeout(() => {
+            commonStore.clearFlashMessage()
+          }, 4000)
+        })
       }
       return true
     } catch (error: unknown) {

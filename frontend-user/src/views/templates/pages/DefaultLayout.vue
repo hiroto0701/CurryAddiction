@@ -3,7 +3,6 @@ import AuthUserHeader from '@/views/organisms/AuthUserHeader.vue';
 import MeatballDropDown from '@/views/molecules/dropdown/MeatballDropDown.vue'
 import ScrollToTopButton from '@/views/molecules/buttons/ScrollToTopButton.vue'
 </script>
-
 <template>
   <div class="h-auto">
     <AuthUserHeader />
