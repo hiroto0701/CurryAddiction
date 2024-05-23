@@ -1,5 +1,30 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAccountStore } from '@/stores/account'
 import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
+import AccountAbortConfirmModal from '@/views/molecules/modals/AccountAbortConfirmModal.vue'
+
+const router = useRouter()
+const accountStore = useAccountStore()
+
+const open = ref<boolean>(false)
+const handleName = ref<string>('')
+
+function openModal(): void {
+  open.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+function closeModal(): void {
+  open.value = false
+  document.body.style.overflow = 'auto'
+}
+
+function accountAbort(): void {
+  accountStore.resetData()
+  router.push({ name: 'Login' })
+} 
 </script>
 <template>
   <h1 class="font-body text-sumi-900 w-fit mx-auto text-2xl">アカウントを作成します</h1>
@@ -8,11 +33,20 @@ import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
     <form class="px-5 gap-4 flex flex-col items-center">
       <div class="flex items-center mt-5">
         <div class="font-body text-sumi-900">curry-addiction/</div>
-        <input class="block ml-1 font-body text-sumi-900 p-3 rounded-lg border border-gray-300" type="text">
+        <input class="block ml-1 font-body text-sumi-900 p-3 rounded-lg border border-gray-300 focus:border" type="text" v-model="handleName">
       </div>
       <LoginButton text="確定する" />
     </form>
   </div>
   <!-- 全ての状態管理をリセットしてログイン画面へ戻る -->
-  <button class="block w-fit mx-auto mt-5 pb-1 font-body text-sumi-500 hover:text-sumi-900 duration-300 border-b-2 border-dotted border-sumi-300 hover:border-sumi-900">アカウント作成をやめる</button>
+  <button class="block w-fit mx-auto mt-5 pb-1 font-body text-sumi-500 hover:text-sumi-900 duration-300 border-b-2 border-dotted border-sumi-300 hover:border-sumi-900" @click="openModal">アカウント作成をやめる</button>
+
+  <Teleport to="body">
+    <AccountAbortConfirmModal 
+      v-show="open"
+      @abort="accountAbort"
+      @cancel="closeModal" 
+      :closeModal="closeModal"
+    />
+  </Teleport>
 </template>

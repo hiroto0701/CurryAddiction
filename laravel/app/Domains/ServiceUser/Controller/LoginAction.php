@@ -42,6 +42,7 @@ class LoginAction extends Controller
         }
 
         if ($user->status !== ServiceUser::STATUS_ENABLED) {
+            // アカウント未登録時はpendingをthrowする
             if ($user->status === ServiceUser::STATUS_PENDING) {
                 throw new UserStatusException('The user is not registered.', 401, null, 'pending');
             }

@@ -2,10 +2,10 @@
 import { ref } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import { useCommonStore } from '@/stores/common'
+import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
 import LoginModal from '@/views/molecules/modals/LoginModal.vue'
 import EmailRegisterModal from '@/views/molecules/modals/EmailRegisterModal.vue'
 import TokenSubmitModal from '@/views/molecules/modals/TokenSubmitModal.vue'
-import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
 
 const accountStore = useAccountStore()
 const commonStore = useCommonStore()
@@ -58,14 +58,14 @@ async function userLogin(): Promise<void> {
       <form @submit.prevent="userLogin" class="w-1/2 px-10 gap-4 flex flex-col border-r border-sumi-300" novalidate>
         <Teleport to="body">
           <LoginModal 
-            v-if="modalState === 'login'"
+            v-show="modalState === 'login'"
             @start-login="openModal('email')"
             :closeModal="closeModal"
           />
         </Teleport>
         <Teleport to="body">
           <EmailRegisterModal
-            v-if="modalState === 'email'"
+            v-show="modalState === 'email'"
             v-model="email"
             @send-email="generateToken"
             :closeModal="closeModal"
@@ -73,7 +73,7 @@ async function userLogin(): Promise<void> {
         </Teleport>
         <Teleport to="body">
           <TokenSubmitModal
-            v-if="modalState === 'token'"
+            v-show="modalState === 'token'"
             v-model="token"
             :email="email"
             @do-login="userLogin"
