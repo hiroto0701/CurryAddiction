@@ -18,6 +18,7 @@ Route::prefix('/service_users')->group(function() {
     Route::post('/generate_token', \App\Domains\ServiceUser\Controller\GenerateAuthTokenAction::class);
     // 認証API
     Route::post('/login', \App\Domains\ServiceUser\Controller\LoginAction::class);
+    Route::put('/register', \App\Domains\ServiceUser\Controller\RegisterAction::class);
     Route::middleware((['auth:sanctum', 'auth:service_users']))->group(function() {
         Route::get('/user', \App\Domains\ServiceUser\Controller\GetAction::class);
         Route::put('/avatar', \App\Domains\ServiceUser\Controller\UpdateAvatarAction::class);
