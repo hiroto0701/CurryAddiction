@@ -123,7 +123,7 @@ return [
     'prohibited_if' => ':otherが:valueの場合、:attributeは入力禁止です。',
     'prohibited_unless' => ':otherが:valueでない場合、:attributeは入力禁止です。',
     'prohibits' => 'attributeは:otherの入力を禁じています。',
-    'regex' => ':attributeに正しい形式を指定してください。',
+    'regex' => ':attributeに使用できるのは半角英数字、"-"、"_"のみです。',
     'required' => ':attributeは必ず指定してください。',
     'required_array_keys' => ':attributeは、:valuesの項目を含めてください。',
     'required_if' => ':otherが:valueの場合、:attributeも指定してください。',
@@ -256,6 +256,7 @@ return [
         'year' => '年',
 
         'display_name' => '表示名',
+        'handle_name' => 'ハンドルネーム',
     ],
 
 ];

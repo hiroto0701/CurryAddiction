@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useAccountStore } from '@/stores/account'
+import { useAccountFormStore } from '@/stores/account_form'
 import { useCommonStore } from '@/stores/common'
 import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
 import LoginModal from '@/views/molecules/modals/LoginModal.vue'
@@ -8,6 +9,7 @@ import EmailRegisterModal from '@/views/molecules/modals/EmailRegisterModal.vue'
 import TokenSubmitModal from '@/views/molecules/modals/TokenSubmitModal.vue'
 
 const accountStore = useAccountStore()
+const accountFormStore = useAccountFormStore()
 const commonStore = useCommonStore()
 const email = ref<string>('')
 const token = ref<string>('')
@@ -25,6 +27,7 @@ function closeModal(): void {
 
 async function generateToken(): Promise<void> {
   if (accountStore.emailValidate(email.value)) {
+    accountFormStore.setEmail(email.value)
     commonStore.startApiLoading()
     try {
       await accountStore.generateToken({ email: email.value })
@@ -38,6 +41,7 @@ async function generateToken(): Promise<void> {
 
 async function userLogin(): Promise<void> {
   if (accountStore.tokenValidate(token.value)) {
+    accountFormStore.setToken(token.value)
     commonStore.startApiLoading()
     try {
       const loginSuccess = await accountStore.login({ email: email.value, token: token.value })
