@@ -25,33 +25,37 @@ function closeModal(): void {
   document.body.style.overflow = 'auto'
 }
 
-async function generateToken(): Promise<void> {
-  if (accountStore.emailValidate(email.value)) {
-    accountFormStore.setEmail(email.value)
-    commonStore.startApiLoading()
-    try {
-      await accountStore.generateToken({ email: email.value })
-      closeModal()
-      openModal('token')
-    } finally {
-      commonStore.stopApiLoading()
-    }
+async function generateToken(): Promise<boolean> {
+  if (!accountStore.emailValidate(email.value)) return false
+
+  accountFormStore.setEmail(email.value)
+  commonStore.startApiLoading()
+  const response: boolean = await accountStore.generateToken({ email: email.value })
+  commonStore.stopApiLoading()
+
+  if (response) {
+    closeModal()
+    openModal('token')
+    return true
   }
+
+  return false
 }
 
-async function userLogin(): Promise<void> {
-  if (accountStore.tokenValidate(token.value)) {
-    accountFormStore.setToken(token.value)
-    commonStore.startApiLoading()
-    try {
-      const loginSuccess = await accountStore.login({ email: email.value, token: token.value })
-      if (loginSuccess) {
-        closeModal()
-      } 
-    } finally {
-      commonStore.stopApiLoading()
-    }
+async function userLogin(): Promise<boolean> {
+  if (!accountStore.tokenValidate(token.value)) return false
+
+  accountFormStore.setToken(token.value)
+  commonStore.startApiLoading()
+  const loginSuccess: boolean = await accountStore.login({ email: email.value, token: token.value })
+  commonStore.stopApiLoading()
+
+  if (loginSuccess) {
+    closeModal()
+    return true
   }
+
+  return false
 }
 </script>
 <template>

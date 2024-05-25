@@ -26,7 +26,7 @@ class SendTokenRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'max:'.config('validation.maxEmail')],
+            'email' => ['required', 'email:strict,dns,spoof', 'max:'.config('validation.maxEmail')],
         ];
     }
 }

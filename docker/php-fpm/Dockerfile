@@ -20,7 +20,8 @@ RUN apt-get update && \
     unzip \
     vim \
     libpq-dev \
-    && docker-php-ext-install pdo_pgsql bcmath && \
+    libicu-dev \
+    && docker-php-ext-install pdo_pgsql bcmath intl && \
     pecl install xdebug && \
     docker-php-ext-enable xdebug
 
