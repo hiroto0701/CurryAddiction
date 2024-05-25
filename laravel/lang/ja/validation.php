@@ -39,7 +39,7 @@ return [
     'distinct' => ':attributeには異なった値を指定してください。',
     'doesnt_end_with' => ':attributeは、:values以外の値で終わるように指定してください。',
     'doesnt_start_with' => ':attributeは、:values以外の値で始まるように指定してください。',
-    'email' => ':attributeには、有効なメールアドレスを指定してください。',
+    'email' => '有効なメールアドレスを指定してください。',
     'ends_with' => ':attributeには、:valuesのどれかで終わる値を指定してください。',
     'enum' => '選択された:attributeは正しくありません。',
     'exists' => '選択された:attributeは正しくありません。',

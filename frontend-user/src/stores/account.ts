@@ -73,10 +73,13 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   function emailValidate(email: string): boolean {
-    const errors: Record<string, string[]> = {}
+    const errors: Record<string, string[]> = {};
+    const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   
     if (!email) {
       errors.email = ['メールアドレスを入力してください']
+    } else if (!emailRegex.test(email)) {
+      errors.email = ['有効なメールアドレスを入力してください']
     }
   
     if (Object.keys(errors).length > 0) {
@@ -105,14 +108,25 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   // tokenメール送信
-  async function generateToken(payload: { email: string }): Promise<void> {
+  async function generateToken(payload: { email: string }): Promise<boolean> {
     try {
       await axios.get('/sanctum/csrf-cookie')
-      await axios.post('/api/service_users/generate_token', {
+      const response = await axios.post('/api/service_users/generate_token', {
         email: payload.email,
       })
-    } catch(e) {
-      console.error(e)
+      
+      return true
+    } catch(error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          const { response } = error
+          if (response.status === 422) {
+            setErrors({ email: ['メールアドレスには、有効なメールアドレスを指定してください。'] })
+            return false
+          }
+        }
+      }
+      throw error
     }
   }
 

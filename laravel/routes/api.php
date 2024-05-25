@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('/service_users')->group(function() {
-    // token送信
     Route::post('/generate_token', \App\Domains\ServiceUser\Controller\GenerateAuthTokenAction::class);
     // 認証API
     Route::post('/login', \App\Domains\ServiceUser\Controller\LoginAction::class);
+    // ユーザー新規登録
     Route::put('/register', \App\Domains\ServiceUser\Controller\RegisterAction::class);
     Route::middleware((['auth:sanctum', 'auth:service_users']))->group(function() {
         Route::get('/user', \App\Domains\ServiceUser\Controller\GetAction::class);

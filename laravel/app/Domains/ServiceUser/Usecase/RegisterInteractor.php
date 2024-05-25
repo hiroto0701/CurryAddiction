@@ -20,7 +20,7 @@ class RegisterInteractor
         return DB::transaction(function () use ($command) {
             $service_user = ServiceUser::where('email', $command->getEmail())->first();
 
-            // 登録時はhandle_nameとdisplay_nameを合わせる
+            // 登録時はhandle_nameとdisplay_nameを統一する
             $service_user->update([
                 'handle_name' => $command->getHandleName(),
                 'display_name' => $command->getHandleName(),
