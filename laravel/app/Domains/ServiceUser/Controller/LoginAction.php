@@ -26,7 +26,6 @@ class LoginAction extends Controller
      */
     public function __invoke(LoginRequest $request): ServiceUserResource
     {
-        $request->session()->flush();
         $user = ServiceUser::where('email', $request->email)->first();
 
         if (!$user) {

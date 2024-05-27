@@ -157,14 +157,12 @@ export const useAccountFormStore = defineStore('account_form', () => {
       resetErrors()
       const response = await axios.put('/api/service_users/display_name', { display_name: displayName })
 
-      if (response.status === 200) {
-        accountStore.updateDisplayName(response.data.data.display_name)
-        resetErrors()
-        commonStore.setFlashMessage('更新しました')
-        setTimeout(() => {
-          commonStore.clearFlashMessage()
-        }, 4000)
-      }
+      accountStore.updateDisplayName(response.data.data.display_name)
+      resetErrors()
+      commonStore.setFlashMessage('更新しました')
+      setTimeout(() => {
+        commonStore.clearFlashMessage()
+      }, 4000)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 422) {
@@ -191,14 +189,12 @@ export const useAccountFormStore = defineStore('account_form', () => {
       };
       const response = await axios.post('/api/service_users/avatar', formData, config);
 
-      if (response.status === 200) {
-        accountStore.updateAvatar(response.data.data.avatar)
-        resetErrors()
-        commonStore.setFlashMessage('更新しました')
-        setTimeout(() => {
-          commonStore.clearFlashMessage()
-        }, 4000)
-      }
+      accountStore.updateAvatar(response.data.data.avatar)
+      resetErrors()
+      commonStore.setFlashMessage('更新しました')
+      setTimeout(() => {
+        commonStore.clearFlashMessage()
+      }, 4000)
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 422) {
