@@ -144,15 +144,11 @@ export const useAccountFormStore = defineStore('account_form', () => {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 422) {
           setErrors(error.response.data.errors)
-          return false
-        } else {
-          setErrors({ display_name: ['表示名の更新に失敗しました'] })
-          return false
-        }
+        } 
       } else {
-        setErrors({ display_name: ['予期せぬエラーが発生しました'] })
-        return false
+        setErrors({ handle_name: ['予期せぬエラーが発生しました'] })
       }
+      return false
     }
   }
 

@@ -35,6 +35,10 @@ return [
     */
 
     'guards' => [
+        'administrators' => [
+            'driver' => 'session',
+            'provider' => 'administrators',
+        ],
         'service_users' => [
             'driver' => 'session',
             'provider' => 'service_users',
@@ -59,6 +63,10 @@ return [
     */
 
     'providers' => [
+        'administrators' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Administrator::class,
+        ],
         'service_users' => [
             'driver' => 'eloquent',
             'model' => App\Models\ServiceUser::class,

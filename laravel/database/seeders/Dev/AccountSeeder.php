@@ -8,6 +8,7 @@ use App\Models\Administrator;
 use App\Models\ServiceUser;
 use App\Models\User;
 use Database\Seeders\AbstractSeeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -32,7 +33,7 @@ class AccountSeeder extends AbstractSeeder
             [
                 'user_id' => User::ID_SYSTEM,
                 'status' => Administrator::STATUS_ENABLED,
-                'email' => 'hiroto.soccer.0701@gmail.com',
+                'email' => 'admin@mail.com',
                 'password' => Hash::make('admin0701'),
                 'name' => 'システム管理者',
             ] + $this->commonColumns
@@ -57,6 +58,7 @@ class AccountSeeder extends AbstractSeeder
 				'display_name' => 'ダミーユーザー',
 				'email' => 'test@mail.com',
                 'avatar_id' => null,
+                'registered_at' => Carbon::now(),
             ] + $this->commonColumns
         );
 	}

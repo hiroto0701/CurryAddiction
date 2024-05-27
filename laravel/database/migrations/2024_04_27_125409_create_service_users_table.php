@@ -29,6 +29,7 @@ return new class extends Migration
             $table->foreignId('avatar_id')->nullable()->index();
             $table->string('onetime_token')->index()->nullable();
             $table->timestamp('onetime_expiration')->nullable();
+            $table->timestamp('registered_at')->nullable();
             // 共通カラム
             $this->addCommonColumns($table);
         });

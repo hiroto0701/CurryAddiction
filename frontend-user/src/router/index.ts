@@ -178,16 +178,24 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const accountStore = useAccountStore()
+  const { isNewRegistration } = accountStore.state
   document.title = (to.meta.title ? to.meta.title + ' | ' : '') + 'Curry Addiction'
-  if (to.meta.requiresAuth) {
-    const userData = await accountStore.fetchUserData()
-    if (userData) {
-      next()
-    } else {
-      next({ name: 'Login' })
-    }
+
+  // signupページへのダイレクトアクセス制限
+  if (to.name === 'Signup' && !isNewRegistration) {
+    next({ name: 'Login' })
   } else {
-    next()
+    // 未ログインユーザーのダイレクトアクセス制限
+    if (to.meta.requiresAuth) {
+      const userData = await accountStore.fetchUserData()
+      if (userData) {
+        next()
+      } else {
+        next({ name: 'Login' })
+      }
+    } else {
+      next()
+    }
   }
 })
 
