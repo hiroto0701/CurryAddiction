@@ -122,7 +122,7 @@ export const useAccountStore = defineStore('account', () => {
         if (error.response) {
           const { response } = error
           if (response.status === 422) {
-            setErrors({ email: ['メールアドレスには、有効なメールアドレスを指定してください。'] })
+            setErrors({ email: ['有効なメールアドレスを指定してください。'] })
             return false
           }
         }
@@ -134,7 +134,6 @@ export const useAccountStore = defineStore('account', () => {
   // ログイン
   async function login(payload: { email: string, token: string }): Promise<boolean> {
     try {
-      await axios.get('/sanctum/csrf-cookie')
       const response = await axios.post('/api/service_users/login', {
         email: payload.email,
         token: payload.token,
