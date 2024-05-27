@@ -81,7 +81,12 @@ async function doLogin(): Promise<void> {
       </div>
     </form>
   </div>
-  <button class="block w-fit mx-auto mt-5 pb-1 font-body text-sumi-500 hover:text-sumi-900 duration-300 border-b-2 border-dotted border-sumi-300 hover:border-sumi-900" @click="openModal">アカウント作成をやめる</button>
+  <button 
+    class="block w-fit mx-auto mt-5 pb-1 font-body text-sumi-500 hover:text-sumi-900 duration-300 border-b-2 border-dotted border-sumi-300 hover:border-sumi-900"
+    @click="openModal"
+  >
+    アカウント作成をやめる
+  </button>
 
   <Teleport to="body">
     <AccountAbortConfirmModal 

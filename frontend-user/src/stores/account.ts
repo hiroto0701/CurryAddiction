@@ -12,6 +12,7 @@ interface AccountState {
   email: string | null
   avatar: string | null
   created_at: Date | null
+  isNewRegistration?: boolean
   errors: Record<string, string[]>
 }
 
@@ -111,7 +112,7 @@ export const useAccountStore = defineStore('account', () => {
   async function generateToken(payload: { email: string }): Promise<boolean> {
     try {
       await axios.get('/sanctum/csrf-cookie')
-      const response = await axios.post('/api/service_users/generate_token', {
+      await axios.post('/api/service_users/generate_token', {
         email: payload.email,
       })
       
@@ -165,6 +166,7 @@ export const useAccountStore = defineStore('account', () => {
               setErrors({ token: ['有効期限切れのコードです'] } as Record<string, string[]>)
               return false
             } else if (response.data.status === 'pending') {
+              state.value.isNewRegistration = true
               router.push({ name: 'Signup' })
               return false
             } else {

@@ -21,7 +21,7 @@ class ServiceUserResource extends JsonResource
                 'file.view',
                 ['type' => FileViewAction::TYPE_AVATAR, 'uuid' => $this->avatar->uuid]
             ) : null,
-            'created_at' => $this->created_at,
+            'registered_at' => $this->registered_at,
         ];
     }
 }

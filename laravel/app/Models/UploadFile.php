@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\ServiceUser;
+use App\Traits\OperatorRecordable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class UploadFile extends Model
 {
     use SoftDeletes;
+    use OperatorRecordable;
 
     public const TYPE_AVATAR = 1;
     public const TYPE_POST_IMG = 2;

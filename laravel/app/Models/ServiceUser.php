@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Traits\OperatorRecordable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,6 +28,7 @@ class ServiceUser extends Authenticatable
     use HasApiTokens, Notifiable;
     use HasFactory;
     use SoftDeletes;
+    use OperatorRecordable;
 
     protected $table = 'service_users';
 
@@ -41,6 +42,7 @@ class ServiceUser extends Authenticatable
         'onetime_token',
         'onetime_expiration',
         'prefecture_ids',
+        'registered_at',
     ];
 
     public const STATUS_DISABLED = 0;   // 利用不可

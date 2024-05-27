@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\OperatorRecordable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -21,6 +22,7 @@ class User extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use OperatorRecordable;
 
     public const ID_SYSTEM = 1;
 

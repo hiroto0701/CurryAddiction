@@ -27,7 +27,14 @@ class RegisterRequest extends FormRequest
     {
         return [
             'email' => ['required', 'email', 'max:'.config('validation.maxEmail')],
-            'handle_name' => ['required', 'string', 'unique:service_users,handle_name', 'min:'.config('validation.minHandleName'), 'max:'.config('validation.maxHandleName'), 'regex:/^[a-zA-Z0-9-_]+$/'],
+            'handle_name' => [
+                'required',
+                'string',
+                'unique:service_users,handle_name',
+                'min:'.config('validation.minHandleName'),
+                'max:'.config('validation.maxHandleName'),
+                'regex:/^[a-zA-Z0-9-_]+$/'
+            ],
         ];
     }
 }
