@@ -26,7 +26,7 @@
     router.push({ name: routeName })
   }
 
-  onMounted(() => {
+  onMounted((): void => {
     window.addEventListener('scroll', scrollWindow)
   })
 </script>
