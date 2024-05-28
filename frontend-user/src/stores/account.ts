@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios'
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 import { useCommonStore } from '@/stores/common'
@@ -34,6 +34,9 @@ export const useAccountStore = defineStore('account', () => {
 
   const router = useRouter()
   const commonStore = useCommonStore()
+
+  const isLoadingUserData = ref<boolean>(true)
+  const isAuthenticated = computed((): boolean => !!state.value.id)
 
   function setData(data: AccountState): void {
     state.value = { ...data }
@@ -198,6 +201,8 @@ export const useAccountStore = defineStore('account', () => {
         setErrors({ general: ['予期せぬエラーが発生しました。'] })
         return null
       }
+    } finally {
+      isLoadingUserData.value = false
     }
   }
 
@@ -226,7 +231,9 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   return { 
-    state, 
+    state,
+    isLoadingUserData,
+    isAuthenticated,
     setData, 
     resetData, 
     setErrors, 

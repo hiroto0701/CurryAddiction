@@ -13,6 +13,5 @@ class GetAction extends Controller
     public function __invoke(): ServiceUserResource
     {
         return new ServiceUserResource(User::AuthServiceUser());
-
     }
 }
