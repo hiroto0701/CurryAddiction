@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// TODO
+// ミドルウェアの設定
+Route::get('/file/view/{type}/{uuid}', \App\Http\Controllers\FileViewAction::class)->name('file.view');

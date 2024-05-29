@@ -2,7 +2,5 @@
 import BaseButton from '@/views/atoms/BaseButton.vue'
 </script>
 <template>
-  <div class="flex items-center">
-    <BaseButton text="地方・都道府県を管理" />
-  </div>
+  <BaseButton text="地方・都道府県を管理" />
 </template>

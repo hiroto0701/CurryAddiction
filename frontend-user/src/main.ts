@@ -7,8 +7,9 @@ import router from './router'
 import './style.css'
 import axios from 'axios'
 
-// api側にリクエスト送る際のURLを設定
 axios.defaults.baseURL = import.meta.env.VITE_APP_API_ENDPOINT;
+axios.defaults.withCredentials = true;
+axios.defaults.withXSRFToken = true;
 
 const app = createApp(App)
 

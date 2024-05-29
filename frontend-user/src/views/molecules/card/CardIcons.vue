@@ -3,18 +3,18 @@ import HeartIcon from '@/views/atoms/icons/HeartIcon.vue'
 import ArchiveIcon from '@/views/atoms/icons/ArchiveIcon.vue'
 import LikedHeartIcon from '@/views/atoms/icons/LikedHeartIcon.vue'
 import LikedAnimationDots from '@/views/atoms/LikedAnimationDots.vue'
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-const liked = ref<boolean>(false);
-const archived = ref<boolean>(false);
+const liked = ref<boolean>(false)
+const archived = ref<boolean>(false)
 
-const toggleLike = () => {
+function toggleLike(): void {
   liked.value = !liked.value;
-};
+}
 
-const toggleArchive = () => {
+function toggleArchive(): void {
   archived.value = !archived.value;
-};
+}
 </script>
 <template>
   <div class="flex justify-between h-fit px-1.5 py-1">

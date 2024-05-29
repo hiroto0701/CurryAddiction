@@ -9,12 +9,12 @@ interface Props {
   readonly date: string,
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <div class="flex flex-col justify-between h-28 pb-2">
     <CardIcons />
     <StoreNameBrowseItem :store-name="storeName" />
-    <StoreLocationBrowseItem :location="location" :date="date" />
+    <StoreLocationBrowseItem :location :date />
   </div>
 </template>

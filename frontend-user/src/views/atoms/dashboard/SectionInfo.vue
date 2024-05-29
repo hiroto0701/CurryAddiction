@@ -2,7 +2,7 @@
 interface Props {
   readonly text?: string
 }
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <p>{{ text }}</p>

@@ -5,7 +5,7 @@ interface Props {
   readonly storeName: string
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <div class="px-3 py-1 h-fit flex items-center gap-2.5">

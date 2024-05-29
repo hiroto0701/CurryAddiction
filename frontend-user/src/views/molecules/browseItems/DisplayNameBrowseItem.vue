@@ -1,10 +1,10 @@
 <script setup lang="ts">
 interface Props {
-  readonly value: string
+  readonly displayName: null | string
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
-  <p>{{ value }}</p>
+  <p class="text-sumi-900">{{ displayName }}</p>
 </template>

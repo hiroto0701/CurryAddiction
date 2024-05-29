@@ -9,11 +9,11 @@ interface Props {
   readonly date: string,
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <div class="h-80 rounded-lg overflow-hidden border border-gray-200">
-    <CardImg :src="src" />
-    <CardBody :store-name="storeName" :location="location" :date="date" />
+    <CardImg :src />
+    <CardBody :store-name="storeName" :location :date />
   </div>
 </template>

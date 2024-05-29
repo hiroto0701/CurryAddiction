@@ -7,7 +7,7 @@ interface Props {
 defineProps<Props>();
 </script>
 <template>
-  <DashboardHeader :title="title" />
+  <DashboardHeader :title />
   <div class="mt-12">
     <div class="flex flex-col gap-11">
       <slot />

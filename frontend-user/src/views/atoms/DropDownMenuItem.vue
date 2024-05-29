@@ -1,20 +1,29 @@
 <script setup lang="ts">
 import { MenuItem } from '@headlessui/vue'
-import { type Component } from 'vue';
-import { type RouteLocationRaw } from 'vue-router';
+import { type Component } from 'vue'
 
 interface Props {
-  readonly to: RouteLocationRaw;
-  readonly label: string;
-  readonly iconComponent: Component;
+  readonly label: string
+  readonly iconComponent: Component
 }
-defineProps<Props>();
+
+defineProps<Props>()
+
+function navigateAndClose(close: () => void): void {
+  close()
+}
 </script>
+
 <template>
-  <MenuItem class="flex items-center gap-x-2 text-sm">
-    <router-link :to="to" class="block px-4 py-2 text-sm text-utility hover:bg-slate-100 hover:text-main font-body">
-      <component :is="iconComponent" />
+  <MenuItem class="flex items-center gap-x-2 px-4 text-sm" v-slot="{ close }">
+    <button
+      class="block w-full py-2 text-md text-sumi-500 hover:bg-slate-100 hover:text-sumi-900 font-body"
+      @click="navigateAndClose(close)"
+    >
+      <div class="w-5">
+        <component :is="iconComponent" />
+      </div>
       {{ label }}
-    </router-link>
+    </button>
   </MenuItem>
 </template>
