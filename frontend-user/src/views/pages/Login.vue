@@ -48,7 +48,7 @@ async function generateToken(): Promise<boolean> {
   return false
 }
 
-async function userLogin(): Promise<boolean> {
+async function login(): Promise<boolean> {
   if (!accountStore.tokenValidate(token.value)) return false
 
   accountFormStore.setToken(token.value)
@@ -69,28 +69,24 @@ async function userLogin(): Promise<boolean> {
     <h1 class="font-body text-sumi-900 font-bold text-xl">ログイン</h1>
     <div class="w-full flex justify-between mt-5">
       <LoginButton text="ログイン" @click="openModal('login')" />
-      <form @submit.prevent="userLogin" class="w-1/2 px-10 gap-4 flex flex-col border-r border-sumi-300" novalidate>
+      <form @submit.prevent="login" class="w-1/2 px-10 gap-4 flex flex-col border-r border-sumi-300" novalidate>
         <Teleport to="body">
           <LoginModal 
             v-show="modalState === 'login'"
             @start-login="openModal('email')"
             :closeModal="closeModal"
           />
-        </Teleport>
-        <Teleport to="body">
           <EmailRegisterModal
             v-show="modalState === 'email'"
             v-model="email"
             @send-email="generateToken"
             :closeModal="closeModal"
           />
-        </Teleport>
-        <Teleport to="body">
           <TokenSubmitModal
             v-show="modalState === 'token'"
             v-model="token"
             :email="email"
-            @do-login="userLogin"
+            @do-login="login"
             :closeModal="closeModal"
           />
         </Teleport>
