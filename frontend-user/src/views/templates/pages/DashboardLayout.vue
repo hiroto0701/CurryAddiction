@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import DashBoardSideBar from '@/views/organisms/DashboardSideBar.vue'
 </script>
-
 <template>
   <div class="min-h-full font-body">
     <div class="flex items-start">

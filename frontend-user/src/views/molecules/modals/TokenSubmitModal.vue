@@ -18,7 +18,7 @@ const accountStore = useAccountStore()
 const commonStore = useCommonStore()
 
 const modalContent = computed((): string => `5分以内に ${props.email} に届いたコードを入力してください。`)
-const tokenError = computed((): boolean => 'token' in accountStore.state.errors)
+const tokenError = computed((): boolean => !!accountStore.state.errors?.token)
 
 const token = defineModel<string>()
 const emits = defineEmits<{
@@ -35,7 +35,7 @@ const emits = defineEmits<{
         :is-error="tokenError"
         v-model="token"
       />
-      <p v-show="accountStore.state.errors.token" class="font-body text-xs text-red-400">
+      <p v-show="accountStore.state.errors?.token" class="font-body text-xs text-red-400">
         {{ accountStore.state.errors?.token?.[0] }}
       </p>
       <TokenCommitButton :is-loading="commonStore.state.apiLoading" @click="emits('doLogin')" />

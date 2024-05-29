@@ -17,7 +17,7 @@ const accountStore = useAccountStore()
 const commonStore = useCommonStore()
 
 const modalContent = '入力されたメールアドレスにログイン用コードが送られます。'
-const emailError = computed(() => 'email' in accountStore.state.errors)
+const emailError = computed((): boolean => !!accountStore.state.errors?.email)
 
 const email = defineModel<string>()
 const emits = defineEmits<{
@@ -34,7 +34,7 @@ const emits = defineEmits<{
         :is-error="emailError"
         v-model="email"
       />
-      <p v-show="accountStore.state.errors.email" class="font-body text-xs text-red-400">
+      <p v-show="accountStore.state.errors?.email" class="font-body text-xs text-red-400">
         {{ accountStore.state.errors?.email?.[0] }}
       </p>
       <SendEmailButton :is-loading="commonStore.state.apiLoading" @click="emits('sendEmail')" />

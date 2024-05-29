@@ -1,5 +1,7 @@
 <?php
 
+use App\Domains\ServiceUser\Controller\Resource\ServiceUserResource;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +21,13 @@ Route::prefix('/service_users')->group(function() {
     Route::post('/login', \App\Domains\ServiceUser\Controller\LoginAction::class);
     // ユーザー新規登録
     Route::put('/register', \App\Domains\ServiceUser\Controller\RegisterAction::class);
+
+    // リロード時ユーザー情報取得
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return new ServiceUserResource($request->user());
+    });
+
     Route::middleware((['auth:sanctum', 'auth:service_users']))->group(function() {
-        Route::get('/user', \App\Domains\ServiceUser\Controller\GetAction::class);
         Route::put('/avatar', \App\Domains\ServiceUser\Controller\UpdateAvatarAction::class);
         Route::put('/display_name', \App\Domains\ServiceUser\Controller\UpdateDisplayNameAction::class);
         Route::post('/logout', \App\Domains\ServiceUser\Controller\LogoutAction::class);
