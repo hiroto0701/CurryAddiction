@@ -21,7 +21,7 @@ function navigateAndClose(close: () => void): void {
       @click="navigateAndClose(close)"
     >
       <div class="w-5">
-        <component :is="iconComponent" class="w-6" />
+        <component :is="iconComponent" />
       </div>
       {{ label }}
     </button>
