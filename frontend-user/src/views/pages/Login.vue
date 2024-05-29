@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import { useAccountFormStore } from '@/stores/account_form'
 import { useCommonStore } from '@/stores/common'
+import AppLogo from '@/views/atoms/icons/AppLogo.vue'
 import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
 import LoginModal from '@/views/molecules/modals/LoginModal.vue'
 import EmailRegisterModal from '@/views/molecules/modals/EmailRegisterModal.vue'
@@ -65,32 +66,47 @@ async function login(): Promise<boolean> {
 }
 </script>
 <template>
-  <div class="flex flex-col items-center w-full p-10 bg-sumi-100 rounded-xl">
-    <h1 class="font-body text-sumi-900 font-bold text-xl">ログイン</h1>
-    <div class="w-full flex justify-between mt-5">
-      <LoginButton text="ログイン" @click="openModal('login')" />
-      <form @submit.prevent="login" class="w-1/2 px-10 gap-4 flex flex-col border-r border-sumi-300" novalidate>
-        <Teleport to="body">
-          <LoginModal 
-            v-show="modalState === 'login'"
-            @start-login="openModal('email')"
-            :closeModal="closeModal"
-          />
-          <EmailRegisterModal
-            v-show="modalState === 'email'"
-            v-model="email"
-            @send-email="generateToken"
-            :closeModal="closeModal"
-          />
-          <TokenSubmitModal
-            v-show="modalState === 'token'"
-            v-model="token"
-            :email="email"
-            @do-login="login"
-            :closeModal="closeModal"
-          />
-        </Teleport>
-      </form>
+  <main class="mx-auto my-12 w-full px-6 xs:px-7 sm:px-10 max-w-4xl flex h-auto flex-col">
+    <div class="flex flex-col items-center w-full p-10 bg-sumi-100 rounded-xl">
+      <h1 class="font-body text-sumi-900 font-bold text-xl">ログイン</h1>
+      <div class="w-full flex justify-between mt-5">
+        <LoginButton text="ログイン" @click="openModal('login')" />
+        <form @submit.prevent="login" class="w-1/2 px-10 gap-4 flex flex-col border-r border-sumi-300" novalidate>
+          <Teleport to="body">
+            <LoginModal 
+              v-show="modalState === 'login'"
+              @start-login="openModal('email')"
+              :closeModal="closeModal"
+            />
+            <EmailRegisterModal
+              v-show="modalState === 'email'"
+              v-model="email"
+              @send-email="generateToken"
+              :closeModal="closeModal"
+            />
+            <TokenSubmitModal
+              v-show="modalState === 'token'"
+              v-model="token"
+              :email="email"
+              @do-login="login"
+              :closeModal="closeModal"
+            />
+          </Teleport>
+        </form>
+      </div>
     </div>
-  </div>
+  </main>
+  <footer class="bg-sumi-50 mt-auto py-12">
+    <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-lg flex flex-col gap-11 justify-between md:flex-row">
+      <div class="flex flex-col w-fit gap-5">
+        <AppLogo />
+        <LoginButton class="w-24 mx-auto" text="ログイン" @click="openModal('login')" />
+      </div>
+      <div class="flex flex-col gap-4 font-body text-sumi-600">
+        <p class="">プライバシーポリシー</p>
+        <p>お問い合わせ</p>
+      </div>
+    </div>
+    <small class="font-body text-sumi-600 text-center w-fit mt-5 mx-auto block">&copy; 2024 Curry Addiction</small>
+  </footer>
 </template>
