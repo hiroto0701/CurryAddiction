@@ -104,7 +104,7 @@ async function login(): Promise<boolean> {
       </div>
       <div class="flex flex-col gap-4 font-body text-sumi-600">
         <p class="">プライバシーポリシー</p>
-        <p>お問い合わせ</p>
+        <a href="https://forms.gle/roKqweFnKA8vMcSR9" target="_blank" rel="noopener noreferrer">お問い合わせ</a>
       </div>
     </div>
     <small class="font-body text-sumi-600 text-center w-fit mt-5 mx-auto block">&copy; 2024 Curry Addiction</small>
