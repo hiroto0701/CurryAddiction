@@ -27,8 +27,8 @@ onMounted((): void => {
 </script>
 <template>
   <transition name="opacity">
-    <div class="fixed right-14 max-md:right-3 bottom-9">
-      <TopTooltip text="ページトップへ" v-show="buttonVisibility">
+    <div class="fixed right-14 max-md:right-3 bottom-9" v-show="buttonVisibility">
+      <TopTooltip text="ページトップへ" position="top">
         <button 
           v-show="buttonVisibility"
           @click="pageTop"
