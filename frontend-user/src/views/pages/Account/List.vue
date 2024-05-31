@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import Card from '@/views/molecules/card/Card.vue'
 import GotoSettingPageButton from '@/views/molecules/buttons/GotoSettingPageButton.vue'
@@ -9,6 +10,8 @@ import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
 
 const accountStore = useAccountStore()
+
+const signUpDate = computed(() => accountStore.state.registered_at)
 </script>
 <template>
   <div class="mb-12 overflow-hidden rounded-2xl border p-6 md:p-7">
@@ -20,7 +23,7 @@ const accountStore = useAccountStore()
       </div>
       <GotoSettingPageButton text="設定" />
     </div>
-    <UserAnalytics sign-up-date="2024年11月" :post-summary="5" />
+    <UserAnalytics :sign-up-date="signUpDate" :post-summary="5" />
   </div>
   <CardDisplayAreaLayout>
     <Card :src="'https://pbs.twimg.com/media/Fe6MtHRVUAQqqmF.jpg'" store-name="和平カレー" location="福岡" date="2024年12月24日" />

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  postSummary: number
+  readonly postSummary: number
 }
 
 defineProps<Props>()

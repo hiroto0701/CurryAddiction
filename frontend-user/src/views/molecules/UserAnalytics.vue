@@ -5,8 +5,8 @@ import SignUpDateBrowseItem from '@/views/molecules/browseItems/SignUpDateBrowse
 import PostSummaryBrowseItem from '@/views/molecules/browseItems/PostSummaryBrowseItem.vue'
 
 interface Props {
-  signUpDate: string
-  postSummary: number
+  readonly signUpDate: string
+  readonly postSummary: number
 }
 
 defineProps<Props>()
