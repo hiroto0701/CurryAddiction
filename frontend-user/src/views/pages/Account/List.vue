@@ -23,7 +23,7 @@ const signUpDate = computed(() => accountStore.state.registered_at)
       </div>
       <GotoSettingPageButton text="設定" />
     </div>
-    <UserAnalytics :sign-up-date="signUpDate" :post-summary="5" />
+    <UserAnalytics />
   </div>
   <CardDisplayAreaLayout>
     <Card :src="'https://pbs.twimg.com/media/Fe6MtHRVUAQqqmF.jpg'" store-name="和平カレー" location="福岡" date="2024年12月24日" />
