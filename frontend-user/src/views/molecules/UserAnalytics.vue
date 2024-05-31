@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import PostIcon from '@/views/atoms/icons/PostIcon.vue'
 import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue'
@@ -8,7 +8,9 @@ import PostSummaryBrowseItem from '@/views/molecules/browseItems/PostSummaryBrow
 
 const accountStore = useAccountStore()
 
-const signUpDate = computed(() => accountStore.state.registered_at)
+const dayjs = inject('$dayjs') as typeof import('dayjs')
+
+const signUpDate = computed(() => dayjs(accountStore.state.registered_at).format('YYYY年M月'))
 </script>
 <template>
   <div class="leading-normal">

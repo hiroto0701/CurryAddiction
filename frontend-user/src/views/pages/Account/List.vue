@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import Card from '@/views/molecules/card/Card.vue'
 import GotoSettingPageButton from '@/views/molecules/buttons/GotoSettingPageButton.vue'
@@ -10,8 +9,6 @@ import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
 
 const accountStore = useAccountStore()
-
-const signUpDate = computed(() => accountStore.state.registered_at)
 </script>
 <template>
   <div class="mb-12 overflow-hidden rounded-2xl border p-6 md:p-7">
