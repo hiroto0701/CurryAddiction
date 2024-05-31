@@ -3,11 +3,11 @@ import { ref } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import { useAccountFormStore } from '@/stores/account_form'
 import { useCommonStore } from '@/stores/common'
-import AppLogo from '@/views/atoms/icons/AppLogo.vue'
 import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
 import LoginModal from '@/views/molecules/modals/LoginModal.vue'
 import EmailRegisterModal from '@/views/molecules/modals/EmailRegisterModal.vue'
 import TokenSubmitModal from '@/views/molecules/modals/TokenSubmitModal.vue'
+import UnAuthenticatedFooter from '@/views/organisms/UnAuthenticatedFooter.vue'
 
 const accountStore = useAccountStore()
 const accountFormStore = useAccountFormStore()
@@ -96,17 +96,5 @@ async function login(): Promise<boolean> {
       </div>
     </div>
   </main>
-  <footer class="bg-sumi-50 mt-auto py-12">
-    <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-lg flex flex-col gap-11 justify-between md:flex-row">
-      <div class="flex flex-col w-fit gap-5">
-        <AppLogo />
-        <LoginButton class="w-24 mx-auto" text="ログイン" @click="openModal('login')" />
-      </div>
-      <div class="flex flex-col gap-4 font-body text-sumi-600">
-        <p class="">プライバシーポリシー</p>
-        <a href="https://forms.gle/roKqweFnKA8vMcSR9" target="_blank" rel="noopener noreferrer">お問い合わせ</a>
-      </div>
-    </div>
-    <small class="font-body text-sumi-600 text-center w-fit mt-5 mx-auto block">&copy; 2024 Curry Addiction</small>
-  </footer>
+  <UnAuthenticatedFooter @open-modal="openModal('login')" />
 </template>

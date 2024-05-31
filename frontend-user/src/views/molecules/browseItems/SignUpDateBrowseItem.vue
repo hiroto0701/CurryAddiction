@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  signUpDate: string
+  readonly signUpDate: string
 }
 
 defineProps<Props>()

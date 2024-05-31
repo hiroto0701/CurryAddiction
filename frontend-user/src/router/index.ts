@@ -32,6 +32,20 @@ const routes = [
     ]
   },
 	{
+    path: '/privacy-policy',
+    component: () => import('@/views/templates/pages/UnAuthenticatedLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'PrivacyPolicy',
+        meta: {
+          title: 'プライバシーポリシー'
+        },
+        component: () => import('@/views/pages/PrivacyPolicy.vue'),
+      },
+    ]
+  },
+	{
     path: '/',
     component: () => import('@/views/templates/pages/AuthenticatedLayout.vue'),
     children: [
