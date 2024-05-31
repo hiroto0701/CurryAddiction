@@ -35,7 +35,7 @@ function doLogout(): void {
 </script>
 <template>
   <div>
-    <MainHeader class="bg-curry">
+    <MainHeader class="bg-curry py-4">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
           <AppLogo />

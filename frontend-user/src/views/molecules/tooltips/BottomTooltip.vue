@@ -4,8 +4,7 @@ import TooltipText from '@/views/atoms/TooltipText.vue'
 
 interface Props {
   readonly text: string
-  readonly position: 'top'
-  readonly open?: boolean
+  readonly position: 'bottom'
 }
 
 defineProps<Props>();
@@ -13,6 +12,6 @@ defineProps<Props>();
 <template>
   <TooltipContainer>
     <slot />
-    <TooltipText :text :position :open />
+    <TooltipText :text :position />
   </TooltipContainer>
 </template>
