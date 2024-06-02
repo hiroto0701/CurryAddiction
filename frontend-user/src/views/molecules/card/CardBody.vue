@@ -4,9 +4,9 @@ import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseIt
 import StoreLocationBrowseItem from '@/views/molecules/browseItems/StoreLocationBrowseItem.vue'
 
 interface Props {
-  readonly storeName: string,
-  readonly location: string,
-  readonly date: string,
+  readonly storeName: string
+  readonly location: string
+  readonly date: string
 }
 
 defineProps<Props>()

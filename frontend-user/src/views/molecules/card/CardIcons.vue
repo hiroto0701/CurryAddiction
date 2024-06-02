@@ -9,23 +9,34 @@ const liked = ref<boolean>(false)
 const archived = ref<boolean>(false)
 
 function toggleLike(): void {
-  liked.value = !liked.value;
+  liked.value = !liked.value
 }
 
 function toggleArchive(): void {
-  archived.value = !archived.value;
+  archived.value = !archived.value
 }
 </script>
 <template>
   <div class="flex justify-between h-fit px-1.5 py-1">
-    <div @click="toggleLike" class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center" v-show="!liked">
+    <div
+      @click="toggleLike"
+      class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center"
+      v-show="!liked"
+    >
       <HeartIcon class="text-gray-700 cursor-pointer" />
     </div>
-    <div @click="toggleLike" class="w-8 h-8 relative rounded-full transition-opacity duration-500 cursor-pointer hover:bg-pink-50 flex items-center justify-center" v-show="liked">
+    <div
+      @click="toggleLike"
+      class="w-8 h-8 relative rounded-full transition-opacity duration-500 cursor-pointer hover:bg-pink-50 flex items-center justify-center"
+      v-show="liked"
+    >
       <LikedHeartIcon class="text-transparent cursor-pointer fill-red-400" :liked="liked" />
       <LikedAnimationDots />
     </div>
-    <div @click="toggleArchive" class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center">
+    <div
+      @click="toggleArchive"
+      class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center"
+    >
       <ArchiveIcon class="text-gray-700 cursor-pointer" :archived="archived" />
     </div>
   </div>

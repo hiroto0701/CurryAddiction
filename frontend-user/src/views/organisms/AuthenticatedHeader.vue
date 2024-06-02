@@ -55,12 +55,7 @@ function doLogout(): void {
       </div>
     </MainHeader>
     <Teleport to="body">
-      <LogoutConfirmModal
-        v-show="open" 
-        @do-logout="doLogout" 
-        @cancel="closeModal" 
-        :closeModal
-      />
+      <LogoutConfirmModal v-show="open" @do-logout="doLogout" @cancel="closeModal" :closeModal />
     </Teleport>
   </div>
 </template>

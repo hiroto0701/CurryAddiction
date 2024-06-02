@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MainHeader from '@/views/atoms/MainHeader.vue';
+import MainHeader from '@/views/atoms/MainHeader.vue'
 import { Disclosure } from '@headlessui/vue'
 import AppLogo from '@/views/atoms/icons/AppLogo.vue'
 import HomeIcon from '@/views/atoms/icons/HomeIcon.vue'
@@ -8,7 +8,6 @@ import SearchIcon from '@/views/atoms/icons/SearchIcon.vue'
 import NotificationIcon from '@/views/atoms/icons/NotificationIcon.vue'
 import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue'
 import AuthenticatedDropDown from '@/views/molecules/dropdown/AuthenticatedDropDown.vue'
-
 </script>
 <template>
   <MainHeader>

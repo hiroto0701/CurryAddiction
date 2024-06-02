@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AuthenticatedHeader from '@/views/organisms/AuthenticatedHeader.vue';
+import AuthenticatedHeader from '@/views/organisms/AuthenticatedHeader.vue'
 import MeatballDropDown from '@/views/molecules/dropdown/MeatballDropDown.vue'
 import ScrollToTopButton from '@/views/molecules/buttons/ScrollToTopButton.vue'
 import AuthenticatedFooter from '@/views/organisms/AuthenticatedFooter.vue'

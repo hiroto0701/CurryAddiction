@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import BaseModal from '@/views/atoms/modal/BaseModal.vue'
 import ModalBody from '@/views/atoms/modal/ModalBody.vue'
-import ModalFooter from '@/views/atoms/modal/ModalFooter.vue';
+import ModalFooter from '@/views/atoms/modal/ModalFooter.vue'
 import LogoutButton from '@/views/molecules/buttons/LogoutButton.vue'
 import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
 

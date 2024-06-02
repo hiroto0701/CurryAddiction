@@ -5,9 +5,9 @@ import PasswordHiddenIcon from '@/views/atoms/icons/PasswordHiddenIcon.vue'
 import PasswordVisibleIcon from '@/views/atoms/icons/PasswordVisibleIcon.vue'
 
 interface Props {
-  label: string
-  type: string
-  isError: boolean
+  readonly label: string
+  readonly type: string
+  readonly isError: boolean
 }
 defineProps<Props>()
 
@@ -19,7 +19,7 @@ function togglePasswordVisibility(): void {
 }
 </script>
 <template>
-  <FloatingLabelFormItem 
+  <FloatingLabelFormItem
     :label
     :type="isPasswordVisible ? 'text' : 'password'"
     :is-error

@@ -12,7 +12,11 @@ defineProps<Props>()
 <template>
   <div class="px-3 py-1 flex items-center gap-2.5 relative">
     <LocationIcon />
-    <span class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700">{{ location }}</span>
+    <span
+      class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700"
+    >
+      {{ location }}
+    </span>
     <Date :date="date" />
   </div>
 </template>

@@ -3,10 +3,10 @@ import CardImg from '@/views/atoms/CardImg.vue'
 import CardBody from '@/views/molecules/card/CardBody.vue'
 
 interface Props {
-  readonly src: string,
-  readonly storeName: string,
-  readonly location: string,
-  readonly date: string,
+  readonly src: string
+  readonly storeName: string
+  readonly location: string
+  readonly date: string
 }
 
 defineProps<Props>()

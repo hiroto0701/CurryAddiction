@@ -4,7 +4,6 @@ import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
 import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue'
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
 import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
-
 </script>
 <template>
   <DashboardContent title="投稿ダッシュボード">
@@ -14,7 +13,10 @@ import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
 
     <DashboardSection>
       <DashboardSectionHeader title="アクティビティ" />
-      <SectionInfo text="投稿したらカレンダーに色がつきます。" class="text-sm font-body text-sumi-500 mt-3" />
+      <SectionInfo
+        text="投稿したらカレンダーに色がつきます。"
+        class="text-sm font-body text-sumi-500 mt-3"
+      />
     </DashboardSection>
   </DashboardContent>
 </template>

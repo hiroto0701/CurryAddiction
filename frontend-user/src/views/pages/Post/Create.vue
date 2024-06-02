@@ -17,11 +17,41 @@ const comment = ref<string>('')
 </script>
 <template>
   <RegisterForm title="新規投稿">
-    <TextInputFormItem label="店名" :required="true" :optional="false" :iconComponent="StoreIcon" placeholder="お店の名前" v-model="storeName" />
-    <TextareaFormItem label="感想" :required="false" :optional="true" :iconComponent="CommentIcon" v-model="comment" />
-    <SelectBoxFormItem label="ジャンル" :required="true" :optional="false" :iconComponent="CategoryIcon" />
-    <PostImgUploadFormItem label="カレーの写真" :required="true" :optional="false" :iconComponent="PhotoIcon" />
-    <MapFormItem label="位置情報" :required="true" :optional="false" :iconComponent="LocationIcon" />
-    <button class="mx-auto font-body p-3 block w-52 text-white rounded-full bg-sky-500">投稿する</button>
+    <TextInputFormItem
+      label="店名"
+      :required="true"
+      :optional="false"
+      :iconComponent="StoreIcon"
+      placeholder="お店の名前"
+      v-model="storeName"
+    />
+    <TextareaFormItem
+      label="感想"
+      :required="false"
+      :optional="true"
+      :iconComponent="CommentIcon"
+      v-model="comment"
+    />
+    <SelectBoxFormItem
+      label="ジャンル"
+      :required="true"
+      :optional="false"
+      :iconComponent="CategoryIcon"
+    />
+    <PostImgUploadFormItem
+      label="カレーの写真"
+      :required="true"
+      :optional="false"
+      :iconComponent="PhotoIcon"
+    />
+    <MapFormItem
+      label="位置情報"
+      :required="true"
+      :optional="false"
+      :iconComponent="LocationIcon"
+    />
+    <button class="mx-auto font-body p-3 block w-52 text-white rounded-full bg-sky-500">
+      投稿する
+    </button>
   </RegisterForm>
 </template>

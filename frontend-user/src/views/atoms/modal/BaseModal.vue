@@ -2,7 +2,7 @@
 import CrossIcon from '@/views/atoms/icons/CrossIcon.vue'
 
 interface Props {
-  closeModal: () => void
+  readonly closeModal: () => void
 }
 
 defineProps<Props>()

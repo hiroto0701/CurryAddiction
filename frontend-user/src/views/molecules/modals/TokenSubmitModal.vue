@@ -17,7 +17,9 @@ const props = defineProps<Props>()
 const accountStore = useAccountStore()
 const commonStore = useCommonStore()
 
-const modalContent = computed((): string => `5分以内に ${props.email} に届いたコードを入力してください。`)
+const modalContent = computed(
+  (): string => `5分以内に ${props.email} に届いたコードを入力してください。`
+)
 const tokenError = computed((): boolean => !!accountStore.state.errors?.token)
 
 const token = defineModel<string>()

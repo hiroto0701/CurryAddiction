@@ -26,11 +26,11 @@ const preview = ref<string | undefined>()
 const displayNameError = computed((): boolean => 'display_name' in accountFormStore.state.errors)
 
 function handleFileSelected(event: Event): void {
-  const target = event.target as HTMLInputElement;
+  const target = event.target as HTMLInputElement
   if (target.files && target.files.length > 0) {
-    fileInfo.value = target.files[0];
+    fileInfo.value = target.files[0]
     preview.value = URL.createObjectURL(fileInfo.value)
-  } 
+  }
 }
 
 function resetPreview(): void {
@@ -42,7 +42,7 @@ async function doUpdateAvatar(): Promise<void> {
   if (fileInfo.value && accountFormStore.avatarValidate(fileInfo.value)) {
     commonStore.startUploading()
     try {
-      await accountFormStore.updateAvatar(fileInfo.value) 
+      await accountFormStore.updateAvatar(fileInfo.value)
     } finally {
       commonStore.stopUploading()
       fileInfo.value = undefined
@@ -79,16 +79,25 @@ onUnmounted((): void => {
     <DashboardSection>
       <div class="flex items-center gap-5">
         <AvatarBrowseItem class="w-16" :preview />
-        <label for="profile_img" class="inline-flex h-10 items-center duration-500 gap-2 rounded-full border px-3.5 text-xs cursor-pointer hover:opacity-70">
+        <label
+          for="profile_img"
+          class="inline-flex h-10 items-center duration-500 gap-2 rounded-full border px-3.5 text-xs cursor-pointer hover:opacity-70"
+        >
           プロフィール画像を変更
         </label>
-        <input type="file" class="hidden" id="profile_img" @change="handleFileSelected" accept="image/png, image/jpeg">
+        <input
+          type="file"
+          class="hidden"
+          id="profile_img"
+          @change="handleFileSelected"
+          accept="image/png, image/jpeg"
+        />
       </div>
       <AvatarEditor
         v-show="preview"
-        class="mt-3" 
+        class="mt-3"
         :preview
-        @update="doUpdateAvatar" 
+        @update="doUpdateAvatar"
         @cancel="resetPreview"
       />
       <p v-show="accountFormStore.state.errors.avatar" class="font-body mt-3 text-xs text-red-400">
@@ -98,12 +107,12 @@ onUnmounted((): void => {
 
     <DashboardSection>
       <DashboardSectionHeader title="表示名" />
-      <DisplayNameViewer 
+      <DisplayNameViewer
         v-if="!isEditingDisplayName"
         :display-name="accountStore.state.display_name"
-        @edit="toggleEditMode" 
-       />
-      <DisplayNameEditor 
+        @edit="toggleEditMode"
+      />
+      <DisplayNameEditor
         v-else
         :is-error="displayNameError"
         :display-name="accountStore.state.display_name"
@@ -111,21 +120,34 @@ onUnmounted((): void => {
         @update="doUpdateDisplayName(displayName)"
         @cancel="toggleEditMode"
       />
-      <p v-show="accountFormStore.state.errors.display_name" class="font-body mt-3 text-xs text-red-400">
+      <p
+        v-show="accountFormStore.state.errors.display_name"
+        class="font-body mt-3 text-xs text-red-400"
+      >
         {{ accountFormStore.state.errors?.display_name?.[0] }}
       </p>
     </DashboardSection>
-    
+
     <DashboardSection>
       <DashboardSectionHeader title="カレーのジャンル" />
-      <SectionInfo text="お好みのカレーのジャンルを登録・変更できます。" class="mt-3 text-sm text-utility" />
-      <GenreSettingButton class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4" />
+      <SectionInfo
+        text="お好みのカレーのジャンルを登録・変更できます。"
+        class="mt-3 text-sm text-utility"
+      />
+      <GenreSettingButton
+        class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4"
+      />
     </DashboardSection>
 
     <DashboardSection>
       <DashboardSectionHeader title="地方・都道府県" />
-      <SectionInfo text="表示する投稿の地方や都道府県を登録・変更できます。" class="mt-3 text-sm text-utility" />
-      <RegionSettingButton class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4" />
+      <SectionInfo
+        text="表示する投稿の地方や都道府県を登録・変更できます。"
+        class="mt-3 text-sm text-utility"
+      />
+      <RegionSettingButton
+        class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4"
+      />
     </DashboardSection>
 
     <section class="flex justify-center">

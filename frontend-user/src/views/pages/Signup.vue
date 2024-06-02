@@ -19,7 +19,7 @@ const handleName = ref<string>('')
 
 const handleNameError = computed((): boolean => 'handle_name' in accountFormStore.state.errors)
 const handleNameLengthError = computed((): boolean => {
-  return handleName.value.length < 2 || handleName.value.length > 20;
+  return handleName.value.length < 2 || handleName.value.length > 20
 })
 
 function openModal(): void {
@@ -45,7 +45,7 @@ async function doLogin(): Promise<void> {
       const loginSuccess: boolean = await accountFormStore.registerAndLogin(handleName.value)
       if (loginSuccess) {
         closeModal()
-      } 
+      }
     } finally {
       commonStore.stopApiLoading()
     }
@@ -64,24 +64,31 @@ async function doLogin(): Promise<void> {
           <ErrorIcon v-if="handleNameError" class="absolute top-1/2 -translate-y-1/2 right-3" />
         </div>
       </div>
-      <span 
-        class="flex justify-end" 
+      <span
+        class="flex justify-end"
         :class="{
-          'text-sumi-500': !handleNameLengthError, 
+          'text-sumi-500': !handleNameLengthError,
           'text-red-400': handleNameLengthError
         }"
       >
         {{ handleName ? handleName.length : 0 }} / 20
       </span>
-      <p v-show="accountFormStore.state.errors.handle_name" class="font-body text-xs text-red-400 w-fit mx-auto">
+      <p
+        v-show="accountFormStore.state.errors.handle_name"
+        class="font-body text-xs text-red-400 w-fit mx-auto"
+      >
         {{ accountFormStore.state.errors?.handle_name?.[0] }}
       </p>
       <div class="flex items-center">
-        <LoginButton class="w-fit mt-5 mx-auto" :is-loading="commonStore.state.apiLoading" text="確定する" />
+        <LoginButton
+          class="w-fit mt-5 mx-auto"
+          :is-loading="commonStore.state.apiLoading"
+          text="確定する"
+        />
       </div>
     </form>
   </div>
-  <button 
+  <button
     class="block w-fit mx-auto mt-5 pb-1 font-body text-sumi-500 hover:text-sumi-900 duration-300 border-b-2 border-dotted border-sumi-300 hover:border-sumi-900"
     @click="openModal"
   >
@@ -89,10 +96,10 @@ async function doLogin(): Promise<void> {
   </button>
 
   <Teleport to="body">
-    <AccountAbortConfirmModal 
+    <AccountAbortConfirmModal
       v-show="open"
       @abort="accountAbort"
-      @cancel="closeModal" 
+      @cancel="closeModal"
       :closeModal="closeModal"
     />
   </Teleport>
