@@ -6,8 +6,5 @@ const commonStore = useCommonStore()
 </script>
 <template>
   <RouterView />
-  <SuccessToast 
-    v-if="commonStore.state.flashMessage"
-    :message="commonStore.state.flashMessage"
-  />
+  <SuccessToast v-if="commonStore.state.flashMessage" :message="commonStore.state.flashMessage" />
 </template>

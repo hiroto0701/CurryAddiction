@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import AppLogo from '@/views/atoms/icons/AppLogo.vue'
-import MainHeader from '@/views/atoms/MainHeader.vue';
-
+import MainHeader from '@/views/atoms/MainHeader.vue'
 </script>
 <template>
   <div>

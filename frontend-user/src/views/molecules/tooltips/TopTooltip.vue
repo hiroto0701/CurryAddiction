@@ -8,7 +8,7 @@ interface Props {
   readonly open?: boolean
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <TooltipContainer>

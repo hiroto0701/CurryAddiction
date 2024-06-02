@@ -71,9 +71,13 @@ async function login(): Promise<boolean> {
       <h1 class="font-body text-sumi-900 font-bold text-xl">ログイン</h1>
       <div class="w-full flex justify-between mt-5">
         <LoginButton text="ログイン" @click="openModal('login')" />
-        <form @submit.prevent="login" class="w-1/2 px-10 gap-4 flex flex-col border-r border-sumi-300" novalidate>
+        <form
+          @submit.prevent="login"
+          class="w-1/2 px-10 gap-4 flex flex-col border-r border-sumi-300"
+          novalidate
+        >
           <Teleport to="body">
-            <LoginModal 
+            <LoginModal
               v-show="modalState === 'login'"
               @start-login="openModal('email')"
               :closeModal="closeModal"

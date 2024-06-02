@@ -8,7 +8,11 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <BaseButton class="flex gap-2 items-center border border-gray-300 text-sumi-900" type="submit" text="更新する">
+  <BaseButton
+    class="flex gap-2 items-center border border-gray-300 text-sumi-900"
+    type="submit"
+    text="更新する"
+  >
     <LoadingSpinner :is-loading />
   </BaseButton>
 </template>

@@ -1,12 +1,16 @@
 <script setup lang="ts">
 interface Props {
-  readonly title: string;
+  readonly title: string
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
-  <form autocomplete="off" enctype="multipart/form-data" class="rounded-lg border border-gray-200 px-20 py-8 font-body">
+  <form
+    autocomplete="off"
+    enctype="multipart/form-data"
+    class="rounded-lg border border-gray-200 px-20 py-8 font-body"
+  >
     <!-- <div v-if="canBack" class="d-flex justify-content-end">
       <back-button @click="$emit('back')" />
     </div> -->

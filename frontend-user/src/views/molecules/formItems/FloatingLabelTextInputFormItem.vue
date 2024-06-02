@@ -2,9 +2,9 @@
 import FloatingLabelFormItem from '@/views/molecules/formItems/FloatingLabelFormItem.vue'
 
 interface Props {
-  label: string
-  type: string
-  isError: boolean
+  readonly label: string
+  readonly type: string
+  readonly isError: boolean
 }
 defineProps<Props>()
 

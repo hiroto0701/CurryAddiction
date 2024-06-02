@@ -1,5 +1,3 @@
-<script setup lang="ts">
-</script>
 <template>
   <span class="absolute w-0.5 h-0.5 bg-red-500 opacity-0 rounded-full bubble01"></span>
   <span class="absolute w-0.5 h-0.5 bg-purple-300 opacity-0 rounded-full bubble02"></span>
@@ -26,7 +24,7 @@
 .bubble03 {
   animation: fadeOut03 0.5s;
   top: 16px;
-  left: 5px
+  left: 5px;
 }
 .bubble04 {
   animation: fadeOut04 0.5s;
@@ -55,12 +53,12 @@
 }
 .bubble09 {
   animation: fadeOut09 0.5s;
-  top: 9px; 
+  top: 9px;
   right: 6px;
 }
 .bubble10 {
   animation: fadeOut10 0.5s;
-  top: 5px; 
+  top: 5px;
   right: 10px;
 }
 

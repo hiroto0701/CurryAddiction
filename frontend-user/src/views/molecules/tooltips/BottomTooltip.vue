@@ -7,7 +7,7 @@ interface Props {
   readonly position: 'bottom'
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <TooltipContainer>

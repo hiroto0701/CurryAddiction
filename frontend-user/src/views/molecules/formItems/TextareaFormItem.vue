@@ -15,15 +15,20 @@ defineProps<Props>()
 const textValue = ref<string>('')
 </script>
 <template>
-  <FormLayout :label="label" :required="required" :optional="optional" :iconComponent="iconComponent">
-    <textarea 
-      class="mt-3 p-2 w-full h-24 border border-gray-200 rounded font-body text-sumi-900" 
+  <FormLayout
+    :label="label"
+    :required="required"
+    :optional="optional"
+    :iconComponent="iconComponent"
+  >
+    <textarea
+      class="mt-3 p-2 w-full h-24 border border-gray-200 rounded font-body text-sumi-900"
       placeholder="味の特徴や感想を教えてください。"
       v-model="textValue"
     ></textarea>
-    <span 
+    <span
       class="flex justify-end"
-      :class="{'text-sumi-500': textValue.length <= 140, 'text-red-400': textValue.length > 140}"
+      :class="{ 'text-sumi-500': textValue.length <= 140, 'text-red-400': textValue.length > 140 }"
     >
       {{ textValue.length }} / 140
     </span>

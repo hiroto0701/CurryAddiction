@@ -6,7 +6,7 @@ const accountStore = useAccountStore()
 
 onMounted((): void => {
   accountStore.fetchUserData()
-}) 
+})
 </script>
 <template>
   <RouterView />

@@ -3,9 +3,9 @@ import { ref } from 'vue'
 import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue'
 
 interface Props {
-  label: string
-  type: string
-  isError: boolean
+  readonly label: string
+  readonly type: string
+  readonly isError: boolean
 }
 defineProps<Props>()
 
@@ -19,7 +19,7 @@ const isFocused = ref<boolean>(false)
       class="absolute font-body text-sumi-400 pl-3 font-semibold transition-all duration-300"
       :class="{
         'text-mini top-1': isFocused || value,
-        'text-sm top-5': !isFocused && !value,
+        'text-sm top-5': !isFocused && !value
       }"
     >
       {{ label }}
@@ -31,7 +31,7 @@ const isFocused = ref<boolean>(false)
       @focus="isFocused = true"
       @blur="isFocused = false"
       class="w-full font-body text-sumi-900 px-3 pr-8 pt-4 h-14 rounded-lg transition-all duration-300 border border-gray-300"
-      :class="{ 
+      :class="{
         'border-2': isError,
         'bg-red-100': isError,
         'border-red-400': isError

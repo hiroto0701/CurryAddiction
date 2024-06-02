@@ -2,10 +2,10 @@
 import BaseForm from '@/views/templates/forms/BaseForm.vue'
 
 interface Props {
-  readonly title: string;
+  readonly title: string
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 <template>
   <BaseForm :title="title">
