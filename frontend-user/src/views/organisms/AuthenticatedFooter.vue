@@ -13,9 +13,9 @@ import ProfileLink from '@/views/molecules/links/ProfileLink.vue'
         <ProfileLink />
       </div>
       <div class="flex flex-col gap-4">
-        <RouterLink to="privacy-policy" class="font-body text-sumi-600"
-          >プライバシーポリシー</RouterLink
-        >
+        <router-link :to="{ name: 'PrivacyPolicy' }" class="font-body text-sumi-600">
+          プライバシーポリシー
+        </router-link>
         <a
           class="font-body text-sumi-600"
           href="https://forms.gle/roKqweFnKA8vMcSR9"
@@ -25,8 +25,8 @@ import ProfileLink from '@/views/molecules/links/ProfileLink.vue'
         >
       </div>
     </div>
-    <small class="font-body text-sumi-600 text-center w-fit mt-5 mx-auto block"
-      >&copy; 2024 Curry Addiction</small
-    >
+    <small class="font-body text-sumi-600 text-center w-fit mt-5 mx-auto block">
+      &copy; 2024 Curry Addiction
+    </small>
   </footer>
 </template>

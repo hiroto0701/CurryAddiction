@@ -26,8 +26,7 @@ return new class extends Migration
             $table->string('handle_name', 20)->unique()->nullable();
             $table->string('display_name', 20)->collation(self::COLLATION)->index()->nullable();
             $table->string('email')->unique()->index();
-            $table->unsignedBigInteger('avatar_id')->nullable()->index();
-            $table->foreign('avatar_id')->references('id')->on('upload_files')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('avatar_id')->nullable()->constrained('upload_files')->cascadeOnUpdate()->nullOnDelete();
             $table->string('onetime_token')->index()->nullable();
             $table->timestamp('onetime_expiration')->nullable();
             $table->timestamp('registered_at')->nullable();
