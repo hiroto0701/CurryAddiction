@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { type Component } from 'vue'
 import DropDownMenuItem from '@/views/atoms/DropDownMenuItem.vue'
 import LogoutIcon from '@/views/atoms/icons/LogoutIcon.vue'
 import SettingIcon from '@/views/atoms/icons/SettingIcon.vue'
@@ -10,6 +11,18 @@ import HeaderDropDown from '@/views/molecules/dropdown/HeaderDropdown.vue'
 
 interface Props {
   readonly username: null | string
+}
+
+interface MenuItem {
+  label: string
+  icon: Component
+  event:
+    | 'toPostDashboard'
+    | 'toLikedPostDashboard'
+    | 'toArchivedPostDashboard'
+    | 'toTrashDashboard'
+    | 'toSetting'
+    | 'logout'
 }
 
 defineProps<Props>()
@@ -37,39 +50,26 @@ const handleMenuItem = (
 ) => {
   emits(e)
 }
+
+const menuItems: MenuItem[] = [
+  { label: 'ダッシュボード', icon: DashboardIcon, event: 'toPostDashboard' },
+  { label: 'いいねした投稿', icon: HeartIcon, event: 'toLikedPostDashboard' },
+  { label: '保存した投稿', icon: ArchiveIcon, event: 'toArchivedPostDashboard' },
+  { label: 'ごみ箱', icon: TrashIcon, event: 'toTrashDashboard' },
+  { label: '設定', icon: SettingIcon, event: 'toSetting' },
+  { label: 'ログアウト', icon: LogoutIcon, event: 'logout' }
+]
 </script>
 
 <template>
   <HeaderDropDown :username>
     <DropDownMenuItem
-      @click="handleMenuItem('toPostDashboard')"
-      label="ダッシュボード"
-      :iconComponent="DashboardIcon"
-    />
-    <DropDownMenuItem
-      @click="handleMenuItem('toLikedPostDashboard')"
-      label="いいねした投稿"
-      :iconComponent="HeartIcon"
-    />
-    <DropDownMenuItem
-      @click="handleMenuItem('toArchivedPostDashboard')"
-      label="保存した投稿"
-      :iconComponent="ArchiveIcon"
-    />
-    <DropDownMenuItem
-      @click="handleMenuItem('toTrashDashboard')"
-      label="ごみ箱"
-      :iconComponent="TrashIcon"
-    />
-    <DropDownMenuItem
-      @click="handleMenuItem('toSetting')"
-      label="設定"
-      :iconComponent="SettingIcon"
-    />
-    <DropDownMenuItem
-      @click="handleMenuItem('logout')"
-      label="ログアウト"
-      :iconComponent="LogoutIcon"
+      v-for="item in menuItems"
+      :key="item.event"
+      @click="handleMenuItem(item.event)"
+      :label="item.label"
+      :iconComponent="item.icon"
+      textColorClass="text-sumi-500"
     />
   </HeaderDropDown>
 </template>
