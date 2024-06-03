@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Post;
 use App\Models\ServiceUser;
 use App\Traits\OperatorRecordable;
 use Carbon\Carbon;
@@ -26,6 +27,8 @@ class UploadFile extends Model
     public const TYPE_AVATAR = 1;
     public const TYPE_POST_IMG = 2;
 
+    protected $table = 'upload_files';
+
     protected $dates = [
         'uploaded_at',
         'created_at',
@@ -38,6 +41,11 @@ class UploadFile extends Model
 
     public function serviceUser(): BelongsTo
     {
-        return $this->belongsTo(ServiceUser::class, 'id', 'avatar_id');
+        return $this->belongsTo(ServiceUser::class, 'avatar_id');
+    }
+
+    public function postImg(): BelongsTo
+    {
+        return $this->belongsTo(Post::class, 'post_img_id');
     }
 }

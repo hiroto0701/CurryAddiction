@@ -1,4 +1,3 @@
-// アカウント情報の登録、更新の状態管理を行うpinia
 import axios from 'axios'
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
@@ -7,10 +6,10 @@ import { useAccountStore } from '@/stores/account'
 import { useCommonStore } from '@/stores/common'
 
 interface AccountFormState {
-  email?: string
-  display_name?: string
-  avatar?: string | null
-  token?: string
+  email: string
+  display_name: string
+  avatar: string | null
+  token: string
   errors: Record<string, string[]>
 }
 
@@ -20,7 +19,7 @@ export const useAccountFormStore = defineStore('account_form', () => {
     display_name: '',
     avatar: null,
     token: '',
-    errors: {},
+    errors: {}
   })
 
   const router = useRouter()
@@ -36,7 +35,7 @@ export const useAccountFormStore = defineStore('account_form', () => {
   }
 
   function setErrors(errors: Record<string, string[]>): void {
-    state.value.errors = { ...errors };
+    state.value.errors = { ...errors }
   }
 
   function resetData(): void {
@@ -45,20 +44,20 @@ export const useAccountFormStore = defineStore('account_form', () => {
       display_name: '',
       avatar: null,
       token: '',
-      errors: {},
+      errors: {}
     }
   }
 
   function resetErrors(): void {
-    state.value.errors = {};
+    state.value.errors = {}
   }
 
   // バリデーション条件
   // 空白不可、スペース不可、ひらがな漢字不可、「-,_」以外の記号不可
   function handleNameValidate(handleName: string): boolean {
     const errors: Record<string, string[]> = {}
-    const pattern = /^[a-zA-Z0-9-_]+$/;
-  
+    const pattern = /^[a-zA-Z0-9-_]+$/
+
     if (!handleName) {
       errors.handle_name = ['ハンドルネームを入力してください']
     } else if (handleName.length > 20) {
@@ -67,39 +66,39 @@ export const useAccountFormStore = defineStore('account_form', () => {
       errors.handle_name = ['ハンドルネームは2字以上で設定してください']
     } else if (!pattern.test(handleName)) {
       errors.handle_name = ['ハンドルネームに使用できるのは半角英数字、"-"、"_"のみです']
-    } 
-  
+    }
+
     if (Object.keys(errors).length > 0) {
       setErrors(errors)
       return false
     }
-  
+
     resetErrors()
     return true
   }
 
   function displayNameValidate(displayName: string): boolean {
     const errors: Record<string, string[]> = {}
-  
+
     if (!displayName) {
       errors.display_name = ['表示名を入力してください']
     } else if (displayName.length > 20) {
       errors.display_name = ['表示名は20字以下で設定してください']
     }
-  
+
     if (Object.keys(errors).length > 0) {
       setErrors(errors)
       return false
     }
-  
+
     resetErrors()
     return true
   }
 
   function avatarValidate(fileData: File): boolean {
     const errors: Record<string, string[]> = {}
-    const allowedExtensions: Array<string> = ['png', 'jpeg', 'jpg'];
-    
+    const allowedExtensions: Array<string> = ['png', 'jpeg', 'jpg']
+
     if (fileData) {
       const extension: string = fileData.name.split('.').pop().toLowerCase()
 
@@ -112,7 +111,7 @@ export const useAccountFormStore = defineStore('account_form', () => {
       setErrors(errors)
       return false
     }
-  
+
     resetErrors()
     return true
   }
@@ -122,13 +121,13 @@ export const useAccountFormStore = defineStore('account_form', () => {
       resetErrors()
       const param = {
         email: state.value.email,
-        handle_name: handleName,
+        handle_name: handleName
       }
       await axios.get('/sanctum/csrf-cookie')
       const response = await axios.put('/api/service_users/register', param)
 
       if (response.status === 200) {
-        const param = { ...response.data.data, token: state.value.token };
+        const param = { ...response.data.data, token: state.value.token }
         await accountStore.login(param)
         resetErrors()
 
@@ -144,7 +143,7 @@ export const useAccountFormStore = defineStore('account_form', () => {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 422) {
           setErrors(error.response.data.errors)
-        } 
+        }
       } else {
         setErrors({ handle_name: ['予期せぬエラーが発生しました'] })
       }
@@ -155,7 +154,9 @@ export const useAccountFormStore = defineStore('account_form', () => {
   async function updateDisplayName(displayName: string): Promise<void> {
     try {
       resetErrors()
-      const response = await axios.put('/api/service_users/display_name', { display_name: displayName })
+      const response = await axios.put('/api/service_users/display_name', {
+        display_name: displayName
+      })
 
       accountStore.updateDisplayName(response.data.data.display_name)
       resetErrors()
@@ -184,10 +185,10 @@ export const useAccountFormStore = defineStore('account_form', () => {
       const config = {
         headers: {
           'content-type': 'multipart/form-data',
-          'X-HTTP-Method-Override': 'PUT',
+          'X-HTTP-Method-Override': 'PUT'
         }
-      };
-      const response = await axios.post('/api/service_users/avatar', formData, config);
+      }
+      const response = await axios.post('/api/service_users/avatar', formData, config)
 
       accountStore.updateAvatar(response.data.data.avatar)
       resetErrors()
@@ -208,11 +209,11 @@ export const useAccountFormStore = defineStore('account_form', () => {
     }
   }
 
-  return { 
-    state, 
+  return {
+    state,
     setEmail,
     setToken,
-    setErrors, 
+    setErrors,
     resetData,
     resetErrors,
     handleNameValidate,
@@ -220,6 +221,6 @@ export const useAccountFormStore = defineStore('account_form', () => {
     avatarValidate,
     registerAndLogin,
     updateDisplayName,
-    updateAvatar, 
+    updateAvatar
   }
 })

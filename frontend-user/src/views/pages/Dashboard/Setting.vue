@@ -23,7 +23,12 @@ const displayName = ref<string>(accountStore.state.display_name)
 const fileInfo = ref<File>()
 const preview = ref<string | undefined>()
 
-const displayNameError = computed((): boolean => 'display_name' in accountFormStore.state.errors)
+const displayNameError = computed(
+  (): boolean =>
+    'display_name' in accountFormStore.state.errors ||
+    !displayName.value.length ||
+    displayName.value.length > 20
+)
 
 function handleFileSelected(event: Event): void {
   const target = event.target as HTMLInputElement
@@ -131,7 +136,7 @@ onUnmounted((): void => {
     <DashboardSection>
       <DashboardSectionHeader title="カレーのジャンル" />
       <SectionInfo
-        text="お好みのカレーのジャンルを登録・変更できます。"
+        text="表示するカレーのジャンルを登録・変更できます。"
         class="mt-3 text-sm text-utility"
       />
       <GenreSettingButton

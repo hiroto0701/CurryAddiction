@@ -3,11 +3,6 @@ import { useCommonStore } from '@/stores/common'
 import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
 import UpdateButton from '@/views/molecules/buttons/UpdateButton.vue'
 
-interface Props {
-  readonly preview?: string
-}
-defineProps<Props>()
-
 const commonStore = useCommonStore()
 
 const emits = defineEmits<{

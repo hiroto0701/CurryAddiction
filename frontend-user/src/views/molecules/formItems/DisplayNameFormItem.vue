@@ -10,7 +10,7 @@ const model = defineModel<string>()
   <input
     type="text"
     v-model="model"
-    class="block w-full mt-3 text-sm border bg-red border-gray-300 p-3 pr-8 rounded-lg"
+    class="block w-full mt-3 text-sm border border-gray-300 p-3 pr-8 rounded-lg"
     :class="{
       'border-2': isError,
       'bg-red-100': isError,
