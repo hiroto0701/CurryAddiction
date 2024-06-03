@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { type Component } from 'vue'
 import { useRouter } from 'vue-router'
 import DashboardIcon from '@/views/atoms/icons/DashboardIcon.vue'
 import HeartIcon from '@/views/atoms/icons/HeartIcon.vue'
@@ -8,13 +9,45 @@ import SettingIcon from '@/views/atoms/icons/SettingIcon.vue'
 import BackButtonIcon from '@/views/atoms/icons/BackButtonIcon.vue'
 import DashBoardSidebarItem from '@/views/molecules/dashboard/DashboardSideBarItem.vue'
 
-const router = useRouter()
+interface SidebarItem {
+  readonly name: string
+  readonly label: string
+  readonly icon: Component
+}
 
-const getTextColorClass = (routeName: string): string => {
-  return router.currentRoute.value.name === routeName ? 'text-main' : 'text-utility'
+const router = useRouter()
+const sidebarItems: SidebarItem[] = [
+  {
+    name: 'PostDashboard',
+    label: 'ダッシュボード',
+    icon: DashboardIcon
+  },
+  {
+    name: 'LikedPostDashboard',
+    label: 'いいねした投稿',
+    icon: HeartIcon
+  },
+  {
+    name: 'ArchivedPostDashboard',
+    label: '保存した投稿',
+    icon: ArchiveIcon
+  },
+  {
+    name: 'TrashDashboard',
+    label: 'ごみ箱',
+    icon: TrashIcon
+  },
+  {
+    name: 'Setting',
+    label: '設定',
+    icon: SettingIcon
+  }
+]
+
+function getTextColorClass(routeName: string): string {
+  return router.currentRoute.value.name === routeName ? 'text-sumi-900' : 'text-sumi-500'
 }
 </script>
-
 <template>
   <aside class="sticky top-0 hidden p-5 md:block" style="width: 258px">
     <DashBoardSidebarItem
@@ -26,39 +59,13 @@ const getTextColorClass = (routeName: string): string => {
     />
     <div class="mt-8 flex flex-col gap-2.5">
       <DashBoardSidebarItem
-        :to="{ name: 'PostDashboard' }"
-        label="ダッシュボード"
-        :iconComponent="DashboardIcon"
-        :isActive="router.currentRoute.value.name === 'PostDashboard'"
-        :textColorClass="getTextColorClass('PostDashboard')"
-      />
-      <DashBoardSidebarItem
-        :to="{ name: 'LikedPostDashboard' }"
-        label="いいねした投稿"
-        :iconComponent="HeartIcon"
-        :isActive="router.currentRoute.value.name === 'LikedPostDashboard'"
-        :textColorClass="getTextColorClass('LikedPostDashboard')"
-      />
-      <DashBoardSidebarItem
-        :to="{ name: 'ArchivedPostDashboard' }"
-        label="保存した投稿"
-        :iconComponent="ArchiveIcon"
-        :isActive="router.currentRoute.value.name === 'ArchivedPostDashboard'"
-        :textColorClass="getTextColorClass('ArchivedPostDashboard')"
-      />
-      <DashBoardSidebarItem
-        :to="{ name: 'TrashDashboard' }"
-        label="ごみ箱"
-        :iconComponent="TrashIcon"
-        :isActive="router.currentRoute.value.name === 'TrashDashboard'"
-        :textColorClass="getTextColorClass('TrashDashboard')"
-      />
-      <DashBoardSidebarItem
-        :to="{ name: 'Setting' }"
-        label="設定"
-        :iconComponent="SettingIcon"
-        :isActive="router.currentRoute.value.name === 'Setting'"
-        :textColorClass="getTextColorClass('Setting')"
+        v-for="item in sidebarItems"
+        :key="item.name"
+        :to="{ name: item.name }"
+        :label="item.label"
+        :iconComponent="item.icon"
+        :isActive="router.currentRoute.value.name === item.name"
+        :textColorClass="getTextColorClass(item.name)"
       />
     </div>
   </aside>
