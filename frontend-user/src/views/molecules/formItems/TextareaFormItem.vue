@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { type Component } from 'vue'
 import FormLayout from '@/views/templates/FormLayout.vue'
-import { ref } from 'vue'
 
 interface Props {
   readonly label: string
@@ -12,7 +11,7 @@ interface Props {
 
 defineProps<Props>()
 
-const textValue = ref<string>('')
+const model = defineModel<string>()
 </script>
 <template>
   <FormLayout
@@ -22,15 +21,24 @@ const textValue = ref<string>('')
     :iconComponent="iconComponent"
   >
     <textarea
-      class="mt-3 p-2 w-full h-24 border border-gray-200 rounded font-body text-sumi-900"
+      class="p-2 w-full h-24 border border-gray-200 rounded font-body"
+      :class="{
+        'text-sumi-900': model && model.length <= 140,
+        'text-red-400': model && model.length > 140,
+        'border-red-400': model && model.length > 140,
+        'bg-red-100': model && model.length > 140
+      }"
       placeholder="味の特徴や感想を教えてください。"
-      v-model="textValue"
+      v-model="model"
     ></textarea>
     <span
       class="flex justify-end"
-      :class="{ 'text-sumi-500': textValue.length <= 140, 'text-red-400': textValue.length > 140 }"
+      :class="{
+        'text-sumi-500': !model || model.length <= 140,
+        'text-red-400': model && model.length > 140
+      }"
     >
-      {{ textValue.length }} / 140
+      {{ model ? model.length : 0 }} / 140
     </span>
   </FormLayout>
 </template>

@@ -20,7 +20,7 @@ defineProps<Props>()
   >
     <label
       for="post_img"
-      class="mt-3 p-2 cursor-pointer text-sm rounded-md flex items-center w-fit gap-2 border border-gray-200 hover:bg-slate-100 font-body text-sumi-900"
+      class="p-2 cursor-pointer text-sm rounded-md flex items-center w-fit gap-2 border border-gray-200 hover:bg-slate-100 font-body text-sumi-900"
     >
       <component :is="iconComponent" class="text-sumi-900" />
       画像を選択

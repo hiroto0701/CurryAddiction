@@ -17,8 +17,8 @@ return new class extends Migration
         Schema::create('upload_files', function (Blueprint $table) {
             $table->id();
             $table->smallInteger('type')->index();
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->index();
             $table->string('uuid')->unique();
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete()->index();
             $table->string('path');
             $table->string('content_type');
             $table->timestamp('uploaded_at');

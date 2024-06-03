@@ -21,12 +21,13 @@ return new class extends Migration
     {
         Schema::create('service_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->index();
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete()->index();
             $table->smallInteger('status')->index();
             $table->string('handle_name', 20)->unique()->nullable();
             $table->string('display_name', 20)->collation(self::COLLATION)->index()->nullable();
             $table->string('email')->unique()->index();
-            $table->foreignId('avatar_id')->nullable()->index();
+            $table->unsignedBigInteger('avatar_id')->nullable()->index();
+            $table->foreign('avatar_id')->references('id')->on('upload_files')->cascadeOnUpdate()->nullOnDelete();
             $table->string('onetime_token')->index()->nullable();
             $table->timestamp('onetime_expiration')->nullable();
             $table->timestamp('registered_at')->nullable();

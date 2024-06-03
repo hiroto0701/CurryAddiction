@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->index();
             $table->smallInteger('status')->index();
             $table->string('name', 20)->collation(self::COLLATION)->unique();
-            $table->string('email')->unique()->index();
+            $table->string('email')->unique();
             $table->string('password');
             // 共通カラム
             $this->addCommonColumns($table);
