@@ -17,8 +17,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete()->index();
-            $table->unsignedBigInteger('post_img_id')->nullable()->index();
-            $table->foreign('post_img_id')->references('id')->on('upload_files')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('post_img_id')->constrained('upload_files')->cascadeOnUpdate()->cascadeOnDelete();
             $table->smallInteger('region_id')->index();
             $table->smallInteger('prefecture_id')->index();
             $table->smallInteger('genre_id')->index();
