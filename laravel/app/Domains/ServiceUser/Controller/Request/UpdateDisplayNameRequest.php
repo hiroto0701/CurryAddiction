@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domains\ServiceUser\Controller\Request;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateDisplayNameRequest extends FormRequest
@@ -15,7 +16,8 @@ class UpdateDisplayNameRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $service_user = $this->route()->parameter('service_user');
+        return User::AuthUser()->can('service_user-update', $service_user);
     }
 
     /**

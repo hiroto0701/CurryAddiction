@@ -21,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \App\Domains\ServiceUser\Controller\Policy\ActionPolicy::register();
+        \App\Domains\Post\Controller\Policy\ActionPolicy::register();
     }
 }

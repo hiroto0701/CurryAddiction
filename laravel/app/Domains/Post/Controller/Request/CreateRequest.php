@@ -14,26 +14,25 @@ class CreateRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // return User::AuthUser()->can('issuance_request-create');
-        return true;
+        return User::AuthServiceUser()->can('post-create');
     }
 
-    // public function rules()
-    // {
-    //     return [
-    //         'store_name' => ['required', 'string', 'max: 30'],
-    //         'comment' => ['nullable', 'text', 'max: 140'],
-    //         'genre_id' => ['required', 'numeric'],
-    //         'post_img' => [
-    //             'required', 'file',
-    //             'image',
-    //             'max:' . config('validation.maxFileSize'),
-    //             'mimes:png,jpeg,jpg'
-    //         ],
-    //         'latitude' => ['required', 'number'],
-    //         'longitude' => ['required', 'number'],
-    //     ];
-    // }
+    public function rules()
+    {
+        return [
+            'store_name' => ['required', 'string', 'max:'.config('validation.maxStoreName')],
+            'comment' => ['nullable', 'string', 'max:'.config('validation.maxComment')],
+            'genre_id' => ['required', 'numeric'],
+            'post_img' => [
+                'required', 'file',
+                'image',
+                'max:' . config('validation.maxPostFileSize'),
+                'mimes:png,jpeg,jpg'
+            ],
+            'latitude' => ['required', 'numeric'],
+            'longitude' => ['required', 'numeric'],
+        ];
+    }
 
     // public function withValidator(Validator $validator)
     // {
