@@ -22,14 +22,13 @@ class UpdateAvatarInteractor
      */
     public function handle(ServiceUser $service_user, UpdateAvatarCommand $command): ServiceUser
     {
-        return DB::transaction(function () use ($command, $service_user) {
+        return DB::transaction(function () use ($service_user, $command) {
 
             if (!empty($command->getFileContent())) {
                 $uploadDir = sprintf(config('constant.avatar.uploadfiles_path_format'), User::AuthId());
 
                 $uploadfile = new UploadFile();
                 $uploadfile->type = UploadFile::TYPE_AVATAR;
-                $uploadfile->user_id = $command->getUserId();
                 $uploadfile->user_id = $command->getUserId();
                 $uploadfile->uuid = Uuid::uuid4();
                 $uploadfile->path = $uploadDir . $uploadfile->uuid . '.' . $command->getFileExtension();

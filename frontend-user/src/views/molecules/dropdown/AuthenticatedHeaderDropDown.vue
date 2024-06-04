@@ -60,7 +60,6 @@ const menuItems: MenuItem[] = [
   { label: 'ログアウト', icon: LogoutIcon, event: 'logout' }
 ]
 </script>
-
 <template>
   <HeaderDropDown :username>
     <DropDownMenuItem

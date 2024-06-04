@@ -28,8 +28,8 @@ const emits = defineEmits<{
   <span
     class="flex justify-end"
     :class="{
-      'text-sumi-500': model && model.length <= 20,
-      'text-red-400': !model || model.length > 20 || model.length === 0
+      'text-sumi-500': !isError,
+      'text-red-400': isError
     }"
   >
     {{ model ? model.length : 0 }} / 20

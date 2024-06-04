@@ -4,7 +4,7 @@ import { useAccountStore } from '@/stores/account'
 import BaseModal from '@/views/atoms/modal/BaseModal.vue'
 import ModalBody from '@/views/atoms/modal/ModalBody.vue'
 import ModalFooter from '@/views/atoms/modal/ModalFooter.vue'
-import LogoutButton from '@/views/molecules/buttons/LogoutButton.vue'
+import ModalAgreeButton from '@/views/molecules/buttons/ModalAgreeButton.vue'
 import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
 
 interface Props {
@@ -24,7 +24,7 @@ const emits = defineEmits<{
   <BaseModal :closeModal>
     <ModalBody title="ログアウトしますか？" :content="modalContent" />
     <ModalFooter>
-      <LogoutButton @click="emits('doLogout')" />
+      <ModalAgreeButton @click="emits('doLogout')" text="ログアウト" />
       <CancelButton @click="emits('cancel')" />
     </ModalFooter>
   </BaseModal>

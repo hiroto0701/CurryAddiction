@@ -10,15 +10,15 @@ import LogoutConfirmModal from '@/views/molecules/modals/LogoutConfirmModal.vue'
 
 const accountStore = useAccountStore()
 const router = useRouter()
-const open = ref<boolean>(false)
+const modalOpen = ref<boolean>(false)
 
 function openModal(): void {
-  open.value = true
+  modalOpen.value = true
   document.body.style.overflow = 'hidden'
 }
 
 function closeModal(): void {
-  open.value = false
+  modalOpen.value = false
   document.body.style.overflow = 'auto'
 }
 
@@ -55,7 +55,12 @@ function doLogout(): void {
       </div>
     </MainHeader>
     <Teleport to="body">
-      <LogoutConfirmModal v-show="open" @do-logout="doLogout" @cancel="closeModal" :closeModal />
+      <LogoutConfirmModal
+        v-show="modalOpen"
+        @do-logout="doLogout"
+        @cancel="closeModal"
+        :closeModal
+      />
     </Teleport>
   </div>
 </template>

@@ -3,6 +3,7 @@ import BaseButton from '@/views/atoms/BaseButton.vue'
 import LoadingSpinner from '@/views/atoms/LoadingSpinner.vue'
 
 interface Props {
+  readonly text: string
   readonly isLoading?: boolean
 }
 defineProps<Props>()
@@ -11,7 +12,7 @@ defineProps<Props>()
   <BaseButton
     class="flex gap-2 items-center border border-gray-300 text-sumi-900 p-3"
     type="submit"
-    text="メールを送信する"
+    :text
   >
     <LoadingSpinner :is-loading />
   </BaseButton>

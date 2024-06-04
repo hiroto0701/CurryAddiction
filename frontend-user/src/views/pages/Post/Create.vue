@@ -1,19 +1,68 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { usePostFormStore } from '@/stores/post_form'
 import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
 import CommentIcon from '@/views/atoms/icons/CommentIcon.vue'
 import CategoryIcon from '@/views/atoms/icons/CategoryIcon.vue'
 import LocationIcon from '@/views/atoms/icons/LocationIcon.vue'
 import PhotoIcon from '@/views/atoms/icons/PhotoIcon.vue'
+import CreatePostButton from '@/views/molecules/buttons/CreatePostButton.vue'
 import RegisterForm from '@/views/templates/forms/RegisterForm.vue'
 import TextInputFormItem from '@/views/molecules/formItems/TextInputFormItem.vue'
 import TextareaFormItem from '@/views/molecules/formItems/TextareaFormItem.vue'
 import SelectBoxFormItem from '@/views/molecules/formItems/SelectBoxFormItem.vue'
 import PostImgUploadFormItem from '@/views/molecules/formItems/PostImgUploadFormItem.vue'
 import MapFormItem from '@/views/molecules/formItems/MapFormItem.vue'
+import PostCreateConfirmModal from '@/views/molecules/modals/PostCreateConfirmModal.vue'
+
+const postFormStore = usePostFormStore()
 
 const storeName = ref<string>('')
 const comment = ref<string>('')
+const modalOpen = ref<boolean>(false)
+const storeNameError = ref<boolean>(false)
+const fileInfo = ref<File>()
+const preview = ref<string | undefined>()
+
+const genre_id = ref<number>(1)
+const post_img = ref<string>('')
+
+function openModal(): void {
+  modalOpen.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+function closeModal(): void {
+  modalOpen.value = false
+  document.body.style.overflow = 'auto'
+}
+
+function handleFileSelected(target: HTMLInputElement) {
+  if (target.files && target.files.length > 0) {
+    fileInfo.value = target.files[0]
+    console.log(fileInfo.value)
+    preview.value = URL.createObjectURL(fileInfo.value)
+  }
+}
+
+function resetPreview(): void {
+  fileInfo.value = undefined
+  preview.value = undefined
+}
+
+async function doCreate() {
+  // if (!postFormStore.validate) return false
+  postFormStore.create({
+    store_name: storeName.value,
+    comment: comment.value,
+    genre_id: genre_id.value,
+    post_img: fileInfo.value
+  })
+}
+
+watch<string, false>(storeName, (newValue) => {
+  storeNameError.value = !newValue.length || newValue.length > 30
+})
 </script>
 <template>
   <RegisterForm title="新規投稿">
@@ -22,6 +71,7 @@ const comment = ref<string>('')
       :required="true"
       :optional="false"
       :iconComponent="StoreIcon"
+      :is-error="storeNameError"
       placeholder="お店の名前"
       v-model="storeName"
     />
@@ -43,15 +93,24 @@ const comment = ref<string>('')
       :required="true"
       :optional="false"
       :iconComponent="PhotoIcon"
+      @upload="handleFileSelected"
     />
+    <img v-show="preview" class="w-80 object-fit mx-auto" :src="preview" alt="投稿画像" />
     <MapFormItem
       label="位置情報"
       :required="true"
       :optional="false"
       :iconComponent="LocationIcon"
     />
-    <button class="mx-auto font-body p-3 block w-52 text-white rounded-full bg-sky-500">
-      投稿する
-    </button>
+    <CreatePostButton class="mx-auto block p-3 w-52" text="投稿する" @click="openModal" />
+
+    <Teleport to="body">
+      <PostCreateConfirmModal
+        v-show="modalOpen"
+        @commit="doCreate"
+        @cancel="closeModal"
+        :closeModal
+      />
+    </Teleport>
   </RegisterForm>
 </template>

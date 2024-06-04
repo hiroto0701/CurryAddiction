@@ -12,6 +12,6 @@ onMounted((): void => {
 </script>
 <template>
   <RouterView />
-  <MeatballDropDown class="z-50" />
-  <ScrollToTopButton class="z-50" />
+  <MeatballDropDown class="z-10" />
+  <ScrollToTopButton class="z-10" />
 </template>

@@ -6,7 +6,7 @@ import BaseModal from '@/views/atoms/modal/BaseModal.vue'
 import ModalBody from '@/views/atoms/modal/ModalBody.vue'
 import ModalFooter from '@/views/atoms/modal/ModalFooter.vue'
 import FloatingLabelTextInputFormItem from '@/views/molecules/formItems/FloatingLabelTextInputFormItem.vue'
-import TokenCommitButton from '@/views/molecules/buttons/TokenCommitButton.vue'
+import SubmitButton from '@/views/molecules/buttons/SubmitButton.vue'
 
 interface Props {
   closeModal: () => void
@@ -40,7 +40,11 @@ const emits = defineEmits<{
       <p v-show="accountStore.state.errors?.token" class="font-body text-xs text-red-400">
         {{ accountStore.state.errors?.token?.[0] }}
       </p>
-      <TokenCommitButton :is-loading="commonStore.state.apiLoading" @click="emits('doLogin')" />
+      <SubmitButton
+        :is-loading="commonStore.state.apiLoading"
+        text="確定する"
+        @click="emits('doLogin')"
+      />
     </ModalFooter>
   </BaseModal>
 </template>
