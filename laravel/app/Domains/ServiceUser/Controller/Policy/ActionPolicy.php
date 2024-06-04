@@ -17,12 +17,10 @@ class ActionPolicy
 
     public function update($user, ServiceUser $serviceUser): bool
     {
-        // 情報の修正は本人かシステム管理者
+        // 情報の修正は本人のみ
         if ($user instanceof ServiceUser) {
             return ($user->id === $serviceUser->id);
-        } elseif ($user instanceof Administrator) {
-            return true;
-        }
+        } 
         return false;
     }
 }

@@ -16,8 +16,7 @@ class UpdateAvatarRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $service_user = $this->route()->parameter('service_user');
-        return User::AuthUser()->can('service_user-update', $service_user);
+        return User::AuthUser()->can('service_user-update', User::AuthServiceUser());
     }
 
     /**
