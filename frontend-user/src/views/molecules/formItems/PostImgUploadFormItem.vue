@@ -8,8 +8,18 @@ interface Props {
   readonly optional: boolean
   readonly iconComponent: Component
 }
-
 defineProps<Props>()
+
+function handleFileChange(event: Event) {
+  const target = event.target as HTMLInputElement
+  if (target.files && target.files.length > 0) {
+    emits('upload', target)
+  }
+}
+
+const emits = defineEmits<{
+  (e: 'upload', target: HTMLInputElement): void
+}>()
 </script>
 <template>
   <FormLayout
@@ -25,6 +35,12 @@ defineProps<Props>()
       <component :is="iconComponent" class="text-sumi-900" />
       画像を選択
     </label>
-    <input type="file" class="hidden" id="post_img" />
+    <input
+      type="file"
+      class="hidden"
+      id="post_img"
+      @change="handleFileChange"
+      accept="image/png, image/jpeg"
+    />
   </FormLayout>
 </template>

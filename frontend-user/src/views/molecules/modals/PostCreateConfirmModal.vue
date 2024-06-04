@@ -2,25 +2,26 @@
 import BaseModal from '@/views/atoms/modal/BaseModal.vue'
 import ModalBody from '@/views/atoms/modal/ModalBody.vue'
 import ModalFooter from '@/views/atoms/modal/ModalFooter.vue'
-import AccountAbortButton from '@/views/molecules/buttons/AccountAbortButton.vue'
+import ModalAgreeButton from '@/views/molecules/buttons/ModalAgreeButton.vue'
 import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
 
 interface Props {
   closeModal: () => void
 }
-defineProps<Props>()
 
-const modalContent = 'アカウントを作成せずに終了します。よろしいですか？'
+// const accountStore = useAccountStore()
+
+defineProps<Props>()
 const emits = defineEmits<{
-  (e: 'abort'): void
+  (e: 'commit'): void
   (e: 'cancel'): void
 }>()
 </script>
 <template>
   <BaseModal :closeModal>
-    <ModalBody title="アカウントの作成をやめますか？" :content="modalContent" />
+    <ModalBody title="この内容で投稿しますか？" />
     <ModalFooter>
-      <AccountAbortButton @click="emits('abort')" />
+      <ModalAgreeButton @click="emits('commit')" text="投稿する" />
       <CancelButton @click="emits('cancel')" />
     </ModalFooter>
   </BaseModal>

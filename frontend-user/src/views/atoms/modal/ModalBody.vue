@@ -4,7 +4,7 @@ import ModalContent from '@/views/atoms/modal/ModalContent.vue'
 
 interface Props {
   readonly title: string
-  readonly content: string | null
+  readonly content?: string
 }
 
 defineProps<Props>()

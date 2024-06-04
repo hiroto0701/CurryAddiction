@@ -43,10 +43,36 @@ export const usePostFormStore = defineStore('post_form', () => {
     state.value.errors = {}
   }
 
+  function create(payload: {
+    store_name: string
+    comment?: string
+    genre_id: number
+    post_img?: File
+  }) {
+    const formData = new FormData()
+    formData.append('genre_id', '1')
+    formData.append('region_id', '1')
+    formData.append('prefecture_id', '2')
+    formData.append('store_name', payload.store_name)
+    formData.append('comment', payload.comment)
+    formData.append('latitude', '0.5')
+    formData.append('longitude', '0.26567')
+    formData.append('post_img', payload.post_img)
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+        'X-HTTP-Method-Override': 'POST'
+      }
+    }
+
+    axios.post('/api/posts/', formData, config)
+  }
+
   return {
     state,
     setErrors,
     resetData,
-    resetErrors
+    resetErrors,
+    create
   }
 })

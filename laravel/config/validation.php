@@ -1,14 +1,16 @@
 <?php
 
 return [
-    // 共通項目
-    'maxName' => '60',
+    // ユーザー関連
     'maxDisplayName' => '20',
-    'maxEmail' => '254',
-    'maxHandleName' => '20',
     'minHandleName' => '2',
+    'maxHandleName' => '20',
+    'maxEmail' => '254',
+    'maxAvatarFileSize' => '1024',   // 1MB
     'maxComment' => '140',
-    'minPassword' => '8',
-    'passwordRule' => env('PASSWORD_RULE', '/^[a-zA-Z0-9!#$%()*+,.:;=?@\[\]^_{}-]+$/'),
-    'maxFileSize' => '1024',   // 1MB
+
+    // 投稿関連
+    'maxStoreName' => '30',
+    'maxComment' => '140',
+    'maxPostFileSize' => '10485760'  // 10MB
 ];
