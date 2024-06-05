@@ -124,7 +124,7 @@ return [
     'prohibited_unless' => ':otherが:valueでない場合、:attributeは入力禁止です。',
     'prohibits' => 'attributeは:otherの入力を禁じています。',
     'regex' => ':attributeに使用できるのは半角英数字、"-"、"_"のみです。',
-    'required' => ':attributeは必ず指定してください。',
+    'required' => ':attributeは必須項目です。',
     'required_array_keys' => ':attributeは、:valuesの項目を含めてください。',
     'required_if' => ':otherが:valueの場合、:attributeも指定してください。',
     'required_if_accepted' => ':attributeは、:otherが承認された場合は、必ず指定してください。',
@@ -255,8 +255,13 @@ return [
         'username' => 'ユーザー名',
         'year' => '年',
 
+        // 追加
         'display_name' => '表示名',
         'handle_name' => 'ハンドルネーム',
+        'store_name' => '店名',
+        'comment' => '感想',
+        'genre_id' => 'カレーのジャンル',
+        'post_img'=> 'カレーの写真',
     ],
 
 ];

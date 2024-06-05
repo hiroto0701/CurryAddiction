@@ -24,8 +24,7 @@ const storeNameError = ref<boolean>(false)
 const fileInfo = ref<File>()
 const preview = ref<string | undefined>()
 
-const genre_id = ref<number>(1)
-const post_img = ref<string>('')
+const genre_id = ref<number>()
 
 function openModal(): void {
   modalOpen.value = true
@@ -40,24 +39,33 @@ function closeModal(): void {
 function handleFileSelected(target: HTMLInputElement) {
   if (target.files && target.files.length > 0) {
     fileInfo.value = target.files[0]
-    console.log(fileInfo.value)
     preview.value = URL.createObjectURL(fileInfo.value)
   }
 }
 
-function resetPreview(): void {
-  fileInfo.value = undefined
-  preview.value = undefined
-}
+// function resetPreview(): void {
+//   fileInfo.value = undefined
+//   preview.value = undefined
+// }
 
 async function doCreate() {
-  // if (!postFormStore.validate) return false
-  postFormStore.create({
-    store_name: storeName.value,
-    comment: comment.value,
-    genre_id: genre_id.value,
-    post_img: fileInfo.value
-  })
+  const isValid = postFormStore.validate(
+    storeName.value,
+    comment.value,
+    genre_id.value,
+    fileInfo.value,
+    null, // latitude
+    null // longitude
+  )
+
+  if (isValid) {
+    postFormStore.create({
+      store_name: storeName.value,
+      comment: comment.value,
+      genre_id: genre_id.value,
+      post_img: fileInfo.value
+    })
+  }
 }
 
 watch<string, false>(storeName, (newValue) => {

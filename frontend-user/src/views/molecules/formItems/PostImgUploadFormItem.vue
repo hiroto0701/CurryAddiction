@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { type Component } from 'vue'
+import PostFormErrorMessage from '@/views/atoms/ErrorMessage/PostFormErrorMessage.vue'
 import FormLayout from '@/views/templates/FormLayout.vue'
 
 interface Props {
@@ -42,5 +43,6 @@ const emits = defineEmits<{
       @change="handleFileChange"
       accept="image/png, image/jpeg"
     />
+    <PostFormErrorMessage field-name="post_img" />
   </FormLayout>
 </template>

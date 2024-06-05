@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { type Component } from 'vue'
+import PostFormErrorMessage from '@/views/atoms/ErrorMessage/PostFormErrorMessage.vue'
 import FormLayout from '@/views/templates/FormLayout.vue'
 
 interface Props {
@@ -8,7 +9,6 @@ interface Props {
   readonly optional: boolean
   readonly iconComponent: Component
 }
-
 defineProps<Props>()
 
 const model = defineModel<string>()
@@ -31,14 +31,19 @@ const model = defineModel<string>()
       placeholder="味の特徴や感想を教えてください。"
       v-model="model"
     ></textarea>
-    <span
-      class="flex justify-end"
-      :class="{
-        'text-sumi-500': !model || model.length <= 140,
-        'text-red-400': model && model.length > 140
-      }"
-    >
-      {{ model ? model.length : 0 }} / 140
-    </span>
+    <div class="flex justify-between">
+      <div>
+        <PostFormErrorMessage field-name="comment" />
+      </div>
+      <span
+        class="flex justify-end"
+        :class="{
+          'text-sumi-500': !model || model.length <= 140,
+          'text-red-400': model && model.length > 140
+        }"
+      >
+        {{ model ? model.length : 0 }} / 140
+      </span>
+    </div>
   </FormLayout>
 </template>

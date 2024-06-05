@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { type Component } from 'vue'
+import PostFormErrorMessage from '@/views/atoms/ErrorMessage/PostFormErrorMessage.vue'
 import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue'
 import FormLayout from '@/views/templates/FormLayout.vue'
 
@@ -20,7 +21,7 @@ const model = defineModel<string>()
     <div class="relative">
       <input
         type="text"
-        class="p-2 rounded w-full border border-gray-200 font-body"
+        class="p-2 pr-9 rounded w-full border border-gray-200 font-body"
         :class="{
           'text-sumi-900': !isError,
           'text-red-400': isError,
@@ -32,14 +33,19 @@ const model = defineModel<string>()
       />
       <ErrorIcon v-show="isError" class="absolute top-1/2 -translate-y-1/2 right-3" />
     </div>
-    <span
-      class="flex justify-end"
-      :class="{
-        'text-sumi-500': !isError,
-        'text-red-400': isError
-      }"
-    >
-      {{ model ? model.length : 0 }} / 30
-    </span>
+    <div class="flex justify-between">
+      <div>
+        <PostFormErrorMessage field-name="store_name" />
+      </div>
+      <span
+        class="flex justify-end"
+        :class="{
+          'text-sumi-500': !isError,
+          'text-red-400': isError
+        }"
+      >
+        {{ model ? model.length : 0 }} / 30
+      </span>
+    </div>
   </FormLayout>
 </template>

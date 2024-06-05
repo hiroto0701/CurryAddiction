@@ -6,8 +6,6 @@ namespace App\Domains\Post\Controller\Request;
 
 use App\Models\Post;
 use App\Models\User;
-use App\Rules\UploadableExtension;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
@@ -24,7 +22,7 @@ class CreateRequest extends FormRequest
             'comment' => ['nullable', 'string', 'max:'.config('validation.maxComment')],
             'genre_id' => ['required', 'numeric'],
             'post_img' => [
-                'required', 'file',
+                'required',
                 'image',
                 'max:' . config('validation.maxPostFileSize'),
                 'mimes:png,jpeg,jpg'
