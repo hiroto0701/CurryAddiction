@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { type Component } from 'vue'
+import PostFormErrorMessage from '@/views/atoms/ErrorMessage/PostFormErrorMessage.vue'
 import FormLayout from '@/views/templates/FormLayout.vue'
 
 interface Props {
@@ -8,7 +9,6 @@ interface Props {
   readonly optional: boolean
   readonly iconComponent: Component
 }
-
 defineProps<Props>()
 </script>
 <template>
@@ -28,5 +28,6 @@ defineProps<Props>()
       <option value="">インドカレー</option>
       <option value="">マトン系</option>
     </select>
+    <PostFormErrorMessage field-name="genre_id" />
   </FormLayout>
 </template>

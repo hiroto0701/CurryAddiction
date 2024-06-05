@@ -24,7 +24,7 @@ class PostResource extends JsonResource
                 'file.view',
                 ['type' => FileViewAction::TYPE_POST_IMG, 'uuid' => $this->postImg->uuid]
             ),
-            'posted_at' => $this->registered_at,
+            'posted_at' => $this->posted_at,
         ];
     }
 }
