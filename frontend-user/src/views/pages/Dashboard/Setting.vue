@@ -2,7 +2,6 @@
 import { ref, computed, onUnmounted } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import { useAccountFormStore } from '@/stores/account_form'
-import { useCommonStore } from '@/stores/common'
 import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
@@ -16,7 +15,6 @@ import AvatarEditor from '@/views/pages/Dashboard/components/AvatarEditor.vue'
 
 const accountStore = useAccountStore()
 const accountFormStore = useAccountFormStore()
-const commonStore = useCommonStore()
 
 const isEditingDisplayName = ref<boolean>(false)
 const displayName = ref<string>(accountStore.state.display_name)
@@ -46,11 +44,9 @@ function resetPreview(): void {
 
 async function doUpdateAvatar(): Promise<void> {
   if (fileInfo.value && accountFormStore.avatarValidate(fileInfo.value)) {
-    commonStore.startUploading()
     try {
       await accountFormStore.updateAvatar(fileInfo.value)
     } finally {
-      commonStore.stopUploading()
       fileInfo.value = undefined
       preview.value = undefined
     }
@@ -66,11 +62,9 @@ function toggleEditMode(): void {
 
 async function doUpdateDisplayName(displayName: string): Promise<void> {
   if (accountFormStore.displayNameValidate(displayName)) {
-    commonStore.startApiLoading()
     try {
       await accountFormStore.updateDisplayName(displayName)
     } finally {
-      commonStore.stopApiLoading()
       isEditingDisplayName.value = false
     }
   }

@@ -100,7 +100,7 @@ export const useAccountFormStore = defineStore('account_form', () => {
     const allowedExtensions: Array<string> = ['png', 'jpeg', 'jpg']
 
     if (fileData) {
-      const extension: string = fileData.name.split('.').pop().toLowerCase()
+      const extension: string = fileData.name.split('.').pop()?.toLowerCase() || ''
 
       if (!allowedExtensions.includes(extension)) {
         errors.avatar = ['ファイルは.png .jpeg .jpg形式を指定してください。']
@@ -154,16 +154,22 @@ export const useAccountFormStore = defineStore('account_form', () => {
   async function updateDisplayName(displayName: string): Promise<void> {
     try {
       resetErrors()
+      commonStore.startApiLoading()
+
       const response = await axios.put('/api/service_users/display_name', {
         display_name: displayName
       })
 
-      accountStore.updateDisplayName(response.data.data.display_name)
-      resetErrors()
-      commonStore.setFlashMessage('更新しました')
-      setTimeout(() => {
-        commonStore.clearFlashMessage()
-      }, 4000)
+      if (response.status === 200) {
+        accountStore.updateDisplayName(response.data.data.display_name)
+        resetErrors()
+        commonStore.setFlashMessage('更新しました')
+        setTimeout(() => {
+          commonStore.clearFlashMessage()
+        }, 4000)
+      } else {
+        setErrors({ display_name: ['表示名の更新に失敗しました'] })
+      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 422) {
@@ -174,12 +180,16 @@ export const useAccountFormStore = defineStore('account_form', () => {
       } else {
         setErrors({ display_name: ['予期せぬエラーが発生しました'] })
       }
+    } finally {
+      commonStore.stopApiLoading()
     }
   }
 
   async function updateAvatar(fileData: File): Promise<void> {
     try {
       resetErrors()
+      commonStore.startUploading()
+
       const formData = new FormData()
       formData.append('file_data', fileData, fileData.name)
       const config = {
@@ -188,14 +198,19 @@ export const useAccountFormStore = defineStore('account_form', () => {
           'X-HTTP-Method-Override': 'PUT'
         }
       }
+
       const response = await axios.post('/api/service_users/avatar', formData, config)
 
-      accountStore.updateAvatar(response.data.data.avatar)
-      resetErrors()
-      commonStore.setFlashMessage('更新しました')
-      setTimeout(() => {
-        commonStore.clearFlashMessage()
-      }, 4000)
+      if (response.status === 200) {
+        accountStore.updateAvatar(response.data.data.avatar)
+        resetErrors()
+        commonStore.setFlashMessage('更新しました')
+        setTimeout(() => {
+          commonStore.clearFlashMessage()
+        }, 4000)
+      } else {
+        setErrors({ avatar: ['プロフィール画像の更新に失敗しました'] })
+      }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 422) {
@@ -206,6 +221,8 @@ export const useAccountFormStore = defineStore('account_form', () => {
       } else {
         setErrors({ avatar: ['予期せぬエラーが発生しました'] })
       }
+    } finally {
+      commonStore.stopUploading()
     }
   }
 
