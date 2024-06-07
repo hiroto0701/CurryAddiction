@@ -1,6 +1,12 @@
 <?php
 
 return [
+    'api' => [
+        'sort_ascending' => 'asc',
+        'sort_descending' => 'desc',
+        'sort_directions' => ['asc', 'desc'],
+        'max_item_per_page' => 20,
+    ],
     'avatar' => [
         'uploadfiles_path_format' => '/avatar/%d/uploadfiles/',
     ],

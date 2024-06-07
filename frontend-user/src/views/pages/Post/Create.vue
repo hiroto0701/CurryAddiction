@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { usePostFormStore } from '@/stores/post_form'
-import { useCommonStore } from '@/stores/common'
 import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
 import CommentIcon from '@/views/atoms/icons/CommentIcon.vue'
 import CategoryIcon from '@/views/atoms/icons/CategoryIcon.vue'
@@ -18,7 +17,6 @@ import PostCreateConfirmModal from '@/views/molecules/modals/PostCreateConfirmMo
 import RegisterForm from '@/views/templates/forms/RegisterForm.vue'
 
 const postFormStore = usePostFormStore()
-const commonStore = useCommonStore()
 
 const storeName = ref<string>('')
 const comment = ref<string>('')

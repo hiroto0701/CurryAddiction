@@ -52,7 +52,7 @@ export const usePostFormStore = defineStore('post_form', () => {
   function validate(
     storeName: string,
     comment: string,
-    genreId: number,
+    genreId: number | undefined,
     postImg: File | undefined,
     latitude: number | null,
     longitude: number | null
@@ -78,7 +78,7 @@ export const usePostFormStore = defineStore('post_form', () => {
 
     // 投稿画像のバリデーション
     const allowedExtensions: Array<string> = ['png', 'jpeg', 'jpg']
-    const extension: string | undefined = postImg?.name?.split('.')?.pop()?.toLowerCase()
+    const extension: string = postImg?.name.split('.').pop()?.toLowerCase() || ''
 
     if (!postImg) {
       errors.post_img = ['カレーの画像は必須項目です']
@@ -105,11 +105,11 @@ export const usePostFormStore = defineStore('post_form', () => {
   async function create(payload: {
     store_name: string
     comment?: string
-    genre_id: number
+    genre_id?: number
     post_img?: File
   }) {
     const formData = new FormData()
-    formData.append('genre_id', payload.genre_id.toString())
+    formData.append('genre_id', payload.genre_id ? payload.genre_id.toString() : '')
     formData.append('region_id', '1')
     formData.append('prefecture_id', '2')
     formData.append('store_name', payload.store_name)
