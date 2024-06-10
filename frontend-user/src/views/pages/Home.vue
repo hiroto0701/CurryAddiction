@@ -12,7 +12,7 @@ onMounted(() => {
 </script>
 <template>
   <CardDisplayAreaLayout>
-    <Card
+    <!-- <Card
       :src="'https://pbs.twimg.com/media/Fe6MtHRVUAQqqmF.jpg'"
       store-name="和平カレー"
       location="福岡"
@@ -119,6 +119,6 @@ onMounted(() => {
       store-name="Rスリランカ"
       location="福岡"
       date="2024年12月24日"
-    />
+    /> -->
   </CardDisplayAreaLayout>
 </template>

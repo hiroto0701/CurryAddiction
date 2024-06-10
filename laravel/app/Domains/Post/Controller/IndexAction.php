@@ -12,8 +12,6 @@ use Illuminate\Routing\Controller;
 
 class IndexAction extends Controller
 {
-    public const OPERATION_OVERVIEW = '施設一覧';
-
     /**
      * @var IndexInteractor
      */
