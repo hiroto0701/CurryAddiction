@@ -1,6 +1,8 @@
 <?php
 
+use App\Domains\Post\Controller\Resource\PostResource;
 use App\Domains\ServiceUser\Controller\Resource\ServiceUserResource;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +39,10 @@ Route::prefix('/service_users')->group(function() {
 
 Route::prefix('/posts')->group(function() {
     Route::middleware((['auth:service_users']))->group(function() {
-        Route::get('/', \App\Domains\Post\Controller\IndexAction::class);
+        // Route::get('/', \App\Domains\Post\Controller\IndexAction::class);
+        Route::get('/', function () {
+            return PostResource::collection(Post::paginate());
+        });
         Route::post('/', \App\Domains\Post\Controller\CreateAction::class);
     });
 });
