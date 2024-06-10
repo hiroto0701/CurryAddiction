@@ -12,7 +12,16 @@ class ActionPolicy
 {
     public static function register()
     {
+        Gate::define('post-index', [self::class, 'index']);
         Gate::define('post-create', [self::class, 'create']);
+    }
+
+    public function index($user): bool
+    {
+        if ($user instanceof Administrator || $user instanceof ServiceUser) {
+            return true;
+        }
+        return false;
     }
 
     public function create($user): bool
@@ -20,7 +29,7 @@ class ActionPolicy
         // 投稿を新規作成できるのはサービスユーザーのみ
         if ($user instanceof ServiceUser) {
             return true;
-        } 
+        }
         return false;
     }
 }

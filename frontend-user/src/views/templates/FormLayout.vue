@@ -11,7 +11,7 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <div class="my-8">
+  <div class="mt-8">
     <label class="flex items-center gap-2 mb-3">
       <component :is="iconComponent" class="text-sumi-900" />
       <span class="fw-bold">{{ label }}</span>

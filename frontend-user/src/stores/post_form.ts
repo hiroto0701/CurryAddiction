@@ -1,9 +1,8 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-// import { useRouter } from 'vue-router'
-// import { useAccountStore } from '@/stores/account'
-// import { useCommonStore } from '@/stores/common'
+import { useRouter } from 'vue-router'
+import { useCommonStore } from '@/stores/common'
 
 interface PostFormState {
   store_name: string
@@ -24,8 +23,11 @@ export const usePostFormStore = defineStore('post_form', () => {
     errors: {}
   })
 
-  function setErrors(errors: Record<string, string[]>): void {
-    state.value.errors = { ...errors }
+  const router = useRouter()
+  const commonStore = useCommonStore()
+
+  function setData(data: PostFormState): void {
+    state.value = { ...data }
   }
 
   function resetData(): void {
@@ -39,6 +41,10 @@ export const usePostFormStore = defineStore('post_form', () => {
     }
   }
 
+  function setErrors(errors: Record<string, string[]>): void {
+    state.value.errors = { ...errors }
+  }
+
   function resetErrors(): void {
     state.value.errors = {}
   }
@@ -46,7 +52,7 @@ export const usePostFormStore = defineStore('post_form', () => {
   function validate(
     storeName: string,
     comment: string,
-    genreId: number,
+    genreId: number | undefined,
     postImg: File | undefined,
     latitude: number | null,
     longitude: number | null
@@ -72,7 +78,7 @@ export const usePostFormStore = defineStore('post_form', () => {
 
     // 投稿画像のバリデーション
     const allowedExtensions: Array<string> = ['png', 'jpeg', 'jpg']
-    const extension: string | undefined = postImg?.name?.split('.')?.pop()?.toLowerCase()
+    const extension: string = postImg?.name.split('.').pop()?.toLowerCase() || ''
 
     if (!postImg) {
       errors.post_img = ['カレーの画像は必須項目です']
@@ -99,18 +105,23 @@ export const usePostFormStore = defineStore('post_form', () => {
   async function create(payload: {
     store_name: string
     comment?: string
-    genre_id: number
+    genre_id?: number
     post_img?: File
   }) {
     const formData = new FormData()
-    formData.append('genre_id', '1')
+    formData.append('genre_id', payload.genre_id ? payload.genre_id.toString() : '')
     formData.append('region_id', '1')
     formData.append('prefecture_id', '2')
     formData.append('store_name', payload.store_name)
-    formData.append('comment', payload.comment)
+    if (payload.comment) {
+      formData.append('comment', payload.comment)
+    }
+    if (payload.post_img) {
+      formData.append('post_img', payload.post_img)
+    }
     formData.append('latitude', '0.5')
     formData.append('longitude', '0.26567')
-    formData.append('post_img', payload.post_img)
+
     const config = {
       headers: {
         'content-type': 'multipart/form-data',
@@ -118,7 +129,23 @@ export const usePostFormStore = defineStore('post_form', () => {
       }
     }
 
-    axios.post('/api/posts/', formData, config)
+    try {
+      commonStore.startApiLoading()
+      await axios.post('/api/posts/', formData, config)
+
+      await router.push({ name: 'Home' })
+      commonStore.setFlashMessage('投稿しました')
+      setTimeout(() => {
+        commonStore.clearFlashMessage()
+      }, 4000)
+    } catch (error: unknown) {
+      commonStore.setFlashMessage('投稿に失敗しました')
+      setTimeout(() => {
+        commonStore.clearFlashMessage()
+      }, 4000)
+    } finally {
+      commonStore.stopApiLoading()
+    }
   }
 
   return {

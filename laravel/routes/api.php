@@ -37,6 +37,7 @@ Route::prefix('/service_users')->group(function() {
 
 Route::prefix('/posts')->group(function() {
     Route::middleware((['auth:service_users']))->group(function() {
+        Route::get('/', \App\Domains\Post\Controller\IndexAction::class);
         Route::post('/', \App\Domains\Post\Controller\CreateAction::class);
     });
 });

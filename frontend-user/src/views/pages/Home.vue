@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+import { usePostStore } from '@/stores/post_index'
 import Card from '@/views/molecules/card/Card.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
+
+const postStore = usePostStore()
+
+onMounted(() => {
+  postStore.load()
+})
 </script>
 <template>
   <CardDisplayAreaLayout>
