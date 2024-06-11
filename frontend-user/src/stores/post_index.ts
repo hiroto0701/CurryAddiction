@@ -20,8 +20,6 @@ interface SearchConditions {
   region_id: number | null
   prefecture_id: number | null
   store_name: string
-  comment: string
-  post_img: string
   latitude: number | null
   longitude: number | null
 }
@@ -46,8 +44,6 @@ export const usePostStore = defineStore('post', () => {
     region_id: null,
     prefecture_id: null,
     store_name: '',
-    comment: '',
-    post_img: '',
     latitude: null,
     longitude: null
   })
