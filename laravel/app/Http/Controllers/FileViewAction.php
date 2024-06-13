@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Models\ServiceUser;
 use App\Models\UploadFile;
-use App\Models\User;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
