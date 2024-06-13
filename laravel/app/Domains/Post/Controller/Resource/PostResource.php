@@ -14,6 +14,7 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'genre_id' => $this->genre_id,
+            // todo 以下2つ要らない気がする
             'region_id' => $this->region_id,
             'prefecture_id' => $this->prefecture_id,
             'store_name' => $this->store_name,
@@ -24,6 +25,8 @@ class PostResource extends JsonResource
                 'file.view',
                 ['type' => FileViewAction::TYPE_POST_IMG, 'uuid' => $this->postImg->uuid]
             ),
+            // TODO いいねされた数も返す
+            // 'liked_count' =>
             'posted_at' => $this->posted_at,
         ];
     }

@@ -32,7 +32,6 @@ function handleFileSelected(event: Event): void {
   const target = event.target as HTMLInputElement
   if (target.files && target.files.length > 0) {
     fileInfo.value = target.files[0]
-    console.log(fileInfo.value)
     preview.value = URL.createObjectURL(fileInfo.value)
   }
 }
