@@ -4,7 +4,7 @@ services:
     container_name: curry_addiction_nginx
     volumes:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./curry_addiction:/usr/share/nginx/html
+      - ./:/usr/share/nginx/html
     ports:
       - 38182:80
 
@@ -21,7 +21,7 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: secret
     volumes:
-      - postgres-volume:/var/lib/postgresql
+      - postgres_data:/var/lib/postgresql
 
   curry_addiction_php-fpm:
     build: docker/php-fpm
@@ -90,5 +90,5 @@ services:
     ports:
       - 8025:8025
 volumes:
-  postgres-volume:
+  postgres_data:
   minio:
