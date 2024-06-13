@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\ServiceUser;
 use App\Models\UploadFile;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -27,6 +28,8 @@ class FileViewAction extends Controller
     {
         if ($type === self::TYPE_AVATAR) {
             return $this->viewAvatar($uuid, 'avatar_id');
+        } else if ($type === self::TYPE_POST_IMG) {
+            return $this->viewPostImg($uuid, 'post_img_id');
         }
 
         throw new NotFoundHttpException();
@@ -45,6 +48,32 @@ class FileViewAction extends Controller
         }
         $service_user = ServiceUser::where($foreignKey, $uploadfile->id)->first();
         if ($service_user === null) {
+            throw new NotFoundHttpException();
+        }
+
+        return response(
+            Storage::disk('s3')->get($uploadfile->path),
+            Response::HTTP_OK,
+            [
+                'Content-Type' => $uploadfile->content_type,
+                'Content-description' => 'inline;',
+            ]
+        );
+    }
+
+    /**
+     * @throws NotFoundHttpException
+     * @throws AccessDeniedHttpException
+     * @throws FileNotFoundException
+     */
+    protected function viewPostImg(string $uuid, string $foreignKey): Response
+    {
+        $uploadfile = UploadFile::where('uuid', $uuid)->first();
+        if ($uploadfile === null) {
+            throw new NotFoundHttpException();
+        }
+        $post = Post::where($foreignKey, $uploadfile->id)->first();
+        if ($post === null) {
             throw new NotFoundHttpException();
         }
 

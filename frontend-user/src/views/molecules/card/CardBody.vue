@@ -8,7 +8,6 @@ interface Props {
   readonly location: string
   readonly date: string
 }
-
 defineProps<Props>()
 </script>
 <template>

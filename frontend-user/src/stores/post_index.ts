@@ -2,8 +2,8 @@ import axios from 'axios'
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-interface Post {
-  id: number | null
+export interface Post {
+  id: string | number | symbol | undefined
   genre_id: number | null
   region_id: number | null
   prefecture_id: number | null
@@ -12,6 +12,7 @@ interface Post {
   post_img: string
   latitude: number | null
   longitude: number | null
+  posted_at: string
   errors: Record<string, string[]>
 }
 
@@ -24,7 +25,7 @@ interface SearchConditions {
   longitude: number | null
 }
 
-interface PaginationStatus {
+export interface PaginationStatus {
   from: number | null
   to: number | null
   total: number | null
@@ -80,45 +81,6 @@ export const usePostStore = defineStore('post', () => {
     errors.value = {}
   }
 
-  // function resetData(): void {
-  //   state.value = {
-  //     id: null,
-  //     genre_id: null,
-  //     region_id: null,
-  //     prefecture_id: null,
-  //     store_name: '',
-  //     comment: '',
-  //     post_img: '',
-  //     latitude: null,
-  //     longitude: null,
-  //     errors: {}
-  //   }
-  // }
-
-  function setErrors(errorData: Record<string, string[]>) {
-    errors.value = { ...errorData }
-  }
-
-  function resetErrors(): void {
-    errors.value = {}
-  }
-
-  function resetForms() {
-    Object.keys(searchConditions.value).forEach((key) => {
-      ;(searchConditions.value as any)[key] = null
-    })
-  }
-
-  function setSortColumn(column: string) {
-    if (sortStatus.value.column === column) {
-      sortStatus.value.ascending = !sortStatus.value.ascending
-    } else {
-      sortStatus.value.column = column
-      sortStatus.value.ascending = true
-    }
-    paginationStatus.value.current_page = 1
-  }
-
   function setMeta(meta: PaginationStatus) {
     paginationStatus.value = {
       from: meta.from,
@@ -138,10 +100,23 @@ export const usePostStore = defineStore('post', () => {
     paginationStatus.value.per_page = value
   }
 
-  async function load() {
+  function setErrors(errorData: Record<string, string[]>) {
+    errors.value = { ...errorData }
+  }
+
+  function resetErrors(): void {
+    errors.value = {}
+  }
+
+  function resetForms() {
+    Object.keys(searchConditions.value).forEach((key) => {
+      ;(searchConditions.value as any)[key] = null
+    })
+  }
+
+  async function load(): Promise<void> {
     try {
       const response = await axios.get('/api/posts', { params: getParameter.value })
-      console.log(response.data.data)
       setData(response.data.data)
       setMeta(response.data.meta)
     } catch (error: unknown) {
@@ -155,11 +130,12 @@ export const usePostStore = defineStore('post', () => {
   }
 
   return {
+    posts,
+    paginationStatus,
     setData,
     setErrors,
     resetErrors,
     resetForms,
-    setSortColumn,
     setMeta,
     setCurrentPage,
     setPerPage,

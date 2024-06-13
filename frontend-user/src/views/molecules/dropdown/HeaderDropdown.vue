@@ -13,7 +13,7 @@ defineProps<Props>()
     <MenuButton
       class="flex items-center gap-x-0.5 text-sm text-slate-600 hover:text-sumi-900 font-body"
     >
-      {{ username }}
+      <p class="max-w-40 truncate">{{ username }}</p>
       <ChevronIcon />
     </MenuButton>
     <transition
