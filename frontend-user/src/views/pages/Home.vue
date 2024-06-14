@@ -15,8 +15,17 @@ const paginationStatus = computed<PaginationStatus>(() => {
   return postStore.paginationStatus
 })
 
-onMounted((): void => {
+function load(): void {
   postStore.load()
+}
+
+function doChangePage(page: number) {
+  postStore.setCurrentPage(page)
+  load()
+}
+
+onMounted((): void => {
+  load()
 })
 </script>
 <template>
@@ -30,5 +39,5 @@ onMounted((): void => {
       :date="post.posted_at"
     />
   </CardDisplayAreaLayout>
-  <Pagination class="mt-12" :paginationStatus />
+  <Pagination class="mt-12" @change-page="doChangePage" :paginationStatus />
 </template>
