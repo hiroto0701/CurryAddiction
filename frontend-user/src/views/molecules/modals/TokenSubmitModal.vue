@@ -42,6 +42,7 @@ const emits = defineEmits<{
       </p>
       <SubmitButton
         :is-loading="commonStore.state.apiLoading"
+        :disabled="commonStore.state.apiLoading"
         text="確定する"
         @click="emits('doLogin')"
       />

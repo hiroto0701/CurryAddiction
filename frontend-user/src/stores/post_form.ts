@@ -5,7 +5,9 @@ import { useRouter } from 'vue-router'
 import { useCommonStore } from '@/stores/common'
 
 interface PostFormState {
+  id: string
   store_name: string
+  comment: string
   genre_id: number | null
   post_img: string
   latitude: number | null
@@ -15,7 +17,9 @@ interface PostFormState {
 
 export const usePostFormStore = defineStore('post_form', () => {
   const state = ref<PostFormState>({
+    id: '',
     store_name: '',
+    comment: '',
     genre_id: null,
     post_img: '',
     latitude: null,
@@ -27,12 +31,14 @@ export const usePostFormStore = defineStore('post_form', () => {
   const commonStore = useCommonStore()
 
   function setData(data: PostFormState): void {
-    state.value = { ...data }
+    state.value = data
   }
 
   function resetData(): void {
     state.value = {
+      id: '',
       store_name: '',
+      comment: '',
       genre_id: null,
       post_img: '',
       latitude: null,
@@ -77,15 +83,17 @@ export const usePostFormStore = defineStore('post_form', () => {
     }
 
     // 投稿画像のバリデーション
-    const allowedExtensions: Array<string> = ['png', 'jpeg', 'jpg']
-    const extension: string = postImg?.name.split('.').pop()?.toLowerCase() || ''
+    if (postImg) {
+      const allowedExtensions = ['png', 'jpeg', 'jpg']
+      const extension = postImg.name.split('.').pop()?.toLowerCase()
 
-    if (!postImg) {
+      if (postImg.size > 10 * 1024 * 1024) {
+        errors.post_img = ['カレーの画像のサイズは10MB以内にしてください']
+      } else if (!extension || !allowedExtensions.includes(extension)) {
+        errors.post_img = ['ファイルは.png .jpeg .jpg形式を指定してください。']
+      }
+    } else {
       errors.post_img = ['カレーの画像は必須項目です']
-    } else if (postImg.size > 10 * 1024 * 1024) {
-      errors.post_img = ['カレーの画像のサイズは10MB以内にしてください']
-    } else if (postImg && !allowedExtensions?.includes(extension)) {
-      errors.post_img = ['ファイルは.png .jpeg .jpg形式を指定してください。']
     }
 
     // 緯度経度のバリデーション
@@ -100,6 +108,18 @@ export const usePostFormStore = defineStore('post_form', () => {
 
     resetErrors()
     return true
+  }
+
+  async function load(id: string) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`/api/posts/${id}`)
+        .then((res) => {
+          setData(res.data.data)
+          resolve(true)
+        })
+        .catch(() => reject())
+    })
   }
 
   async function create(payload: {
@@ -154,6 +174,7 @@ export const usePostFormStore = defineStore('post_form', () => {
     resetData,
     resetErrors,
     validate,
+    load,
     create
   }
 })

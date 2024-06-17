@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export interface Post {
-  id: string | number | symbol | undefined
+  id: string
   genre_id: number | null
   region_id: number | null
   prefecture_id: number | null
@@ -60,7 +60,7 @@ export const usePostStore = defineStore('post', () => {
 
   const sortStatus = ref<SortStatus>({
     column: null,
-    ascending: true
+    ascending: false
   })
 
   const posts = ref<Post[]>([])

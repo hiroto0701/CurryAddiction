@@ -83,6 +83,7 @@ async function doLogin(): Promise<void> {
         <LoginButton
           class="w-fit mt-5 mx-auto"
           :is-loading="commonStore.state.apiLoading"
+          :disabled="commonStore.state.apiLoading"
           text="確定する"
         />
       </div>

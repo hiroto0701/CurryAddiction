@@ -18,7 +18,7 @@ const visiblePages = computed(() => {
     return Array.from({ length: lastPage }, (_, i) => i + 1)
   }
 
-  let pages = []
+  let pages: Array<number | string> = []
   let startPage = Math.max(currentPage - BOTH_SIDE_PAGE_COUNT, 1)
   let endPage = Math.min(currentPage + BOTH_SIDE_PAGE_COUNT, lastPage)
 
@@ -99,8 +99,8 @@ function doNext(): void {
         :key="key"
         :active="paginationStatus.current_page === visiblePage"
         :text="visiblePage === '...' ? '...' : visiblePage"
-        @click="visiblePage !== '...' && emit('change-page', visiblePage)"
         :disabled="visiblePage === '...'"
+        @click="visiblePage !== '...' && emit('change-page', visiblePage)"
       />
       <PageItem text="次へ" @click="doNext" :disabled="!canNext" />
     </ul>
