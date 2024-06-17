@@ -10,9 +10,16 @@ interface Props {
 }
 
 defineProps<Props>()
+
+const emit = defineEmits<{
+  (e: 'clickItem'): void
+}>()
 </script>
 <template>
-  <div class="h-80 rounded-lg overflow-hidden border border-gray-200">
+  <div
+    class="h-80 rounded-lg overflow-hidden cursor-pointer duration-300 hover:opacity-80 border border-gray-200"
+    @click="emit('clickItem')"
+  >
     <CardImg :src />
     <CardBody :store-name="storeName" :location :date />
   </div>
