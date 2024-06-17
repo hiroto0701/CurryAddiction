@@ -15,6 +15,7 @@ const emits = defineEmits<{
     <UpdateButton
       class="inline-flex items-center justify-center border text-sm py-3 px-4"
       :is-loading="commonStore.state.uploading"
+      :disabled="commonStore.state.uploading"
       @click="emits('update')"
     />
     <CancelButton

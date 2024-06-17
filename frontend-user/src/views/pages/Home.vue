@@ -19,7 +19,7 @@ function load(): void {
   postStore.load()
 }
 
-function doChangePage(page: number) {
+function doChangePage(page: number): void {
   postStore.setCurrentPage(page)
   load()
 }

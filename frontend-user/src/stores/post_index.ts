@@ -60,7 +60,7 @@ export const usePostStore = defineStore('post', () => {
 
   const sortStatus = ref<SortStatus>({
     column: null,
-    ascending: true
+    ascending: false
   })
 
   const posts = ref<Post[]>([])

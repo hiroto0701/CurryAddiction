@@ -6,7 +6,6 @@ namespace App\Domains\Post\Usecase;
 
 use App\Domains\Post\Usecase\Command\IndexCommand;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class IndexInteractor
@@ -25,10 +24,9 @@ class IndexInteractor
     public function handle(IndexCommand $command): LengthAwarePaginator
     {
         $query = Post::query();
-        // $query->where('user_id', '=', User::AuthServiceUser()->user_id);
 
         $query->orderBy(
-            self::SORT_KEYS[$command->getSortAttribute()] ?? 'updated_at',
+            self::SORT_KEYS[$command->getSortAttribute()] ?? 'posted_at',
             $command->getSortDirection() ?? 'desc'
         )->orderBy('created_at');
 

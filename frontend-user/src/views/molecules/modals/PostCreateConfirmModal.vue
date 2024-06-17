@@ -24,6 +24,7 @@ const emits = defineEmits<{
     <ModalFooter>
       <ModalAgreeButton
         :is-loading="commonStore.state.apiLoading"
+        :disabled="commonStore.state.apiLoading"
         @click="emits('commit')"
         text="投稿する"
       />
