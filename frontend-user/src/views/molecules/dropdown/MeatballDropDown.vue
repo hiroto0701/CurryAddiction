@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Component } from 'vue'
+import type { Component } from 'vue'
 import { useRouter } from 'vue-router'
 import { Menu, MenuButton, MenuItems } from '@headlessui/vue'
 import MeatballMenuIcon from '@/views/atoms/icons/MeatballMenuIcon.vue'

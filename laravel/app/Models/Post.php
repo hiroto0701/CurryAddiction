@@ -55,7 +55,7 @@ class Post extends Model
 
     public function serviceUser(): BelongsTo
     {
-        return $this->belongsTo(ServiceUser::class, 'id', 'user_id');
+        return $this->belongsTo(ServiceUser::class, 'user_id', 'user_id');
     }
 
     public function postImg(): HasOne

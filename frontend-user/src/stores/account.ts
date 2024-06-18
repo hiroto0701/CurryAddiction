@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios'
-import { ref, computed } from 'vue';
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 import { useCommonStore } from '@/stores/common'
@@ -30,8 +30,8 @@ export const useAccountStore = defineStore('account', () => {
     email: null,
     avatar: null,
     registered_at: '',
-    errors: {},
-  });
+    errors: {}
+  })
 
   const router = useRouter()
   const commonStore = useCommonStore()
@@ -52,7 +52,7 @@ export const useAccountStore = defineStore('account', () => {
       email: null,
       avatar: null,
       registered_at: '',
-      errors: {},
+      errors: {}
     }
   }
 
@@ -63,7 +63,7 @@ export const useAccountStore = defineStore('account', () => {
   function resetErrors(): void {
     state.value.errors = {}
   }
-  
+
   // axiosのエラーかどうかチェック
   function isAxiosError(error: any): error is AxiosError {
     return !!error.isAxiosError
@@ -78,20 +78,20 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   function emailValidate(email: string): boolean {
-    const errors: Record<string, string[]> = {};
+    const errors: Record<string, string[]> = {}
     const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  
+
     if (!email) {
       errors.email = ['メールアドレスを入力してください']
     } else if (!emailRegex.test(email)) {
       errors.email = ['有効なメールアドレスを入力してください']
     }
-  
+
     if (Object.keys(errors).length > 0) {
       setErrors(errors)
       return false
     }
-  
+
     resetErrors()
     return true
   }
@@ -102,12 +102,12 @@ export const useAccountStore = defineStore('account', () => {
     if (!token) {
       errors.token = ['認証コードを入力してください']
     }
-  
+
     if (Object.keys(errors).length > 0) {
       setErrors(errors)
       return false
     }
-  
+
     resetErrors()
     return true
   }
@@ -117,11 +117,11 @@ export const useAccountStore = defineStore('account', () => {
     try {
       await axios.get('/sanctum/csrf-cookie')
       await axios.post('/api/service_users/generate_token', {
-        email: payload.email,
+        email: payload.email
       })
-      
+
       return true
-    } catch(error: unknown) {
+    } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         if (error.response) {
           const { response } = error
@@ -136,11 +136,11 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   // ログイン
-  async function login(payload: { email: string, token: string }): Promise<boolean> {
+  async function login(payload: { email: string; token: string }): Promise<boolean> {
     try {
       const response = await axios.post('/api/service_users/login', {
         email: payload.email,
-        token: payload.token,
+        token: payload.token
       })
 
       if (response.status === 200) {
@@ -173,7 +173,7 @@ export const useAccountStore = defineStore('account', () => {
               router.push({ name: 'Signup' })
               return false
             } else {
-              setErrors({auth: ['メールアドレスまたは認証コードが違います。']})
+              setErrors({ auth: ['メールアドレスまたは認証コードが違います。'] })
               return false
             }
           }
@@ -231,22 +231,22 @@ export const useAccountStore = defineStore('account', () => {
     }
   }
 
-  return { 
+  return {
     state,
     isLoadingUserData,
     isAuthenticated,
-    setData, 
-    resetData, 
-    setErrors, 
-    resetErrors, 
-    isAxiosError, 
-    updateDisplayName, 
+    setData,
+    resetData,
+    setErrors,
+    resetErrors,
+    isAxiosError,
+    updateDisplayName,
     updateAvatar,
     emailValidate,
     tokenValidate,
-    generateToken, 
+    generateToken,
     login,
     fetchUserData,
-    logout, 
+    logout
   }
 })

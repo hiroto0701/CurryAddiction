@@ -2,6 +2,7 @@
 import CardIcons from '@/views/molecules/card/CardIcons.vue'
 import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue'
 import StoreLocationBrowseItem from '@/views/molecules/browseItems/StoreLocationBrowseItem.vue'
+import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue'
 
 interface Props {
   readonly storeName: string
@@ -14,6 +15,9 @@ defineProps<Props>()
   <div class="flex flex-col justify-between h-28 pb-2">
     <CardIcons />
     <StoreNameBrowseItem :store-name="storeName" />
-    <StoreLocationBrowseItem :location :date />
+    <div class="flex justify-between items-center">
+      <StoreLocationBrowseItem :location :date />
+      <PostDateBrowseItem :date />
+    </div>
   </div>
 </template>

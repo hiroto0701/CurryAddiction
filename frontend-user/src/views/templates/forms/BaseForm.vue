@@ -2,7 +2,6 @@
 interface Props {
   readonly title: string
 }
-
 defineProps<Props>()
 </script>
 <template>

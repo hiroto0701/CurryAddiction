@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
 import AppLogo from '@/views/atoms/icons/AppLogo.vue'
 import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
-import { RouterLink } from 'vue-router'
 
 const emits = defineEmits<{
   (e: 'openModal'): void

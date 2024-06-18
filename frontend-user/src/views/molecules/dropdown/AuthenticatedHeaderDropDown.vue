@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Component } from 'vue'
+import type { Component } from 'vue'
 import DropDownMenuItem from '@/views/atoms/DropDownMenuItem.vue'
 import LogoutIcon from '@/views/atoms/icons/LogoutIcon.vue'
 import SettingIcon from '@/views/atoms/icons/SettingIcon.vue'

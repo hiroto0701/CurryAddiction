@@ -5,7 +5,6 @@ import ChevronIcon from '@/views/atoms/icons/ChevronIcon.vue'
 interface Props {
   readonly username: null | string
 }
-
 defineProps<Props>()
 </script>
 <template>

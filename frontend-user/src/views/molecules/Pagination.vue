@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { type PaginationStatus } from '@/stores/post_index'
+import type { PaginationStatus } from '@/stores/post_index'
 import PageItem from '@/views/atoms/PageItem.vue'
 
 interface Props {

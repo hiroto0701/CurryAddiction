@@ -13,6 +13,7 @@ class ServiceUserResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'user_id' => $this->user_id,
             'status' => $this->status,
             'handle_name' => $this->handle_name,
             'display_name' => $this->display_name,

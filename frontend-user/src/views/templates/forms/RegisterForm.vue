@@ -4,7 +4,6 @@ import BaseForm from '@/views/templates/forms/BaseForm.vue'
 interface Props {
   readonly title: string
 }
-
 defineProps<Props>()
 </script>
 <template>

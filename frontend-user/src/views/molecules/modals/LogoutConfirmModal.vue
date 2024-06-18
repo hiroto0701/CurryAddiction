@@ -10,11 +10,11 @@ import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
 interface Props {
   closeModal: () => void
 }
+defineProps<Props>()
 
 const accountStore = useAccountStore()
 const modalContent = ref<string>(`@${accountStore.state.handle_name}としてログインしています`)
 
-defineProps<Props>()
 const emits = defineEmits<{
   (e: 'doLogout'): void
   (e: 'cancel'): void

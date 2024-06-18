@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import HeartIcon from '@/views/atoms/icons/HeartIcon.vue'
 import ArchiveIcon from '@/views/atoms/icons/ArchiveIcon.vue'
 import LikedHeartIcon from '@/views/atoms/icons/LikedHeartIcon.vue'
 import LikedAnimationDots from '@/views/atoms/LikedAnimationDots.vue'
-import { ref } from 'vue'
 
 const liked = ref<boolean>(false)
 const archived = ref<boolean>(false)
