@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import AppLogo from '@/views/atoms/icons/AppLogo.vue'
-import ProfileLink from '@/views/molecules/links/ProfileLink.vue'
+import MyProfileLink from '@/views/molecules/links/MyProfileLink.vue'
 </script>
 <template>
   <footer class="bg-sumi-50 mt-auto py-12">
@@ -10,7 +10,7 @@ import ProfileLink from '@/views/molecules/links/ProfileLink.vue'
     >
       <div class="flex flex-col w-fit gap-5">
         <AppLogo />
-        <ProfileLink />
+        <MyProfileLink />
       </div>
       <div class="flex flex-col gap-4">
         <router-link :to="{ name: 'PrivacyPolicy' }" class="font-body text-sumi-600">
@@ -21,8 +21,8 @@ import ProfileLink from '@/views/molecules/links/ProfileLink.vue'
           href="https://forms.gle/roKqweFnKA8vMcSR9"
           target="_blank"
           rel="noopener noreferrer"
-          >お問い合わせ</a
-        >
+          >お問い合わせ
+        </a>
       </div>
     </div>
     <small class="font-body text-sumi-600 text-center w-fit mt-5 mx-auto block">

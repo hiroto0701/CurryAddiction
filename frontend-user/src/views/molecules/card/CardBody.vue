@@ -17,7 +17,7 @@ defineProps<Props>()
     <StoreNameBrowseItem :store-name="storeName" />
     <div class="flex justify-between items-center">
       <StoreLocationBrowseItem :location :date />
-      <PostDateBrowseItem :date />
+      <PostDateBrowseItem class="text-xs" :date />
     </div>
   </div>
 </template>
