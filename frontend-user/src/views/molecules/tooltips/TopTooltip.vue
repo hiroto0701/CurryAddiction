@@ -7,7 +7,6 @@ interface Props {
   readonly position: 'top'
   readonly open?: boolean
 }
-
 defineProps<Props>()
 </script>
 <template>

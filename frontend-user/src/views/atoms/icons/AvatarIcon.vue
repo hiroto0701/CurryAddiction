@@ -8,7 +8,7 @@ interface Props {
 defineProps<Props>()
 
 const accountStore = useAccountStore()
-const avatar = computed(() => {
+const avatar = computed((): string => {
   if (accountStore.state.avatar === null) {
     const defaultAvatar = '../../../../public/icon/default_avatar.jpg'
     return defaultAvatar

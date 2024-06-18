@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import MainHeader from '@/views/atoms/MainHeader.vue'
 import { Disclosure } from '@headlessui/vue'
+import MainHeader from '@/views/atoms/MainHeader.vue'
 import AppLogo from '@/views/atoms/icons/AppLogo.vue'
 import HomeIcon from '@/views/atoms/icons/HomeIcon.vue'
 import PlusIcon from '@/views/atoms/icons/PlusIcon.vue'

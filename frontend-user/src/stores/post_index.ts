@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 
 export interface Post {
@@ -65,6 +66,7 @@ export const usePostStore = defineStore('post', () => {
 
   const posts = ref<Post[]>([])
   const errors = ref<Record<string, string[]>>({})
+  const router = useRouter()
 
   const getParameter = computed(() => {
     return {
@@ -94,6 +96,7 @@ export const usePostStore = defineStore('post', () => {
 
   function setCurrentPage(value: number) {
     paginationStatus.value.current_page = value
+    router.push({ query: { page: paginationStatus.value.current_page } })
   }
 
   function setPerPage(value: number) {

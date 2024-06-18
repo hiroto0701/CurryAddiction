@@ -12,6 +12,8 @@ interface PostFormState {
   post_img: string
   latitude: number | null
   longitude: number | null
+  posted_at: string
+  user: Record<string, string>
   errors: Record<string, string[]>
 }
 
@@ -24,6 +26,8 @@ export const usePostFormStore = defineStore('post_form', () => {
     post_img: '',
     latitude: null,
     longitude: null,
+    posted_at: '',
+    user: {},
     errors: {}
   })
 
@@ -43,6 +47,8 @@ export const usePostFormStore = defineStore('post_form', () => {
       post_img: '',
       latitude: null,
       longitude: null,
+      posted_at: '',
+      user: {},
       errors: {}
     }
   }

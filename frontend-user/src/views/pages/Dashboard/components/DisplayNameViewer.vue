@@ -5,7 +5,6 @@ import EditDisplayNameButton from '@/views/molecules/buttons/EditDisplayNameButt
 interface Props {
   readonly displayName: null | string
 }
-
 defineProps<Props>()
 
 const emit = defineEmits<{

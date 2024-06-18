@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { usePostStore, type Post, type PaginationStatus } from '@/stores/post_index'
 import Card from '@/views/molecules/card/Card.vue'
 import Pagination from '@/views/molecules/Pagination.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
 
 const postStore = usePostStore()
+const route = useRoute()
 const router = useRouter()
 
 const posts = computed<Post[]>(() => {
@@ -33,6 +34,13 @@ function toViewer(postId: string) {
 onMounted((): void => {
   load()
 })
+
+watch(
+  () => route.query.page,
+  () => {
+    load()
+  }
+)
 </script>
 <template>
   <CardDisplayAreaLayout>

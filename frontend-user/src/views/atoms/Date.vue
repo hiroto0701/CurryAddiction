@@ -1,12 +1,12 @@
 <script setup lang="ts">
 interface Props {
   readonly date: string
+  readonly formattedDate: string
 }
-
 defineProps<Props>()
 </script>
 <template>
-  <span class="inline-block py-1 px-3 text-xs font-normal text-gray-500 absolute right-0">
-    {{ date }}
-  </span>
+  <time class="flex min-w-0 justify-items-end items-center font-body" :datetime="date">
+    {{ formattedDate }}
+  </time>
 </template>

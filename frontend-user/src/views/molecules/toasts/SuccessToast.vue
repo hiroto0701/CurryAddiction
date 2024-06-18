@@ -6,10 +6,8 @@ import ToastBody from '@/views/atoms/ToastBody.vue'
 interface Props {
   readonly message: null | string
 }
-
 defineProps<Props>()
 </script>
-
 <template>
   <Toast>
     <ToastBody :message :icon-component="CheckIcon" />

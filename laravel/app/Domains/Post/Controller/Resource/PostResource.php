@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domains\Post\Controller\Resource;
 
+use App\Domains\ServiceUser\Controller\Resource\ServiceUserResource;
 use App\Http\Controllers\FileViewAction;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -28,6 +29,8 @@ class PostResource extends JsonResource
             // TODO いいねされた数も返す
             // 'liked_count' =>
             'posted_at' => $this->posted_at,
+            'posted_by' => $this->user_id,
+            'user' => new ServiceUserResource($this->serviceUser),
         ];
     }
 }

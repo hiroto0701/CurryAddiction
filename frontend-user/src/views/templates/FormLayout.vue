@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Component } from 'vue'
+import type { Component } from 'vue'
 
 interface Props {
   readonly label: string
@@ -7,7 +7,6 @@ interface Props {
   readonly optional: boolean
   readonly iconComponent: Component
 }
-
 defineProps<Props>()
 </script>
 <template>

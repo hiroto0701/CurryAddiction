@@ -6,7 +6,6 @@ interface Props {
   readonly text: string
   readonly position: 'bottom'
 }
-
 defineProps<Props>()
 </script>
 <template>

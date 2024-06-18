@@ -8,8 +8,8 @@ interface Props {
 const props = defineProps<Props>()
 
 const dayjs = inject('$dayjs') as typeof import('dayjs')
-const signUpDate = computed(() => dayjs(props.date).format('YYYY年M月'))
+const postDate = computed(() => dayjs(props.date).format('YYYY/M/D'))
 </script>
 <template>
-  <Date class="font-body text-sumi-900 text-sm" :date :formatted-date="signUpDate" />
+  <Date class="py-1 pr-2 text-xs text-gray-500" :date :formatted-date="postDate" />
 </template>

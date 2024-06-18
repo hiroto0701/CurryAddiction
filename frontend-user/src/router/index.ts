@@ -205,6 +205,11 @@ router.beforeEach(async (to, from, next) => {
     return next({ name: 'Login' })
   }
 
+  // ログインしている場合は/loginへのアクセスを制限
+  // if (to.name === 'Login') {
+  //   return accountStore.isAuthenticated ? next() : next({ name: 'Home' })
+  // }
+
   // 認証が必要なページへのアクセス制限
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     // リロード時ユーザー情報取得を待つ

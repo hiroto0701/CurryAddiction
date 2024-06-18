@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Component } from 'vue'
+import type { Component } from 'vue'
 import { useRouter } from 'vue-router'
 import DashboardIcon from '@/views/atoms/icons/DashboardIcon.vue'
 import HeartIcon from '@/views/atoms/icons/HeartIcon.vue'
