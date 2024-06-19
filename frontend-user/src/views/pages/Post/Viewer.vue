@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { usePostFormStore } from '@/stores/post_form'
+import { useRoute } from 'vue-router'
+import { usePosts } from '@/composables/useFetchPostData'
 import BackToHomeLink from '@/views/molecules/links/BackToHomeLink.vue'
 import EditPostLink from '@/views/molecules/links/EditPostLink.vue'
 
@@ -10,17 +10,13 @@ import TrashIcon from '@/views/atoms/icons/TrashIcon.vue'
 import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue'
 import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue'
 
-const router = useRouter()
-const postFormStore = usePostFormStore()
+const route = useRoute()
+const { posts, getPost } = usePosts()
 
-const postData = computed(() => postFormStore.state)
-
-function load(): void {
-  postFormStore.load(router.currentRoute.value.params.id as string)
-}
+const postData = computed(() => posts.value[0] || {})
 
 onMounted(() => {
-  load()
+  getPost(route.params.id as string)
 })
 </script>
 <template>

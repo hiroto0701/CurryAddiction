@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, watch } from 'vue'
+import { computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { usePostStore, type Post, type PaginationStatus } from '@/stores/post_index'
 import Card from '@/views/molecules/card/Card.vue'
@@ -31,15 +31,13 @@ function toViewer(postId: string) {
   router.push({ name: 'PostViewer', params: { id: postId } })
 }
 
-onMounted((): void => {
-  load()
-})
-
 watch(
   () => route.query.page,
   () => {
-    load()
-  }
+    const page = route.query.page ? parseInt(route.query.page as string, 10) : 1
+    doChangePage(page)
+  },
+  { immediate: true }
 )
 </script>
 <template>
