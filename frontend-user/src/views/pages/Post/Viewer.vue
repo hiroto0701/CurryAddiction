@@ -2,8 +2,13 @@
 import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { usePostFormStore } from '@/stores/post_form'
-import PostAvatarIcon from '@/views/atoms/icons/PostAvatarIcon.vue'
+import BackToHomeLink from '@/views/molecules/links/BackToHomeLink.vue'
+import EditPostLink from '@/views/molecules/links/EditPostLink.vue'
+
+import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
+import TrashIcon from '@/views/atoms/icons/TrashIcon.vue'
 import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue'
+import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue'
 
 const router = useRouter()
 const postFormStore = usePostFormStore()
@@ -19,17 +24,23 @@ onMounted(() => {
 })
 </script>
 <template>
+  <div class="flex items-center justify-between h-12 lg:sticky lg:top-0">
+    <BackToHomeLink />
+    <div class="flex items-center gap-2">
+      <EditPostLink />
+      <TrashIcon />
+    </div>
+  </div>
   <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-md">
-    <div class="pt-24 md:pt-28">
-      <h1 class="font-body text-sumi-900 leading-relaxed text-xl">{{ postData.store_name }}</h1>
-      <div class="mt-20 flex items-center text-sumi-600">
-        <a class="flex min-w-0 items-center gap-2.5 text-sm hover:text-sumi-900" href="#">
-          <PostAvatarIcon />
-          <span class="max-w-40 truncate font-body inline-block">
-            {{ postData.user.display_name }}
-          </span>
-        </a>
-        <PostDateBrowseItem class="ml-5" :date="postData.posted_at" />
+    <div class="pt-8">
+      <div class="flex gap-2.5">
+        <StoreIcon />
+        <h1 class="font-body text-sumi-900 leading-relaxed text-xl">{{ postData.store_name }}</h1>
+      </div>
+      <div class="mt-20 flex items-center text-sumi-600 gap-3">
+        <PostUserProfileLink />
+        <span>&brvbar;</span>
+        <PostDateBrowseItem class="text-base" :date="postData.posted_at" />
       </div>
     </div>
 

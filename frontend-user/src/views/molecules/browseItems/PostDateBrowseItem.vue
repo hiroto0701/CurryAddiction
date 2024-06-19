@@ -11,5 +11,5 @@ const dayjs = inject('$dayjs') as typeof import('dayjs')
 const postDate = computed(() => dayjs(props.date).format('YYYY/M/D'))
 </script>
 <template>
-  <Date class="py-1 pr-2 text-xs text-gray-500" :date :formatted-date="postDate" />
+  <Date class="py-1 pr-2 text-gray-500" :date :formatted-date="postDate" />
 </template>
