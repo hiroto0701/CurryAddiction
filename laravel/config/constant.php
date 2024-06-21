@@ -5,7 +5,7 @@ return [
         'sort_ascending' => 'asc',
         'sort_descending' => 'desc',
         'sort_directions' => ['asc', 'desc'],
-        'max_item_per_page' => 2,
+        'max_item_per_page' => 1,
     ],
     'avatar' => [
         'uploadfiles_path_format' => '/avatar/%d/uploadfiles/',

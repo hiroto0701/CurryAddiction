@@ -11,12 +11,12 @@ import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem
 import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue'
 
 const route = useRoute()
-const { posts, getPost } = usePosts()
+const { posts, fetchPostDetail } = usePosts()
 
 const postData = computed(() => posts.value[0] || {})
 
 onMounted(() => {
-  getPost(route.params.id as string)
+  fetchPostDetail(route.params.id as string)
 })
 </script>
 <template>

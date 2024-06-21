@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export interface Post {
   id: string
@@ -35,16 +36,28 @@ export const usePosts = () => {
     per_page: null
   })
   const errors = ref<Record<string, string[]>>({})
+  const router = useRouter()
 
-  async function fetchPostLists(params: Record<string, any>) {
+  async function fetchPostsList(params?: Record<string, any>): Promise<Post> {
     try {
       const response = await axios.get('/api/posts', { params })
       posts.value = response.data.data
       paginationStatus.value = response.data.meta
+      return response.data
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response?.status === 422) {
         errors.value = error.response.data.errors
       }
+      throw error
+    }
+  }
+
+  async function setCurrentPage(value: number) {
+    try {
+      await fetchPostsList({ page: value })
+      router.push({ query: { page: value.toString() } })
+    } catch (error) {
+      console.error('Failed to fetch posts for page:', value, error)
     }
   }
 
@@ -59,5 +72,12 @@ export const usePosts = () => {
     }
   }
 
-  return { posts, paginationStatus, errors, fetchPostLists, fetchPostDetail }
+  return {
+    posts,
+    paginationStatus,
+    errors,
+    fetchPostsList,
+    setCurrentPage,
+    fetchPostDetail
+  }
 }
