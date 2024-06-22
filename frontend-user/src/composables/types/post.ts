@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 export interface Post {
   id: string
   genre_id: number | null
@@ -23,24 +21,7 @@ export interface PaginationStatus {
   per_page: number | null
 }
 
-interface PostsResponse {
+export interface PostsResponse {
   data: Post[]
   meta: PaginationStatus
-}
-
-export const usePosts = () => {
-  async function fetchPostsList(params?: Record<string, any>): Promise<PostsResponse> {
-    const response = await axios.get<PostsResponse>('/api/posts', { params })
-    return response.data
-  }
-
-  async function fetchPostDetail(id: string): Promise<Post> {
-    const response = await axios.get<{ data: Post }>(`/api/posts/${id}`)
-    return response.data.data
-  }
-
-  return {
-    fetchPostsList,
-    fetchPostDetail
-  }
 }

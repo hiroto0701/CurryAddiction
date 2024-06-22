@@ -9,8 +9,7 @@ import PostListSkeleton from '@/views/pages/Post/components/PostListSkeleton.vue
     </template>
 
     <template #fallback>
-      <PostListSkelton />
+      <PostListSkeleton />
     </template>
   </Suspense>
-  <PostListSkeleton />
 </template>

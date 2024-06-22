@@ -29,7 +29,7 @@ const emits = defineEmits<{
         >
       </div>
     </div>
-    <small class="font-body text-sumi-600 text-center w-fit mt-5 mx-auto block"
+    <small class="font-body text-sumi-600 text-center w-fit mt-5 mx-auto block select-none"
       >&copy; 2024 Curry Addiction</small
     >
   </footer>
