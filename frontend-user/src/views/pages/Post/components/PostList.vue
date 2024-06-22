@@ -1,43 +1,49 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { usePosts, type Post } from '@/composables/useFetchPostData'
+import { ref } from 'vue'
+import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
+import type { Post, PaginationStatus } from '@/composables/types/post'
+import { useFetchPosts } from '@/composables/functions/useFetchPosts'
 import Card from '@/views/molecules/card/Card.vue'
 import Pagination from '@/views/molecules/Pagination.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
 
-const posts = ref<Post[]>([])
-const { paginationStatus, fetchPostsList, setCurrentPage } = usePosts()
+const { fetchPostsList } = useFetchPosts()
 const route = useRoute()
 const router = useRouter()
 
+const posts = ref<Post[]>([])
+const paginationStatus = ref<PaginationStatus | null>(null)
+
 async function loadPosts(page: number = 1) {
-  try {
-    const data = await fetchPostsList({ page })
-    posts.value = data.data
-  } catch (error) {
-    console.error('Failed to load posts:', error)
+  if (
+    !paginationStatus.value ||
+    page !== paginationStatus.value.current_page ||
+    posts.value.length === 0
+  ) {
+    try {
+      const { data, meta } = await fetchPostsList({ page })
+      posts.value = data
+      paginationStatus.value = meta
+    } catch (error) {
+      console.error('Failed to load posts:', error)
+    }
   }
 }
 
 await loadPosts(Number(route.query.page) || 1)
 
-async function doChangePage(page: number): Promise<void> {
-  await setCurrentPage(page)
-  await loadPosts(page)
+async function doChangePage(page: number | string): Promise<void> {
+  await router.push({ query: { page: page.toString() } })
 }
 
-function toViewer(postId: string) {
+function toViewer(postId: string): void {
   router.push({ name: 'PostViewer', params: { id: postId } })
 }
 
-watch(
-  () => route.query.page,
-  async (newPage) => {
-    const page = newPage ? parseInt(newPage as string, 10) : 1
-    await loadPosts(page)
-  }
-)
+onBeforeRouteUpdate(async (to): Promise<void> => {
+  const page = Number(to.query.page) || 1
+  await loadPosts(page)
+})
 </script>
 <template>
   <CardDisplayAreaLayout>

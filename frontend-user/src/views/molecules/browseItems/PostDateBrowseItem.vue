@@ -3,7 +3,7 @@ import { computed, inject } from 'vue'
 import Date from '@/views/atoms/Date.vue'
 
 interface Props {
-  readonly date: string
+  readonly date?: string
 }
 const props = defineProps<Props>()
 

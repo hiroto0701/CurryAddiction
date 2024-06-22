@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { PaginationStatus } from '@/stores/post_index'
+import type { PaginationStatus } from '@/composables/useFetchPostData'
 import PageItem from '@/views/atoms/PageItem.vue'
 
 interface Props {
-  readonly paginationStatus: PaginationStatus
+  readonly paginationStatus: PaginationStatus | null
 }
 const props = defineProps<Props>()
 
 const visiblePages = computed(() => {
+  if (!props.paginationStatus) return []
+
   const BOTH_SIDE_PAGE_COUNT = 2
   const MAX_VISIBLE_PAGES = 7
   const currentPage = props.paginationStatus.current_page || 1
@@ -50,11 +52,13 @@ const visiblePages = computed(() => {
 })
 
 const canPrev = computed((): boolean => {
+  if (!props.paginationStatus) return false
   const currentPage = props.paginationStatus.current_page || 1
   return 1 < currentPage
 })
 
 const canNext = computed((): boolean => {
+  if (!props.paginationStatus) return false
   const currentPage = props.paginationStatus.current_page || 1
   const lastPage = props.paginationStatus.last_page || 1
   return currentPage < lastPage
@@ -65,21 +69,22 @@ const emit = defineEmits<{
 }>()
 
 function doPrev(): void {
-  if (canPrev.value) {
+  if (canPrev.value && props.paginationStatus) {
     const currentPage = props.paginationStatus.current_page || 1
     emit('change-page', currentPage - 1)
   }
 }
 
 function doNext(): void {
-  if (canNext.value) {
+  if (canNext.value && props.paginationStatus) {
     const currentPage = props.paginationStatus.current_page || 1
     emit('change-page', currentPage + 1)
   }
 }
 </script>
+
 <template>
-  <div>
+  <div v-if="paginationStatus">
     <p class="font-body text-sumi-900 text-sm" v-if="paginationStatus.total !== null">
       全{{ paginationStatus.total }}件中 {{ paginationStatus.from || 0 }}件～{{
         paginationStatus.to || 0
