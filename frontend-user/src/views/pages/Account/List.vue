@@ -4,7 +4,7 @@ import Card from '@/views/molecules/card/Card.vue'
 import GotoSettingPageButton from '@/views/molecules/buttons/GotoSettingPageButton.vue'
 import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
 import HandleNameBrowseItem from '@/views/molecules/browseItems/HandleNameBrowseItem.vue'
-import ProfileImgBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue'
+import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue'
 import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
 
@@ -13,11 +13,11 @@ const accountStore = useAccountStore()
 <template>
   <div class="mb-12 overflow-hidden rounded-2xl border p-6 md:p-7">
     <div class="flex items-center gap-3.5 py-6">
-      <ProfileImgBrowseItem class="w-24" />
+      <AvatarBrowseItem class="w-24" />
       <div class="flex-1 leading-normal">
         <DisplayNameBrowseItem
           :display-name="accountStore.state.display_name"
-          class="break-all text-md text-sumi-900 font-body"
+          class="break-all text-md text-sumi-900"
         />
         <HandleNameBrowseItem :handle-name="accountStore.state.handle_name" />
       </div>
