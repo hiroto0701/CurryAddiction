@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { usePostFormStore } from '@/stores/post_form'
 
-const postFormStore = usePostFormStore()
+interface Props {
+  readonly avatarUrl: string | null
+}
+const prop = defineProps<Props>()
+
 const avatar = computed((): string => {
-  if (postFormStore.state.user.avatar === null) {
+  if (prop.avatarUrl === null) {
     const defaultAvatar = '../../../../public/icon/default_avatar.jpg'
     return defaultAvatar
   } else {
-    return postFormStore.state.user.avatar
+    return prop.avatarUrl
   }
 })
 </script>

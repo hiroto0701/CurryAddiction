@@ -7,6 +7,7 @@ namespace App\Domains\Post\Controller\Resource;
 use App\Domains\ServiceUser\Controller\Resource\ServiceUserResource;
 use App\Http\Controllers\FileViewAction;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\User;
 
 class PostResource extends JsonResource
 {
@@ -30,7 +31,15 @@ class PostResource extends JsonResource
             // 'liked_count' =>
             'posted_at' => $this->posted_at,
             'posted_by' => $this->user_id,
-            'user' => new ServiceUserResource($this->serviceUser),
+            'user' => [
+                'user_id' => $this->serviceUser->user_id,
+                'display_name' => $this->serviceUser->display_name,
+                'avatar' => $this->serviceUser->avatar ? route(
+                    'file.view',
+                    ['type' => FileViewAction::TYPE_AVATAR, 'uuid' => $this->serviceUser->avatar->uuid]
+                ) : null,
+            ],
+            'is_mine' => User::AuthId() === $this->serviceUser->user_id
         ];
     }
 }

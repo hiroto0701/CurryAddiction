@@ -1,15 +1,22 @@
 export interface Post {
-  id: string
+  id: number
   genre_id: number | null
   region_id: number | null
   prefecture_id: number | null
   store_name: string
   comment: string
+  latitude: string | null
+  longitude: string | null
   post_img: string
-  latitude: number | null
-  longitude: number | null
   posted_at: string
-  errors: Record<string, string[]>
+  posted_by: number
+  user: {
+    user_id: number
+    display_name: string
+    avatar: string | null
+  }
+  is_mine: boolean
+  errors?: Record<string, string[]>
 }
 
 export interface PaginationStatus {

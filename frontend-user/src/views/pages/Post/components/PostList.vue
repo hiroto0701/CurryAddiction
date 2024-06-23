@@ -36,7 +36,7 @@ async function doChangePage(page: number | string): Promise<void> {
   await router.push({ query: { page: page.toString() } })
 }
 
-function toViewer(postId: string): void {
+function toViewer(postId: number): void {
   router.push({ name: 'PostViewer', params: { id: postId } })
 }
 

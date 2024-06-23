@@ -4,6 +4,7 @@ import IconSkeleton from '@/views/molecules/skeletons/IconSkeleton.vue'
 import TextSkeleton from '@/views/molecules/skeletons/TextSkeleton.vue'
 </script>
 <template>
+  <div class="h-12"></div>
   <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-md animate-pulse">
     <div class="pt-8">
       <div class="flex gap-2.5 items-center">
