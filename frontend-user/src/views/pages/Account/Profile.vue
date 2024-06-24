@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import axios from 'axios'
 import { useAccountStore } from '@/stores/account'
 import Card from '@/views/molecules/card/Card.vue'
 import GotoSettingPageButton from '@/views/molecules/buttons/GotoSettingPageButton.vue'
@@ -7,8 +8,14 @@ import HandleNameBrowseItem from '@/views/molecules/browseItems/HandleNameBrowse
 import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue'
 import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
+import { onMounted } from 'vue'
 
 const accountStore = useAccountStore()
+
+onMounted(async () => {
+  const response = await axios.get(`/api/${accountStore.state.handle_name}`)
+  console.log(response.data.data)
+})
 </script>
 <template>
   <div class="mb-12 overflow-hidden rounded-2xl border p-6 md:p-7">

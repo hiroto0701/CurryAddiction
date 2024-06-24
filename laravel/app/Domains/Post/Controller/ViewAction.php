@@ -11,7 +11,6 @@ use Illuminate\Routing\Controller;
 
 class ViewAction extends Controller
 {
-
     public function __invoke(ViewRequest $request, Post $post): PostResource
     {
         return new PostResource($post);

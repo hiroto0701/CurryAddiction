@@ -185,7 +185,7 @@ export const useAccountStore = defineStore('account', () => {
 
   async function fetchUserData(): Promise<AccountState | null> {
     try {
-      const response = await axios.get('/api/service_users/user')
+      const response = await axios.get('/api/service_users/me')
       setData(response.data.data)
       return state.value
     } catch (error) {

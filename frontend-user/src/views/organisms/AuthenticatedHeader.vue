@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import AppLogo from '@/views/atoms/icons/AppLogo.vue'
 import MainHeader from '@/views/atoms/MainHeader.vue'
 import AuthenticatedHeaderDropDown from '@/views/molecules/dropdown/AuthenticatedHeaderDropDown.vue'
-import NavigationIcons from '@/views/molecules/NavigationIcons.vue'
+import HeaderNavigation from '@/views/molecules/HeaderNavigation.vue'
 import LogoutConfirmModal from '@/views/molecules/modals/LogoutConfirmModal.vue'
 
 const accountStore = useAccountStore()
@@ -40,7 +40,7 @@ function doLogout(): void {
         <div class="relative flex h-16 items-center justify-between">
           <AppLogo />
           <div class="flex items-center">
-            <NavigationIcons />
+            <HeaderNavigation :handle-name="accountStore.state.handle_name" />
             <AuthenticatedHeaderDropDown
               :username="accountStore.state.display_name"
               @to-post-dashboard="handleRouting('PostDashboard')"
