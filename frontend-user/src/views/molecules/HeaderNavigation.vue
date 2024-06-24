@@ -13,12 +13,20 @@ interface NavItem {
   to?: string | Record<string, unknown>
 }
 
+const props = defineProps<{
+  handleName: string
+}>()
+
 const navItems: NavItem[] = [
   { name: 'ホーム', icon: HomeIcon, to: { name: 'Home' } },
   { name: '投稿する', icon: PlusIcon, to: { name: 'PostCreate' } },
   { name: '検索する', icon: SearchIcon, to: { name: 'Search' } },
   { name: 'お知らせ', icon: NotificationIcon },
-  { name: 'マイページ', icon: AvatarIcon, to: { name: 'UserPage' } }
+  {
+    name: 'マイページ',
+    icon: AvatarIcon,
+    to: { name: 'UserPage', params: { username: props.handleName } }
+  }
 ]
 </script>
 <template>

@@ -25,7 +25,7 @@ Route::prefix('/service_users')->group(function() {
     Route::put('/register', \App\Domains\ServiceUser\Controller\RegisterAction::class);
 
     // リロード時ユーザー情報取得
-    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
         return new ServiceUserResource($request->user());
     });
 
@@ -43,4 +43,8 @@ Route::prefix('/posts')->group(function() {
         Route::post('/', \App\Domains\Post\Controller\CreateAction::class);
         Route::get('/{post}', \App\Domains\Post\Controller\ViewAction::class);
     });
+});
+
+Route::middleware((['auth:service_users']))->group(function() {
+    Route::get('/{service_user:handle_name}', \App\Domains\ServiceUser\Controller\ViewAction::class);
 });

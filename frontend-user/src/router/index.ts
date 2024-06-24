@@ -114,13 +114,15 @@ const routes = [
           },
           // ユーザ毎の投稿一覧ページ
           {
-            path: 'username',
+            path: ':username?',
             name: 'UserPage',
             meta: {
+              // todo
+              // title を urlのhandle_nameに変更する
               title: 'マイページ',
               group: 'Account'
             },
-            component: () => import('@/views/pages/Account/List.vue')
+            component: () => import('@/views/pages/Account/Profile.vue')
           }
         ]
       },
