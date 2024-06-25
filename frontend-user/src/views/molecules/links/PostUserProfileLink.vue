@@ -5,13 +5,14 @@ import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrow
 
 interface Props {
   readonly displayName?: string
+  readonly handleName: string
   readonly avatarUrl: string | null
 }
 defineProps<Props>()
 </script>
 <template>
   <router-link
-    :to="{ name: 'UserPage' }"
+    :to="{ name: 'UserPage', params: { username: handleName } }"
     class="flex min-w-0 items-center gap-2.5 text-base truncate hover:text-sumi-900"
   >
     <PostAvatarBrowseItem :avatar-url />

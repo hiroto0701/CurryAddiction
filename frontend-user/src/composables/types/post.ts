@@ -13,6 +13,7 @@ export interface Post {
   user: {
     user_id: number
     display_name: string
+    handle_name: string
     avatar: string | null
   }
   is_mine: boolean

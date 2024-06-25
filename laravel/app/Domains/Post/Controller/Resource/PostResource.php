@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Domains\Post\Controller\Resource;
 
 use App\Http\Controllers\FileViewAction;
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\User;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostResource extends JsonResource
 {
@@ -33,6 +33,7 @@ class PostResource extends JsonResource
             'user' => [
                 'user_id' => $this->serviceUser->user_id,
                 'display_name' => $this->serviceUser->display_name,
+                'handle_name' => $this->serviceUser->handle_name,
                 'avatar' => $this->serviceUser->avatar ? route(
                     'file.view',
                     ['type' => FileViewAction::TYPE_AVATAR, 'uuid' => $this->serviceUser->avatar->uuid]
