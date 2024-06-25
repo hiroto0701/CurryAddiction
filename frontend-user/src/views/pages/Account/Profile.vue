@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import axios from 'axios'
 import { useAccountStore } from '@/stores/account'
+import { useRoute } from 'vue-router'
+import { onMounted } from 'vue'
 import Card from '@/views/molecules/card/Card.vue'
 import GotoSettingPageButton from '@/views/molecules/buttons/GotoSettingPageButton.vue'
 import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
@@ -8,12 +10,12 @@ import HandleNameBrowseItem from '@/views/molecules/browseItems/HandleNameBrowse
 import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue'
 import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
-import { onMounted } from 'vue'
 
 const accountStore = useAccountStore()
+const route = useRoute()
 
 onMounted(async () => {
-  const response = await axios.get(`/api/${accountStore.state.handle_name}`)
+  const response = await axios.get(`/api/${route.params.username}`)
   console.log(response.data.data)
 })
 </script>
@@ -33,7 +35,7 @@ onMounted(async () => {
     <UserAnalytics />
   </div>
   <CardDisplayAreaLayout>
-    <Card
+    <!-- <Card
       :src="'https://pbs.twimg.com/media/Fe6MtHRVUAQqqmF.jpg'"
       store-name="和平カレー"
       location="福岡"
@@ -68,6 +70,6 @@ onMounted(async () => {
       store-name="Rスリランカ"
       location="福岡"
       date="2024年12月24日"
-    />
+    /> -->
   </CardDisplayAreaLayout>
 </template>

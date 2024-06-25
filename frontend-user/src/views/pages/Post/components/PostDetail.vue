@@ -43,6 +43,7 @@ await load(route.params.id as string)
       <div class="mt-20 flex items-center text-sumi-600 gap-3">
         <PostUserProfileLink
           :display-name="post.user.display_name"
+          :handle-name="post.user.handle_name"
           :avatar-url="post.user.avatar"
         />
         <span>&brvbar;</span>
