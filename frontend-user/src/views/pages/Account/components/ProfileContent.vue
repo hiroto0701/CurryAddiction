@@ -1,0 +1,43 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import type { ServiceUser } from '@/composables/types/serviceUser'
+import { useFetchProfile } from '@/composables/functions/useFetchProfile'
+import GotoSettingPageButton from '@/views/molecules/buttons/GotoSettingPageButton.vue'
+import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
+import HandleNameBrowseItem from '@/views/molecules/browseItems/HandleNameBrowseItem.vue'
+import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue'
+import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
+
+const { fetchProfile } = useFetchProfile()
+const route = useRoute()
+
+const service_user = ref<ServiceUser>({} as ServiceUser)
+
+async function loadUser(username: string) {
+  try {
+    const data = await fetchProfile(username)
+    service_user.value = data
+  } catch (error) {
+    console.error('Failed to load posts:', error)
+  }
+}
+
+await loadUser(route.params.username as string)
+</script>
+<template>
+  <div class="mb-12 overflow-hidden rounded-2xl border p-6 md:p-7">
+    <div class="flex items-center gap-3.5 py-6">
+      <AvatarBrowseItem class="w-24" :avatar-url="service_user.avatar_url" />
+      <div class="flex-1 leading-normal">
+        <DisplayNameBrowseItem
+          :display-name="service_user.display_name"
+          class="break-all text-md text-sumi-900"
+        />
+        <HandleNameBrowseItem :handle-name="service_user.handle_name" />
+      </div>
+      <GotoSettingPageButton v-if="service_user.is_mine" text="設定" />
+    </div>
+    <UserAnalytics :registered-at="service_user.registered_at" />
+  </div>
+</template>

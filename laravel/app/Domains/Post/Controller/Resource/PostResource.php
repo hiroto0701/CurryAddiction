@@ -34,7 +34,7 @@ class PostResource extends JsonResource
                 'user_id' => $this->serviceUser->user_id,
                 'display_name' => $this->serviceUser->display_name,
                 'handle_name' => $this->serviceUser->handle_name,
-                'avatar' => $this->serviceUser->avatar ? route(
+                'avatar_url' => $this->serviceUser->avatar ? route(
                     'file.view',
                     ['type' => FileViewAction::TYPE_AVATAR, 'uuid' => $this->serviceUser->avatar->uuid]
                 ) : null,

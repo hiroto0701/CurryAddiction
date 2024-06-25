@@ -10,7 +10,7 @@ interface AccountState {
   display_name: string
   handle_name: string
   email: string | null
-  avatar: string | null
+  avatar_url: string | null
   // todo => string -> Date | null
   registered_at: string
   isNewRegistration?: boolean
@@ -28,7 +28,7 @@ export const useAccountStore = defineStore('account', () => {
     display_name: '',
     handle_name: '',
     email: null,
-    avatar: null,
+    avatar_url: null,
     registered_at: '',
     errors: {}
   })
@@ -50,7 +50,7 @@ export const useAccountStore = defineStore('account', () => {
       display_name: '',
       handle_name: '',
       email: null,
-      avatar: null,
+      avatar_url: null,
       registered_at: '',
       errors: {}
     }
@@ -74,7 +74,7 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   function updateAvatar(avatar: string | null): void {
-    state.value.avatar = avatar
+    state.value.avatar_url = avatar
   }
 
   function emailValidate(email: string): boolean {

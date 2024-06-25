@@ -44,7 +44,7 @@ await load(route.params.id as string)
         <PostUserProfileLink
           :display-name="post.user.display_name"
           :handle-name="post.user.handle_name"
-          :avatar-url="post.user.avatar"
+          :avatar-url="post.user.avatar_url"
         />
         <span>&brvbar;</span>
         <PostDateBrowseItem class="text-base" :date="post.posted_at" />
