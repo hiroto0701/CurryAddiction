@@ -5,6 +5,7 @@ export interface ServiceUser {
   display_name: string
   avatar_url: string | null
   registered_at: string
+  post_summary: number
   is_mine: boolean
 }
 

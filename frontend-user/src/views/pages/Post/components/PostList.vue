@@ -15,7 +15,7 @@ const router = useRouter()
 const posts = ref<Post[]>([])
 const paginationStatus = ref<PaginationStatus | null>(null)
 
-const pageUser = inject<Ref<ServiceUser | null>>('pageUser')
+const pageUser = inject<Ref<ServiceUser | null>>('pageUser', ref(null))
 
 async function loadPosts(page: number = 1) {
   if (
@@ -24,7 +24,7 @@ async function loadPosts(page: number = 1) {
     posts.value.length === 0
   ) {
     try {
-      const { data, meta } = await fetchPostsList({ page, userId: pageUser?.value?.id })
+      const { data, meta } = await fetchPostsList({ page, userId: pageUser?.value?.user_id })
       posts.value = data
       paginationStatus.value = meta
     } catch (error) {

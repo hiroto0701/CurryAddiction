@@ -20,7 +20,7 @@ provide('pageUser', pageUser)
     </template>
   </Suspense>
 
-  <Suspense v-if="pageUser">
+  <Suspense v-if="pageUser.user_id">
     <template #default>
       <PostList />
     </template>

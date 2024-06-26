@@ -4,21 +4,32 @@ namespace App\Domains\Post\Usecase\Command;
 
 class IndexCommand
 {
+    private ?string $userId;
     private ?int $page;
     private ?int $perPage;
     private ?string $sortAttribute;
     private ?string $sortDirection;
 
     public function __construct(
+        ?string $userId,
         ?int $page,
         ?int $perPage,
         ?string $sortAttribute,
         ?string $sortDirection,
     ) {
+        $this->userId = $userId;
         $this->page = $page;
         $this->perPage = $perPage;
         $this->sortAttribute = $sortAttribute;
         $this->sortDirection = $sortDirection;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getUserId(): ?string
+    {
+        return $this->userId;
     }
 
     /**

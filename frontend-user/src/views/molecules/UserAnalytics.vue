@@ -7,7 +7,7 @@ import PostSummaryBrowseItem from '@/views/molecules/browseItems/PostSummaryBrow
 
 interface Props {
   readonly registeredAt: string
-  // readonly postSummary: number
+  readonly postSummary: number
 }
 defineProps<Props>()
 
@@ -31,7 +31,7 @@ const accountStore = useAccountStore()
         </span>
         <span class="text-sumi-500 font-body text-sm w-28">投稿数</span>
       </p>
-      <PostSummaryBrowseItem :post-summary="5" />
+      <PostSummaryBrowseItem :post-summary />
     </div>
   </div>
 </template>
