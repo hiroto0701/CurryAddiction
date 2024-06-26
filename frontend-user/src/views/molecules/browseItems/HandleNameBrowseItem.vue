@@ -6,5 +6,5 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <p class="font-body mt-1 inline-flex text-sm text-sumi-500">curry-addiction/{{ handleName }}</p>
+  <p class="font-body inline-flex text-sm text-sumi-500">curry-addiction/{{ handleName }}</p>
 </template>

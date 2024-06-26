@@ -29,7 +29,7 @@ await loadUser(route.params.username as string)
   <div class="mb-12 overflow-hidden rounded-2xl border p-6 md:p-7">
     <div class="flex items-center gap-3.5 py-6">
       <AvatarBrowseItem class="w-24" :avatar-url="service_user.avatar_url" />
-      <div class="flex-1 leading-normal">
+      <div class="flex flex-col gap-1 flex-1 leading-normal">
         <DisplayNameBrowseItem
           :display-name="service_user.display_name"
           class="break-all text-md text-sumi-900"

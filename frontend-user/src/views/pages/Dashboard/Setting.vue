@@ -77,7 +77,7 @@ onUnmounted((): void => {
   <DashboardContent title="設定">
     <DashboardSection>
       <div class="flex items-center gap-5">
-        <AvatarBrowseItem class="w-16" :preview />
+        <AvatarBrowseItem class="w-16" :preview :avatar-url="accountStore.state.avatar_url" />
         <label
           for="profile_img"
           class="inline-flex h-10 items-center duration-500 gap-2 rounded-full border px-3.5 text-xs cursor-pointer hover:opacity-70"

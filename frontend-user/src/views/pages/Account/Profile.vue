@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import Card from '@/views/molecules/card/Card.vue'
-import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
 import ProfileContent from '@/views/pages/Account/components/ProfileContent.vue'
+import ProfileSkeleton from '@/views/pages/Account/components/ProfileSkeleton.vue'
 import PostList from '@/views/pages/Post/components/PostList.vue'
 import PostListSkeleton from '@/views/pages/Post/components/PostListSkeleton.vue'
 </script>
@@ -12,7 +11,7 @@ import PostListSkeleton from '@/views/pages/Post/components/PostListSkeleton.vue
     </template>
 
     <template #fallback>
-      <p>loading......</p>
+      <ProfileSkeleton />
     </template>
   </Suspense>
 
