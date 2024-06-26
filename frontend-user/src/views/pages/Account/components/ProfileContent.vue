@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import type { ServiceUser } from '@/composables/types/serviceUser'
 import { useFetchProfile } from '@/composables/functions/useFetchProfile'
@@ -14,16 +14,30 @@ const route = useRoute()
 
 const service_user = ref<ServiceUser>({} as ServiceUser)
 
+const emit = defineEmits<{
+  (e: 'user-loaded', user: ServiceUser): void
+}>()
+
 async function loadUser(username: string) {
   try {
     const data = await fetchProfile(username)
     service_user.value = data
+    emit('user-loaded', data)
   } catch (error) {
     console.error('Failed to load posts:', error)
   }
 }
 
 await loadUser(route.params.username as string)
+
+watch(
+  () => route.params.username,
+  async (newUsername) => {
+    if (newUsername) {
+      await loadUser(newUsername as string)
+    }
+  }
+)
 </script>
 <template>
   <div class="mb-12 overflow-hidden rounded-2xl border p-6 md:p-7">
