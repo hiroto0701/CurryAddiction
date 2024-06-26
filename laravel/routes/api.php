@@ -1,7 +1,7 @@
 <?php
 
 use App\Domains\Post\Controller\Resource\PostResource;
-use App\Domains\ServiceUser\Controller\Resource\ServiceUserResource;
+use App\Domains\ServiceUser\Controller\Resource\CurrentServiceUserResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +26,7 @@ Route::prefix('/service_users')->group(function() {
 
     // リロード時ユーザー情報取得
     Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
-        return new ServiceUserResource($request->user());
+        return new CurrentServiceUserResource($request->user());
     });
 
     Route::middleware((['auth:service_users']))->group(function() {

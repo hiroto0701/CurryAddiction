@@ -5,6 +5,12 @@ import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue'
 import SignUpDateBrowseItem from '@/views/molecules/browseItems/SignUpDateBrowseItem.vue'
 import PostSummaryBrowseItem from '@/views/molecules/browseItems/PostSummaryBrowseItem.vue'
 
+interface Props {
+  readonly registeredAt: string
+  // readonly postSummary: number
+}
+defineProps<Props>()
+
 const accountStore = useAccountStore()
 </script>
 <template>

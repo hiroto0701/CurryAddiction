@@ -14,12 +14,12 @@ import TextSkeleton from '@/views/molecules/skeletons/TextSkeleton.vue'
         <TextSkeleton class="w-20" />
       </div>
       <div class="px-3 py-1 h-fit flex items-center gap-2.5">
-        <IconSkeleton />
+        <IconSkeleton class="w-6" />
         <TextSkeleton class="w-28" />
       </div>
       <div class="flex justify-between items-center mr-2">
         <div class="px-3 py-1 flex items-center gap-2.5 relative">
-          <IconSkeleton />
+          <IconSkeleton class="w-6" />
           <TextSkeleton class="w-16" />
         </div>
         <TextSkeleton class="w-20" />

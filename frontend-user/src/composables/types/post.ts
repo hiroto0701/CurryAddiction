@@ -14,7 +14,7 @@ export interface Post {
     user_id: number
     display_name: string
     handle_name: string
-    avatar: string | null
+    avatar_url: string | null
   }
   is_mine: boolean
   errors?: Record<string, string[]>

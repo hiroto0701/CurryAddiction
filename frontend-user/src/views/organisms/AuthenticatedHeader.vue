@@ -40,7 +40,10 @@ function doLogout(): void {
         <div class="relative flex h-16 items-center justify-between">
           <AppLogo />
           <div class="flex items-center">
-            <HeaderNavigation :handle-name="accountStore.state.handle_name" />
+            <HeaderNavigation
+              :handle-name="accountStore.state.handle_name"
+              :avatar-url="accountStore.state.avatar_url"
+            />
             <AuthenticatedHeaderDropDown
               :username="accountStore.state.display_name"
               @to-post-dashboard="handleRouting('PostDashboard')"

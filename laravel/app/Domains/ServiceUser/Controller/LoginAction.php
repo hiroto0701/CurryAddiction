@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Domains\ServiceUser\Controller;
 
 use App\Domains\ServiceUser\Controller\Request\LoginRequest;
-use App\Domains\ServiceUser\Controller\Resource\ServiceUserResource;
+use App\Domains\ServiceUser\Controller\Resource\CurrentServiceUserResource;
 use App\Exceptions\AuthenticationTokenException;
 use App\Exceptions\UserStatusException;
 use App\Http\Controllers\Controller;
@@ -19,12 +19,12 @@ class LoginAction extends Controller
 {
     /**
      * @param LoginRequest $request
-     * @return ServiceUserResource
+     * @return CurrentServiceUserResource
      * @throws AuthenticationException  // 認証エラー
      * @throws AuthenticationTokenException  // トークンエラー
      * @throws UserStatusException  // ユーザー未登録エラー
      */
-    public function __invoke(LoginRequest $request): ServiceUserResource
+    public function __invoke(LoginRequest $request): CurrentServiceUserResource
     {
         $user = ServiceUser::where('email', $request->email)->first();
 
@@ -51,6 +51,6 @@ class LoginAction extends Controller
         Auth::guard('service_users')->login($user);
 
         $request->session()->regenerate();
-        return new ServiceUserResource($user);
+        return new CurrentServiceUserResource($user);
     }
 }

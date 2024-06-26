@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, type Ref, inject } from 'vue'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import type { Post, PaginationStatus } from '@/composables/types/post'
+import type { ServiceUser } from '@/composables/types/serviceUser'
 import { useFetchPosts } from '@/composables/functions/useFetchPosts'
 import Card from '@/views/molecules/card/Card.vue'
 import Pagination from '@/views/molecules/Pagination.vue'
@@ -14,6 +15,8 @@ const router = useRouter()
 const posts = ref<Post[]>([])
 const paginationStatus = ref<PaginationStatus | null>(null)
 
+const pageUser = inject<Ref<ServiceUser | null>>('pageUser')
+
 async function loadPosts(page: number = 1) {
   if (
     !paginationStatus.value ||
@@ -21,7 +24,7 @@ async function loadPosts(page: number = 1) {
     posts.value.length === 0
   ) {
     try {
-      const { data, meta } = await fetchPostsList({ page })
+      const { data, meta } = await fetchPostsList({ page, userId: pageUser?.value?.id })
       posts.value = data
       paginationStatus.value = meta
     } catch (error) {

@@ -8,7 +8,7 @@ import { useCommonStore } from '@/stores/common'
 interface AccountFormState {
   email: string
   display_name: string
-  avatar: string | null
+  avatar_url: string | null
   token: string
   errors: Record<string, string[]>
 }
@@ -17,7 +17,7 @@ export const useAccountFormStore = defineStore('account_form', () => {
   const state = ref<AccountFormState>({
     email: '',
     display_name: '',
-    avatar: null,
+    avatar_url: null,
     token: '',
     errors: {}
   })
@@ -42,7 +42,7 @@ export const useAccountFormStore = defineStore('account_form', () => {
     state.value = {
       email: '',
       display_name: '',
-      avatar: null,
+      avatar_url: null,
       token: '',
       errors: {}
     }
@@ -202,7 +202,7 @@ export const useAccountFormStore = defineStore('account_form', () => {
       const response = await axios.post('/api/service_users/avatar', formData, config)
 
       if (response.status === 200) {
-        accountStore.updateAvatar(response.data.data.avatar)
+        accountStore.updateAvatar(response.data.data.avatar_url)
         resetErrors()
         commonStore.setFlashMessage('更新しました')
         setTimeout(() => {

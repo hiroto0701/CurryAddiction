@@ -7,7 +7,7 @@ namespace App\Domains\ServiceUser\Controller\Resource;
 use App\Http\Controllers\FileViewAction;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ServiceUserResource extends JsonResource
+class CurrentServiceUserResource extends JsonResource
 {
     public function toArray($request): array
     {
@@ -18,7 +18,7 @@ class ServiceUserResource extends JsonResource
             'handle_name' => $this->handle_name,
             'display_name' => $this->display_name,
             'email' => $this->email,
-            'avatar' => $this->avatar ? route(
+            'avatar_url' => $this->avatar ? route(
                 'file.view',
                 ['type' => FileViewAction::TYPE_AVATAR, 'uuid' => $this->avatar->uuid]
             ) : null,

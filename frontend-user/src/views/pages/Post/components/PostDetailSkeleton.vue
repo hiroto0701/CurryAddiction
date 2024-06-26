@@ -8,11 +8,11 @@ import TextSkeleton from '@/views/molecules/skeletons/TextSkeleton.vue'
   <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-md animate-pulse">
     <div class="pt-8">
       <div class="flex gap-2.5 items-center">
-        <IconSkeleton />
+        <IconSkeleton class="w-6" />
         <TextSkeleton class="w-40" />
       </div>
       <div class="mt-20 flex items-center text-sumi-600 gap-3">
-        <IconSkeleton />
+        <IconSkeleton class="w-6" />
         <TextSkeleton class="w-40" />
         <TextSkeleton class="w-28" />
       </div>

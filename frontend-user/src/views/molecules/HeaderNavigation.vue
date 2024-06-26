@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, type RouteLocationRaw } from 'vue-router'
 import HomeIcon from '@/views/atoms/icons/HomeIcon.vue'
 import PlusIcon from '@/views/atoms/icons/PlusIcon.vue'
 import SearchIcon from '@/views/atoms/icons/SearchIcon.vue'
@@ -10,12 +10,15 @@ import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue'
 interface NavItem {
   name: string
   icon: any
-  to?: string | Record<string, unknown>
+  to?: RouteLocationRaw
+  props?: Record<string, string | null>
 }
 
-const props = defineProps<{
+interface Props {
   handleName: string
-}>()
+  avatarUrl: string | null
+}
+const props = defineProps<Props>()
 
 const navItems: NavItem[] = [
   { name: 'ホーム', icon: HomeIcon, to: { name: 'Home' } },
@@ -25,7 +28,8 @@ const navItems: NavItem[] = [
   {
     name: 'マイページ',
     icon: AvatarIcon,
-    to: { name: 'UserPage', params: { username: props.handleName } }
+    to: { name: 'UserPage', params: { username: props.handleName } },
+    props: { avatarUrl: props.avatarUrl }
   }
 ]
 </script>
@@ -38,7 +42,7 @@ const navItems: NavItem[] = [
           :to="item.to"
           class="peer w-8 aspect-square rounded-full transition-opacity duration-500 hover:bg-gray-100 flex items-center justify-center"
         >
-          <component :is="item.icon" />
+          <component :is="item.icon" v-bind="item.props || {}" />
         </component>
       </BottomTooltip>
     </template>
