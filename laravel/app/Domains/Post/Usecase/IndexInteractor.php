@@ -25,6 +25,10 @@ class IndexInteractor
     {
         $query = Post::query();
 
+        if (!is_null($command->getUserId())) {
+            $query->where('posts.user_id', '=', $command->getUserId());
+        }
+
         $query->orderBy(
             self::SORT_KEYS[$command->getSortAttribute()] ?? 'posted_at',
             $command->getSortDirection() ?? 'desc'

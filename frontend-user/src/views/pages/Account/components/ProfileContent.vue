@@ -52,6 +52,9 @@ watch(
       </div>
       <GotoSettingPageButton v-if="service_user.is_mine" text="設定" />
     </div>
-    <UserAnalytics :registered-at="service_user.registered_at" />
+    <UserAnalytics
+      :registered-at="service_user.registered_at"
+      :post-summary="service_user.post_summary"
+    />
   </div>
 </template>

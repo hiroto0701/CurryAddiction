@@ -28,6 +28,7 @@ class IndexAction extends Controller
     public function __invoke(IndexRequest $request): PostCollection
     {
         $command = new IndexCommand(
+            $request->userId ?? null,
             $request->page ? (int)$request->page : 1,
             $request->per_page ? (int)$request->per_page : config('constant.api.max_item_per_page'),
             $request->sort_attribute,

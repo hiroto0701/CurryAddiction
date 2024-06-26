@@ -6,6 +6,7 @@ namespace App\Domains\ServiceUser\Controller\Resource;
 
 use App\Http\Controllers\FileViewAction;
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PrivateServiceUserResource extends JsonResource
@@ -22,6 +23,7 @@ class PrivateServiceUserResource extends JsonResource
                 ['type' => FileViewAction::TYPE_AVATAR, 'uuid' => $this->avatar->uuid]
             ) : null,
             'registered_at' => $this->registered_at,
+            'post_summary' => Post::where('user_id', $this->user_id)->count(),
 			'is_mine' => User::AuthId() === $this->user_id
         ];
     }
