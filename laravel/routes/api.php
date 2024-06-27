@@ -42,6 +42,7 @@ Route::prefix('/posts')->group(function() {
         Route::get('/', \App\Domains\Post\Controller\IndexAction::class);
         Route::post('/', \App\Domains\Post\Controller\CreateAction::class);
         Route::get('/{post}', \App\Domains\Post\Controller\ViewAction::class);
+        Route::delete('/{post}', \App\Domains\Post\Controller\DeleteAction::class);
     });
 });
 

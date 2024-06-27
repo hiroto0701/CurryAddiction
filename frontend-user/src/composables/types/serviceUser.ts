@@ -8,8 +8,3 @@ export interface ServiceUser {
   post_summary: number
   is_mine: boolean
 }
-
-// export interface ServiceUserResponse {
-//   data: Post[]
-//   meta: PaginationStatus
-// }
