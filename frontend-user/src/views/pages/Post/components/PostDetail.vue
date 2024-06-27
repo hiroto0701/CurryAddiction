@@ -1,23 +1,24 @@
 <script setup lang="ts">
+import axios from 'axios'
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import type { Post } from '@/composables/types/post'
 import { useFetchPostDetail } from '@/composables/functions/useFetchPostDetail'
 import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
-import TrashIcon from '@/views/atoms/icons/TrashIcon.vue'
 import BackToHomeLink from '@/views/molecules/links/BackToHomeLink.vue'
 import EditPostLink from '@/views/molecules/links/EditPostLink.vue'
-import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue'
 import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue'
+import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue'
+import SoftDeletePostButton from '@/views/molecules/buttons/SoftDeletePostButton.vue'
 
 const route = useRoute()
 const { fetchPostDetail } = useFetchPostDetail()
 const post = ref<Post>({} as Post)
 const isMine = computed((): boolean => post.value.is_mine)
 
-async function load(param: string) {
+async function load(postId: string) {
   try {
-    const data = await fetchPostDetail(param)
+    const data = await fetchPostDetail(postId)
     post.value = data
   } catch (error) {
     console.error('Failed to load posts:', error)
@@ -25,13 +26,17 @@ async function load(param: string) {
 }
 
 await load(route.params.id as string)
+
+async function doSoftDelete() {
+  await axios.delete(`/api/posts/${route.params.id}`)
+}
 </script>
 <template>
   <div class="flex items-center justify-between h-12 lg:sticky lg:top-0">
     <BackToHomeLink />
     <div v-if="isMine" class="flex items-center gap-2">
       <EditPostLink />
-      <TrashIcon />
+      <SoftDeletePostButton @soft-delete="doSoftDelete" />
     </div>
   </div>
   <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-md">

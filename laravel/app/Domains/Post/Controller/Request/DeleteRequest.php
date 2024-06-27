@@ -1,20 +1,20 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Domains\Post\Controller\Request;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ViewRequest extends FormRequest
+class DeleteRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return User::AuthUser()->can('post-view', $this->post);
+        // $post = $this->route()->parameter('post');
+        // return User::AuthUser()->can('post-delete', $post);
+		return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [];
     }
