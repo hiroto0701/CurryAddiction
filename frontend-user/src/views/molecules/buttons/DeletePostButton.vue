@@ -2,7 +2,7 @@
 import BaseButton from '@/views/atoms/BaseButton.vue'
 </script>
 <template>
-  <BaseButton class="button border border-red-200 p-3" text="作成せずに終了する" />
+  <BaseButton class="button border border-red-200 p-3" text="ごみ箱に入れる" />
 </template>
 <style scoped>
 .button {

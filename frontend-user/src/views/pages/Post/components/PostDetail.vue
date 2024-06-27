@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import axios from 'axios'
 import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import type { Post } from '@/composables/types/post'
 import { useFetchPostDetail } from '@/composables/functions/useFetchPostDetail'
 import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
@@ -10,8 +10,10 @@ import EditPostLink from '@/views/molecules/links/EditPostLink.vue'
 import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue'
 import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue'
 import SoftDeletePostButton from '@/views/molecules/buttons/SoftDeletePostButton.vue'
+import PostSoftDeleteConfirmModal from '@/views/molecules/modals/PostSoftDeleteConfirmModal.vue'
 
 const route = useRoute()
+const router = useRouter()
 const { fetchPostDetail } = useFetchPostDetail()
 const post = ref<Post>({} as Post)
 const isMine = computed((): boolean => post.value.is_mine)
@@ -27,8 +29,21 @@ async function load(postId: string) {
 
 await load(route.params.id as string)
 
+const open = ref<boolean>(false)
+function openModal(): void {
+  open.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+function closeModal(): void {
+  open.value = false
+  document.body.style.overflow = 'auto'
+}
+
 async function doSoftDelete() {
   await axios.delete(`/api/posts/${route.params.id}`)
+  closeModal()
+  await router.push({ name: 'Home' })
 }
 </script>
 <template>
@@ -36,7 +51,7 @@ async function doSoftDelete() {
     <BackToHomeLink />
     <div v-if="isMine" class="flex items-center gap-2">
       <EditPostLink />
-      <SoftDeletePostButton @soft-delete="doSoftDelete" />
+      <SoftDeletePostButton @soft-delete="openModal" />
     </div>
   </div>
   <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-md">
@@ -66,4 +81,13 @@ async function doSoftDelete() {
       </article>
     </div>
   </div>
+
+  <Teleport to="body">
+    <PostSoftDeleteConfirmModal
+      v-show="open"
+      @delete="doSoftDelete"
+      @cancel="closeModal"
+      :closeModal="closeModal"
+    />
+  </Teleport>
 </template>
