@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, type Ref, inject } from 'vue'
+import { ref, type Ref, inject, watch } from 'vue'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import type { Post, PaginationStatus } from '@/composables/types/post'
 import type { ServiceUser } from '@/composables/types/serviceUser'
@@ -17,14 +17,15 @@ const paginationStatus = ref<PaginationStatus | null>(null)
 
 const pageUser = inject<Ref<ServiceUser | null>>('pageUser', ref(null))
 
-async function loadPosts(page: number = 1) {
+async function loadPosts(page: number = 1, userId?: number, forceReload: boolean = false) {
   if (
+    forceReload ||
     !paginationStatus.value ||
     page !== paginationStatus.value.current_page ||
     posts.value.length === 0
   ) {
     try {
-      const { data, meta } = await fetchPostsList({ page, userId: pageUser?.value?.user_id })
+      const { data, meta } = await fetchPostsList({ page, userId })
       posts.value = data
       paginationStatus.value = meta
     } catch (error) {
@@ -33,7 +34,7 @@ async function loadPosts(page: number = 1) {
   }
 }
 
-await loadPosts(Number(route.query.page) || 1)
+await loadPosts(Number(route.query.page) || 1, pageUser.value?.user_id)
 
 async function doChangePage(page: number | string): Promise<void> {
   await router.push({ query: { page: page.toString() } })
@@ -45,8 +46,18 @@ function toViewer(postId: number): void {
 
 onBeforeRouteUpdate(async (to): Promise<void> => {
   const page = Number(to.query.page) || 1
-  await loadPosts(page)
+  await loadPosts(page, pageUser.value?.user_id)
 })
+
+watch(
+  pageUser,
+  async (newUser) => {
+    if (newUser) {
+      await loadPosts(Number(route.query.page) || 1, pageUser.value?.user_id, true)
+    }
+  },
+  { deep: true }
+)
 </script>
 <template>
   <CardDisplayAreaLayout>
