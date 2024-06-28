@@ -1,18 +1,22 @@
 <script setup lang="ts">
 import axios from 'axios'
 import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import type { Post } from '@/composables/types/post'
 import { useFetchPostDetail } from '@/composables/functions/useFetchPostDetail'
+import { useDeletePost } from '@/composables/functions/useDeletePost'
 import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
 import BackToHomeLink from '@/views/molecules/links/BackToHomeLink.vue'
 import EditPostLink from '@/views/molecules/links/EditPostLink.vue'
 import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue'
 import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue'
 import SoftDeletePostButton from '@/views/molecules/buttons/SoftDeletePostButton.vue'
+import PostSoftDeleteConfirmModal from '@/views/molecules/modals/PostSoftDeleteConfirmModal.vue'
 
 const route = useRoute()
+const router = useRouter()
 const { fetchPostDetail } = useFetchPostDetail()
+const { softDeletePost } = useDeletePost()
 const post = ref<Post>({} as Post)
 const isMine = computed((): boolean => post.value.is_mine)
 
@@ -27,8 +31,34 @@ async function load(postId: string) {
 
 await load(route.params.id as string)
 
+const open = ref<boolean>(false)
+function openModal(): void {
+  open.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+function closeModal(): void {
+  open.value = false
+  document.body.style.overflow = 'auto'
+}
+
 async function doSoftDelete() {
-  await axios.delete(`/api/posts/${route.params.id}`)
+  try {
+    const response = await softDeletePost(route.params.id as string)
+    if (response.data.success) {
+      closeModal()
+      await router.push({ name: 'Home' })
+    } else {
+      throw new Error(response.data.message)
+    }
+  } catch (error) {
+    console.error('Failed to delete the post:', error)
+    if (axios.isAxiosError(error)) {
+      console.log(`削除に失敗しました: ${error.response?.data?.message || error.message}`, error)
+    } else {
+      console.log('予期せぬエラーが発生しました', error)
+    }
+  }
 }
 </script>
 <template>
@@ -36,7 +66,7 @@ async function doSoftDelete() {
     <BackToHomeLink />
     <div v-if="isMine" class="flex items-center gap-2">
       <EditPostLink />
-      <SoftDeletePostButton @soft-delete="doSoftDelete" />
+      <SoftDeletePostButton @soft-delete="openModal" />
     </div>
   </div>
   <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-md">
@@ -66,4 +96,13 @@ async function doSoftDelete() {
       </article>
     </div>
   </div>
+
+  <Teleport to="body">
+    <PostSoftDeleteConfirmModal
+      v-show="open"
+      @delete="doSoftDelete"
+      @cancel="closeModal"
+      :closeModal="closeModal"
+    />
+  </Teleport>
 </template>

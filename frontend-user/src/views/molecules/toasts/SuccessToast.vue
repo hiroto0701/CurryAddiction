@@ -9,7 +9,7 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <Toast>
+  <Toast class="bg-emerald-500">
     <ToastBody :message :icon-component="CheckIcon" />
   </Toast>
 </template>

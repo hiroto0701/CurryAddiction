@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Log;
 
 class DeleteAction extends Controller
 {
@@ -21,9 +22,18 @@ class DeleteAction extends Controller
 
     public function __invoke(Post $post): JsonResponse
     {
-        $this->interactor->handle($post);
-
-        return response()->json([], Response::HTTP_NO_CONTENT);
+        try {
+            $this->interactor->handle($post);
+            return response()->json([
+                'success' => true,
+                'message' => '投稿が正常に削除されました'
+            ], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            Log::error('Post deletion failed: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => '投稿の削除に失敗しました'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }
-
