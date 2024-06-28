@@ -4,6 +4,7 @@ import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { Post } from '@/composables/types/post'
 import { useFetchPostDetail } from '@/composables/functions/useFetchPostDetail'
+import { useDeletePost } from '@/composables/functions/useDeletePost'
 import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
 import BackToHomeLink from '@/views/molecules/links/BackToHomeLink.vue'
 import EditPostLink from '@/views/molecules/links/EditPostLink.vue'
@@ -15,6 +16,7 @@ import PostSoftDeleteConfirmModal from '@/views/molecules/modals/PostSoftDeleteC
 const route = useRoute()
 const router = useRouter()
 const { fetchPostDetail } = useFetchPostDetail()
+const { softDeletePost } = useDeletePost()
 const post = ref<Post>({} as Post)
 const isMine = computed((): boolean => post.value.is_mine)
 
@@ -41,9 +43,22 @@ function closeModal(): void {
 }
 
 async function doSoftDelete() {
-  await axios.delete(`/api/posts/${route.params.id}`)
-  closeModal()
-  await router.push({ name: 'Home' })
+  try {
+    const response = await softDeletePost(route.params.id as string)
+    if (response.data.success) {
+      closeModal()
+      await router.push({ name: 'Home' })
+    } else {
+      throw new Error(response.data.message)
+    }
+  } catch (error) {
+    console.error('Failed to delete the post:', error)
+    if (axios.isAxiosError(error)) {
+      console.log(`削除に失敗しました: ${error.response?.data?.message || error.message}`, error)
+    } else {
+      console.log('予期せぬエラーが発生しました', error)
+    }
+  }
 }
 </script>
 <template>

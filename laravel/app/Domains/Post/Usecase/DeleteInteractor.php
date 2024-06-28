@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domains\Post\Usecase;
 
-// use App\Exceptions\AlreadyDeletedException;
+use App\Exceptions\AlreadyDeletedException;
 use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class DeleteInteractor
 {
@@ -14,13 +15,28 @@ class DeleteInteractor
      * @param Post $post
      * @return void
      * @throws AlreadyDeletedException
+     * @throws \Exception
      */
     public function handle(Post $post): void
     {
-        // if ($issue->deleted_at !== null) {
-        //     throw new AlreadyDeletedException();
-        // }
-        // Storage::disk('s3')->delete($post->path);  // TODO 例外処理やったほうがよさそうだけど、あとで調べる
-        $post->delete();
+        if ($post->trashed()) {
+            // throw new AlreadyDeletedException('この投稿は既に削除されています');
+        }
+
+        DB::beginTransaction();
+        try {
+            // // S3からファイルを削除
+            // if ($post->path) {
+            //     Storage::disk('s3')->delete($post->path);
+            // }
+
+            // 投稿を削除（ソフトデリート）
+            $post->delete();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 }
