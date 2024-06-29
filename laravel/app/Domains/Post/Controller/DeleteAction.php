@@ -26,7 +26,7 @@ class DeleteAction extends Controller
             $this->interactor->handle($post);
             return response()->json([
                 'success' => true,
-                'message' => '投稿が正常に削除されました'
+                'message' => '投稿をごみ箱に入れました。'
             ], Response::HTTP_OK);
         } catch (\Exception $e) {
             Log::error('Post deletion failed: ' . $e->getMessage());

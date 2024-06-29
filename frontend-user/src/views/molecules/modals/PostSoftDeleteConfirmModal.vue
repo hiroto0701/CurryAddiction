@@ -6,7 +6,8 @@ import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue'
 import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
 
 interface Props {
-  closeModal: () => void
+  readonly closeModal: () => void
+  readonly isLoading: boolean
 }
 defineProps<Props>()
 
@@ -20,7 +21,7 @@ const emits = defineEmits<{
   <BaseModal :closeModal>
     <ModalBody title="ごみ箱に入れますか？" :content="modalContent" />
     <ModalFooter>
-      <DeletePostButton @click="emits('delete')" />
+      <DeletePostButton @click="emits('delete')" :is-loading />
       <CancelButton @click="emits('cancel')" />
     </ModalFooter>
   </BaseModal>

@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useCommonStore } from '@/stores/common'
 import type { Post } from '@/composables/types/post'
 import { useFetchPostDetail } from '@/composables/functions/useFetchPostDetail'
 import { useDeletePost } from '@/composables/functions/useDeletePost'
@@ -15,6 +16,7 @@ import PostSoftDeleteConfirmModal from '@/views/molecules/modals/PostSoftDeleteC
 
 const route = useRoute()
 const router = useRouter()
+const commonStore = useCommonStore()
 const { fetchPostDetail } = useFetchPostDetail()
 const { softDeletePost } = useDeletePost()
 const post = ref<Post>({} as Post)
@@ -44,10 +46,17 @@ function closeModal(): void {
 
 async function doSoftDelete() {
   try {
+    commonStore.startApiLoading()
     const response = await softDeletePost(route.params.id as string)
-    if (response.data.success) {
+
+    if (response.status === 200) {
       closeModal()
-      await router.push({ name: 'Home' })
+      await router.push({ name: 'Home' }).then((): void => {
+        commonStore.setFlashMessage('投稿をごみ箱に入れました')
+        setTimeout(() => {
+          commonStore.clearFlashMessage()
+        }, 4000)
+      })
     } else {
       throw new Error(response.data.message)
     }
@@ -58,6 +67,8 @@ async function doSoftDelete() {
     } else {
       console.log('予期せぬエラーが発生しました', error)
     }
+  } finally {
+    commonStore.stopApiLoading()
   }
 }
 </script>
@@ -100,6 +111,7 @@ async function doSoftDelete() {
   <Teleport to="body">
     <PostSoftDeleteConfirmModal
       v-show="open"
+      :is-loading="commonStore.state.apiLoading"
       @delete="doSoftDelete"
       @cancel="closeModal"
       :closeModal="closeModal"
