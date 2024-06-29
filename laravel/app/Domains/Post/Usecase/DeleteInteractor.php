@@ -20,16 +20,11 @@ class DeleteInteractor
     public function handle(Post $post): void
     {
         if ($post->trashed()) {
-            // throw new AlreadyDeletedException('この投稿は既に削除されています');
+            throw new AlreadyDeletedException('この投稿は既に削除されています');
         }
 
         DB::beginTransaction();
         try {
-            // // S3からファイルを削除
-            // if ($post->path) {
-            //     Storage::disk('s3')->delete($post->path);
-            // }
-
             // 投稿を削除（ソフトデリート）
             $post->delete();
 

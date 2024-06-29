@@ -20,11 +20,6 @@ class AuthenticationTokenException extends Exception
         parent::__construct($message, $code, $previous);
     }
 
-    public function report()
-    {
-        // Errorログは残さない
-    }
-
     public function render(): Response
     {
         return response()->json([
