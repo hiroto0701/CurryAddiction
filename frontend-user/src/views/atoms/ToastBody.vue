@@ -8,6 +8,11 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <component :is="iconComponent" />
+  <component class="error" :is="iconComponent" />
   <p class="font-body text-sm text-white">{{ message }}</p>
 </template>
+<style scoped>
+.error {
+  @apply bg-white rounded-full;
+}
+</style>
