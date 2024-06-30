@@ -19,11 +19,12 @@ const modalState = ref<'login' | 'email' | 'token' | null>(null)
 function openModal(modalName: 'login' | 'email' | 'token'): void {
   modalState.value = modalName
 
-  // loginモーダルを開くたびに入力データをリセット
+  // モーダルを開くたびに入力データをリセット
   if (modalState.value === 'login') {
     email.value = ''
     token.value = ''
   }
+  accountStore.resetErrors()
   document.body.style.overflow = 'hidden'
 }
 
