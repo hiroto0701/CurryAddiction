@@ -7,6 +7,7 @@ interface Props {
   readonly iconComponent: Component
   readonly isActive?: boolean
   readonly textColorClass: string
+  readonly iconProps?: Record<string, string | null>
 }
 
 defineProps<Props>()
@@ -23,7 +24,7 @@ function navigateAndClose(close: () => void): void {
       @click="navigateAndClose(close)"
     >
       <div class="w-5">
-        <component :is="iconComponent" />
+        <component :is="iconComponent" v-bind="iconProps || {}" />
       </div>
       {{ label }}
     </button>
