@@ -13,6 +13,7 @@ interface AccountState {
   avatar_url: string | null
   // todo => string -> Date | null
   registered_at: string
+  post_summary: number
   isNewRegistration?: boolean
   errors: Record<string, string[]>
 }
@@ -30,6 +31,7 @@ export const useAccountStore = defineStore('account', () => {
     email: null,
     avatar_url: null,
     registered_at: '',
+    post_summary: 0,
     errors: {}
   })
 
@@ -52,6 +54,7 @@ export const useAccountStore = defineStore('account', () => {
       email: null,
       avatar_url: null,
       registered_at: '',
+      post_summary: 0,
       errors: {}
     }
   }
