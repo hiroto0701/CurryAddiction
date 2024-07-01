@@ -13,8 +13,16 @@ import TopTooltip from '@/views/molecules/tooltips/TopTooltip.vue'
 interface MeatBallMenuItem {
   readonly name: string
   readonly label: string
+  readonly params?: Record<string, string>
   readonly icon: Component
+  readonly iconProps?: Record<string, string | null>
 }
+
+interface Props {
+  handleName: string
+  avatarUrl: string | null
+}
+const props = defineProps<Props>()
 
 const router = useRouter()
 
@@ -37,12 +45,14 @@ const menuItems: MeatBallMenuItem[] = [
   {
     name: 'UserPage',
     label: 'マイページ',
-    icon: AvatarIcon
+    params: { username: props.handleName },
+    icon: AvatarIcon,
+    iconProps: { avatarUrl: props.avatarUrl }
   }
 ]
 
-function handleRouting(routeName: string): void {
-  router.push({ name: routeName })
+function handleRouting(routeName: string, params?: Record<string, string>): void {
+  router.push({ name: routeName, params })
 }
 
 function getTextColorClass(routeName: string): string {
@@ -74,11 +84,12 @@ function getTextColorClass(routeName: string): string {
         <DropDownMenuItem
           v-for="item in menuItems"
           :key="item.name"
-          @click="handleRouting(item.name)"
+          @click="handleRouting(item.name, item.params)"
           :label="item.label"
           :isActive="router.currentRoute.value.name === item.name"
           :textColorClass="getTextColorClass(item.name)"
           :iconComponent="item.icon"
+          :icon-props="item.iconProps"
         />
       </MenuItems>
     </transition>

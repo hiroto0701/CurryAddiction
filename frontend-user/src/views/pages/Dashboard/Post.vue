@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import { useAccountStore } from '@/stores/account'
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
 import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
 import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue'
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
 import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
+
+const accountStore = useAccountStore()
 </script>
 <template>
   <DashboardContent title="投稿ダッシュボード">
     <DashboardSection>
-      <UserAnalytics sign-up-date="2024年11月" :post-summary="5" />
+      <UserAnalytics
+        :registered-at="accountStore.state.registered_at"
+        :post-summary="accountStore.state.post_summary"
+      />
     </DashboardSection>
 
     <DashboardSection>
