@@ -10,6 +10,6 @@ defineProps<Props>()
 <template>
   <div class="px-3 py-1 h-fit flex items-center gap-2.5">
     <StoreIcon />
-    <p class="font-normal font-body text-md truncate">{{ storeName }}</p>
+    <p class="font-normal font-body text-md select-none truncate">{{ storeName }}</p>
   </div>
 </template>
