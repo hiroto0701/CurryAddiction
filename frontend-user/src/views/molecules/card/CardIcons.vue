@@ -19,14 +19,14 @@ function toggleArchive(): void {
 <template>
   <div class="flex justify-between h-fit px-1.5 py-1">
     <div
-      @click="toggleLike"
+      @click.stop="toggleLike"
       class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center"
       v-show="!liked"
     >
       <HeartIcon class="text-gray-700 cursor-pointer" />
     </div>
     <div
-      @click="toggleLike"
+      @click.stop="toggleLike"
       class="w-8 h-8 relative rounded-full transition-opacity duration-500 cursor-pointer hover:bg-pink-50 flex items-center justify-center"
       v-show="liked"
     >
@@ -34,7 +34,7 @@ function toggleArchive(): void {
       <LikedAnimationDots />
     </div>
     <div
-      @click="toggleArchive"
+      @click.stop="toggleArchive"
       class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center"
     >
       <ArchiveIcon class="text-gray-700 cursor-pointer" :archived="archived" />
