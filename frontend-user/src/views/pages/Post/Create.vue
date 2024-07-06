@@ -8,8 +8,8 @@ import LocationIcon from '@/views/atoms/icons/LocationIcon.vue'
 import PhotoIcon from '@/views/atoms/icons/PhotoIcon.vue'
 import CreatePostButton from '@/views/molecules/buttons/CreatePostButton.vue'
 import DeletePostImgButton from '@/views/molecules/buttons/DeletePostImgButton.vue'
-import TextInputFormItem from '@/views/molecules/formItems/TextInputFormItem.vue'
-import TextareaFormItem from '@/views/molecules/formItems/TextareaFormItem.vue'
+import StoreNameFormItem from '@/views/molecules/formItems/StoreNameFormItem.vue'
+import CommentFormItem from '@/views/molecules/formItems/CommentFormItem.vue'
 import SelectBoxFormItem from '@/views/molecules/formItems/SelectBoxFormItem.vue'
 import PostImgUploadFormItem from '@/views/molecules/formItems/PostImgUploadFormItem.vue'
 import MapFormItem from '@/views/molecules/formItems/MapFormItem.vue'
@@ -82,7 +82,7 @@ watch<string, false>(storeName, (newValue) => {
 </script>
 <template>
   <RegisterForm title="新規投稿" @submit.prevent="doCreate">
-    <TextInputFormItem
+    <StoreNameFormItem
       label="店名"
       :required="true"
       :optional="false"
@@ -91,7 +91,7 @@ watch<string, false>(storeName, (newValue) => {
       placeholder="お店の名前"
       v-model="storeName"
     />
-    <TextareaFormItem
+    <CommentFormItem
       label="感想"
       :required="false"
       :optional="true"

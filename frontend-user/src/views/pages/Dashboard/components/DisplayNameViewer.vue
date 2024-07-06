@@ -3,7 +3,7 @@ import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrow
 import EditDisplayNameButton from '@/views/molecules/buttons/EditDisplayNameButton.vue'
 
 interface Props {
-  readonly displayName: null | string
+  readonly displayName?: string
 }
 defineProps<Props>()
 
