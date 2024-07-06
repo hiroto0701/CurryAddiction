@@ -14,7 +14,7 @@ defineProps<Props>()
 </template>
 <style scoped>
 .button {
-  @apply text-red-300 bg-red-50;
+  @apply flex gap-2 items-center text-red-300 bg-red-50;
 }
 .button:hover {
   @apply bg-red-100 border-red-300 text-red-400;
