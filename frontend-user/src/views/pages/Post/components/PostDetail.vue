@@ -6,11 +6,12 @@ import { useCommonStore } from '@/stores/common'
 import type { Post } from '@/composables/types/post'
 import { useFetchPostDetail } from '@/composables/functions/useFetchPostDetail'
 import { useDeletePost } from '@/composables/functions/useDeletePost'
-import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
 import BackToHomeLink from '@/views/molecules/links/BackToHomeLink.vue'
 import EditPostLink from '@/views/molecules/links/EditPostLink.vue'
 import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue'
+import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue'
 import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue'
+import PostCommentBrowseItem from '@/views/molecules/browseItems/PostCommentBrowseItem.vue'
 import SoftDeletePostButton from '@/views/molecules/buttons/SoftDeletePostButton.vue'
 import PostSoftDeleteConfirmModal from '@/views/molecules/modals/PostSoftDeleteConfirmModal.vue'
 
@@ -83,8 +84,10 @@ async function doSoftDelete() {
   <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-md">
     <div class="pt-8">
       <div class="flex gap-2.5">
-        <StoreIcon />
-        <h1 class="font-body text-sumi-900 leading-relaxed text-xl">{{ post.store_name }}</h1>
+        <StoreNameBrowseItem
+          class="text-xl px-3 py-1 text-sumi-900"
+          :store-name="post.store_name"
+        />
       </div>
       <div class="mt-20 flex items-center text-sumi-600 gap-3">
         <PostUserProfileLink
@@ -100,9 +103,9 @@ async function doSoftDelete() {
     <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-md mt-9">
       <article>
         <img :src="post.post_img" class="w-full object-cover" alt="投稿画像" />
-        <div class="my-12 font-body text-sumi-900 leading-relaxed">
-          <p v-if="post.comment">{{ post.comment }}</p>
-          <p v-else>一言感想はありません。</p>
+        <div class="my-12">
+          <PostCommentBrowseItem v-if="post.comment" :comment="post.comment" />
+          <PostCommentBrowseItem v-else comment="一言感想はありません。" />
         </div>
       </article>
     </div>

@@ -8,8 +8,10 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <div class="px-3 py-1 h-fit flex items-center gap-2.5">
+  <div class="h-fit flex items-center gap-2.5">
     <StoreIcon />
-    <p class="font-normal font-body text-md select-none truncate">{{ storeName }}</p>
+    <h1 class="font-body select-none leading-relaxed truncate">
+      {{ storeName }}
+    </h1>
   </div>
 </template>
