@@ -7,13 +7,12 @@ import type { Post } from '@/composables/types/post'
 import { useFetchPostDetail } from '@/composables/functions/useFetchPostDetail'
 import { useDeletePost } from '@/composables/functions/useDeletePost'
 import BackToHomeLink from '@/views/molecules/links/BackToHomeLink.vue'
-import EditPostLink from '@/views/molecules/links/EditPostLink.vue'
 import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue'
 import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue'
 import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue'
 import PostCommentBrowseItem from '@/views/molecules/browseItems/PostCommentBrowseItem.vue'
-import SoftDeletePostButton from '@/views/molecules/buttons/SoftDeletePostButton.vue'
-import PostSoftDeleteConfirmModal from '@/views/molecules/modals/PostSoftDeleteConfirmModal.vue'
+import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue'
+import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -22,17 +21,6 @@ const { fetchPostDetail } = useFetchPostDetail()
 const { softDeletePost } = useDeletePost()
 const post = ref<Post>({} as Post)
 const isMine = computed((): boolean => post.value.is_mine)
-
-async function load(postId: string) {
-  try {
-    const data = await fetchPostDetail(postId)
-    post.value = data
-  } catch (error) {
-    console.error('Failed to load posts:', error)
-  }
-}
-
-await load(route.params.id as string)
 
 const open = ref<boolean>(false)
 function openModal(): void {
@@ -44,6 +32,17 @@ function closeModal(): void {
   open.value = false
   document.body.style.overflow = 'auto'
 }
+
+async function load(postId: string) {
+  try {
+    const data = await fetchPostDetail(postId)
+    post.value = data
+  } catch (error) {
+    console.error('Failed to load posts:', error)
+  }
+}
+
+await load(route.params.id as string)
 
 async function doSoftDelete() {
   try {
@@ -77,8 +76,7 @@ async function doSoftDelete() {
   <div class="flex items-center justify-between h-12 lg:sticky lg:top-0">
     <BackToHomeLink />
     <div v-if="isMine" class="flex items-center gap-2">
-      <EditPostLink />
-      <SoftDeletePostButton @soft-delete="openModal" />
+      <DeletePostButton @delete="openModal" text="ごみ箱に入れる" />
     </div>
   </div>
   <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-md">
@@ -112,9 +110,12 @@ async function doSoftDelete() {
   </div>
 
   <Teleport to="body">
-    <PostSoftDeleteConfirmModal
+    <DeleteConfirmModal
       v-show="open"
       :is-loading="commonStore.state.apiLoading"
+      modal-title="ごみ箱に入れますか？"
+      modal-content="ごみ箱の投稿は30日後に完全に削除されます。"
+      button-text="ごみ箱に入れる"
       @delete="doSoftDelete"
       @cancel="closeModal"
       :closeModal="closeModal"

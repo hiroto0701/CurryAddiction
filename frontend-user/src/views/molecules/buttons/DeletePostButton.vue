@@ -1,22 +1,24 @@
 <script setup lang="ts">
-import BaseButton from '@/views/atoms/BaseButton.vue'
-import LoadingSpinner from '@/views/atoms/LoadingSpinner.vue'
+import TrashIcon from '@/views/atoms/icons/TrashIcon.vue'
+import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue'
 
 interface Props {
-  readonly isLoading?: boolean
+  readonly text: string
 }
 defineProps<Props>()
+
+const emits = defineEmits<{
+  (e: 'delete'): void
+}>()
 </script>
 <template>
-  <BaseButton class="button border border-red-200 p-3" text="ごみ箱に入れる">
-    <LoadingSpinner :is-loading />
-  </BaseButton>
+  <BottomTooltip :text position="bottom">
+    <button
+      class="peer group w-8 aspect-square rounded-full transition-opacity duration-500 hover:bg-gray-100 flex items-center justify-center"
+      @click="emits('delete')"
+      :aria-label="text"
+    >
+      <TrashIcon class="text-sumi-600 group-hover:text-sumi-900" />
+    </button>
+  </BottomTooltip>
 </template>
-<style scoped>
-.button {
-  @apply flex gap-2 items-center text-red-300 bg-red-50;
-}
-.button:hover {
-  @apply bg-red-100 border-red-300 text-red-400;
-}
-</style>

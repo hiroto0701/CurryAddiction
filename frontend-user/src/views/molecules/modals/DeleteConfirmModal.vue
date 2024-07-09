@@ -2,16 +2,18 @@
 import BaseModal from '@/views/atoms/modal/BaseModal.vue'
 import ModalBody from '@/views/atoms/modal/ModalBody.vue'
 import ModalFooter from '@/views/atoms/modal/ModalFooter.vue'
-import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue'
+import DeleteButton from '@/views/molecules/buttons/DeleteButton.vue'
 import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
 
 interface Props {
   readonly closeModal: () => void
   readonly isLoading: boolean
+  readonly modalTitle: string
+  readonly modalContent: string
+  readonly buttonText: string
 }
 defineProps<Props>()
 
-const modalContent = 'ごみ箱の投稿は30日後に完全に削除されます。'
 const emits = defineEmits<{
   (e: 'delete'): void
   (e: 'cancel'): void
@@ -19,9 +21,9 @@ const emits = defineEmits<{
 </script>
 <template>
   <BaseModal :closeModal>
-    <ModalBody title="ごみ箱に入れますか？" :content="modalContent" />
+    <ModalBody :title="modalTitle" :content="modalContent" />
     <ModalFooter>
-      <DeletePostButton @click="emits('delete')" :is-loading />
+      <DeleteButton @click="emits('delete')" :is-loading :text="buttonText" />
       <CancelButton @click="emits('cancel')" />
     </ModalFooter>
   </BaseModal>
