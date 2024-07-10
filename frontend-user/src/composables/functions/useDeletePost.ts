@@ -5,5 +5,9 @@ export const useDeletePost = () => {
     return await axios.delete(`/api/posts/${postId}`)
   }
 
-  return { softDeletePost }
+  async function hardDeletePost(postId: string): Promise<AxiosResponse> {
+    return await axios.delete(`/api/posts/${postId}/force`)
+  }
+
+  return { softDeletePost, hardDeletePost }
 }

@@ -3,8 +3,10 @@ import TrashedItemPreview from '@/views/molecules/trashedItems/TrashedItemPrevie
 import TrashedItemActions from '@/views/molecules/trashedItems/TrashedItemActions.vue'
 </script>
 <template>
-  <div class="flex gap-5 sm:gap-7">
-    <TrashedItemPreview />
-    <TrashedItemActions />
-  </div>
+  <Suspense>
+    <div class="flex gap-5 sm:gap-7">
+      <TrashedItemPreview />
+      <TrashedItemActions />
+    </div>
+  </Suspense>
 </template>

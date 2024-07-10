@@ -117,9 +117,7 @@ const routes = [
             path: ':username?',
             name: 'UserPage',
             meta: {
-              // todo
-              // title を urlのhandle_nameに変更する
-              title: 'マイページ',
+              title: 'ユーザーページ',
               group: 'Account'
             },
             component: () => import('@/views/pages/Account/Profile.vue')
@@ -200,6 +198,10 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const accountStore = useAccountStore()
+
+  if (to.name === 'UserPage' && to.params.username) {
+    to.meta.title = to.params.username
+  }
   document.title = (to.meta.title ? to.meta.title + ' | ' : '') + 'Curry Addiction'
 
   // signupページへのダイレクトアクセス制限
