@@ -23,5 +23,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         \App\Domains\ServiceUser\Controller\Policy\ActionPolicy::register();
         \App\Domains\Post\Controller\Policy\ActionPolicy::register();
+        \App\Domains\Dashboard\Trash\Controller\Policy\ActionPolicy::register();
     }
 }
