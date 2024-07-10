@@ -37,15 +37,24 @@ Route::prefix('/service_users')->group(function() {
     });
 });
 
-Route::prefix('/posts')->group(function() {
-    Route::middleware((['auth:service_users']))->group(function() {
-        Route::get('/', \App\Domains\Post\Controller\IndexAction::class);
-        Route::post('/', \App\Domains\Post\Controller\CreateAction::class);
-        Route::get('/{post}', \App\Domains\Post\Controller\ViewAction::class);
-        Route::delete('/{post}', \App\Domains\Post\Controller\DeleteAction::class);
-    });
+Route::prefix('/posts')->middleware((['auth:service_users']))->group(function() {
+    Route::get('/', \App\Domains\Post\Controller\IndexAction::class);
+    Route::post('/', \App\Domains\Post\Controller\CreateAction::class);
+    Route::get('/{post}', \App\Domains\Post\Controller\ViewAction::class);
+    Route::delete('/{post}', \App\Domains\Post\Controller\DeleteAction::class);
 });
 
 Route::middleware((['auth:service_users']))->group(function() {
     Route::get('/{service_user:handle_name}', \App\Domains\ServiceUser\Controller\ViewAction::class);
+});
+
+
+Route::prefix('/dashboard')->middleware(['auth:service_users'])->group(function() {
+
+
+
+    Route::prefix('/trash')->group(function() {
+        Route::get('/', \App\Domains\Dashboard\Trash\Controller\IndexAction::class);
+        // Route::delete('/{post}', );
+    });
 });

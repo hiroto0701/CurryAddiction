@@ -6,6 +6,7 @@ import { useCommonStore } from '@/stores/common'
 
 interface AccountState {
   id: number | null
+  user_id: number | null
   status: string | null
   display_name: string
   handle_name: string
@@ -25,6 +26,7 @@ interface ValidationErrorResponse {
 export const useAccountStore = defineStore('account', () => {
   const state = ref<AccountState>({
     id: null,
+    user_id: null,
     status: null,
     display_name: '',
     handle_name: '',

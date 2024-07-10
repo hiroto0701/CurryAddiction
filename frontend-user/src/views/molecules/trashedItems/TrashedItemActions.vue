@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import axios from 'axios'
 import { ref } from 'vue'
 import { useCommonStore } from '@/stores/common'
+import { useDeletePost } from '@/composables/functions/useDeletePost'
 import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue'
 import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue'
 import TrashedDateBrowseItem from '@/views/molecules/browseItems/TrashedDateBrowseItem.vue'
@@ -9,6 +9,9 @@ import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue'
 import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue'
 
 const commonStore = useCommonStore()
+
+const { hardDeletePost } = useDeletePost()
+
 const open = ref<boolean>(false)
 
 function openModal(): void {
@@ -24,8 +27,7 @@ function closeModal(): void {
 async function doHardDelete() {
   // try {
   //   commonStore.startApiLoading()
-  //   const response = await softDeletePost(route.params.id as string)
-
+  //   const response = await hardDeletePost(post.id as string)
   //   if (response.status === 200) {
   //     closeModal()
   //     await router.push({ name: 'Home' }).then((): void => {
@@ -47,8 +49,7 @@ async function doHardDelete() {
   // } finally {
   //   commonStore.stopApiLoading()
   // }
-
-  console.log('todo')
+  console.log('test')
 }
 </script>
 <template>

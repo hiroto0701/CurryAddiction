@@ -44,7 +44,7 @@ async function load(postId: string) {
 
 await load(route.params.id as string)
 
-async function doSoftDelete() {
+async function doSoftDelete(): Promise<void> {
   try {
     commonStore.startApiLoading()
     const response = await softDeletePost(route.params.id as string)
