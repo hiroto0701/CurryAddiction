@@ -8,6 +8,12 @@ import TrashedDateBrowseItem from '@/views/molecules/browseItems/TrashedDateBrow
 import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue'
 import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue'
 
+interface Props {
+  readonly storeName: string
+  readonly deletedAt: string
+}
+defineProps<Props>()
+
 const commonStore = useCommonStore()
 
 const { hardDeletePost } = useDeletePost()
@@ -54,12 +60,12 @@ async function doHardDelete() {
 </script>
 <template>
   <div class="flex-1">
-    <StoreNameBrowseItem class="mt-0.5 text-sm line-clamp-2 text-gray-500" store-name="storeName" />
+    <StoreNameBrowseItem class="mt-0.5 text-sm line-clamp-2 text-gray-500" :store-name />
     <div class="mt-1.5 text-3xs leading-normal">
       <div class="flex items-center gap-2.5">
         <CalenderIcon class="text-gray-500" />
         <span class="font-body text-gray-500">削除した日付:</span>
-        <TrashedDateBrowseItem class="text-base" date="2024/7/7" />
+        <TrashedDateBrowseItem class="text-base" :date="deletedAt" />
       </div>
       <div class="mt-3 flex items-center gap-2.5">
         <button

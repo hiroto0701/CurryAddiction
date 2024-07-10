@@ -32,7 +32,7 @@ class IndexInteractor
         $query->orderBy(
             self::SORT_KEYS[$command->getSortAttribute()] ?? 'posted_at',
             $command->getSortDirection() ?? 'desc'
-        )->orderBy('created_at');
+        )->orderBy('deleted_at');
 
         return $query->paginate($command->getPerPage());
     }

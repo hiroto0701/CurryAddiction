@@ -168,7 +168,7 @@ const routes = [
                   title: 'ごみ箱',
                   group: 'Dashboard'
                 },
-                component: () => import('@/views/pages/Dashboard/Trash.vue')
+                component: () => import('@/views/pages/Dashboard/Trash/List.vue')
               },
               {
                 path: 'setting',

@@ -12,12 +12,12 @@ class IndexRequest extends FormRequest
 {
     private const SORTABLE_ATTRIBUTES = [
         'posted_at',
-        'updated_at',
+        'deleted_at',
     ];
 
     public function authorize(): bool
     {
-        return User::AuthUser()->can('post-index');
+        return User::AuthUser()->can('trash-index');
     }
 
     public function rules()

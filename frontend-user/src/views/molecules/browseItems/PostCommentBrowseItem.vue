@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  readonly comment: string
+  readonly comment?: string
 }
 
 defineProps<Props>()
