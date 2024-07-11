@@ -9,7 +9,7 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <div class="select-none opacity-75">
+  <div class="select-none opacity-80">
     <aside
       class="mx-auto overflow-hidden border border-gray-200 rounded-lg"
       style="width: 90px; height: 110px"
