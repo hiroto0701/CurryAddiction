@@ -72,7 +72,7 @@ class FileViewAction extends Controller
         if ($uploadfile === null) {
             throw new NotFoundHttpException();
         }
-        $post = Post::where($foreignKey, $uploadfile->id)->first();
+        $post = Post::withTrashed()->where($foreignKey, $uploadfile->id)->first();
         if ($post === null) {
             throw new NotFoundHttpException();
         }
