@@ -21,7 +21,7 @@ defineProps<Props>()
         <div class="p-14" style="width: 500px">
           <h2 class="text-left text-xl">{{ storeName }}</h2>
           <div class="mt-14 text-2xs tracking-normal">
-            <img :src width="1080" height="720" alt="ごみ箱ないの投稿の画像" />
+            <img :src width="1080" height="720" alt="ごみ箱内の投稿の画像" />
             <PostCommentBrowseItem class="mt-10 text-sm" :comment />
           </div>
         </div>
