@@ -64,12 +64,12 @@ async function doHardDelete() {
     <div class="mt-1.5 text-3xs leading-normal">
       <div class="flex items-center gap-2.5">
         <CalenderIcon class="text-gray-500" />
-        <span class="font-body text-gray-500">削除した日付:</span>
-        <TrashedDateBrowseItem class="text-base" :date="deletedAt" />
+        <span class="font-body text-gray-500 text-sm">削除した日付:</span>
+        <TrashedDateBrowseItem class="text-sm" :date="deletedAt" />
       </div>
       <div class="mt-3 flex items-center gap-2.5">
         <button
-          class="rounded-full border border-sumi-250 py-1.5 px-2.5 text-4xs text-sumi-700 hover:bg-sumi-100"
+          class="rounded-full border border-sumi-250 py-1.5 px-2.5 text-sm text-sumi-700 hover:bg-sumi-100"
         >
           元に戻す
         </button>

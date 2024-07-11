@@ -14,7 +14,7 @@ function pageTop(): void {
     <TopTooltip text="ページトップへ" position="top">
       <button
         @click="pageTop"
-        class="peer flex justify-center items-center w-16 max-sm:w-14 aspect-square border border-gray-300 shadow-sm rounded-full bg-white opacity-70 hover:bg-slate-100 hover:opacity-100 duration-300"
+        class="peer flex justify-center items-center w-16 max-sm:w-14 aspect-square border border-gray-300 shadow-sm rounded-full bg-white opacity-70 sm:hover:bg-slate-100 sm:hover:opacity-100 duration-300"
       >
         <ArrowTopIcon class="text-sumi-900" />
       </button>

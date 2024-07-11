@@ -63,7 +63,7 @@ function getTextColorClass(routeName: string): string {
   <Menu as="div" class="fixed left-14 max-sm:left-3 bottom-9" v-slot="{ open }">
     <TopTooltip :open text="メニュー" position="top">
       <MenuButton
-        class="peer flex justify-center items-center w-16 h-16 max-sm:w-14 max-sm:h-14 border border-gray-300 shadow-sm rounded-full bg-white opacity-70 hover:bg-slate-100 hover:opacity-100 duration-300"
+        class="peer flex justify-center items-center w-16 h-16 max-sm:w-14 max-sm:h-14 border border-gray-300 shadow-sm rounded-full bg-white opacity-70 sm:hover:bg-slate-100 sm:hover:opacity-100 duration-300"
         :class="[open ? 'max-sm:w-20 w-24' : '']"
       >
         <MeatballMenuIcon class="w-7 text-sumi-900" v-show="!open" />

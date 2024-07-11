@@ -16,7 +16,7 @@ const emit = defineEmits<{
 </script>
 <template>
   <div
-    class="h-80 rounded-lg overflow-hidden cursor-pointer duration-300 hover:opacity-80 border border-gray-200"
+    class="sm:h-[325px] rounded-lg overflow-hidden cursor-pointer duration-300 sm:hover:opacity-80 border border-gray-200"
     @click="emit('clickItem')"
   >
     <CardImg :src />

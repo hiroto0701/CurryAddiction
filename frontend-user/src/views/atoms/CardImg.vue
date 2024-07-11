@@ -6,7 +6,7 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <div class="w-full h-52 border-gray-200">
+  <div class="w-full sm:h-52 h-96 border-gray-200">
     <img class="w-full h-full object-cover select-none" :src alt="カレーの画像" />
   </div>
 </template>
