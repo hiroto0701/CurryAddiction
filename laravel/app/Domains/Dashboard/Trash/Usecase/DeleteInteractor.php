@@ -6,6 +6,7 @@ namespace App\Domains\Dashboard\Trash\Usecase;
 
 use App\Exceptions\NotInTrashException;
 use App\Models\Post;
+use App\Models\UploadFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -25,6 +26,13 @@ class DeleteInteractor
 
         DB::beginTransaction();
         try {
+            // 画像ファイルの削除
+            $uploadFile = UploadFile::find($post->post_img_id);
+            if ($uploadFile) {
+                Storage::disk('s3')->delete($uploadFile->path);
+                $uploadFile->delete();
+            }
+
             // 投稿を削除（ハードデリート）
             $post->forceDelete();
 

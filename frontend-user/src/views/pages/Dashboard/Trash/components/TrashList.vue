@@ -64,7 +64,7 @@ async function doHardDelete() {
     if (response.status === 200) {
       closeModal()
       posts.value = posts.value.filter((post) => post.id !== selectedPostId.value)
-      commonStore.setFlashMessage('投稿を完全に削除しました')
+      commonStore.setFlashMessage('投稿を削除しました')
       setTimeout(() => {
         commonStore.clearFlashMessage()
       }, 4000)
