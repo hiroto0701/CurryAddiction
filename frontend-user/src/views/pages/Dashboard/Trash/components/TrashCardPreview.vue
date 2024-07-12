@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue'
 import PostCommentBrowseItem from '@/views/molecules/browseItems/PostCommentBrowseItem.vue'
 
 interface Props {
@@ -19,8 +20,8 @@ defineProps<Props>()
         style="transform: scale(0.18, 0.18)"
       >
         <div class="p-14" style="width: 500px">
-          <h2 class="text-left text-xl">{{ storeName }}</h2>
-          <div class="mt-14 text-2xs tracking-normal">
+          <StoreNameBrowseItem :store-name />
+          <div class="mt-14">
             <img :src width="1080" height="720" alt="ごみ箱内の投稿の画像" />
             <PostCommentBrowseItem class="mt-10 text-sm" :comment />
           </div>

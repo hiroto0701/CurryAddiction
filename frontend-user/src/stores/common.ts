@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 interface AppState {
@@ -11,12 +11,12 @@ interface AppState {
 
 export const useCommonStore = defineStore('common', () => {
   const state = ref(<AppState>{
-    flashMessage: null, 
-    errorMessage: null, 
+    flashMessage: null,
+    errorMessage: null,
     apiLoading: false,
     uploading: false,
-    loginLoading: false,
-  });
+    loginLoading: false
+  })
 
   function setFlashMessage(message: string): void {
     state.value.flashMessage = message
@@ -27,11 +27,11 @@ export const useCommonStore = defineStore('common', () => {
   }
 
   function setErrorMessage(message: string): void {
-    state.value.flashMessage = message
+    state.value.errorMessage = message
   }
 
   function clearErrorMessage(): void {
-    state.value.flashMessage = null
+    state.value.errorMessage = null
   }
 
   function startApiLoading(): void {
@@ -58,17 +58,17 @@ export const useCommonStore = defineStore('common', () => {
     state.value.loginLoading = false
   }
 
-  return { 
+  return {
     state,
-    setFlashMessage, 
-    clearFlashMessage, 
-    setErrorMessage, 
-    clearErrorMessage, 
-    startApiLoading, 
+    setFlashMessage,
+    clearFlashMessage,
+    setErrorMessage,
+    clearErrorMessage,
+    startApiLoading,
     stopApiLoading,
-    startUploading, 
+    startUploading,
     stopUploading,
-    startLoginLoading, 
-    stopLoginLoading, 
-  };
+    startLoginLoading,
+    stopLoginLoading
+  }
 })

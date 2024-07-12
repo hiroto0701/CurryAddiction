@@ -9,10 +9,17 @@ interface Props {
   readonly comment?: string
 }
 defineProps<Props>()
+
+const emits = defineEmits(['delete', 'restore'])
 </script>
 <template>
   <div class="flex gap-5 sm:gap-7">
-    <TrashCardPreview :store-name :src :comment />
-    <TrashCardDetails :store-name :deleted-at />
+    <TrashCardPreview :store-name="storeName" :src="src" :comment="comment" />
+    <TrashCardDetails
+      :store-name="storeName"
+      :deleted-at="deletedAt"
+      @delete="emits('delete')"
+      @restore="emits('restore')"
+    />
   </div>
 </template>

@@ -33,7 +33,7 @@ function closeModal(): void {
   document.body.style.overflow = 'auto'
 }
 
-async function load(postId: string) {
+async function load(postId: number) {
   try {
     const data = await fetchPostDetail(postId)
     post.value = data
@@ -42,12 +42,12 @@ async function load(postId: string) {
   }
 }
 
-await load(route.params.id as string)
+await load(Number(route.params.id))
 
 async function doSoftDelete(): Promise<void> {
   try {
     commonStore.startApiLoading()
-    const response = await softDeletePost(route.params.id as string)
+    const response = await softDeletePost(Number(route.params.id))
 
     if (response.status === 200) {
       closeModal()
