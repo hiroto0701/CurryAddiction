@@ -8,9 +8,9 @@ use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
-class AlreadyDeletedException extends Exception
+class NotInTrashException extends Exception
 {
-    public function __construct($message = 'The post is already deleted.', $code = Response::HTTP_GONE, Throwable $previous = null)
+    public function __construct($message = 'The post is not in the trash.', $code = Response::HTTP_UNPROCESSABLE_ENTITY, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

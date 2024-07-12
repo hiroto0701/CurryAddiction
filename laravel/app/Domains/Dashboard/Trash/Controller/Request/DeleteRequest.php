@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Post\Controller\Request;
+namespace App\Domains\Dashboard\Trash\Controller\Request;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;

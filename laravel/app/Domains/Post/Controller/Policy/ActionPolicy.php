@@ -43,9 +43,14 @@ class ActionPolicy
         return false;
     }
 
-    public function delete($user): bool
+    public function delete($user, $post): bool
     {
-        if ($user instanceof ServiceUser || $user instanceof Administrator) {
+        if ($user instanceof ServiceUser) {
+            // 自分の投稿のみ削除可能
+            return $user->id === $post->user_id;
+        }
+        if ($user instanceof Administrator) {
+            // 管理者は全ての投稿を削除可能
             return true;
         }
         return false;

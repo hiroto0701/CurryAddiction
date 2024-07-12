@@ -51,10 +51,9 @@ Route::middleware((['auth:service_users']))->group(function() {
 
 Route::prefix('/dashboard')->middleware(['auth:service_users'])->group(function() {
 
-
-
+    // ごみ箱関連
     Route::prefix('/trash')->group(function() {
         Route::get('/', \App\Domains\Dashboard\Trash\Controller\IndexAction::class);
-        // Route::delete('/{post}', );
+        Route::delete('/{post}', \App\Domains\Dashboard\Trash\Controller\DeleteAction::class)->withTrashed();
     });
 });
