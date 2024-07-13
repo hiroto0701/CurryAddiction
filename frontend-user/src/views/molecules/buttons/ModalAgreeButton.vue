@@ -13,6 +13,7 @@ defineProps<Props>()
     class="flex gap-2 items-center border border-gray-300 text-sumi-900 p-3"
     type="submit"
     :text
+    :disabled="isLoading"
   >
     <LoadingSpinner :is-loading />
   </BaseButton>

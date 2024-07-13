@@ -165,9 +165,12 @@ export const usePostFormStore = defineStore('post_form', () => {
         commonStore.clearFlashMessage()
       }, 4000)
     } catch (error: unknown) {
-      commonStore.setFlashMessage('投稿に失敗しました')
+      commonStore.setErrorMessage('投稿に失敗しました')
+      window.scrollTo({
+        top: 0
+      })
       setTimeout(() => {
-        commonStore.clearFlashMessage()
+        commonStore.clearErrorMessage()
       }, 4000)
     } finally {
       commonStore.stopApiLoading()
