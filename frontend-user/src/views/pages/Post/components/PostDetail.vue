@@ -52,7 +52,7 @@ async function doSoftDelete(): Promise<void> {
     if (response.status === 200) {
       closeModal()
       await router.push({ name: 'Home' }).then((): void => {
-        commonStore.setFlashMessage('投稿をごみ箱に入れました')
+        commonStore.setFlashMessage('ごみ箱に入れました')
         setTimeout(() => {
           commonStore.clearFlashMessage()
         }, 4000)

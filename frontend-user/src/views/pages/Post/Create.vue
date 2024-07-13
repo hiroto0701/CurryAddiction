@@ -61,6 +61,9 @@ async function doCreate() {
 
   if (!isValid) {
     closeModal()
+    window.scrollTo({
+      top: 0
+    })
     return false
   }
 

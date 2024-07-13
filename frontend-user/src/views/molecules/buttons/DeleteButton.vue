@@ -9,7 +9,7 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <BaseButton class="button border border-red-200 p-3" :text>
+  <BaseButton class="button border border-red-200 p-3" :text :disabled="isLoading">
     <LoadingSpinner :is-loading />
   </BaseButton>
 </template>

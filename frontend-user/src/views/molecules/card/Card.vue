@@ -16,10 +16,10 @@ const emit = defineEmits<{
 </script>
 <template>
   <div
-    class="sm:h-[325px] rounded-lg overflow-hidden cursor-pointer duration-300 sm:hover:opacity-80 border border-gray-200"
+    class="group sm:h-[325px] rounded-lg overflow-hidden cursor-pointer border border-gray-200"
     @click="emit('clickItem')"
   >
-    <CardImg :src />
+    <CardImg :src class="sm:group-hover:opacity-80 duration-300" />
     <CardBody :store-name="storeName" :location :date />
   </div>
 </template>
