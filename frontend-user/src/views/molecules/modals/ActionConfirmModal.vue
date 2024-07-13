@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useCommonStore } from '@/stores/common'
 import BaseModal from '@/views/atoms/modal/BaseModal.vue'
 import ModalBody from '@/views/atoms/modal/ModalBody.vue'
 import ModalFooter from '@/views/atoms/modal/ModalFooter.vue'
@@ -7,11 +6,13 @@ import ModalAgreeButton from '@/views/molecules/buttons/ModalAgreeButton.vue'
 import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
 
 interface Props {
-  closeModal: () => void
+  readonly closeModal: () => void
+  readonly isLoading: boolean
+  readonly modalTitle: string
+  readonly modalContent?: string
+  readonly buttonText: string
 }
 defineProps<Props>()
-
-const commonStore = useCommonStore()
 
 const emits = defineEmits<{
   (e: 'commit'): void
@@ -20,14 +21,9 @@ const emits = defineEmits<{
 </script>
 <template>
   <BaseModal :closeModal>
-    <ModalBody title="この内容で投稿しますか？" />
+    <ModalBody :title="modalTitle" :content="modalContent" />
     <ModalFooter>
-      <ModalAgreeButton
-        :is-loading="commonStore.state.apiLoading"
-        :disabled="commonStore.state.apiLoading"
-        @click="emits('commit')"
-        text="投稿する"
-      />
+      <ModalAgreeButton :is-loading @click="emits('commit')" :text="buttonText" />
       <CancelButton @click="emits('cancel')" />
     </ModalFooter>
   </BaseModal>

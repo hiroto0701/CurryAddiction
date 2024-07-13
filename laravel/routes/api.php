@@ -1,8 +1,6 @@
 <?php
 
-use App\Domains\Post\Controller\Resource\PostResource;
 use App\Domains\ServiceUser\Controller\Resource\CurrentServiceUserResource;
-use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +52,7 @@ Route::prefix('/dashboard')->middleware(['auth:service_users'])->group(function(
     // ごみ箱関連
     Route::prefix('/trash')->group(function() {
         Route::get('/', \App\Domains\Dashboard\Trash\Controller\IndexAction::class);
+        Route::post('/{post}', \App\Domains\Dashboard\Trash\Controller\RestoreAction::class)->withTrashed();
         Route::delete('/{post}', \App\Domains\Dashboard\Trash\Controller\DeleteAction::class)->withTrashed();
     });
 });

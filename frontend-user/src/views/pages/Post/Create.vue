@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { usePostFormStore } from '@/stores/post_form'
+import { useCommonStore } from '@/stores/common'
+
 import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
 import CommentIcon from '@/views/atoms/icons/CommentIcon.vue'
 import CategoryIcon from '@/views/atoms/icons/CategoryIcon.vue'
@@ -13,9 +15,10 @@ import CommentFormItem from '@/views/molecules/formItems/CommentFormItem.vue'
 import SelectBoxFormItem from '@/views/molecules/formItems/SelectBoxFormItem.vue'
 import PostImgUploadFormItem from '@/views/molecules/formItems/PostImgUploadFormItem.vue'
 import MapFormItem from '@/views/molecules/formItems/MapFormItem.vue'
-import PostCreateConfirmModal from '@/views/molecules/modals/PostCreateConfirmModal.vue'
+import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue'
 import RegisterForm from '@/views/templates/forms/RegisterForm.vue'
 
+const commonStore = useCommonStore()
 const postFormStore = usePostFormStore()
 
 const storeName = ref<string>('')
@@ -129,8 +132,11 @@ watch<string, false>(storeName, (newValue) => {
     <CreatePostButton class="mx-auto mt-8 block p-3 w-52" text="投稿する" @click="openModal" />
 
     <Teleport to="body">
-      <PostCreateConfirmModal
+      <ActionConfirmModal
         v-show="modalOpen"
+        :is-loading="commonStore.state.apiLoading"
+        modal-title="この内容で投稿しますか？"
+        button-text="投稿する"
         @commit="doCreate"
         @cancel="closeModal"
         :closeModal
