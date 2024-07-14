@@ -1,24 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useCommonStore } from '@/stores/common'
 import { useAccountStore } from '@/stores/account'
 import { useRouter } from 'vue-router'
 import AppLogo from '@/views/atoms/icons/AppLogo.vue'
 import MainHeader from '@/views/atoms/MainHeader.vue'
 import AuthenticatedHeaderDropDown from '@/views/molecules/dropdown/AuthenticatedHeaderDropDown.vue'
 import HeaderNavigation from '@/views/molecules/HeaderNavigation.vue'
-import LogoutConfirmModal from '@/views/molecules/modals/LogoutConfirmModal.vue'
+import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue'
 
 const accountStore = useAccountStore()
+const commonStore = useCommonStore()
 const router = useRouter()
-const modalOpen = ref<boolean>(false)
+const open = ref<boolean>(false)
 
 function openModal(): void {
-  modalOpen.value = true
+  open.value = true
   document.body.style.overflow = 'hidden'
 }
 
 function closeModal(): void {
-  modalOpen.value = false
+  open.value = false
   document.body.style.overflow = 'auto'
 }
 
@@ -58,11 +60,15 @@ function doLogout(): void {
       </div>
     </MainHeader>
     <Teleport to="body">
-      <LogoutConfirmModal
-        v-show="modalOpen"
-        @do-logout="doLogout"
+      <ActionConfirmModal
+        v-show="open"
+        :is-loading="commonStore.state.apiLoading"
+        modal-title="ログアウトしますか？"
+        :modal-content="`@${accountStore.state.handle_name}としてログインしています`"
+        button-text="ログアウト"
+        @commit="doLogout"
         @cancel="closeModal"
-        :closeModal
+        :closeModal="closeModal"
       />
     </Teleport>
   </div>
