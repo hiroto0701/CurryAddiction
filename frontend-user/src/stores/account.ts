@@ -50,6 +50,7 @@ export const useAccountStore = defineStore('account', () => {
   function resetData(): void {
     state.value = {
       id: null,
+      user_id: null,
       status: null,
       display_name: '',
       handle_name: '',
@@ -215,6 +216,7 @@ export const useAccountStore = defineStore('account', () => {
   // ログアウト
   async function logout(): Promise<void> {
     try {
+      commonStore.startApiLoading()
       await axios.post('/api/service_users/logout')
       resetData()
       commonStore.setFlashMessage('ログアウトしました')
@@ -233,6 +235,8 @@ export const useAccountStore = defineStore('account', () => {
       } else {
         setErrors({ general: ['予期せぬエラーが発生しました。'] })
       }
+    } finally {
+      commonStore.stopApiLoading()
     }
   }
 
