@@ -7,6 +7,7 @@ class IndexCommand
     private ?string $userId;
     private ?int $page;
     private ?int $perPage;
+    private ?bool $isLiked;
     private ?string $sortAttribute;
     private ?string $sortDirection;
 
@@ -14,12 +15,14 @@ class IndexCommand
         ?string $userId,
         ?int $page,
         ?int $perPage,
+        ?bool $isLiked,
         ?string $sortAttribute,
         ?string $sortDirection,
     ) {
         $this->userId = $userId;
         $this->page = $page;
         $this->perPage = $perPage;
+        $this->isLiked = $isLiked;
         $this->sortAttribute = $sortAttribute;
         $this->sortDirection = $sortDirection;
     }
@@ -46,6 +49,14 @@ class IndexCommand
     public function getPerPage(): ?int
     {
         return $this->perPage;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsLiked(): ?bool
+    {
+        return $this->isLiked;
     }
 
     /**

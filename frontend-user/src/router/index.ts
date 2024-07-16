@@ -150,7 +150,7 @@ const routes = [
                   title: 'いいねした投稿',
                   group: 'Dashboard'
                 },
-                component: () => import('@/views/pages/Dashboard/LikedPost.vue')
+                component: () => import('@/views/pages/Dashboard/Like/List.vue')
               },
               {
                 path: 'archived',

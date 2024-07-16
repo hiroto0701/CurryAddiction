@@ -6,6 +6,7 @@ namespace App\Domains\Post\Usecase;
 
 use App\Domains\Post\Usecase\Command\IndexCommand;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class IndexInteractor
@@ -29,10 +30,21 @@ class IndexInteractor
             $query->where('posts.user_id', '=', $command->getUserId());
         }
 
+        if (!is_null($command->getIsLiked()) && $command->getIsLiked()) {
+            $query->whereHas('likes', function ($query) {
+                $query->where('user_id', User::AuthId());
+            });
+        }
+
+        $query->with(['likes' => function ($query) {
+            $query->where('user_id', User::AuthId());
+        }]);
+
+
         $query->orderBy(
             self::SORT_KEYS[$command->getSortAttribute()] ?? 'posted_at',
             $command->getSortDirection() ?? 'desc'
-        )->orderBy('created_at');
+        )->orderBy('posts.created_at');
 
         return $query->paginate($command->getPerPage());
     }
