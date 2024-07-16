@@ -11,6 +11,7 @@ defineProps<Props>()
     class="inline-flex items-center font-body text-sumi-500 text-sm border border-gray-200 duration-500 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 first-of-type:rounded-l-full last-of-type:rounded-r-full"
     :class="{
       'bg-sumi-100 text-sumi-900': active,
+      hidden: disabled,
       'cursor-not-allowed': disabled
     }"
   >

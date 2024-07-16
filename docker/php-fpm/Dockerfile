@@ -1,5 +1,7 @@
 FROM php:8.2-fpm
 
+ENV TZ=Asia/Tokyo
+
 COPY . /var/www/html
 
 # php-fpmの設定ファイルをコピー
