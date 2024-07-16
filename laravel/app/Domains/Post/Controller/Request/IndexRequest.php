@@ -25,6 +25,14 @@ class IndexRequest extends FormRequest
         return [
             'sort_attribute' => ['nullable', Rule::in(self::SORTABLE_ATTRIBUTES)],
             'sort_direction' => ['nullable', Rule::in(config('constant.api.sort_directions'))],
+            'isLiked' => ['nullable', 'boolean'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'isLiked' => filter_var($this->query('isLiked'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
+        ]);
     }
 }
