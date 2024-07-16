@@ -23,7 +23,7 @@ const emits = defineEmits<{
     class="group sm:h-[325px] rounded-lg overflow-hidden cursor-pointer border border-gray-200"
     @click="emits('clickItem')"
   >
-    <CardImg :src class="sm:group-hover:opacity-80 duration-300" />
+    <CardImg :src class="sm:group-hover:opacity-80" />
     <CardBody
       :store-name="storeName"
       :location

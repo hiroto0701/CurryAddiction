@@ -1,1 +1,3 @@
-FROM postgres:15.2-alpine
+FROM postgres:16.3-alpine3.20
+
+ENV TZ=Asia/Tokyo

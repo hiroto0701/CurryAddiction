@@ -1,6 +1,9 @@
-FROM nginx:1.23.2-alpine
+FROM nginx:1.27-alpine
 
-ENV TZ=UTC
+RUN echo "${TZ}" > /etc/timezone \
+   && dpkg-reconfigure -f noninteractive tzdata
+
+ENV TZ=Asia/Tokyo
 
 # nginx config file
 COPY ./docker/nginx/*.conf /etc/nginx/conf.d/
