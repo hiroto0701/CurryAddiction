@@ -7,19 +7,31 @@ interface Props {
   readonly storeName: string
   readonly location: string
   readonly date: string
+  readonly isLiked: boolean
+  readonly isArchived: boolean
 }
 defineProps<Props>()
 
-const emit = defineEmits<{
+const emits = defineEmits<{
   (e: 'clickItem'): void
+  (e: 'toggleLike'): void
+  (e: 'toggleArchive'): void
 }>()
 </script>
 <template>
   <div
     class="group sm:h-[325px] rounded-lg overflow-hidden cursor-pointer border border-gray-200"
-    @click="emit('clickItem')"
+    @click="emits('clickItem')"
   >
     <CardImg :src class="sm:group-hover:opacity-80 duration-300" />
-    <CardBody :store-name="storeName" :location :date />
+    <CardBody
+      :store-name="storeName"
+      :location
+      :date
+      :is-liked
+      :is-archived
+      @toggle-like="emits('toggleLike')"
+      @toggle-archive="emits('toggleArchive')"
+    />
   </div>
 </template>

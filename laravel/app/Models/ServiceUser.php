@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Like;
 use App\Traits\OperatorRecordable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -73,4 +75,10 @@ class ServiceUser extends Authenticatable
     {
         return $this->hasOne(UploadFile::class, 'id', 'avatar_id');
     }
+
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class, 'user_id', 'user_id');
+    }
+
 }

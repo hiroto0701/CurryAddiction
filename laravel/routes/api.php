@@ -38,6 +38,8 @@ Route::prefix('/service_users')->group(function() {
 Route::prefix('/posts')->middleware((['auth:service_users']))->group(function() {
     Route::get('/', \App\Domains\Post\Controller\IndexAction::class);
     Route::post('/', \App\Domains\Post\Controller\CreateAction::class);
+    Route::post('/{post}/likes', \App\Domains\Post\Controller\LikeAction::class);
+    Route::post('/{post}/archives', \App\Domains\Post\Controller\CreateAction::class);
     Route::get('/{post}', \App\Domains\Post\Controller\ViewAction::class);
     Route::delete('/{post}', \App\Domains\Post\Controller\DeleteAction::class);
 });

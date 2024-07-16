@@ -79,7 +79,6 @@ async function doHardDelete() {
     }
   } catch (error) {
     closeModal()
-    console.error('Failed to delete the post:', error)
     commonStore.setErrorMessage('削除に失敗しました')
     setTimeout(() => {
       commonStore.clearErrorMessage()

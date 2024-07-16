@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domains\Post\Controller\Request;
 
-use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
