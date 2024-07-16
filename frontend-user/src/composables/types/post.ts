@@ -17,6 +17,8 @@ export interface Post {
     avatar_url: string | null
   }
   is_mine: boolean
+  current_user_liked: boolean
+  current_user_archived: boolean
   errors?: Record<string, string[]>
 }
 

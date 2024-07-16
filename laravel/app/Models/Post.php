@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Like;
 use App\Models\ServiceUser;
 use App\Traits\OperatorRecordable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -61,5 +63,15 @@ class Post extends Model
     public function postImg(): HasOne
     {
         return $this->hasOne(UploadFile::class, 'id', 'post_img_id');
+    }
+
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class, 'post_id');
+    }
+
+    public function isLikedBy(int $userId): bool
+    {
+        return $this->likes()->where('user_id', $userId)->exists();
     }
 }
