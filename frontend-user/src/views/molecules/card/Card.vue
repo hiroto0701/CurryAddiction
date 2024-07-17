@@ -14,8 +14,8 @@ defineProps<Props>()
 
 const emits = defineEmits<{
   (e: 'clickItem'): void
-  (e: 'toggleLike'): void
-  (e: 'toggleArchive'): void
+  (e: 'like'): void
+  (e: 'archive'): void
 }>()
 </script>
 <template>
@@ -30,8 +30,8 @@ const emits = defineEmits<{
       :date
       :is-liked
       :is-archived
-      @toggle-like="emits('toggleLike')"
-      @toggle-archive="emits('toggleArchive')"
+      @like="emits('like')"
+      @archive="emits('archive')"
     />
   </div>
 </template>

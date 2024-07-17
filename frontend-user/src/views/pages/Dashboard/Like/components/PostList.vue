@@ -38,7 +38,7 @@ async function loadPosts(
       posts.value = data
       paginationStatus.value = meta
     } catch (error) {
-      console.error('Failed to load posts:', error)
+      console.error('投稿の読み込みに失敗しました。:', error)
     }
   }
 }
@@ -53,13 +53,27 @@ function toViewer(postId: number): void {
   router.push({ name: 'PostViewer', params: { id: postId } })
 }
 
-async function toggleLike(postId: number): Promise<void> {
+// いいね一覧ページではいいねした投稿のみ取得
+// =>いいねの解除のみ可能
+async function removeLike(postId: number): Promise<void> {
   try {
     const response = await likePost(postId)
     if (response.status === 200) {
-      const postIndex = posts.value.findIndex((post) => post.id === postId)
-      if (postIndex !== -1) {
-        posts.value[postIndex].current_user_liked = !posts.value[postIndex].current_user_liked
+      posts.value = posts.value.filter((post) => post.id !== postId)
+
+      // ページネーションの総数を更新
+      if (paginationStatus.value && paginationStatus.value.total) {
+        paginationStatus.value.total -= 1
+      }
+
+      // 現在のページの投稿が0になった場合、前のページに戻る
+      if (
+        posts.value.length === 0 &&
+        paginationStatus.value &&
+        paginationStatus.value.current_page &&
+        paginationStatus.value.current_page > 1
+      ) {
+        await doChangePage(paginationStatus.value.current_page - 1)
       }
     }
   } catch (error) {
@@ -101,8 +115,8 @@ watch(
       :is-liked="post.current_user_liked"
       :is-archived="false"
       @clickItem="toViewer(post.id)"
-      @toggle-like="toggleLike(post.id)"
-      @toggle-archive="toggleArchive(post.id)"
+      @like="removeLike(post.id)"
+      @archive="toggleArchive(post.id)"
     />
   </CardDisplayAreaLayout>
   <Pagination class="mt-12" @change-page="doChangePage" :pagination-status="paginationStatus" />
