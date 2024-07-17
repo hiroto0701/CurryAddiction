@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  readonly liked: boolean
+  readonly liked?: boolean
 }
 
 defineProps<Props>()
