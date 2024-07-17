@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Props {
+  readonly liked: boolean
+}
+
+defineProps<Props>()
+</script>
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -7,6 +13,7 @@
     stroke-width="1.5"
     stroke="currentColor"
     class="w-5 aspect-square"
+    :class="{ 'heart-beat': liked }"
   >
     <path
       stroke-linecap="round"
@@ -15,3 +22,14 @@
     />
   </svg>
 </template>
+<style scoped>
+.heart-beat {
+  animation: heartBeat 0.25s;
+}
+
+@keyframes heartBeat {
+  50% {
+    transform: scale(1.3);
+  }
+}
+</style>
