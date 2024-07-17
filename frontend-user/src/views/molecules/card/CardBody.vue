@@ -14,18 +14,13 @@ interface Props {
 defineProps<Props>()
 
 const emits = defineEmits<{
-  (e: 'toggleLike'): void
-  (e: 'toggleArchive'): void
+  (e: 'like'): void
+  (e: 'archive'): void
 }>()
 </script>
 <template>
   <div class="flex flex-col justify-between h-28 pb-2">
-    <CardIcons
-      :is-liked
-      :is-archived
-      @toggle-like="emits('toggleLike')"
-      @toggle-archive="emits('toggleArchive')"
-    />
+    <CardIcons :is-liked :is-archived @like="emits('like')" @archive="emits('archive')" />
     <StoreNameBrowseItem class="text-md px-3 py-1 text-sumi-900" :store-name="storeName" />
     <div class="flex justify-between items-center">
       <StoreLocationBrowseItem :location :date />

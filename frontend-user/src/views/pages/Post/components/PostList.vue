@@ -33,7 +33,7 @@ async function loadPosts(page: number = 1, userId?: number, forceReload: boolean
       posts.value = data
       paginationStatus.value = meta
     } catch (error) {
-      console.error('Failed to load posts:', error)
+      console.error('投稿の読み込みに失敗しました。:', error)
     }
   }
 }
@@ -96,8 +96,8 @@ watch(
       :is-liked="post.current_user_liked"
       :is-archived="false"
       @clickItem="toViewer(post.id)"
-      @toggle-like="toggleLike(post.id)"
-      @toggle-archive="toggleArchive(post.id)"
+      @like="toggleLike(post.id)"
+      @archive="toggleArchive(post.id)"
     />
   </CardDisplayAreaLayout>
   <Pagination class="mt-12" @change-page="doChangePage" :pagination-status="paginationStatus" />

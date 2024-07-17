@@ -16,10 +16,9 @@ services:
     ports:
       - 35555:5432
     environment:
-      TZ: Asia/Tokyo
-      POSTGRES_DB: curry_addiction
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql
 
@@ -34,9 +33,9 @@ services:
       - DB_CONNECTION=pgsql
       - DB_HOST=curry_addiction_db
       - DB_PORT=5432
-      - DB_DATABASE=curry_addiction
-      - DB_USERNAME=root
-      - DB_PASSWORD=secret
+      - DB_DATABASE=${DB_NAME}
+      - DB_USERNAME=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
 
   curry_addiction_composer:
     build: docker/composer
@@ -72,8 +71,8 @@ services:
       - "9000:9000"
       - "9090:9091"
     environment:
-      - MINIO_ROOT_USER=minio
-      - MINIO_ROOT_PASSWORD=minio123
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
     entrypoint: sh
     command: -c "
       mkdir -p /data/.minio.sys/buckets;

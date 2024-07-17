@@ -36,7 +36,7 @@ async function loadPosts(page: number = 1, userId: number, forceReload: boolean 
       posts.value = data
       paginationStatus.value = meta
     } catch (error) {
-      console.error('Failed to load posts:', error)
+      console.error('投稿の読み込みに失敗しました。:', error)
     }
   }
 }
