@@ -9,7 +9,11 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <BaseButton type="submit" class="border border-gray-300 text-sumi-900 p-3" :text>
+  <BaseButton
+    type="submit"
+    class="flex gap-2 items-center border border-gray-300 text-sumi-900 p-3"
+    :text
+  >
     <LoadingSpinner :is-loading />
   </BaseButton>
 </template>
