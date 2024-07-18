@@ -135,13 +135,13 @@ const routes = [
             name: 'Dashboard',
             children: [
               {
-                path: 'post',
+                path: 'analytics',
                 name: 'PostDashboard',
                 meta: {
                   title: '投稿ダッシュボード',
                   group: 'Dashboard'
                 },
-                component: () => import('@/views/pages/Dashboard/Post.vue')
+                component: () => import('@/views/pages/Dashboard/Analytics/List.vue')
               },
               {
                 path: 'liked',
