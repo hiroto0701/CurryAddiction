@@ -1,10 +1,3 @@
-<script setup lang="ts">
-interface Props {
-  readonly archived?: boolean
-}
-
-defineProps<Props>()
-</script>
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +6,6 @@ defineProps<Props>()
     stroke-width="1.5"
     stroke="currentColor"
     class="w-5 aspect-square"
-    :class="{ 'fill-gray-700': archived }"
   >
     <path
       stroke-linecap="round"

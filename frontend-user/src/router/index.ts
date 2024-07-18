@@ -159,7 +159,7 @@ const routes = [
                   title: '保存した投稿',
                   group: 'Dashboard'
                 },
-                component: () => import('@/views/pages/Dashboard/ArchivedPost.vue')
+                component: () => import('@/views/pages/Dashboard/Archive/List.vue')
               },
               {
                 path: 'trash',
@@ -177,7 +177,7 @@ const routes = [
                   title: '設定',
                   group: 'Dashboard'
                 },
-                component: () => import('@/views/pages/Dashboard/Setting.vue')
+                component: () => import('@/views/pages/Dashboard/Setting/Setting.vue')
               }
             ]
           }

@@ -27,7 +27,7 @@ async function loadPosts(
   page: number = 1,
   userId?: number,
   forceReload: boolean = false,
-  isLiked: boolean = true
+  isArchived: boolean = true
 ) {
   if (
     forceReload ||
@@ -36,7 +36,7 @@ async function loadPosts(
     posts.value.length === 0
   ) {
     try {
-      const { data, meta } = await fetchPostsList({ page, userId, isLiked })
+      const { data, meta } = await fetchPostsList({ page, userId, isArchived })
       posts.value = data
       paginationStatus.value = meta
     } catch (error) {
@@ -55,11 +55,28 @@ function toViewer(postId: number): void {
   router.push({ name: 'PostViewer', params: { id: postId } })
 }
 
-// いいね一覧ページではいいねした投稿のみ取得
-// =>いいねの解除のみ可能
-async function removeLike(postId: number): Promise<void> {
+async function toggleLike(postId: number): Promise<void> {
   try {
     const response = await likePost(postId)
+    if (response.status === 200) {
+      const postIndex = posts.value.findIndex((post) => post.id === postId)
+      if (postIndex !== -1) {
+        posts.value[postIndex].current_user_liked = !posts.value[postIndex].current_user_liked
+      }
+    }
+  } catch (error) {
+    commonStore.setErrorMessage('いいねできませんでした')
+    setTimeout(() => {
+      commonStore.clearErrorMessage()
+    }, 4000)
+  }
+}
+
+// アーカイブ一覧ページではアーカイブした投稿のみ取得
+// =>アーカイブの解除のみ可能
+async function removeArchive(postId: number): Promise<void> {
+  try {
+    const response = await archivePost(postId)
     if (response.status === 200) {
       posts.value = posts.value.filter((post) => post.id !== postId)
 
@@ -79,24 +96,7 @@ async function removeLike(postId: number): Promise<void> {
       }
     }
   } catch (error) {
-    commonStore.setErrorMessage('いいねできませんでした')
-    setTimeout(() => {
-      commonStore.clearErrorMessage()
-    }, 4000)
-  }
-}
-
-async function toggleArchive(postId: number): Promise<void> {
-  try {
-    const response = await archivePost(postId)
-    if (response.status === 200) {
-      const postIndex = posts.value.findIndex((post) => post.id === postId)
-      if (postIndex !== -1) {
-        posts.value[postIndex].current_user_archived = !posts.value[postIndex].current_user_archived
-      }
-    }
-  } catch (error) {
-    commonStore.setErrorMessage('いいねできませんでした')
+    commonStore.setErrorMessage('保存できませんでした')
     setTimeout(() => {
       commonStore.clearErrorMessage()
     }, 4000)
@@ -130,8 +130,8 @@ watch(
       :is-liked="post.current_user_liked"
       :is-archived="post.current_user_archived"
       @clickItem="toViewer(post.id)"
-      @like="removeLike(post.id)"
-      @archive="toggleArchive(post.id)"
+      @like="toggleLike(post.id)"
+      @archive="removeArchive(post.id)"
     />
   </CardDisplayAreaLayout>
   <Pagination class="mt-12" @change-page="doChangePage" :pagination-status="paginationStatus" />

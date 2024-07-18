@@ -4,49 +4,42 @@ declare(strict_types=1);
 
 namespace App\Domains\Post\Controller;
 
-use App\Domains\Post\Controller\Request\CreateRequest;
-use App\Domains\Post\Controller\Resource\PostResource;
-use App\Domains\Post\Usecase\Command\CreateCommand;
-use App\Domains\Post\Usecase\CreateInteractor;
+use App\Domains\Post\Usecase\ArchiveInteractor;
+use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class ArchiveAction extends Controller
 {
 
     /**
-     * @var CreateInteractor
+     * @var ArchiveInteractor
      */
-    protected CreateInteractor $interactor;
+    protected ArchiveInteractor $interactor;
 
     /**
-     * @param CreateInteractor $interactor
+     * @param ArchiveInteractor $interactor
      */
-    public function __construct(CreateInteractor $interactor)
+    public function __construct(ArchiveInteractor $interactor)
     {
         $this->interactor = $interactor;
     }
 
-    public function __invoke(CreateRequest $request): PostResource
+    public function __invoke(Post $post): JsonResponse
     {
-        $command = new CreateCommand(
-            User::AuthId(),
-            (int)$request->genre_id,
-            (int)$request->region_id,
-            (int)$request->prefecture_id,
-            $request->store_name,
-            !is_null($request->comment) ? $request->comment : null,
-            (float)$request->latitude,
-            (float)$request->longitude,
-            $request->post_img->get(),
-            $request->post_img->getClientOriginalName(),
-            $request->post_img->getClientOriginalExtension(),
-            $request->post_img->getMimeType(),
-        );
-        $result = new PostResource(
-            $this->interactor->handle($command)
-        );
+        $user = User::AuthId();
+        $result = $this->interactor->handle($post, $user);
 
-        return $result;
+        if ($result) {
+            return new JsonResponse([
+                'message' => '保存しました',
+            ], Response::HTTP_OK);
+        }
+
+        return new JsonResponse([
+            'message' => '保存できませんでした',
+        ], Response::HTTP_BAD_REQUEST);
     }
 }
