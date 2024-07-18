@@ -39,7 +39,7 @@ function toggleLike(): void {
       <HeartIcon
         class="cursor-pointer"
         :class="{
-          'text-transparent fill-red-400': localLikeState,
+          'text-red-400 fill-red-400': localLikeState,
           'text-gray-700': !localLikeState
         }"
         :liked="showLikeAnimation"
@@ -50,7 +50,10 @@ function toggleLike(): void {
       @click.stop="emits('archive')"
       class="w-8 h-8 rounded-full transition-opacity duration-500 cursor-pointer hover:bg-gray-100 flex items-center justify-center"
     >
-      <ArchiveIcon class="text-gray-700 cursor-pointer" :archived="props.isArchived" />
+      <ArchiveIcon
+        class="text-gray-700 cursor-pointer"
+        :class="{ 'fill-gray-700': props.isArchived }"
+      />
     </div>
   </div>
 </template>

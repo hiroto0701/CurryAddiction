@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Domains\Post\Usecase;
 
-use App\Models\Like;
+use App\Models\Archive;
 use App\Models\Post;
 use App\Models\ServiceUser;
 use Illuminate\Support\Facades\DB;
 
-class LikeInteractor
+class ArchiveInteractor
 {
       /**
      * @param Post $post
@@ -20,19 +20,19 @@ class LikeInteractor
         $serviceUser = ServiceUser::where('user_id', $userId)->firstOrFail();
 
         return DB::transaction(function () use ($post, $serviceUser) {
-            $alreadyLike = $post->likes()->where('user_id', $serviceUser->user_id)->first();
+            $alreadyArchive = $post->archives()->where('user_id', $serviceUser->user_id)->first();
 
-            if ($alreadyLike) {
-                $alreadyLike->delete();
+            if ($alreadyArchive) {
+                $alreadyArchive->delete();
                 return true;
             }
 
-            $like = new Like([
+            $Archive = new Archive([
                 'user_id' => $serviceUser->user_id,
                 'post_id' => $post->id,
             ]);
 
-            return $like->save();
+            return $Archive->save();
         });
     }
 }

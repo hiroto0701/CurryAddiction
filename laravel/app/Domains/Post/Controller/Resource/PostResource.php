@@ -37,7 +37,7 @@ class PostResource extends JsonResource
             ],
             'is_mine' => User::AuthId() === $this->serviceUser->user_id,
             "current_user_liked" => $this->likes->isNotEmpty(),
-            "current_user_archived" => false,
+            "current_user_archived" => $this->archives->isNotEmpty(),
         ];
     }
 }

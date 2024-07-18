@@ -6,6 +6,7 @@ import type { Post, PaginationStatus } from '@/composables/types/post'
 import type { ServiceUser } from '@/composables/types/serviceUser'
 import { useFetchPosts } from '@/composables/functions/useFetchPosts'
 import { useLikePost } from '@/composables/functions/useLikePost'
+import { useArchivePost } from '@/composables/functions/useArchivePost'
 import Card from '@/views/molecules/card/Card.vue'
 import Pagination from '@/views/molecules/Pagination.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
@@ -13,6 +14,7 @@ import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
 const commonStore = useCommonStore()
 const { fetchPostsList } = useFetchPosts()
 const { likePost } = useLikePost()
+const { archivePost } = useArchivePost()
 const route = useRoute()
 const router = useRouter()
 
@@ -66,7 +68,20 @@ async function toggleLike(postId: number): Promise<void> {
 }
 
 async function toggleArchive(postId: number): Promise<void> {
-  console.log(postId)
+  try {
+    const response = await archivePost(postId)
+    if (response.status === 200) {
+      const postIndex = posts.value.findIndex((post) => post.id === postId)
+      if (postIndex !== -1) {
+        posts.value[postIndex].current_user_archived = !posts.value[postIndex].current_user_archived
+      }
+    }
+  } catch (error) {
+    commonStore.setErrorMessage('いいねできませんでした')
+    setTimeout(() => {
+      commonStore.clearErrorMessage()
+    }, 4000)
+  }
 }
 
 onBeforeRouteUpdate(async (to): Promise<void> => {
@@ -94,7 +109,7 @@ watch(
       location="福岡市 中央区"
       :date="post.posted_at"
       :is-liked="post.current_user_liked"
-      :is-archived="false"
+      :is-archived="post.current_user_archived"
       @clickItem="toViewer(post.id)"
       @like="toggleLike(post.id)"
       @archive="toggleArchive(post.id)"

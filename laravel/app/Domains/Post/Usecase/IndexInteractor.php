@@ -36,10 +36,19 @@ class IndexInteractor
             });
         }
 
+        if (!is_null($command->getIsArchived()) && $command->getIsArchived()) {
+            $query->whereHas('archives', function ($query) {
+                $query->where('user_id', User::AuthId());
+            });
+        }
+
         $query->with(['likes' => function ($query) {
             $query->where('user_id', User::AuthId());
         }]);
 
+        $query->with(['archives' => function ($query) {
+            $query->where('user_id', User::AuthId());
+        }]);
 
         $query->orderBy(
             self::SORT_KEYS[$command->getSortAttribute()] ?? 'posted_at',

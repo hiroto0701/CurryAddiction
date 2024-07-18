@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Archive;
 use App\Models\Like;
 use App\Models\ServiceUser;
 use App\Traits\OperatorRecordable;
@@ -68,5 +69,10 @@ class Post extends Model
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class, 'post_id');
+    }
+
+    public function archives(): HasMany
+    {
+        return $this->hasMany(Archive::class, 'post_id');
     }
 }
