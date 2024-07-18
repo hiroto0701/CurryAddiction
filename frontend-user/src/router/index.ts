@@ -177,7 +177,7 @@ const routes = [
                   title: '設定',
                   group: 'Dashboard'
                 },
-                component: () => import('@/views/pages/Dashboard/Setting.vue')
+                component: () => import('@/views/pages/Dashboard/Setting/Setting.vue')
               }
             ]
           }

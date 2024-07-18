@@ -9,9 +9,9 @@ import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue'
 import GenreSettingButton from '@/views/molecules/buttons/GenreSettingButton.vue'
 import RegionSettingButton from '@/views/molecules/buttons/RegionSettingButton.vue'
 import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue'
-import DisplayNameViewer from '@/views/pages/Dashboard/components/DisplayNameViewer.vue'
-import DisplayNameEditor from '@/views/pages/Dashboard/components/DisplayNameEditor.vue'
-import AvatarEditor from '@/views/pages/Dashboard/components/AvatarEditor.vue'
+import DisplayNameViewer from '@/views/pages/Dashboard/Setting/components/DisplayNameViewer.vue'
+import DisplayNameEditor from '@/views/pages/Dashboard/Setting/components/DisplayNameEditor.vue'
+import AvatarEditor from '@/views/pages/Dashboard/Setting/components/AvatarEditor.vue'
 
 const accountStore = useAccountStore()
 const accountFormStore = useAccountFormStore()
