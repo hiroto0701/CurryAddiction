@@ -121,8 +121,3 @@ onMounted(() => paintCalendar())
     </div>
   </div>
 </template>
-<style scoped>
-#ch-tooltip {
-  font-size: 500px;
-}
-</style>

@@ -7,11 +7,7 @@ import DashBoardSideBar from '@/views/organisms/DashboardSideBar.vue'
       <DashBoardSideBar />
       <main class="min-h-screen min-w-0 flex-1 pb-32 md:border-l md:border-main-150">
         <div class="mx-auto w-full px-5 max-w-screen-md mt-20">
-          <Suspense>
-            <template #default>
-              <RouterView />
-            </template>
-          </Suspense>
+          <RouterView />
         </div>
       </main>
     </div>
