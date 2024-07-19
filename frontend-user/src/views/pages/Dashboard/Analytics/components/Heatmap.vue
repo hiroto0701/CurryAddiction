@@ -25,7 +25,10 @@ const cal: CalHeatmap = new CalHeatmap()
 
 function paintCalendar() {
   const dateOptions: DateOptions = {
-    start: new Date('2024-01-01'),
+    start: new Date(),
+    highlight: [
+      new Date() // Highlight today
+    ],
     locale: 'ja',
     timezone: 'Asia/Tokyo'
   }
@@ -72,6 +75,13 @@ function paintCalendar() {
     label: null
   }
 
+  const TOOLTIP_OPTIONS: TooltipOptions = {
+    enabled: true,
+    text: (timestanp: number, value: number | null, dayjsDate: dayjs.Dayjs) => {
+      return `${value ?? 0} 件の投稿 ${dayjsDate.format('YYYY/MM/DD')}`
+    }
+  }
+
   const options: CalHeatmapOptions = {
     date: dateOptions,
     data: dataOptions,
@@ -80,13 +90,6 @@ function paintCalendar() {
     domain: domainOptions,
     subDomain,
     itemSelector: '#heatmap'
-  }
-
-  const TOOLTIP_OPTIONS: TooltipOptions = {
-    enabled: true,
-    text: (timestanp: number, value: number | null, dayjsDate: dayjs.Dayjs) => {
-      return `${value ?? 0} 件の投稿 ${dayjsDate.format('YYYY/MM/DD')}`
-    }
   }
 
   cal.paint(options, [[Tooltip, TOOLTIP_OPTIONS]])
@@ -121,3 +124,14 @@ onMounted(() => paintCalendar())
     </div>
   </div>
 </template>
+<style>
+#ch-tooltip {
+  @apply flex justify-center items-center px-2 py-2 shadow-sm border border-gray-200 whitespace-nowrap font-body text-xs text-sumi-500 bg-white rounded-lg select-none;
+  transition: opacity 0.1s ease-out;
+  opacity: 0;
+}
+
+#ch-tooltip[data-show] {
+  opacity: 1;
+}
+</style>
