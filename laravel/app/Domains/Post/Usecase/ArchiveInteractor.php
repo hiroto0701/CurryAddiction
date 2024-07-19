@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ArchiveInteractor
 {
-      /**
+    /**
      * @param Post $post
      * @return void
      */

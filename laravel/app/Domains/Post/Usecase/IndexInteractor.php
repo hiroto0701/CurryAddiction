@@ -42,13 +42,14 @@ class IndexInteractor
             });
         }
 
-        $query->with(['likes' => function ($query) {
-            $query->where('user_id', User::AuthId());
-        }]);
-
-        $query->with(['archives' => function ($query) {
-            $query->where('user_id', User::AuthId());
-        }]);
+        $query->with([
+            'likes' => function ($query) {
+                $query->where('user_id', User::AuthId());
+            },
+            'archives' => function ($query) {
+                $query->where('user_id', User::AuthId());
+            }
+        ]);
 
         $query->orderBy(
             self::SORT_KEYS[$command->getSortAttribute()] ?? 'posted_at',
@@ -56,5 +57,6 @@ class IndexInteractor
         )->orderBy('posts.created_at');
 
         return $query->paginate($command->getPerPage());
+
     }
 }
