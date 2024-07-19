@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Domains\Dashboard\Trash\Controller\Resource;
 
 use App\Http\Controllers\FileViewAction;
-use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TrashResource extends JsonResource

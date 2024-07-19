@@ -50,8 +50,11 @@ Route::middleware((['auth:service_users']))->group(function() {
 
 
 Route::prefix('/dashboard')->middleware(['auth:service_users'])->group(function() {
+    Route::prefix('/analytics')->group(function () {
+        Route::get('/', \App\Domains\Dashboard\Analytics\Controller\IndexAction::class);
+    });
 
-    // ごみ箱関連
+
     Route::prefix('/trash')->group(function() {
         Route::get('/', \App\Domains\Dashboard\Trash\Controller\IndexAction::class);
         Route::post('/{post}', \App\Domains\Dashboard\Trash\Controller\RestoreAction::class)->withTrashed();
