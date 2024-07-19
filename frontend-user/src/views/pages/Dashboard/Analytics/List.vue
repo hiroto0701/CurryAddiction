@@ -5,7 +5,7 @@ import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
 import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue'
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
 import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
-import Heatmap from '@/views/pages/Dashboard/Analytics/components/Heatmap.vue'
+import Analytics from '@/views/pages/Dashboard/Analytics/components/Analytics.vue'
 
 const accountStore = useAccountStore()
 </script>
@@ -24,7 +24,11 @@ const accountStore = useAccountStore()
         text="投稿したらカレンダーに色がつきます。"
         class="text-sm font-body text-sumi-500 mt-3"
       />
-      <Heatmap />
+      <Suspense>
+        <template #default>
+          <Analytics class="mt-5" />
+        </template>
+      </Suspense>
     </DashboardSection>
   </DashboardContent>
 </template>

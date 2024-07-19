@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domains\Dashboard\Trash\Controller\Policy;
+namespace App\Domains\Dashboard\Analytics\Controller\Policy;
 
 use App\Models\Administrator;
 use App\Models\ServiceUser;
@@ -13,8 +13,7 @@ class ActionPolicy
 {
     public static function register()
     {
-        Gate::define('trash-index', [self::class, 'index']);
-        Gate::define('trash-delete', [self::class, 'delete']);
+        Gate::define('analytics-index', [self::class, 'index']);
     }
 
     public function index($user): bool
@@ -30,17 +29,4 @@ class ActionPolicy
         return false;
     }
 
-
-    public function delete($user, $post): bool
-    {
-        if ($user instanceof ServiceUser) {
-            // 自分の投稿のみ削除可能
-            return $user->id === $post->user_id;
-        }
-        if ($user instanceof Administrator) {
-            // 管理者は全ての投稿を削除可能
-            return true;
-        }
-        return false;
-    }
 }
