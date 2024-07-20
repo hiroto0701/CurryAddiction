@@ -25,10 +25,8 @@ const cal: CalHeatmap = new CalHeatmap()
 
 function paintCalendar() {
   const dateOptions: DateOptions = {
-    start: new Date(),
-    highlight: [
-      new Date() // Highlight today
-    ],
+    start: dayjs().toDate(),
+    highlight: [dayjs().toDate()],
     locale: 'ja',
     timezone: 'Asia/Tokyo'
   }
@@ -51,7 +49,7 @@ function paintCalendar() {
 
   const domainOptions: DomainOptions = {
     type: 'month',
-    gutter: 4,
+    gutter: 2,
     label: {
       text: 'M月',
       position: 'top',
@@ -68,7 +66,7 @@ function paintCalendar() {
 
   const subDomain: SubDomain = {
     type: 'ghDay',
-    gutter: 4,
+    gutter: 2,
     width: 11,
     height: 11,
     radius: 2,
@@ -94,6 +92,7 @@ function paintCalendar() {
 
   cal.paint(options, [[Tooltip, TOOLTIP_OPTIONS]])
 }
+
 onMounted(() => paintCalendar())
 </script>
 <template>
@@ -108,14 +107,14 @@ onMounted(() => paintCalendar())
     <div id="heatmap"></div>
     <div class="sticky left-0 bottom-0 my-3 flex items-center gap-2">
       <a
-        class="flex items-center justify-center w-20 h-6 duration-300 bg-gray-100 hover:bg-gray-200 text-sumi-700 text-mini font-body rounded-lg"
+        class="flex items-center justify-center w-16 h-6 duration-300 bg-gray-100 hover:bg-gray-200 text-sumi-700 text-mini font-body rounded-lg"
         href="#"
         @click.prevent="cal.previous()"
       >
-        ← Previous
+        ← Prev
       </a>
       <a
-        class="flex items-center justify-center w-20 h-6 duration-300 bg-gray-100 hover:bg-gray-200 text-sumi-700 text-mini font-body rounded-lg"
+        class="flex items-center justify-center w-16 h-6 duration-300 bg-gray-100 hover:bg-gray-200 text-sumi-700 text-mini font-body rounded-lg"
         href="#"
         @click.prevent="cal.next()"
       >

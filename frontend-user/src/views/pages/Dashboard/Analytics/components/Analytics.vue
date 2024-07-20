@@ -7,7 +7,7 @@ import Heatmap from '@/views/pages/Dashboard/Analytics/components/Heatmap.vue'
 const { fetchAnalytics } = useFetchAnalytics()
 
 const analyticsData = ref<Analytics[]>([])
-async function load() {
+async function load(): Promise<void> {
   try {
     const { data } = await fetchAnalytics()
     analyticsData.value = data
