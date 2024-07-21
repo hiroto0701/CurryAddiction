@@ -7,6 +7,7 @@ import type { ServiceUser } from '@/composables/types/serviceUser'
 import { useFetchPosts } from '@/composables/functions/useFetchPosts'
 import { useLikePost } from '@/composables/functions/useLikePost'
 import { useArchivePost } from '@/composables/functions/useArchivePost'
+import HomePagePlaceholder from '@/views/molecules/noContentPlaceholder/HomePagePlaceholder.vue'
 import Card from '@/views/molecules/card/Card.vue'
 import Pagination from '@/views/molecules/Pagination.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
@@ -100,20 +101,23 @@ watch(
 )
 </script>
 <template>
-  <CardDisplayAreaLayout>
-    <Card
-      v-for="post in posts"
-      :key="post.id"
-      :src="post.post_img"
-      :store-name="post.store_name"
-      location="福岡市 中央区"
-      :date="post.posted_at"
-      :is-liked="post.current_user_liked"
-      :is-archived="post.current_user_archived"
-      @clickItem="toViewer(post.id)"
-      @like="toggleLike(post.id)"
-      @archive="toggleArchive(post.id)"
-    />
-  </CardDisplayAreaLayout>
-  <Pagination class="mt-12" @change-page="doChangePage" :pagination-status="paginationStatus" />
+  <div v-if="posts.length">
+    <CardDisplayAreaLayout>
+      <Card
+        v-for="post in posts"
+        :key="post.id"
+        :src="post.post_img"
+        :store-name="post.store_name"
+        location="福岡市 中央区"
+        :date="post.posted_at"
+        :is-liked="post.current_user_liked"
+        :is-archived="post.current_user_archived"
+        @clickItem="toViewer(post.id)"
+        @like="toggleLike(post.id)"
+        @archive="toggleArchive(post.id)"
+      />
+    </CardDisplayAreaLayout>
+    <Pagination class="mt-12" @change-page="doChangePage" :pagination-status="paginationStatus" />
+  </div>
+  <HomePagePlaceholder v-else />
 </template>

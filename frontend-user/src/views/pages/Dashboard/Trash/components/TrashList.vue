@@ -7,6 +7,7 @@ import type { Trash, PaginationStatus } from '@/composables/types/trash'
 import { useFetchTrashPosts } from '@/composables/functions/useFetchTrashPosts'
 import { useRestorePost } from '@/composables/functions/useRestorePost'
 import { useDeletePost } from '@/composables/functions/useDeletePost'
+import TrashPagePlaceholder from '@/views/molecules/noContentPlaceholder/TrashPagePlaceholder.vue'
 import TrashCard from '@/views/pages/Dashboard/Trash/components/TrashCard.vue'
 import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue'
 import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue'
@@ -117,7 +118,7 @@ async function doRestore() {
 }
 </script>
 <template>
-  <div class="grid grid-cols-1 gap-10">
+  <div class="grid grid-cols-1 gap-10" v-if="posts.length">
     <TrashCard
       v-for="post in posts"
       :key="post.id"
@@ -129,6 +130,8 @@ async function doRestore() {
       @restore="openModal(post.id, 'restore')"
     />
   </div>
+
+  <TrashPagePlaceholder v-else />
 
   <Teleport to="body">
     <ActionConfirmModal
