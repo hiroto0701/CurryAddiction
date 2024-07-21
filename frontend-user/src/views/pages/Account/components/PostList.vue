@@ -7,7 +7,7 @@ import type { ServiceUser } from '@/composables/types/serviceUser'
 import { useFetchPosts } from '@/composables/functions/useFetchPosts'
 import { useLikePost } from '@/composables/functions/useLikePost'
 import { useArchivePost } from '@/composables/functions/useArchivePost'
-import LikePagePlaceholder from '@/views/molecules/noContentPlaceholder/LikePagePlaceholder.vue'
+import ProfilePagePlaceholder from '@/views/molecules/noContentPlaceholder/ProfilePagePlaceholder.vue'
 import Card from '@/views/molecules/card/Card.vue'
 import Pagination from '@/views/molecules/Pagination.vue'
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue'
@@ -24,12 +24,7 @@ const paginationStatus = ref<PaginationStatus | null>(null)
 
 const pageUser = inject<Ref<ServiceUser | null>>('pageUser', ref(null))
 
-async function loadPosts(
-  page: number = 1,
-  userId?: number,
-  forceReload: boolean = false,
-  isLiked: boolean = true
-) {
+async function loadPosts(page: number = 1, userId?: number, forceReload: boolean = false) {
   if (
     forceReload ||
     !paginationStatus.value ||
@@ -37,7 +32,7 @@ async function loadPosts(
     posts.value.length === 0
   ) {
     try {
-      const { data, meta } = await fetchPostsList({ page, userId, isLiked })
+      const { data, meta } = await fetchPostsList({ page, userId })
       posts.value = data
       paginationStatus.value = meta
     } catch (error) {
@@ -56,27 +51,13 @@ function toViewer(postId: number): void {
   router.push({ name: 'PostViewer', params: { id: postId } })
 }
 
-// いいね一覧ページではいいねした投稿のみ取得
-// =>いいねの解除のみ可能
-async function removeLike(postId: number): Promise<void> {
+async function toggleLike(postId: number): Promise<void> {
   try {
     const response = await likePost(postId)
     if (response.status === 200) {
-      posts.value = posts.value.filter((post) => post.id !== postId)
-
-      // ページネーションの総数を更新
-      if (paginationStatus.value && paginationStatus.value.total) {
-        paginationStatus.value.total -= 1
-      }
-
-      // 現在のページの投稿が0になった場合、前のページに戻る
-      if (
-        posts.value.length === 0 &&
-        paginationStatus.value &&
-        paginationStatus.value.current_page &&
-        paginationStatus.value.current_page > 1
-      ) {
-        await doChangePage(paginationStatus.value.current_page - 1)
+      const postIndex = posts.value.findIndex((post) => post.id === postId)
+      if (postIndex !== -1) {
+        posts.value[postIndex].current_user_liked = !posts.value[postIndex].current_user_liked
       }
     }
   } catch (error) {
@@ -132,11 +113,11 @@ watch(
         :is-liked="post.current_user_liked"
         :is-archived="post.current_user_archived"
         @clickItem="toViewer(post.id)"
-        @like="removeLike(post.id)"
+        @like="toggleLike(post.id)"
         @archive="toggleArchive(post.id)"
       />
     </CardDisplayAreaLayout>
     <Pagination class="mt-12" @change-page="doChangePage" :pagination-status="paginationStatus" />
   </div>
-  <LikePagePlaceholder v-else />
+  <ProfilePagePlaceholder v-else />
 </template>

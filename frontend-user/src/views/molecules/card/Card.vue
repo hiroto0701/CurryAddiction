@@ -19,7 +19,7 @@ const emits = defineEmits<{
 }>()
 </script>
 <template>
-  <div
+  <article
     class="group sm:h-[325px] rounded-lg overflow-hidden cursor-pointer border border-gray-200"
     @click="emits('clickItem')"
   >
@@ -33,5 +33,5 @@ const emits = defineEmits<{
       @like="emits('like')"
       @archive="emits('archive')"
     />
-  </div>
+  </article>
 </template>
