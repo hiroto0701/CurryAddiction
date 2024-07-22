@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { PaginationStatus } from '@/composables/useFetchPostData'
+import CurryIcon from '@/views/atoms/icons/CurryIcon.vue'
+import DashboardIcon from '@/views/atoms/icons/DashboardIcon.vue'
 import PageItem from '@/views/atoms/PageItem.vue'
 
 interface Props {
@@ -85,13 +87,20 @@ function doNext(): void {
 
 <template>
   <div v-if="paginationStatus">
-    <p class="font-body text-sumi-900 text-sm" v-if="paginationStatus.total !== null">
+    <p
+      class="font-body text-sumi-600 text-sm flex items-center gap-2 mb-2"
+      v-if="paginationStatus.total !== null"
+    >
+      <CurryIcon />
       全{{ paginationStatus.total }}件中 {{ paginationStatus.from || 0 }}件～{{
         paginationStatus.to || 0
       }}件を表示中
     </p>
-    <p class="font-body text-sumi-900 text-sm" v-if="paginationStatus.current_page !== null">
-      {{ paginationStatus.current_page }}ページ目
+    <p
+      class="font-body text-sumi-600 text-sm flex items-center gap-2"
+      v-if="paginationStatus.current_page !== null"
+    >
+      <DashboardIcon />{{ paginationStatus.current_page }}ページ目
     </p>
     <ul
       v-if="visiblePages.length"
