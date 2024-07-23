@@ -100,8 +100,7 @@ onMounted(() => paintCalendar())
     class="relative"
     :style="{
       color: '#adbac7',
-      borderRadius: '3px',
-      overflowX: 'auto'
+      borderRadius: '3px'
     }"
   >
     <div id="heatmap"></div>
