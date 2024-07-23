@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { PaginationStatus } from '@/composables/useFetchPostData'
-import CurryIcon from '@/views/atoms/icons/CurryIcon.vue'
-import DashboardIcon from '@/views/atoms/icons/DashboardIcon.vue'
+import CharacterIcon from '@/views/atoms/icons/character/CharacterIcon.vue'
 import PageItem from '@/views/atoms/PageItem.vue'
 
 interface Props {
@@ -91,7 +90,7 @@ function doNext(): void {
       class="font-body text-sumi-600 text-sm flex items-center gap-2 mb-2"
       v-if="paginationStatus.total !== null"
     >
-      <CurryIcon />
+      <CharacterIcon src="http://localhost:9000/local-curry_addiction/illust/hungry-man.svg" />
       全{{ paginationStatus.total }}件中 {{ paginationStatus.from || 0 }}件～{{
         paginationStatus.to || 0
       }}件を表示中
@@ -100,7 +99,9 @@ function doNext(): void {
       class="font-body text-sumi-600 text-sm flex items-center gap-2"
       v-if="paginationStatus.current_page !== null"
     >
-      <DashboardIcon />{{ paginationStatus.current_page }}ページ目
+      <CharacterIcon
+        src="http://localhost:9000/local-curry_addiction/illust/hands-up-woman.svg"
+      />{{ paginationStatus.current_page }}ページ目
     </p>
     <ul
       v-if="visiblePages.length"
