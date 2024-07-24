@@ -6,7 +6,7 @@ import { useCommonStore } from '@/stores/common'
 import type { Post } from '@/composables/types/post'
 import { useFetchPostDetail } from '@/composables/functions/useFetchPostDetail'
 import { useDeletePost } from '@/composables/functions/useDeletePost'
-import BackToHomeLink from '@/views/molecules/links/BackToHomeLink.vue'
+import BackLink from '@/views/molecules/links/BackLink.vue'
 import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue'
 import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue'
 import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue'
@@ -74,7 +74,7 @@ async function doSoftDelete(): Promise<void> {
 </script>
 <template>
   <div class="flex items-center justify-between h-12 lg:sticky lg:top-0">
-    <BackToHomeLink />
+    <BackLink />
     <div v-if="isMine" class="flex items-center gap-2">
       <DeletePostButton @delete="openModal" text="ごみ箱に入れる" />
     </div>
