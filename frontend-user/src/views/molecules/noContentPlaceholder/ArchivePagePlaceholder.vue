@@ -7,7 +7,7 @@ import NoContentPlaceholder from '@/views/atoms/noContentPlaceholderItems/NoCont
   <div class="w-full flex flex-col items-center justify-center py-16">
     <NoContentImg
       class="w-52 aspect-square"
-      src="http://localhost:9000/local-curry_addiction/illust/join-hands-woman-with-curry.svg"
+      src="http://localhost:9000/local-curry_addiction/illust/woman-with-curry.svg"
     />
     <NoContentHeading text="保存した投稿がありません。" />
     <NoContentPlaceholder text="気になるカレーを保存して自分だけのコレクションを完成させよう！" />
