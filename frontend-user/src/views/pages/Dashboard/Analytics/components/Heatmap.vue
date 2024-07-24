@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import dayjs from 'dayjs'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject } from 'vue'
+import type { Dayjs } from 'dayjs'
 import type {
   DataRecord,
   DateOptions,
@@ -13,6 +13,8 @@ import type { Analytics } from '@/composables/types/analytics'
 import CalHeatmap from 'cal-heatmap'
 import Tooltip from 'cal-heatmap/plugins/Tooltip'
 import type { CalHeatmapOptions, TooltipOptions } from 'cal-heatmap'
+
+const dayjs = inject('$dayjs') as (date?: string | number | Date | Dayjs) => Dayjs
 
 interface Props {
   readonly analyticsData: Analytics[]
@@ -75,8 +77,8 @@ function paintCalendar() {
 
   const TOOLTIP_OPTIONS: TooltipOptions = {
     enabled: true,
-    text: (timestanp: number, value: number | null, dayjsDate: dayjs.Dayjs) => {
-      return `${value ?? 0} 件の投稿 ${dayjsDate.format('YYYY/MM/DD')}`
+    text: (_: unknown, value: number | null, dayjsDate: Dayjs) => {
+      return `${value ?? 0} 件の投稿 ${dayjs(dayjsDate).format('YYYY/MM/DD')}`
     }
   }
 
