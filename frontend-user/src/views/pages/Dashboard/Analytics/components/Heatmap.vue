@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, inject } from 'vue'
 import type { Dayjs } from 'dayjs'
+
 import type {
   DataRecord,
   DateOptions,
@@ -15,6 +16,7 @@ import Tooltip from 'cal-heatmap/plugins/Tooltip'
 import type { CalHeatmapOptions, TooltipOptions } from 'cal-heatmap'
 
 const dayjs = inject('$dayjs') as (date?: string | number | Date | Dayjs) => Dayjs
+const today: string = dayjs().format('YYYY-MM-DD')
 
 interface Props {
   readonly analyticsData: Analytics[]
@@ -27,8 +29,8 @@ const cal: CalHeatmap = new CalHeatmap()
 
 function paintCalendar() {
   const dateOptions: DateOptions = {
-    start: dayjs().toDate(),
-    highlight: [dayjs().toDate()],
+    start: new Date(),
+    highlight: [new Date(today)],
     locale: 'ja',
     timezone: 'Asia/Tokyo'
   }
