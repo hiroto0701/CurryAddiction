@@ -7,7 +7,6 @@ import BackButtonIcon from '@/views/atoms/icons/BackButtonIcon.vue'
 import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue'
 
 const commonStore = useCommonStore()
-
 const referrer = ref<RouteLocationNormalized | null>(commonStore.state.originalRoute)
 
 const linkDestination = computed<RouteLocationRaw>(() => {
