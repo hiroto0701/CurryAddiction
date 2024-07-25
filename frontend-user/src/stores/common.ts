@@ -1,9 +1,11 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import type { RouteLocationNormalized } from 'vue-router'
 
 interface AppState {
   flashMessage: null | string
   errorMessage: null | string
+  originalRoute: null | RouteLocationNormalized
   apiLoading: boolean
   uploading: boolean
   loginLoading: boolean
@@ -13,6 +15,7 @@ export const useCommonStore = defineStore('common', () => {
   const state = ref(<AppState>{
     flashMessage: null,
     errorMessage: null,
+    originalRoute: null,
     apiLoading: false,
     uploading: false,
     loginLoading: false
@@ -32,6 +35,10 @@ export const useCommonStore = defineStore('common', () => {
 
   function clearErrorMessage(): void {
     state.value.errorMessage = null
+  }
+
+  function setOriginalRoute(originalRoute: RouteLocationNormalized): void {
+    state.value.originalRoute = originalRoute
   }
 
   function startApiLoading(): void {
@@ -64,6 +71,7 @@ export const useCommonStore = defineStore('common', () => {
     clearFlashMessage,
     setErrorMessage,
     clearErrorMessage,
+    setOriginalRoute,
     startApiLoading,
     stopApiLoading,
     startUploading,

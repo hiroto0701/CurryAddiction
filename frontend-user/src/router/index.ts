@@ -1,6 +1,7 @@
 import { h, resolveComponent } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAccountStore } from '@/stores/account'
+import { useCommonStore } from '@/stores/common'
 
 const routes = [
   {
@@ -90,15 +91,6 @@ const routes = [
                   group: 'Post'
                 },
                 component: () => import('@/views/pages/Post/Viewer.vue')
-              },
-              {
-                path: 'edit/:id',
-                name: 'PostEditor',
-                meta: {
-                  title: '投稿編集',
-                  group: 'Post'
-                },
-                component: () => import('@/views/pages/Post/Editor.vue')
               }
             ]
           },
@@ -198,6 +190,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const accountStore = useAccountStore()
+  const commonStore = useCommonStore()
 
   if (to.name === 'UserPage' && to.params.username) {
     to.meta.title = to.params.username
@@ -216,6 +209,9 @@ router.beforeEach(async (to, from, next) => {
 
   // 認証が必要なページへのアクセス制限
   if (to.matched.some((record) => record.meta.requiresAuth)) {
+    // リファラの設定
+    commonStore.setOriginalRoute(from)
+
     // リロード時ユーザー情報取得を待つ
     if (accountStore.isLoadingUserData) {
       await accountStore.fetchUserData()
