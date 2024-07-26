@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import axios from 'axios'
 import { ref, computed, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAccountStore } from '@/stores/account'
 import { useAccountFormStore } from '@/stores/account_form'
+import { useCommonStore } from '@/stores/common'
 import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
@@ -12,14 +15,20 @@ import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue
 import DisplayNameViewer from '@/views/pages/Dashboard/Setting/components/DisplayNameViewer.vue'
 import DisplayNameEditor from '@/views/pages/Dashboard/Setting/components/DisplayNameEditor.vue'
 import AvatarEditor from '@/views/pages/Dashboard/Setting/components/AvatarEditor.vue'
+import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue'
 
+const router = useRouter()
 const accountStore = useAccountStore()
 const accountFormStore = useAccountFormStore()
+const commonStore = useCommonStore()
 
 const isEditingDisplayName = ref<boolean>(false)
 const displayName = ref<string>(accountStore.state.display_name)
 const fileInfo = ref<File>()
 const preview = ref<string | undefined>()
+const open = ref<boolean>(false)
+
+const modalContent = ref<string>(`一度削除したアカウントは復元できません。\n本当に削除しますか？`)
 
 const displayNameError = computed(
   (): boolean =>
@@ -66,6 +75,39 @@ async function doUpdateDisplayName(displayName: string): Promise<void> {
     } finally {
       isEditingDisplayName.value = false
     }
+  }
+}
+
+function openModal(): void {
+  open.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+function closeModal(): void {
+  open.value = false
+  document.body.style.overflow = 'auto'
+}
+
+async function doDelete(): Promise<void> {
+  try {
+    commonStore.startApiLoading()
+    const response = await accountFormStore.deleteAccount(Number(accountStore.state.id))
+    if (response.status === 200) {
+      closeModal()
+      router.push({ name: 'Login' })
+      document.body.style.overflow = 'auto'
+    } else {
+      throw new Error(response.data.message)
+    }
+  } catch (error) {
+    console.error('Failed to delete the account:', error)
+    if (axios.isAxiosError(error)) {
+      console.log(`削除に失敗しました: ${error.response?.data?.message || error.message}`, error)
+    } else {
+      console.log('予期せぬエラーが発生しました', error)
+    }
+  } finally {
+    commonStore.stopApiLoading()
   }
 }
 
@@ -150,7 +192,20 @@ onUnmounted((): void => {
     </DashboardSection>
 
     <section class="flex justify-center">
-      <a class="text-red-400 text-sm" href="#">アカウントの削除</a>
+      <button class="text-red-400 text-sm" @click="openModal">アカウントの削除</button>
     </section>
+
+    <Teleport to="body">
+      <DeleteConfirmModal
+        v-show="open"
+        :is-loading="commonStore.state.apiLoading"
+        modal-title="アカウントを削除しますか？"
+        :modal-content
+        button-text="削除する"
+        @delete="doDelete"
+        @cancel="closeModal"
+        :closeModal="closeModal"
+      />
+    </Teleport>
   </DashboardContent>
 </template>

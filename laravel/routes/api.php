@@ -32,6 +32,7 @@ Route::prefix('/service_users')->group(function() {
         Route::put('/display_name', \App\Domains\ServiceUser\Controller\UpdateDisplayNameAction::class);
         Route::post('/', \App\Domains\ServiceUser\Controller\LogoutAction::class);
         Route::post('/logout', \App\Domains\ServiceUser\Controller\LogoutAction::class);
+        Route::delete('/{service_user}', \App\Domains\ServiceUser\Controller\DeleteAction::class);
     });
 });
 

@@ -2,7 +2,6 @@
 import { ref, watch } from 'vue'
 import { usePostFormStore } from '@/stores/post_form'
 import { useCommonStore } from '@/stores/common'
-
 import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
 import CommentIcon from '@/views/atoms/icons/CommentIcon.vue'
 import CategoryIcon from '@/views/atoms/icons/CategoryIcon.vue'
@@ -23,7 +22,7 @@ const postFormStore = usePostFormStore()
 
 const storeName = ref<string>('')
 const comment = ref<string>('')
-const modalOpen = ref<boolean>(false)
+const open = ref<boolean>(false)
 const storeNameError = ref<boolean>(false)
 const fileInfo = ref<File>()
 const preview = ref<string | undefined>()
@@ -31,12 +30,12 @@ const preview = ref<string | undefined>()
 const genre_id = ref<number | undefined>(1)
 
 function openModal(): void {
-  modalOpen.value = true
+  open.value = true
   document.body.style.overflow = 'hidden'
 }
 
 function closeModal(): void {
-  modalOpen.value = false
+  open.value = false
   document.body.style.overflow = 'auto'
 }
 
@@ -133,7 +132,7 @@ watch<string, false>(storeName, (newValue) => {
 
     <Teleport to="body">
       <ActionConfirmModal
-        v-show="modalOpen"
+        v-show="open"
         :is-loading="commonStore.state.apiLoading"
         modal-title="この内容で投稿しますか？"
         button-text="投稿する"
