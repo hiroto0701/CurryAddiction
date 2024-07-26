@@ -10,7 +10,7 @@ const postFormStore = usePostFormStore()
 </script>
 <template>
   <div>
-    <p v-show="postFormStore.state.errors[fieldName]" class="font-body mt-1 text-xs text-red-400">
+    <p v-show="postFormStore.state.errors[fieldName]" class="mt-1 font-body text-xs text-red-400">
       {{ postFormStore.state.errors[fieldName]?.[0] }}
     </p>
   </div>

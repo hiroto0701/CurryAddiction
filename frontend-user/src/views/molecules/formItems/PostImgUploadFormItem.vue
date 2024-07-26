@@ -31,7 +31,7 @@ const emits = defineEmits<{
   >
     <label
       for="post_img"
-      class="p-2 cursor-pointer text-sm rounded-md flex items-center w-fit gap-2 border border-gray-200 hover:bg-slate-100 font-body text-sumi-900"
+      class="flex w-fit cursor-pointer items-center gap-2 rounded-md border border-gray-200 p-2 font-body text-sm text-sumi-900 hover:bg-slate-100"
       tabindex="0"
     >
       <component :is="iconComponent" class="text-sumi-900" />

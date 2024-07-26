@@ -8,7 +8,7 @@ const accountStore = useAccountStore()
 <template>
   <router-link
     :to="{ name: 'UserPage', params: { username: accountStore.state.handle_name } }"
-    class="flex gap-1 font-body text-sumi-600 w-fit"
+    class="flex w-fit gap-1 font-body text-sumi-600"
   >
     <AvatarBrowseItem class="w-7" :avatar-url="accountStore.state.avatar_url" />
     @{{ accountStore.state.handle_name }}

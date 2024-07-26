@@ -5,5 +5,5 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <p class="font-body text-sumi-900 text-lg mt-8">{{ text }}</p>
+  <p class="mt-8 font-body text-lg text-sumi-900">{{ text }}</p>
 </template>

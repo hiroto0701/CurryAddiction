@@ -29,13 +29,13 @@ function togglePasswordVisibility(): void {
       <div v-if="value">
         <PasswordHiddenIcon
           v-show="!isPasswordVisible"
-          class="absolute top-5 right-5 text-sumi-400"
+          class="absolute right-5 top-5 text-sumi-400"
           :class="{ 'right-9': isError }"
           @click="togglePasswordVisibility"
         />
         <PasswordVisibleIcon
           v-show="isPasswordVisible"
-          class="absolute top-5 right-5 text-sumi-400"
+          class="absolute right-5 top-5 text-sumi-400"
           :class="{ 'right-9': isError }"
           @click="togglePasswordVisibility"
         />

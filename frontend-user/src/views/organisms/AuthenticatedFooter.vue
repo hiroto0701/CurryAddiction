@@ -4,11 +4,11 @@ import AppLogo from '@/views/atoms/icons/AppLogo.vue'
 import MyProfileLink from '@/views/molecules/links/MyProfileLink.vue'
 </script>
 <template>
-  <footer class="bg-sumi-50 mt-auto py-12">
+  <footer class="mt-auto bg-sumi-50 py-12">
     <div
-      class="mx-auto w-full px-6 sm:px-20 max-w-screen-lg flex flex-col gap-11 justify-between md:flex-row"
+      class="mx-auto flex w-full max-w-screen-lg flex-col justify-between gap-11 px-6 sm:px-20 md:flex-row"
     >
-      <div class="flex flex-col w-fit gap-5">
+      <div class="flex w-fit flex-col gap-5">
         <AppLogo />
         <MyProfileLink />
       </div>
@@ -25,7 +25,7 @@ import MyProfileLink from '@/views/molecules/links/MyProfileLink.vue'
         </a>
       </div>
     </div>
-    <small class="font-body text-sumi-600 text-center w-fit mt-5 mx-auto block select-none">
+    <small class="mx-auto mt-5 block w-fit select-none text-center font-body text-sumi-600">
       &copy; 2024 Curry Addiction
     </small>
   </footer>

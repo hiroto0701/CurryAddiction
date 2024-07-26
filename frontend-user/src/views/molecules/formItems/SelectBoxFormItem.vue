@@ -20,7 +20,7 @@ defineProps<Props>()
   >
     <select
       name="genre"
-      class="block w-60 p-2 text-sm border rounded-md border-gray-200 font-body text-sumi-900"
+      class="block w-60 rounded-md border border-gray-200 p-2 font-body text-sm text-sumi-900"
     >
       <option value="" hidden>選択してください</option>
       <option value="">キーマカレー</option>

@@ -21,7 +21,7 @@ const model = defineModel<string>()
     :iconComponent="iconComponent"
   >
     <textarea
-      class="p-2 w-full h-24 border border-gray-200 rounded font-body"
+      class="h-24 w-full rounded border border-gray-200 p-2 font-body"
       :class="{
         'text-sumi-900': model && model.length <= 140,
         'text-red-400': model && model.length > 140,

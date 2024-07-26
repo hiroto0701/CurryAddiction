@@ -14,7 +14,7 @@ const emits = defineEmits<{
 <template>
   <BottomTooltip :text position="bottom">
     <button
-      class="peer group w-8 aspect-square rounded-full transition-opacity duration-500 hover:bg-gray-100 flex items-center justify-center"
+      class="group peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"
       @click="emits('delete')"
       :aria-label="text"
     >

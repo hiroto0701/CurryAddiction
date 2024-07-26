@@ -10,7 +10,7 @@ defineProps<Props>()
 <template>
   <Menu as="div" class="relative ml-3">
     <MenuButton
-      class="flex items-center gap-x-0.5 text-sm text-slate-600 hover:text-sumi-900 font-body"
+      class="flex items-center gap-x-0.5 font-body text-sm text-slate-600 hover:text-sumi-900"
     >
       <p class="max-w-40 truncate">{{ username }}</p>
       <ChevronIcon />

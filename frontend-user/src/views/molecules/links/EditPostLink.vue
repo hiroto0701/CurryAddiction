@@ -7,7 +7,7 @@ import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue'
   <BottomTooltip text="投稿を編集" position="bottom">
     <router-link
       :to="{ name: 'Home' }"
-      class="peer w-8 aspect-square rounded-full transition-opacity duration-500 hover:bg-gray-100 flex items-center justify-center"
+      class="peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"
     >
       <EditIcon />
     </router-link>

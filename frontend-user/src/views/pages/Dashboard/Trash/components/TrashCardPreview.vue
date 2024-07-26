@@ -12,11 +12,11 @@ defineProps<Props>()
 <template>
   <div class="select-none opacity-80">
     <aside
-      class="mx-auto overflow-hidden border border-gray-200 rounded-lg"
+      class="mx-auto overflow-hidden rounded-lg border border-gray-200"
       style="width: 90px; height: 110px"
     >
       <div
-        class="origin-top-left select-none pointer-events-none"
+        class="pointer-events-none origin-top-left select-none"
         style="transform: scale(0.18, 0.18)"
       >
         <div class="p-14" style="width: 500px">

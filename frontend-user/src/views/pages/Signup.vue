@@ -53,15 +53,15 @@ async function doLogin(): Promise<void> {
 }
 </script>
 <template>
-  <h1 class="font-body text-sumi-900 w-fit mx-auto text-2xl">アカウントを作成します</h1>
-  <div class="flex flex-col items-center mx-auto mt-5 p-10 bg-sumi-100 rounded-xl">
-    <h2 class="font-body text-sumi-900 w-fit mx-auto text-lg">ハンドルネームを決めましょう</h2>
+  <h1 class="mx-auto w-fit font-body text-2xl text-sumi-900">アカウントを作成します</h1>
+  <div class="mx-auto mt-5 flex flex-col items-center rounded-xl bg-sumi-100 p-10">
+    <h2 class="mx-auto w-fit font-body text-lg text-sumi-900">ハンドルネームを決めましょう</h2>
     <form class="px-5" @submit.prevent="doLogin">
-      <div class="flex items-center mt-5">
+      <div class="mt-5 flex items-center">
         <div class="font-body text-sumi-900">curry-addiction/</div>
         <div class="relative">
           <HandleNameFormItem class="ml-1" v-model="handleName" :is-error="handleNameError" />
-          <ErrorIcon v-if="handleNameError" class="absolute top-1/2 -translate-y-1/2 right-3" />
+          <ErrorIcon v-if="handleNameError" class="absolute right-3 top-1/2 -translate-y-1/2" />
         </div>
       </div>
       <span
@@ -75,13 +75,13 @@ async function doLogin(): Promise<void> {
       </span>
       <p
         v-show="accountFormStore.state.errors.handle_name"
-        class="font-body text-xs text-red-400 w-fit mx-auto"
+        class="mx-auto w-fit font-body text-xs text-red-400"
       >
         {{ accountFormStore.state.errors?.handle_name?.[0] }}
       </p>
       <div class="flex items-center">
         <LoginButton
-          class="w-fit mt-5 mx-auto"
+          class="mx-auto mt-5 w-fit"
           :is-loading="commonStore.state.apiLoading"
           :disabled="commonStore.state.apiLoading"
           text="確定する"
@@ -90,7 +90,7 @@ async function doLogin(): Promise<void> {
     </form>
   </div>
   <button
-    class="block w-fit mx-auto mt-5 pb-1 font-body text-sumi-500 hover:text-sumi-900 duration-300 border-b-2 border-dotted border-sumi-300 hover:border-sumi-900"
+    class="mx-auto mt-5 block w-fit border-b-2 border-dotted border-sumi-300 pb-1 font-body text-sumi-500 duration-300 hover:border-sumi-900 hover:text-sumi-900"
     @click="openModal"
   >
     アカウント作成をやめる

@@ -12,7 +12,7 @@ defineProps<Props>()
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"
-    class="w-5 aspect-square"
+    class="aspect-square w-5"
     :class="{ 'heart-beat': liked }"
   >
     <path

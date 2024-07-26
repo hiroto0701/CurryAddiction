@@ -87,7 +87,7 @@ function doNext(): void {
 <template>
   <div v-if="paginationStatus">
     <p
-      class="font-body text-sumi-600 text-sm flex items-center gap-2 mb-2"
+      class="mb-2 flex items-center gap-2 font-body text-sm text-sumi-600"
       v-if="paginationStatus.total !== null"
     >
       <CharacterIcon src="http://localhost:9000/local-curry_addiction/illust/hungry-man.svg" />
@@ -96,7 +96,7 @@ function doNext(): void {
       }}件を表示中
     </p>
     <p
-      class="font-body text-sumi-600 text-sm flex items-center gap-2"
+      class="flex items-center gap-2 font-body text-sm text-sumi-600"
       v-if="paginationStatus.current_page !== null"
     >
       <CharacterIcon
@@ -105,7 +105,7 @@ function doNext(): void {
     </p>
     <ul
       v-if="visiblePages.length"
-      class="isolate flex -space-x-px rounded-md shadow-sm w-fit mx-auto"
+      class="isolate mx-auto flex w-fit -space-x-px rounded-md shadow-sm"
       aria-label="Pagination"
     >
       <PageItem text="前へ" @click="doPrev" :disabled="!canPrev" />
