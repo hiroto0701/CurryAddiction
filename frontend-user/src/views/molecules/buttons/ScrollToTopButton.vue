@@ -10,7 +10,7 @@ function pageTop(): void {
 }
 </script>
 <template>
-  <div class="fixed right-14 max-md:right-3 bottom-9">
+  <div class="fixed md:right-14 right-3 bottom-9">
     <TopTooltip text="ページトップへ" position="top">
       <button
         @click="pageTop"
