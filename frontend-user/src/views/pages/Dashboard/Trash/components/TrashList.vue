@@ -135,7 +135,7 @@ async function doRestore() {
 
   <Teleport to="body">
     <ActionConfirmModal
-      v-if="open && selectedAction === 'restore'"
+      v-show="open && selectedAction === 'restore'"
       :is-loading="commonStore.state.apiLoading"
       modal-title="元に戻しますか？"
       modal-content="投稿を復元しようとしています。"
@@ -145,7 +145,7 @@ async function doRestore() {
       :closeModal="closeModal"
     />
     <DeleteConfirmModal
-      v-if="open && selectedAction === 'delete'"
+      v-show="open && selectedAction === 'delete'"
       :is-loading="commonStore.state.apiLoading"
       modal-title="完全に削除しますか？"
       modal-content="削除した投稿は復元できません。"

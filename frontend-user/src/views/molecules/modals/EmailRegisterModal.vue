@@ -26,7 +26,7 @@ const emits = defineEmits<{
 </script>
 <template>
   <BaseModal :closeModal>
-    <ModalBody title="" :content="modalContent" />
+    <ModalBody title="メールアドレス入力" :content="modalContent" />
     <ModalFooter>
       <FloatingLabelTextInputFormItem
         label="メールアドレス"

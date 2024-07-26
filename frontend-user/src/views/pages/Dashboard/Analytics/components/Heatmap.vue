@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, inject } from 'vue'
 import type { Dayjs } from 'dayjs'
-
 import type {
   DataRecord,
   DateOptions,

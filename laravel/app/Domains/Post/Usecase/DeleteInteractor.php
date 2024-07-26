@@ -6,7 +6,6 @@ namespace App\Domains\Post\Usecase;
 
 use App\Exceptions\AlreadyDeletedException;
 use App\Models\Post;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class DeleteInteractor
