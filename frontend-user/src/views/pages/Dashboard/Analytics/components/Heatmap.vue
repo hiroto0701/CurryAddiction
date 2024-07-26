@@ -106,16 +106,16 @@ onMounted(() => paintCalendar())
     }"
   >
     <div id="heatmap"></div>
-    <div class="sticky left-0 bottom-0 my-3 flex items-center gap-2">
+    <div class="sticky bottom-0 left-0 my-3 flex items-center gap-2">
       <a
-        class="flex items-center justify-center w-16 h-6 duration-300 bg-gray-100 hover:bg-gray-200 text-sumi-700 text-mini font-body rounded-lg"
+        class="flex h-6 w-16 items-center justify-center rounded-lg bg-gray-100 font-body text-mini text-sumi-700 duration-300 hover:bg-gray-200"
         href="#"
         @click.prevent="cal.previous()"
       >
         ← Prev
       </a>
       <a
-        class="flex items-center justify-center w-16 h-6 duration-300 bg-gray-100 hover:bg-gray-200 text-sumi-700 text-mini font-body rounded-lg"
+        class="flex h-6 w-16 items-center justify-center rounded-lg bg-gray-100 font-body text-mini text-sumi-700 duration-300 hover:bg-gray-200"
         href="#"
         @click.prevent="cal.next()"
       >
@@ -126,7 +126,7 @@ onMounted(() => paintCalendar())
 </template>
 <style>
 #ch-tooltip {
-  @apply flex justify-center items-center px-2 py-2 shadow-sm border border-gray-200 whitespace-nowrap font-body text-xs text-sumi-500 bg-white rounded-lg select-none;
+  @apply flex select-none items-center justify-center whitespace-nowrap rounded-lg border border-gray-200 bg-white px-2 py-2 font-body text-xs text-sumi-500 shadow-sm;
   transition: opacity 0.1s ease-out;
   opacity: 0;
 }

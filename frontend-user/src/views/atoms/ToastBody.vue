@@ -13,6 +13,6 @@ defineProps<Props>()
 </template>
 <style scoped>
 .error {
-  @apply bg-white rounded-full;
+  @apply rounded-full bg-white;
 }
 </style>

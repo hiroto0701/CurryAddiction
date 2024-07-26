@@ -13,13 +13,13 @@ const emits = defineEmits<{
 <template>
   <div class="flex items-center gap-2">
     <UpdateButton
-      class="inline-flex items-center justify-center border text-sm py-3 px-4"
+      class="inline-flex items-center justify-center border px-4 py-3 text-sm"
       :is-loading="commonStore.state.uploading"
       :disabled="commonStore.state.uploading"
       @click="emits('update')"
     />
     <CancelButton
-      class="inline-flex items-center justify-center border text-sm py-3 px-4"
+      class="inline-flex items-center justify-center border px-4 py-3 text-sm"
       @click="emits('cancel')"
     />
   </div>

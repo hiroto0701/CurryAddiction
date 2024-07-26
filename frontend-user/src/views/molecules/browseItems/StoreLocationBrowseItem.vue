@@ -8,10 +8,10 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <div class="px-3 py-1 flex items-center gap-2.5 relative">
+  <div class="relative flex items-center gap-2.5 px-3 py-1">
     <LocationIcon />
     <span
-      class="inline-block bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 select-none"
+      class="inline-block select-none rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700"
     >
       {{ location }}
     </span>

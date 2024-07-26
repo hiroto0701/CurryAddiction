@@ -23,7 +23,7 @@ const emits = defineEmits<{
 <template>
   <div class="relative">
     <DisplayNameFormItem v-model="model" :is-error />
-    <ErrorIcon v-if="isError" class="absolute top-1/2 -translate-y-1/2 right-3" />
+    <ErrorIcon v-if="isError" class="absolute right-3 top-1/2 -translate-y-1/2" />
   </div>
   <span
     class="flex justify-end"
@@ -37,13 +37,13 @@ const emits = defineEmits<{
 
   <div class="flex items-center gap-2">
     <UpdateButton
-      class="inline-flex items-center justify-center text-sm py-3 px-4"
+      class="inline-flex items-center justify-center px-4 py-3 text-sm"
       :is-loading="commonStore.state.apiLoading"
       :disabled="commonStore.state.apiLoading"
       @click="emits('update')"
     />
     <CancelButton
-      class="inline-flex items-center justify-center text-sm py-3 px-4"
+      class="inline-flex items-center justify-center px-4 py-3 text-sm"
       @click="emits('cancel')"
     />
   </div>

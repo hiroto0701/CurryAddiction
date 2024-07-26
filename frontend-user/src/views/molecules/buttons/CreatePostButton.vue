@@ -6,9 +6,9 @@ import BaseButton from '@/views/atoms/BaseButton.vue'
 </template>
 <style scoped>
 .button {
-  @apply rounded-full font-body flex items-center justify-center cursor-pointer text-white bg-sky-500;
+  @apply flex cursor-pointer items-center justify-center rounded-full bg-sky-500 font-body text-white;
 }
 .button:hover {
-  @apply opacity-80 bg-sky-400 border-transparent;
+  @apply border-transparent bg-sky-400 opacity-80;
 }
 </style>

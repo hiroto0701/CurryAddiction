@@ -119,8 +119,8 @@ watch<string, false>(storeName, (newValue) => {
       />
       <DeletePostImgButton v-show="preview" @click="resetPreview" />
     </div>
-    <div v-show="preview" class="w-80 mt-8 h-fit mx-auto border border-gray-200">
-      <img class="w-full object-fit" :src="preview" alt="投稿画像" />
+    <div v-show="preview" class="mx-auto mt-8 h-fit w-80 border border-gray-200">
+      <img class="object-fit w-full" :src="preview" alt="投稿画像" />
     </div>
     <MapFormItem
       label="位置情報"
@@ -128,7 +128,7 @@ watch<string, false>(storeName, (newValue) => {
       :optional="false"
       :iconComponent="LocationIcon"
     />
-    <CreatePostButton class="mx-auto mt-8 block p-3 w-52" text="投稿する" @click="openModal" />
+    <CreatePostButton class="mx-auto mt-8 block w-52 p-3" text="投稿する" @click="openModal" />
 
     <Teleport to="body">
       <ActionConfirmModal

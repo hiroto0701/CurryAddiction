@@ -6,9 +6,9 @@ import BaseButton from '@/views/atoms/BaseButton.vue'
 </template>
 <style scoped>
 .button {
-  @apply text-red-300 bg-red-50;
+  @apply bg-red-50 text-red-300;
 }
 .button:hover {
-  @apply bg-red-100 border-red-300 text-red-400;
+  @apply border-red-300 bg-red-100 text-red-400;
 }
 </style>

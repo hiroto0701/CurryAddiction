@@ -21,7 +21,7 @@ const model = defineModel<string>()
     <div class="relative">
       <input
         type="text"
-        class="p-2 pr-9 rounded w-full border border-gray-200 font-body"
+        class="w-full rounded border border-gray-200 p-2 pr-9 font-body"
         :class="{
           'text-sumi-900': !isError,
           'text-red-400': isError,
@@ -31,7 +31,7 @@ const model = defineModel<string>()
         :placeholder
         v-model="model"
       />
-      <ErrorIcon v-show="isError" class="absolute top-1/2 -translate-y-1/2 right-3" />
+      <ErrorIcon v-show="isError" class="absolute right-3 top-1/2 -translate-y-1/2" />
     </div>
     <div class="flex justify-between">
       <div>

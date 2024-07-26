@@ -15,19 +15,19 @@ const emits = defineEmits(['restore', 'delete'])
 <template>
   <div class="flex-1">
     <StoreNameBrowseItem
-      class="mt-0.5 text-sm line-clamp-2 text-gray-500"
+      class="mt-0.5 line-clamp-2 text-sm text-gray-500"
       :store-name="storeName"
     />
-    <div class="mt-1.5 text-3xs leading-normal">
+    <div class="text-3xs mt-1.5 leading-normal">
       <div class="flex items-center gap-2.5">
         <CalenderIcon class="text-gray-500" />
-        <span class="font-body text-gray-500 text-sm">削除した日付:</span>
+        <span class="font-body text-sm text-gray-500">削除した日付:</span>
         <TrashedDateBrowseItem class="text-sm" :date="deletedAt" />
       </div>
       <div class="mt-3 flex items-center gap-2.5">
         <button
           @click="emits('restore')"
-          class="rounded-full border border-sumi-250 py-1.5 px-2.5 text-sm text-sumi-700 hover:bg-sumi-100"
+          class="border-sumi-250 rounded-full border px-2.5 py-1.5 text-sm text-sumi-700 hover:bg-sumi-100"
         >
           元に戻す
         </button>

@@ -67,14 +67,14 @@ async function login(): Promise<boolean> {
 }
 </script>
 <template>
-  <main class="mx-auto my-12 w-full px-6 xs:px-7 sm:px-10 max-w-4xl flex h-auto flex-col">
-    <div class="flex flex-col items-center w-full p-10 bg-sumi-100 rounded-xl">
-      <h1 class="font-body text-sumi-900 font-bold text-xl">ログイン</h1>
-      <div class="w-full flex justify-between mt-5">
+  <main class="xs:px-7 mx-auto my-12 flex h-auto w-full max-w-4xl flex-col px-6 sm:px-10">
+    <div class="flex w-full flex-col items-center rounded-xl bg-sumi-100 p-10">
+      <h1 class="font-body text-xl font-bold text-sumi-900">ログイン</h1>
+      <div class="mt-5 flex w-full justify-between">
         <LoginButton text="ログイン" @click="openModal('login')" />
         <form
           @submit.prevent="login"
-          class="w-1/2 px-10 gap-4 flex flex-col border-r border-sumi-300"
+          class="flex w-1/2 flex-col gap-4 border-r border-sumi-300 px-10"
           novalidate
         >
           <Teleport to="body">

@@ -12,21 +12,21 @@ defineProps<Props>()
 </script>
 <template>
   <div class="leading-normal">
-    <div class="flex items-center min-h-14">
+    <div class="flex min-h-14 items-center">
       <div class="flex items-center">
-        <span class="inline-flex w-7 items-center text-sumi-900 font-body">
+        <span class="inline-flex w-7 items-center font-body text-sumi-900">
           <CalenderIcon class="text-sumi-500" />
         </span>
-        <span class="text-sumi-500 font-body text-sm w-28">利用開始</span>
+        <span class="w-28 font-body text-sm text-sumi-500">利用開始</span>
       </div>
       <SignUpDateBrowseItem :date="registeredAt" />
     </div>
-    <div class="flex items-center border-t min-h-14">
+    <div class="flex min-h-14 items-center border-t">
       <p class="flex items-center">
-        <span class="inline-flex w-7 items-center text-sumi-900 font-body">
+        <span class="inline-flex w-7 items-center font-body text-sumi-900">
           <PostIcon class="text-sumi-500" />
         </span>
-        <span class="text-sumi-500 font-body text-sm w-28">投稿数</span>
+        <span class="w-28 font-body text-sm text-sumi-500">投稿数</span>
       </p>
       <PostSummaryBrowseItem :post-summary />
     </div>

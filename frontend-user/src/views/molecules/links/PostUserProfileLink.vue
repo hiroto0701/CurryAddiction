@@ -13,7 +13,7 @@ defineProps<Props>()
 <template>
   <router-link
     :to="{ name: 'UserPage', params: { username: handleName } }"
-    class="flex min-w-0 items-center gap-2.5 text-base truncate hover:text-sumi-900"
+    class="flex min-w-0 items-center gap-2.5 truncate text-base hover:text-sumi-900"
   >
     <PostAvatarBrowseItem :avatar-url />
     <DisplayNameBrowseItem :display-name />

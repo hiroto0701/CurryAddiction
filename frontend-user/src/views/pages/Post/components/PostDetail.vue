@@ -73,21 +73,21 @@ async function doSoftDelete(): Promise<void> {
 }
 </script>
 <template>
-  <div class="flex items-center justify-between h-12 lg:sticky lg:top-0">
+  <div class="flex h-12 items-center justify-between lg:sticky lg:top-0">
     <BackLink />
     <div v-if="isMine" class="flex items-center gap-2">
       <DeletePostButton @delete="openModal" text="ごみ箱に入れる" />
     </div>
   </div>
-  <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-md">
+  <div class="xs:px-7 mx-auto w-full max-w-screen-md px-6 sm:px-10">
     <div class="pt-8">
       <div class="flex gap-2.5">
         <StoreNameBrowseItem
-          class="text-xl px-3 py-1 text-sumi-900 w-full max-w-screen-md"
+          class="w-full max-w-screen-md px-3 py-1 text-xl text-sumi-900"
           :store-name="post.store_name"
         />
       </div>
-      <div class="mt-20 flex items-center text-sumi-600 gap-3">
+      <div class="mt-20 flex items-center gap-3 text-sumi-600">
         <PostUserProfileLink
           :display-name="post.user.display_name"
           :handle-name="post.user.handle_name"
@@ -98,7 +98,7 @@ async function doSoftDelete(): Promise<void> {
       </div>
     </div>
 
-    <div class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-md mt-9">
+    <div class="xs:px-7 mx-auto mt-9 w-full max-w-screen-md px-6 sm:px-10">
       <article>
         <img :src="post.post_img" class="w-full object-cover" alt="投稿画像" />
         <div class="my-12">

@@ -2,7 +2,7 @@
 import UnAuthenticatedHeader from '@/views/organisms/UnAuthenticatedHeader.vue'
 </script>
 <template>
-  <div class="flex flex-col h-screen">
+  <div class="flex h-screen flex-col">
     <UnAuthenticatedHeader />
     <RouterView />
   </div>

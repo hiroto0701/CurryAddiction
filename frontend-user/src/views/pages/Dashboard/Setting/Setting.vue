@@ -122,7 +122,7 @@ onUnmounted((): void => {
         <AvatarBrowseItem class="w-16" :preview :avatar-url="accountStore.state.avatar_url" />
         <label
           for="profile_img"
-          class="inline-flex h-10 items-center duration-500 gap-2 rounded-full border px-3.5 text-xs cursor-pointer hover:opacity-70"
+          class="inline-flex h-10 cursor-pointer items-center gap-2 rounded-full border px-3.5 text-xs duration-500 hover:opacity-70"
         >
           プロフィール画像を変更
         </label>
@@ -141,7 +141,7 @@ onUnmounted((): void => {
         @update="doUpdateAvatar"
         @cancel="resetPreview"
       />
-      <p v-show="accountFormStore.state.errors.avatar" class="font-body mt-3 text-xs text-red-400">
+      <p v-show="accountFormStore.state.errors.avatar" class="mt-3 font-body text-xs text-red-400">
         {{ accountFormStore.state.errors?.avatar?.[0] }}
       </p>
     </DashboardSection>
@@ -163,7 +163,7 @@ onUnmounted((): void => {
       />
       <p
         v-show="accountFormStore.state.errors.display_name"
-        class="font-body mt-3 text-xs text-red-400"
+        class="mt-3 font-body text-xs text-red-400"
       >
         {{ accountFormStore.state.errors?.display_name?.[0] }}
       </p>
@@ -176,7 +176,7 @@ onUnmounted((): void => {
         class="mt-3 text-sm text-utility"
       />
       <GenreSettingButton
-        class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4"
+        class="mt-4 inline-flex items-center justify-center border px-4 py-3 text-sm"
       />
     </DashboardSection>
 
@@ -187,12 +187,12 @@ onUnmounted((): void => {
         class="mt-3 text-sm text-utility"
       />
       <RegionSettingButton
-        class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4"
+        class="mt-4 inline-flex items-center justify-center border px-4 py-3 text-sm"
       />
     </DashboardSection>
 
     <section class="flex justify-center">
-      <button class="text-red-400 text-sm" @click="openModal">アカウントの削除</button>
+      <button class="text-sm text-red-400" @click="openModal">アカウントの削除</button>
     </section>
 
     <Teleport to="body">

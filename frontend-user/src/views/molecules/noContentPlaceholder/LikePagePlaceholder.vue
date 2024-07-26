@@ -4,9 +4,9 @@ import NoContentHeading from '@/views/atoms/noContentPlaceholderItems/NoContentH
 import NoContentPlaceholder from '@/views/atoms/noContentPlaceholderItems/NoContentPlaceholder.vue'
 </script>
 <template>
-  <div class="w-full flex flex-col items-center justify-center py-16">
+  <div class="flex w-full flex-col items-center justify-center py-16">
     <NoContentImg
-      class="w-52 aspect-square"
+      class="aspect-square w-52"
       src="http://localhost:9000/local-curry_addiction/illust/super-hungry-man-with-curry.svg"
     />
     <NoContentHeading text="いいね！した投稿がありません。" />
