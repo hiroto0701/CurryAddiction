@@ -83,7 +83,7 @@ async function doSoftDelete(): Promise<void> {
     <div class="pt-8">
       <div class="flex gap-2.5">
         <StoreNameBrowseItem
-          class="text-xl px-3 py-1 text-sumi-900"
+          class="text-xl px-3 py-1 text-sumi-900 w-full max-w-screen-md"
           :store-name="post.store_name"
         />
       </div>
