@@ -16,10 +16,10 @@ const isFocused = ref<boolean>(false)
   <div class="relative w-full">
     <label
       :for="type"
-      class="absolute font-body text-sumi-400 pl-3 font-semibold transition-all duration-300"
+      class="absolute pl-3 font-body font-semibold text-sumi-400 transition-all duration-300"
       :class="{
-        'text-mini top-1': isFocused || value,
-        'text-sm top-5': !isFocused && !value
+        'top-1 text-mini': isFocused || value,
+        'top-5 text-sm': !isFocused && !value
       }"
     >
       {{ label }}
@@ -30,14 +30,14 @@ const isFocused = ref<boolean>(false)
       v-model="value"
       @focus="isFocused = true"
       @blur="isFocused = false"
-      class="w-full font-body text-sumi-900 px-3 pr-8 pt-4 h-14 rounded-lg transition-all duration-300 border border-gray-300"
+      class="h-14 w-full rounded-lg border border-gray-300 px-3 pr-8 pt-4 font-body text-sumi-900 transition-all duration-300"
       :class="{
         'border-2': isError,
         'bg-red-100': isError,
         'border-red-400': isError
       }"
     />
-    <ErrorIcon v-if="isError" class="absolute top-5 right-3" />
+    <ErrorIcon v-if="isError" class="absolute right-3 top-5" />
     <slot :value />
   </div>
 </template>

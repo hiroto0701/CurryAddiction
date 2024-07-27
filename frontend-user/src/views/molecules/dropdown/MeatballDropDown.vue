@@ -60,11 +60,11 @@ function getTextColorClass(routeName: string): string {
 }
 </script>
 <template>
-  <Menu as="div" class="fixed left-14 max-sm:left-3 bottom-9" v-slot="{ open }">
+  <Menu as="div" class="fixed bottom-9 left-3 md:left-14" v-slot="{ open }">
     <TopTooltip :open text="メニュー" position="top">
       <MenuButton
-        class="peer flex justify-center items-center w-16 h-16 max-sm:w-14 max-sm:h-14 border border-gray-300 shadow-sm rounded-full bg-white opacity-70 sm:hover:bg-slate-100 sm:hover:opacity-100 duration-300"
-        :class="[open ? 'max-sm:w-20 w-24' : '']"
+        class="peer flex h-16 w-16 items-center justify-center rounded-full border border-gray-300 bg-white opacity-70 shadow-sm duration-300 max-sm:h-14 max-sm:w-14 sm:hover:bg-slate-100 sm:hover:opacity-100"
+        :class="[open ? 'w-24 max-sm:w-20' : '']"
       >
         <MeatballMenuIcon class="w-7 text-sumi-900" v-show="!open" />
         <span class="font-body text-sm text-sumi-500" v-show="open">閉じる</span>

@@ -15,7 +15,7 @@ defineProps<Props>()
 <template>
   <router-link
     :to="to"
-    class="flex px-3 h-11 gap-2.5 rounded-lg items-center hover:bg-slate-100"
+    class="flex h-11 items-center gap-2.5 rounded-lg px-3 hover:bg-slate-100"
     :class="{ 'bg-slate-100': isActive, [textColorClass]: true }"
   >
     <component :is="iconComponent" :class="textColorClass" />

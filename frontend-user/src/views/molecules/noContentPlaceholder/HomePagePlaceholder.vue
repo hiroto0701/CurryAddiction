@@ -7,9 +7,9 @@ const message: string = `ようこそ、カレーの大冒険へ！
                         お気に入りのカレーをシェアして福岡のカレーを盛り上げよう！`
 </script>
 <template>
-  <div class="w-full flex flex-col items-center justify-center py-16">
+  <div class="flex w-full flex-col items-center justify-center py-16">
     <NoContentImg
-      class="w-52 aspect-square"
+      class="aspect-square w-52"
       src="http://localhost:9000/local-curry_addiction/illust/everyone.svg"
     />
     <NoContentHeading text="まだ投稿がありません。" />

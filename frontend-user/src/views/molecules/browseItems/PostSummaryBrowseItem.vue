@@ -6,5 +6,5 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <p class="flex items-center font-body text-sumi-900 text-sm">{{ postSummary }}</p>
+  <p class="flex items-center font-body text-sm text-sumi-900">{{ postSummary }}</p>
 </template>

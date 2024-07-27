@@ -9,8 +9,7 @@ interface Props {
 }
 defineProps<Props>()
 
-const modalContent =
-  'カレーの魅力を発信し合える場所。自慢の一品を写真とともに投稿して、仲間を増やそう。新たな味覚の発見が待っている'
+const modalContent = 'カレーの魅力を発信し、お気に入りの一品に出会うきっかけとなるサービス'
 
 const emits = defineEmits<{
   (e: 'startLogin'): void

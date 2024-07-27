@@ -6,5 +6,5 @@ interface Props {
 defineProps<Props>()
 </script>
 <template>
-  <p class="font-body w-fit mx-auto text-sumi-900 text-lg">{{ title }}</p>
+  <p class="mx-auto w-fit font-body text-lg text-sumi-900">{{ title }}</p>
 </template>

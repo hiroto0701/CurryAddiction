@@ -20,7 +20,7 @@ const emits = defineEmits<{
 </script>
 <template>
   <article
-    class="group sm:h-[325px] rounded-lg overflow-hidden cursor-pointer border border-gray-200"
+    class="group cursor-pointer overflow-hidden rounded-lg border border-gray-200 sm:h-[325px]"
     @click="emits('clickItem')"
   >
     <CardImg :src class="sm:group-hover:opacity-80" />

@@ -21,13 +21,13 @@ const avatar_url = computed((): string => {
     v-show="preview"
     :src="preview"
     alt="プロフィール画像"
-    class="object-cover aspect-square h-full w-full rounded-full bg-transparent"
+    class="aspect-square h-full w-full rounded-full bg-transparent object-cover"
   />
 
   <img
     v-show="!preview"
     :src="avatar_url"
     alt="プロフィール画像"
-    class="object-cover aspect-square h-full w-full rounded-full bg-transparent"
+    class="aspect-square h-full w-full rounded-full bg-transparent object-cover"
   />
 </template>

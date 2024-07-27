@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { type AxiosResponse } from 'axios'
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
@@ -226,6 +226,10 @@ export const useAccountFormStore = defineStore('account_form', () => {
     }
   }
 
+  async function deleteAccount(userId: number): Promise<AxiosResponse> {
+    return await axios.delete(`/api/service_users/${userId}`)
+  }
+
   return {
     state,
     setEmail,
@@ -238,6 +242,7 @@ export const useAccountFormStore = defineStore('account_form', () => {
     avatarValidate,
     registerAndLogin,
     updateDisplayName,
-    updateAvatar
+    updateAvatar,
+    deleteAccount
   }
 })

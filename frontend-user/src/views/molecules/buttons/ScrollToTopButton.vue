@@ -10,11 +10,11 @@ function pageTop(): void {
 }
 </script>
 <template>
-  <div class="fixed right-14 max-md:right-3 bottom-9">
+  <div class="fixed bottom-9 right-3 md:right-14">
     <TopTooltip text="ページトップへ" position="top">
       <button
         @click="pageTop"
-        class="peer flex justify-center items-center w-16 max-sm:w-14 aspect-square border border-gray-300 shadow-sm rounded-full bg-white opacity-70 sm:hover:bg-slate-100 sm:hover:opacity-100 duration-300"
+        class="peer flex aspect-square w-16 items-center justify-center rounded-full border border-gray-300 bg-white opacity-70 shadow-sm duration-300 max-sm:w-14 sm:hover:bg-slate-100 sm:hover:opacity-100"
       >
         <ArrowTopIcon class="text-sumi-900" />
       </button>

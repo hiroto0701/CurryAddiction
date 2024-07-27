@@ -20,7 +20,7 @@ const avatar = computed((): string => {
     <img
       :src="avatar"
       alt="プロフィール画像"
-      class="object-cover aspect-square h-full w-full rounded-full bg-transparent"
+      class="aspect-square h-full w-full rounded-full bg-transparent object-cover"
     />
   </div>
 </template>

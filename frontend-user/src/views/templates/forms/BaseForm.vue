@@ -13,7 +13,7 @@ defineProps<Props>()
     <!-- <div v-if="canBack" class="d-flex justify-content-end">
       <back-button @click="$emit('back')" />
     </div> -->
-    <h3 class="font-body flex justify-center text-2xl font-medium text-sumi-900">{{ title }}</h3>
+    <h3 class="flex justify-center font-body text-2xl font-medium text-sumi-900">{{ title }}</h3>
     <slot />
   </form>
 </template>

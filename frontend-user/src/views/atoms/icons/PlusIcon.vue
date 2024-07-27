@@ -12,7 +12,7 @@ const isPostPage = computed(() => router.currentRoute.value.meta.group === 'Post
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
-    class="w-5 aspect-square"
+    class="aspect-square w-5"
   >
     <path
       fill-rule="evenodd"
@@ -28,7 +28,7 @@ const isPostPage = computed(() => router.currentRoute.value.meta.group === 'Post
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"
-    class="w-5 aspect-square text-slate-600 hover:text-main cursor-pointer"
+    class="aspect-square w-5 cursor-pointer text-slate-600 hover:text-main"
   >
     <path
       stroke-linecap="round"

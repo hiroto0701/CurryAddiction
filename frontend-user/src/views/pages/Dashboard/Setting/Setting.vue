@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import axios from 'axios'
 import { ref, computed, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAccountStore } from '@/stores/account'
 import { useAccountFormStore } from '@/stores/account_form'
+import { useCommonStore } from '@/stores/common'
 import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
@@ -12,14 +15,20 @@ import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue
 import DisplayNameViewer from '@/views/pages/Dashboard/Setting/components/DisplayNameViewer.vue'
 import DisplayNameEditor from '@/views/pages/Dashboard/Setting/components/DisplayNameEditor.vue'
 import AvatarEditor from '@/views/pages/Dashboard/Setting/components/AvatarEditor.vue'
+import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue'
 
+const router = useRouter()
 const accountStore = useAccountStore()
 const accountFormStore = useAccountFormStore()
+const commonStore = useCommonStore()
 
 const isEditingDisplayName = ref<boolean>(false)
 const displayName = ref<string>(accountStore.state.display_name)
 const fileInfo = ref<File>()
 const preview = ref<string | undefined>()
+const open = ref<boolean>(false)
+
+const modalContent = ref<string>(`一度削除したアカウントは復元できません。\n本当に削除しますか？`)
 
 const displayNameError = computed(
   (): boolean =>
@@ -69,6 +78,39 @@ async function doUpdateDisplayName(displayName: string): Promise<void> {
   }
 }
 
+function openModal(): void {
+  open.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+function closeModal(): void {
+  open.value = false
+  document.body.style.overflow = 'auto'
+}
+
+async function doDelete(): Promise<void> {
+  try {
+    commonStore.startApiLoading()
+    const response = await accountFormStore.deleteAccount(Number(accountStore.state.id))
+    if (response.status === 200) {
+      closeModal()
+      router.push({ name: 'Login' })
+      document.body.style.overflow = 'auto'
+    } else {
+      throw new Error(response.data.message)
+    }
+  } catch (error) {
+    console.error('Failed to delete the account:', error)
+    if (axios.isAxiosError(error)) {
+      console.log(`削除に失敗しました: ${error.response?.data?.message || error.message}`, error)
+    } else {
+      console.log('予期せぬエラーが発生しました', error)
+    }
+  } finally {
+    commonStore.stopApiLoading()
+  }
+}
+
 onUnmounted((): void => {
   accountFormStore.resetErrors()
 })
@@ -80,7 +122,7 @@ onUnmounted((): void => {
         <AvatarBrowseItem class="w-16" :preview :avatar-url="accountStore.state.avatar_url" />
         <label
           for="profile_img"
-          class="inline-flex h-10 items-center duration-500 gap-2 rounded-full border px-3.5 text-xs cursor-pointer hover:opacity-70"
+          class="inline-flex h-10 cursor-pointer items-center gap-2 rounded-full border px-3.5 text-xs duration-500 hover:opacity-70"
         >
           プロフィール画像を変更
         </label>
@@ -99,7 +141,7 @@ onUnmounted((): void => {
         @update="doUpdateAvatar"
         @cancel="resetPreview"
       />
-      <p v-show="accountFormStore.state.errors.avatar" class="font-body mt-3 text-xs text-red-400">
+      <p v-show="accountFormStore.state.errors.avatar" class="mt-3 font-body text-xs text-red-400">
         {{ accountFormStore.state.errors?.avatar?.[0] }}
       </p>
     </DashboardSection>
@@ -121,7 +163,7 @@ onUnmounted((): void => {
       />
       <p
         v-show="accountFormStore.state.errors.display_name"
-        class="font-body mt-3 text-xs text-red-400"
+        class="mt-3 font-body text-xs text-red-400"
       >
         {{ accountFormStore.state.errors?.display_name?.[0] }}
       </p>
@@ -134,7 +176,7 @@ onUnmounted((): void => {
         class="mt-3 text-sm text-utility"
       />
       <GenreSettingButton
-        class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4"
+        class="mt-4 inline-flex items-center justify-center border px-4 py-3 text-sm"
       />
     </DashboardSection>
 
@@ -145,12 +187,25 @@ onUnmounted((): void => {
         class="mt-3 text-sm text-utility"
       />
       <RegionSettingButton
-        class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4"
+        class="mt-4 inline-flex items-center justify-center border px-4 py-3 text-sm"
       />
     </DashboardSection>
 
     <section class="flex justify-center">
-      <a class="text-red-400 text-sm" href="#">アカウントの削除</a>
+      <button class="text-sm text-red-400" @click="openModal">アカウントの削除</button>
     </section>
+
+    <Teleport to="body">
+      <DeleteConfirmModal
+        v-show="open"
+        :is-loading="commonStore.state.apiLoading"
+        modal-title="アカウントを削除しますか？"
+        :modal-content
+        button-text="削除する"
+        @delete="doDelete"
+        @cancel="closeModal"
+        :closeModal="closeModal"
+      />
+    </Teleport>
   </DashboardContent>
 </template>

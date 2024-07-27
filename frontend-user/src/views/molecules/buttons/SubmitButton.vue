@@ -10,7 +10,7 @@ defineProps<Props>()
 </script>
 <template>
   <BaseButton
-    class="flex gap-2 items-center border border-gray-300 text-sumi-900 p-3"
+    class="flex items-center gap-2 border border-gray-300 p-3 text-sumi-900"
     type="submit"
     :text
   >

@@ -22,7 +22,7 @@ const accountStore = useAccountStore()
       <DashboardSectionHeader title="アクティビティ" />
       <SectionInfo
         text="投稿したらカレンダーに色がつきます。"
-        class="text-sm font-body text-sumi-500 mt-3"
+        class="mt-3 font-body text-sm text-sumi-500"
       />
       <Suspense>
         <template #default>

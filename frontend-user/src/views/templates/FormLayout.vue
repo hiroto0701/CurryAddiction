@@ -11,17 +11,17 @@ defineProps<Props>()
 </script>
 <template>
   <div class="mt-8">
-    <label class="flex items-center gap-2 mb-3">
+    <label class="mb-3 flex items-center gap-2">
       <component :is="iconComponent" class="text-sumi-900" />
       <span class="fw-bold">{{ label }}</span>
       <span
         v-if="required"
-        class="inline-flex items-center rounded bg-red-500 px-1 py-0.5 text-mini font-body font-normal text-white"
+        class="inline-flex items-center rounded bg-red-500 px-1 py-0.5 font-body text-mini font-normal text-white"
         >必須</span
       >
       <span
         v-else-if="optional"
-        class="inline-flex items-center rounded bg-green-500 px-1 py-0.5 text-mini font-body font-normal text-white"
+        class="inline-flex items-center rounded bg-green-500 px-1 py-0.5 font-body text-mini font-normal text-white"
         >任意</span
       >
     </label>

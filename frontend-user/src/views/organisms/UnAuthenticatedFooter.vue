@@ -8,20 +8,20 @@ const emits = defineEmits<{
 }>()
 </script>
 <template>
-  <footer class="bg-sumi-50 mt-auto py-12">
+  <footer class="mt-auto bg-sumi-50 py-12">
     <div
-      class="mx-auto w-full px-6 xs:px-7 sm:px-10 max-w-screen-lg flex flex-col gap-11 justify-between md:flex-row"
+      class="xs:px-7 mx-auto flex w-full max-w-screen-lg flex-col justify-between gap-11 px-6 sm:px-10 md:flex-row"
     >
-      <div class="flex flex-col w-fit gap-5">
+      <div class="flex w-fit flex-col gap-5">
         <AppLogo />
         <LoginButton class="mx-auto" text="ログイン" @click="emits('openModal')" />
       </div>
       <div class="flex flex-col gap-4">
-        <RouterLink to="privacy-policy" class="font-body text-sumi-600 block w-fit"
+        <RouterLink to="privacy-policy" class="block w-fit font-body text-sumi-600"
           >プライバシーポリシー</RouterLink
         >
         <a
-          class="font-body text-sumi-600 block w-fit"
+          class="block w-fit font-body text-sumi-600"
           href="https://forms.gle/roKqweFnKA8vMcSR9"
           target="_blank"
           rel="noopener noreferrer"
@@ -29,7 +29,7 @@ const emits = defineEmits<{
         >
       </div>
     </div>
-    <small class="font-body text-sumi-600 text-center w-fit mt-5 mx-auto block select-none"
+    <small class="mx-auto mt-5 block w-fit select-none text-center font-body text-sumi-600"
       >&copy; 2024 Curry Addiction</small
     >
   </footer>

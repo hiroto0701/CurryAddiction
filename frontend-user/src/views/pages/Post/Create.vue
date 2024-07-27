@@ -2,7 +2,6 @@
 import { ref, watch } from 'vue'
 import { usePostFormStore } from '@/stores/post_form'
 import { useCommonStore } from '@/stores/common'
-
 import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
 import CommentIcon from '@/views/atoms/icons/CommentIcon.vue'
 import CategoryIcon from '@/views/atoms/icons/CategoryIcon.vue'
@@ -23,7 +22,7 @@ const postFormStore = usePostFormStore()
 
 const storeName = ref<string>('')
 const comment = ref<string>('')
-const modalOpen = ref<boolean>(false)
+const open = ref<boolean>(false)
 const storeNameError = ref<boolean>(false)
 const fileInfo = ref<File>()
 const preview = ref<string | undefined>()
@@ -31,12 +30,12 @@ const preview = ref<string | undefined>()
 const genre_id = ref<number | undefined>(1)
 
 function openModal(): void {
-  modalOpen.value = true
+  open.value = true
   document.body.style.overflow = 'hidden'
 }
 
 function closeModal(): void {
-  modalOpen.value = false
+  open.value = false
   document.body.style.overflow = 'auto'
 }
 
@@ -120,8 +119,8 @@ watch<string, false>(storeName, (newValue) => {
       />
       <DeletePostImgButton v-show="preview" @click="resetPreview" />
     </div>
-    <div v-show="preview" class="w-80 mt-8 h-fit mx-auto border border-gray-200">
-      <img class="w-full object-fit" :src="preview" alt="投稿画像" />
+    <div v-show="preview" class="mx-auto mt-8 h-fit w-80 border border-gray-200">
+      <img class="object-fit w-full" :src="preview" alt="投稿画像" />
     </div>
     <MapFormItem
       label="位置情報"
@@ -129,11 +128,11 @@ watch<string, false>(storeName, (newValue) => {
       :optional="false"
       :iconComponent="LocationIcon"
     />
-    <CreatePostButton class="mx-auto mt-8 block p-3 w-52" text="投稿する" @click="openModal" />
+    <CreatePostButton class="mx-auto mt-8 block w-52 p-3" text="投稿する" @click="openModal" />
 
     <Teleport to="body">
       <ActionConfirmModal
-        v-show="modalOpen"
+        v-show="open"
         :is-loading="commonStore.state.apiLoading"
         modal-title="この内容で投稿しますか？"
         button-text="投稿する"

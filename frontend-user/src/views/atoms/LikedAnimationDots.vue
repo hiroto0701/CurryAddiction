@@ -1,15 +1,15 @@
 <template>
   <div>
-    <span class="absolute w-0.5 h-0.5 bg-red-500 opacity-0 rounded-full bubble01"></span>
-    <span class="absolute w-0.5 h-0.5 bg-purple-300 opacity-0 rounded-full bubble02"></span>
-    <span class="absolute w-0.5 h-0.5 bg-green-300 opacity-0 rounded-full bubble03"></span>
-    <span class="absolute w-0.5 h-0.5 bg-blue-300 opacity-0 rounded-full bubble04"></span>
-    <span class="absolute w-0.5 h-0.5 bg-yellow-400 opacity-0 rounded-full bubble05"></span>
-    <span class="absolute w-0.5 h-0.5 bg-orange-500 opacity-0 rounded-full bubble06"></span>
-    <span class="absolute w-0.5 h-0.5 bg-purple-300 opacity-0 rounded-full bubble07"></span>
-    <span class="absolute w-0.5 h-0.5 bg-red-500 opacity-0 rounded-full bubble08"></span>
-    <span class="absolute w-0.5 h-0.5 bg-green-300 opacity-0 rounded-full bubble09"></span>
-    <span class="absolute w-0.5 h-0.5 bg-orange-500 opacity-0 rounded-full bubble10"></span>
+    <span class="bubble01 absolute h-0.5 w-0.5 rounded-full bg-red-500 opacity-0"></span>
+    <span class="bubble02 absolute h-0.5 w-0.5 rounded-full bg-purple-300 opacity-0"></span>
+    <span class="bubble03 absolute h-0.5 w-0.5 rounded-full bg-green-300 opacity-0"></span>
+    <span class="bubble04 absolute h-0.5 w-0.5 rounded-full bg-blue-300 opacity-0"></span>
+    <span class="bubble05 absolute h-0.5 w-0.5 rounded-full bg-yellow-400 opacity-0"></span>
+    <span class="bubble06 absolute h-0.5 w-0.5 rounded-full bg-orange-500 opacity-0"></span>
+    <span class="bubble07 absolute h-0.5 w-0.5 rounded-full bg-purple-300 opacity-0"></span>
+    <span class="bubble08 absolute h-0.5 w-0.5 rounded-full bg-red-500 opacity-0"></span>
+    <span class="bubble09 absolute h-0.5 w-0.5 rounded-full bg-green-300 opacity-0"></span>
+    <span class="bubble10 absolute h-0.5 w-0.5 rounded-full bg-orange-500 opacity-0"></span>
   </div>
 </template>
 <style scoped>

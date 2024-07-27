@@ -19,7 +19,7 @@ function navigateAndClose(close: () => void): void {
 <template>
   <MenuItem class="flex items-center gap-x-2 px-4 text-sm" v-slot="{ close }">
     <button
-      class="block w-full py-2 text-md text-sumi-500 hover:bg-slate-100 hover:text-sumi-900 font-body"
+      class="text-md block w-full py-2 font-body text-sumi-500 hover:bg-slate-100 hover:text-sumi-900"
       :class="{ 'bg-slate-100': isActive, [textColorClass]: true }"
       @click="navigateAndClose(close)"
     >

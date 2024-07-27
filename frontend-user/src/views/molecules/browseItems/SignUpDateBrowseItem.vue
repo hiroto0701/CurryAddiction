@@ -11,5 +11,5 @@ const dayjs = inject('$dayjs') as typeof import('dayjs')
 const signUpDate = computed(() => dayjs(props.date).format('YYYY年M月'))
 </script>
 <template>
-  <Date class="font-body text-sumi-900 text-sm" :date :formatted-date="signUpDate" />
+  <Date class="font-body text-sm text-sumi-900" :date :formatted-date="signUpDate" />
 </template>

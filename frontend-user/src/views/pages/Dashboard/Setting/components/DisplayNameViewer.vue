@@ -14,7 +14,7 @@ const emit = defineEmits<{
 <template>
   <DisplayNameBrowseItem :display-name class="mt-3 text-sm text-utility" />
   <EditDisplayNameButton
-    class="inline-flex items-center justify-center border text-sm py-3 px-4 mt-4"
+    class="mt-4 inline-flex items-center justify-center border px-4 py-3 text-sm"
     @click="emit('edit')"
   />
 </template>
