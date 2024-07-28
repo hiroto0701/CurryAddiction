@@ -69,7 +69,7 @@ async function login(): Promise<boolean> {
 <template>
   <main class="xs:px-7 mx-auto my-12 flex h-auto w-full max-w-4xl flex-col px-6 sm:px-10">
     <div class="flex w-full flex-col items-center rounded-xl bg-sumi-100 p-10">
-      <h1 class="font-body text-xl font-bold text-sumi-900">ログイン</h1>
+      <h1 class="font-body text-xl font-bold text-sumi-900">LP化予定</h1>
       <div class="mt-5 flex w-full justify-between">
         <LoginButton text="ログイン" @click="openModal('login')" />
         <form
