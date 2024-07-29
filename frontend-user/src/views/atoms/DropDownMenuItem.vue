@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { MenuItem } from '@headlessui/vue'
-import { type Component } from 'vue'
+import type { Component } from 'vue'
 
 interface Props {
   readonly label: string
