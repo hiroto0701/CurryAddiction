@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { usePostFormStore } from '@/stores/post_form'
+import { ref } from 'vue'
 import { useCommonStore } from '@/stores/common'
+import { usePostForm } from '@/composables/functions/usePostForm'
 import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
 import CommentIcon from '@/views/atoms/icons/CommentIcon.vue'
 import CategoryIcon from '@/views/atoms/icons/CategoryIcon.vue'
@@ -18,16 +18,19 @@ import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue'
 import RegisterForm from '@/views/templates/forms/RegisterForm.vue'
 
 const commonStore = useCommonStore()
-const postFormStore = usePostFormStore()
+const {
+  storeName,
+  comment,
+  genreId,
+  preview,
+  storeNameError,
+  reactiveErrors,
+  handleFileSelected,
+  resetPreview,
+  submitForm
+} = usePostForm()
 
-const storeName = ref<string>('')
-const comment = ref<string>('')
 const open = ref<boolean>(false)
-const storeNameError = ref<boolean>(false)
-const fileInfo = ref<File>()
-const preview = ref<string | undefined>()
-
-const genre_id = ref<number | undefined>(1)
 
 function openModal(): void {
   open.value = true
@@ -39,60 +42,32 @@ function closeModal(): void {
   document.body.style.overflow = 'auto'
 }
 
-function handleFileSelected(target: HTMLInputElement) {
-  if (target.files && target.files.length > 0) {
-    fileInfo.value = target.files[0]
-    preview.value = URL.createObjectURL(fileInfo.value)
-  }
-}
-
-function resetPreview(): void {
-  fileInfo.value = undefined
-  preview.value = undefined
-}
-
 async function doCreate() {
-  const isValid = postFormStore.validate(
-    storeName.value,
-    comment.value,
-    genre_id.value,
-    fileInfo.value,
-    0.1, // latitude
-    0.1 // longitude
-  )
-
-  if (!isValid) {
+  try {
+    const success = await submitForm()
+    if (success) {
+      closeModal()
+    }
+  } catch (error) {
+    commonStore.setErrorMessage('投稿に失敗しました')
+    console.error(error)
+  } finally {
     closeModal()
     window.scrollTo({
       top: 0
     })
-    return false
-  }
-
-  try {
-    await postFormStore.create({
-      store_name: storeName.value,
-      comment: comment.value,
-      genre_id: genre_id.value,
-      post_img: fileInfo.value
-    })
-  } finally {
-    closeModal()
   }
 }
-
-watch<string, false>(storeName, (newValue) => {
-  storeNameError.value = !newValue.length || newValue.length > 30
-})
 </script>
 <template>
-  <RegisterForm title="新規投稿" @submit.prevent="doCreate">
+  <RegisterForm title="新規投稿" @submit.prevent="openModal">
     <StoreNameFormItem
       label="店名"
       :required="true"
       :optional="false"
       :iconComponent="StoreIcon"
       :is-error="storeNameError"
+      :errors="reactiveErrors"
       placeholder="お店の名前"
       v-model="storeName"
     />
@@ -101,13 +76,16 @@ watch<string, false>(storeName, (newValue) => {
       :required="false"
       :optional="true"
       :iconComponent="CommentIcon"
+      :errors="reactiveErrors"
       v-model="comment"
     />
     <SelectBoxFormItem
       label="ジャンル"
       :required="true"
       :optional="false"
+      :errors="reactiveErrors"
       :iconComponent="CategoryIcon"
+      v-model="genreId"
     />
     <div class="flex items-end">
       <PostImgUploadFormItem
@@ -115,9 +93,11 @@ watch<string, false>(storeName, (newValue) => {
         :required="true"
         :optional="false"
         :iconComponent="PhotoIcon"
+        :img-preview="preview"
+        :errors="reactiveErrors"
         @upload="handleFileSelected"
+        @delete="resetPreview"
       />
-      <DeletePostImgButton v-show="preview" @click="resetPreview" />
     </div>
     <div v-show="preview" class="mx-auto mt-8 h-fit w-80 border border-gray-200">
       <img class="object-fit w-full" :src="preview" alt="投稿画像" />

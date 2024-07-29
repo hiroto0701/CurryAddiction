@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import { usePostFormStore } from '@/stores/post_form'
-
 interface Props {
   readonly fieldName: string
+  readonly errors?: Record<string, string[]>
 }
 defineProps<Props>()
-
-const postFormStore = usePostFormStore()
 </script>
 <template>
   <div>
-    <p v-show="postFormStore.state.errors[fieldName]" class="mt-1 font-body text-xs text-red-400">
-      {{ postFormStore.state.errors[fieldName]?.[0] }}
+    <p v-show="errors && errors[fieldName]" class="mt-1 font-body text-xs text-red-400">
+      {{ errors && errors[fieldName]?.[0] }}
     </p>
   </div>
 </template>

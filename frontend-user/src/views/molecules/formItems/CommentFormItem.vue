@@ -8,6 +8,7 @@ interface Props {
   readonly required: boolean
   readonly optional: boolean
   readonly iconComponent: Component
+  readonly errors?: Record<string, string[]>
 }
 defineProps<Props>()
 
@@ -33,7 +34,7 @@ const model = defineModel<string>()
     ></textarea>
     <div class="flex justify-between">
       <div>
-        <PostFormErrorMessage field-name="comment" />
+        <PostFormErrorMessage field-name="comment" :errors="errors" />
       </div>
       <span
         class="flex justify-end"

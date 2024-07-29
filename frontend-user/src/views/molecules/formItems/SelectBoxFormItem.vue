@@ -8,6 +8,7 @@ interface Props {
   readonly required: boolean
   readonly optional: boolean
   readonly iconComponent: Component
+  readonly errors?: Record<string, string[]>
 }
 defineProps<Props>()
 </script>
@@ -28,6 +29,6 @@ defineProps<Props>()
       <option value="">インドカレー</option>
       <option value="">マトン系</option>
     </select>
-    <PostFormErrorMessage field-name="genre_id" />
+    <PostFormErrorMessage field-name="genre_id" :errors="errors" />
   </FormLayout>
 </template>
