@@ -21,6 +21,7 @@
     "cal-heatmap": "^4.2.4",
     "dayjs": "^1.11.11",
     "pinia": "^2.1.7",
+    "tailwind-variants": "^0.2.1",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
