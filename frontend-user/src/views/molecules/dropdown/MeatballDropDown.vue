@@ -60,11 +60,12 @@ function getTextColorClass(routeName: string): string {
 }
 </script>
 <template>
-  <Menu as="div" class="fixed bottom-9 left-3 md:left-14" v-slot="{ open }">
+  <Menu as="div" class="fixed bottom-9 left-3 z-40 md:left-14" v-slot="{ open }">
     <TopTooltip :open text="メニュー" position="top">
       <MenuButton
         class="peer flex h-16 w-16 items-center justify-center rounded-full border border-gray-300 bg-white opacity-70 shadow-sm duration-300 max-sm:h-14 max-sm:w-14 sm:hover:bg-slate-100 sm:hover:opacity-100"
         :class="[open ? 'w-24 max-sm:w-20' : '']"
+        aria-label="ユーザーメニューを開く"
       >
         <MeatballMenuIcon class="w-7 text-sumi-900" v-show="!open" />
         <span class="font-body text-sm text-sumi-500" v-show="open">閉じる</span>

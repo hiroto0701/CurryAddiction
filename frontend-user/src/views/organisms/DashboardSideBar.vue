@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { Component } from 'vue'
 import { useRouter } from 'vue-router'
 import DashboardIcon from '@/views/atoms/icons/DashboardIcon.vue'
@@ -7,6 +8,7 @@ import ArchiveIcon from '@/views/atoms/icons/ArchiveIcon.vue'
 import TrashIcon from '@/views/atoms/icons/TrashIcon.vue'
 import SettingIcon from '@/views/atoms/icons/SettingIcon.vue'
 import BackButtonIcon from '@/views/atoms/icons/BackButtonIcon.vue'
+import MenuBarIcon from '@/views/atoms/icons/MenuBarIcon.vue'
 import DashBoardSidebarItem from '@/views/molecules/dashboard/DashboardSideBarItem.vue'
 
 interface SidebarItem {
@@ -47,9 +49,32 @@ const sidebarItems: SidebarItem[] = [
 function getTextColorClass(routeName: string): string {
   return router.currentRoute.value.name === routeName ? 'text-sumi-900' : 'text-sumi-500'
 }
+
+const isMenuOpen = ref<boolean>(false)
+
+function openMenu(): void {
+  isMenuOpen.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+function closeMenu(): void {
+  isMenuOpen.value = false
+  document.body.style.overflow = 'auto'
+}
 </script>
 <template>
-  <aside class="sticky top-0 hidden p-5 md:block" style="width: 258px">
+  <button
+    class="fixed right-3 top-8 z-30 flex h-8 w-8 items-center justify-center rounded-lg border border-gray-300 bg-white opacity-70 shadow-sm duration-300 hover:bg-slate-100 hover:opacity-100 md:hidden"
+    aria-label="ダッシュボードメニューを開く"
+    @click="openMenu"
+  >
+    <MenuBarIcon class="text-sumi-900" />
+  </button>
+  <aside
+    class="fixed left-0 top-0 z-20 h-full transform overflow-y-auto bg-white p-5 transition-transform duration-300 ease-in-out md:sticky md:translate-x-0"
+    :class="{ '-translate-x-full': !isMenuOpen }"
+    style="width: 258px"
+  >
     <DashBoardSidebarItem
       :to="{ name: 'Home' }"
       label="ホームへ"
@@ -66,7 +91,13 @@ function getTextColorClass(routeName: string): string {
         :iconComponent="item.icon"
         :isActive="router.currentRoute.value.name === item.name"
         :textColorClass="getTextColorClass(item.name)"
+        @click="closeMenu"
       />
     </div>
   </aside>
+  <div
+    v-if="isMenuOpen"
+    class="fixed inset-0 z-10 bg-black bg-opacity-50 md:hidden"
+    @click="closeMenu"
+  ></div>
 </template>
