@@ -64,7 +64,7 @@ function closeMenu(): void {
 </script>
 <template>
   <button
-    class="fixed right-3 top-8 z-30 flex h-8 w-8 items-center justify-center rounded-lg border border-gray-300 bg-white opacity-70 shadow-sm duration-300 hover:bg-slate-100 hover:opacity-100 md:hidden"
+    class="fixed right-3 top-8 flex h-8 w-8 items-center justify-center rounded-lg border border-gray-300 bg-white opacity-70 shadow-sm duration-300 hover:bg-slate-100 hover:opacity-100 md:hidden"
     aria-label="ダッシュボードメニューを開く"
     @click="openMenu"
   >
