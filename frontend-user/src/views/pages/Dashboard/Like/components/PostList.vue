@@ -97,7 +97,7 @@ async function toggleArchive(postId: number): Promise<void> {
       }
     }
   } catch (error) {
-    commonStore.setErrorMessage('いいねできませんでした')
+    commonStore.setErrorMessage('保存できませんでした')
     setTimeout(() => {
       commonStore.clearErrorMessage()
     }, 4000)
@@ -129,6 +129,9 @@ watch(
         :store-name="post.store_name"
         location="福岡市 中央区"
         :date="post.posted_at"
+        :display-name="post.user.display_name"
+        :handle-name="post.user.handle_name"
+        :avatar-url="post.user.avatar_url"
         :is-liked="post.current_user_liked"
         :is-archived="post.current_user_archived"
         @clickItem="toViewer(post.id)"

@@ -9,14 +9,14 @@ defineProps<Props>()
 </script>
 <template>
   <div
-    class="fixed left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-sumi-800 bg-opacity-50 backdrop-blur-sm"
+    class="fixed left-0 top-0 z-40 flex h-full w-full items-center justify-center bg-sumi-800 bg-opacity-50 backdrop-blur-sm"
     @click.self="closeModal"
   >
     <CrossIcon
       class="fixed right-6 top-6 inline-flex w-8 cursor-pointer items-center justify-center rounded-full bg-gray-400 p-1 text-white duration-300 hover:bg-sumi-800"
       @click.self="closeModal"
     />
-    <div class="modal z-20 flex max-w-96 flex-col gap-4 rounded-3xl bg-white p-8">
+    <div class="modal z-40 flex max-w-96 flex-col gap-4 rounded-3xl bg-white p-8">
       <slot />
     </div>
   </div>

@@ -2,5 +2,5 @@
 import BaseButton from '@/views/atoms/BaseButton.vue'
 </script>
 <template>
-  <BaseButton text="変更する" />
+  <BaseButton class="hover:border-slate-300 hover:bg-slate-100" text="変更する" />
 </template>
