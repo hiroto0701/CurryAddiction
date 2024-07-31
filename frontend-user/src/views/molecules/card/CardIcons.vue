@@ -32,8 +32,8 @@ function toggleLike(): void {
       @click.stop="toggleLike"
       class="relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-opacity duration-500"
       :class="{
-        'hover:bg-pink-50': localLikeState,
-        'hover:bg-gray-100': !localLikeState
+        'md:hover:bg-pink-50': localLikeState,
+        'md:hover:bg-gray-100': !localLikeState
       }"
     >
       <HeartIcon
@@ -48,7 +48,7 @@ function toggleLike(): void {
     </div>
     <div
       @click.stop="emits('archive')"
-      class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"
+      class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-opacity duration-500 md:hover:bg-gray-100"
     >
       <ArchiveIcon
         class="cursor-pointer text-gray-700"

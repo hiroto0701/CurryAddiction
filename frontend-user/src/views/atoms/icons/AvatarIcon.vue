@@ -9,7 +9,7 @@ const props = defineProps<Props>()
 
 const avatar_url = computed((): string => {
   if (props.avatarUrl === null) {
-    const defaultAvatar = '../../../../public/icon/default_avatar.jpg'
+    const defaultAvatar = 'http://localhost:9000/local-curry_addiction/avatar/default_avatar.jpg'
     return defaultAvatar
   } else {
     return props.avatarUrl
@@ -21,13 +21,13 @@ const avatar_url = computed((): string => {
     v-show="preview"
     :src="preview"
     alt="プロフィール画像"
-    class="aspect-square h-full w-full rounded-full bg-transparent object-cover"
+    class="aspect-square rounded-full bg-transparent object-cover"
   />
 
   <img
     v-show="!preview"
     :src="avatar_url"
     alt="プロフィール画像"
-    class="aspect-square h-full w-full rounded-full bg-transparent object-cover"
+    class="aspect-square rounded-full bg-transparent object-cover"
   />
 </template>

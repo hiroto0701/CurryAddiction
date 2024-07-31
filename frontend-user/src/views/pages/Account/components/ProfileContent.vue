@@ -42,11 +42,11 @@ watch(
 <template>
   <div class="mb-12 overflow-hidden rounded-2xl border p-6 md:p-7">
     <div class="flex items-center gap-3.5 py-6">
-      <AvatarBrowseItem class="w-24" :avatar-url="service_user.avatar_url" />
+      <AvatarBrowseItem class="w-16 md:w-24" :avatar-url="service_user.avatar_url" />
       <div class="flex flex-1 flex-col gap-1 leading-normal">
         <DisplayNameBrowseItem
           :display-name="service_user.display_name"
-          class="text-md break-all text-sumi-900"
+          class="md:text-md break-all text-sm text-sumi-900"
         />
         <HandleNameBrowseItem :handle-name="service_user.handle_name" />
       </div>

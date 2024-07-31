@@ -89,6 +89,7 @@ async function doSoftDelete(): Promise<void> {
       </div>
       <div class="mt-20 flex items-center gap-3 text-sumi-600">
         <PostUserProfileLink
+          class="text-md"
           :display-name="post.user.display_name"
           :handle-name="post.user.handle_name"
           :avatar-url="post.user.avatar_url"
