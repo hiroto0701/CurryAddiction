@@ -78,7 +78,7 @@ async function toggleArchive(postId: number): Promise<void> {
       }
     }
   } catch (error) {
-    commonStore.setErrorMessage('いいねできませんでした')
+    commonStore.setErrorMessage('保存できませんでした')
     setTimeout(() => {
       commonStore.clearErrorMessage()
     }, 4000)
