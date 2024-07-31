@@ -11,7 +11,7 @@ defineProps<Props>()
 <template>
   <BaseButton
     type="submit"
-    class="flex items-center gap-2 border border-gray-300 p-3 text-sumi-900"
+    class="flex items-center gap-2 border border-gray-300 p-3 text-sumi-900 hover:border-slate-300 hover:bg-slate-100"
     :text
   >
     <LoadingSpinner :is-loading />

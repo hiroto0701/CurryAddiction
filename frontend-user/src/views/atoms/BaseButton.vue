@@ -8,7 +8,7 @@ defineProps<Props>()
 <template>
   <button
     type="button"
-    class="flex cursor-pointer items-center justify-center rounded-full font-body duration-500 hover:border-slate-300 hover:bg-slate-200 hover:opacity-70"
+    class="flex cursor-pointer items-center justify-center rounded-full font-body duration-500 hover:opacity-70"
   >
     {{ text }}
     <slot />

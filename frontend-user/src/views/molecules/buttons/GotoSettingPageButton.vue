@@ -10,7 +10,7 @@ defineProps<Props>()
 <template>
   <RouterLink :to="{ name: 'Setting' }">
     <BaseButton
-      class="inline-flex items-center justify-center rounded-full border px-3.5 py-2.5 text-sm text-sumi-900"
+      class="inline-flex items-center justify-center rounded-full border px-3.5 py-2.5 text-sm text-sumi-900 hover:border-slate-300 hover:bg-slate-100"
       :text
     />
   </RouterLink>
