@@ -29,7 +29,7 @@ defineProps<Props>()
 
 const emits = defineEmits<{
   (
-    e:
+    event:
       | 'toPostDashboard'
       | 'toLikedPostDashboard'
       | 'toArchivedPostDashboard'
@@ -40,7 +40,7 @@ const emits = defineEmits<{
 }>()
 
 const handleMenuItem = (
-  e:
+  event:
     | 'toPostDashboard'
     | 'toLikedPostDashboard'
     | 'toArchivedPostDashboard'
@@ -48,7 +48,7 @@ const handleMenuItem = (
     | 'toSetting'
     | 'logout'
 ) => {
-  emits(e)
+  emits(event)
 }
 
 const menuItems: MenuItem[] = [

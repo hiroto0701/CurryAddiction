@@ -71,7 +71,7 @@ function getTextColorClass(routeName: string): string {
         <span class="font-body text-sm text-sumi-500" v-show="open">閉じる</span>
       </MenuButton>
     </TopTooltip>
-    <transition
+    <Transition
       enter-active-class="transition ease-out duration-100"
       enter-from-class="transform opacity-0 scale-95"
       enter-to-class="transform opacity-100 scale-100"
@@ -93,6 +93,6 @@ function getTextColorClass(routeName: string): string {
           :icon-props="item.iconProps"
         />
       </MenuItems>
-    </transition>
+    </Transition>
   </Menu>
 </template>
