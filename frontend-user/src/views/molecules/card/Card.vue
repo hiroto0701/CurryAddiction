@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+import TrashIcon from '@/views/atoms/icons/TrashIcon.vue'
 import MeatballMenuIcon from '@/views/atoms/icons/MeatballMenuIcon.vue'
 import CardImg from '@/views/atoms/CardImg.vue'
 import CardBody from '@/views/molecules/card/CardBody.vue'
@@ -38,7 +39,7 @@ const emits = defineEmits<{
       <div>
         <Menu as="div" class="relative">
           <MenuButton
-            class="relative flex aspect-square w-8 items-center justify-center rounded-full duration-200 hover:bg-gray-100"
+            class="relative flex aspect-square w-8 items-center justify-center rounded-full duration-300 md:hover:bg-gray-100"
             v-if="isMine"
             aria-label="投稿用メニューを開く"
           >
@@ -53,14 +54,15 @@ const emits = defineEmits<{
             leave-to-class="transform opacity-0 scale-95"
           >
             <MenuItems
-              class="absolute right-0 z-10 mt-2 w-24 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5"
+              class="absolute right-[-.5rem] top-[1.7rem] z-10 mt-2 w-40 rounded-xl border border-gray-200 bg-white p-1 shadow-lg"
             >
-              <MenuItem class="flex items-center gap-x-2 px-4 text-sm">
+              <MenuItem class="flex items-center justify-between rounded-lg p-2 text-sm">
                 <button
-                  class="w-full bg-red-50 p-3 font-body text-sm text-sumi-500 hover:text-sumi-900 md:hover:bg-slate-100"
+                  class="w-full bg-white font-body text-sm text-red-400 duration-300 md:hover:bg-red-50"
                   @click="emits('handlePost')"
                 >
-                  削除する
+                  <TrashIcon />
+                  ごみ箱に入れる
                 </button>
               </MenuItem>
             </MenuItems>
