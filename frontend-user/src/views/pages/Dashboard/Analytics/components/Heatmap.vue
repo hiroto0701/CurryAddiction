@@ -21,13 +21,15 @@ interface Props {
 const props = defineProps<Props>()
 
 const today: string = dayjs().format('YYYY-MM-DD')
+// UIのためにカレンダーの開始日を2カ月前に設定
+const calStartDate: string = dayjs().subtract(2, 'month').format('YYYY-MM-DD')
 const visibleMonths = ref<number>(12)
 const heatmapData = props.analyticsData.map((item) => ({ date: item.date, value: item.count }))
 const cal: CalHeatmap = new CalHeatmap()
 
 function paintCalendar() {
   const dateOptions: DateOptions = {
-    start: dayjs.utc(today).toDate(),
+    start: dayjs.utc(calStartDate).toDate(),
     highlight: [dayjs.utc(today).toDate()],
     locale: 'ja',
     timezone: 'Asia/Tokyo'
