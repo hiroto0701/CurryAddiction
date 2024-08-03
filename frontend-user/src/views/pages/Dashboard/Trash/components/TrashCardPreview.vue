@@ -21,9 +21,9 @@ defineProps<Props>()
       >
         <div class="p-14" style="width: 500px">
           <StoreNameBrowseItem :store-name />
-          <div class="mt-14">
+          <div class="mt-14 max-w-screen-md break-all">
             <img :src width="1080" height="720" alt="ごみ箱内の投稿の画像" />
-            <PostCommentBrowseItem class="mt-10 text-sm" :comment />
+            <PostCommentBrowseItem class="mt-10 max-w-screen-md text-sm" :comment />
           </div>
         </div>
       </div>

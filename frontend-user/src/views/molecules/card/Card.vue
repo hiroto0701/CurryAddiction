@@ -70,11 +70,7 @@ const emits = defineEmits<{
         </Menu>
       </div>
     </div>
-    <CardImg
-      :src
-      class="cursor-pointer sm:peer-hover:opacity-80"
-      @click="emits('navigateToDetail')"
-    />
+    <CardImg :src class="cursor-pointer md:hover:opacity-95" @click="emits('navigateToDetail')" />
     <CardBody
       :store-name="storeName"
       :location
