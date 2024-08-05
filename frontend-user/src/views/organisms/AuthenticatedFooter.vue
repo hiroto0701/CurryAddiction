@@ -1,7 +1,34 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { ref } from 'vue'
+import { useRouter, RouterLink } from 'vue-router'
+import { useAccountStore } from '@/stores/account'
+import { useCommonStore } from '@/stores/common'
 import AppLogo from '@/views/atoms/icons/AppLogo.vue'
+import LogoutButton from '@/views/molecules/buttons/LogoutButton.vue'
 import MyProfileLink from '@/views/molecules/links/MyProfileLink.vue'
+import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue'
+
+const accountStore = useAccountStore()
+const commonStore = useCommonStore()
+const router = useRouter()
+const open = ref<boolean>(false)
+
+function openModal(): void {
+  open.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+function closeModal(): void {
+  open.value = false
+  document.body.style.overflow = 'auto'
+}
+
+function doLogout(): void {
+  accountStore.logout().then(() => {
+    router.push({ name: 'Login' })
+    document.body.style.overflow = 'auto'
+  })
+}
 </script>
 <template>
   <footer class="mt-auto bg-sumi-50 py-12">
@@ -10,7 +37,10 @@ import MyProfileLink from '@/views/molecules/links/MyProfileLink.vue'
     >
       <div class="flex w-fit flex-col gap-5">
         <AppLogo />
-        <MyProfileLink />
+        <div class="flex items-center justify-between">
+          <MyProfileLink />
+          <LogoutButton class="text-sm" text="ログアウト" @click="openModal" />
+        </div>
       </div>
       <div class="flex flex-col gap-4">
         <router-link :to="{ name: 'PrivacyPolicy' }" class="font-body text-sumi-600">
@@ -29,4 +59,16 @@ import MyProfileLink from '@/views/molecules/links/MyProfileLink.vue'
       &copy; 2024 Curry Addiction
     </small>
   </footer>
+  <Teleport to="body">
+    <ActionConfirmModal
+      v-show="open"
+      :is-loading="commonStore.state.apiLoading"
+      modal-title="ログアウトしますか？"
+      :modal-content="`@${accountStore.state.handle_name}としてログインしています`"
+      button-text="ログアウト"
+      @commit="doLogout"
+      @cancel="closeModal"
+      :closeModal="closeModal"
+    />
+  </Teleport>
 </template>
