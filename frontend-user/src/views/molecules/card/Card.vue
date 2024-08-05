@@ -31,7 +31,7 @@ const emits = defineEmits<{
   <article class="overflow-hidden rounded-lg border border-gray-200">
     <div class="flex h-14 items-center justify-between border-b border-gray-200 bg-white p-3">
       <PostUserProfileLink
-        class="w-fit max-w-40 text-xs"
+        class="w-fit text-xs md:max-w-48"
         :display-name="displayName"
         :handle-name="handleName"
         :avatar-url

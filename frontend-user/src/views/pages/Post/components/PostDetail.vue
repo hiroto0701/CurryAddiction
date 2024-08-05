@@ -80,26 +80,29 @@ async function doSoftDelete(): Promise<void> {
     </div>
   </div>
   <div class="xs:px-7 mx-auto w-full max-w-screen-md px-6 sm:px-10">
-    <div class="pt-8">
+    <div class="pt-4 md:pt-8">
       <div class="flex gap-2.5">
         <StoreNameBrowseItem
-          class="w-full max-w-screen-md px-3 py-1 text-xl text-sumi-900"
+          class="w-full max-w-screen-md px-3 py-1 text-lg text-sumi-900 md:text-xl"
           :store-name="post.store_name"
         />
       </div>
-      <div class="mt-20 flex items-center gap-3 text-sumi-600">
+      <div class="mt-20 flex max-w-2xl items-center justify-start gap-3 text-sumi-600">
         <PostUserProfileLink
-          class="text-md"
+          class="text-md min-w-0 flex-shrink truncate"
           :display-name="post.user.display_name"
           :handle-name="post.user.handle_name"
           :avatar-url="post.user.avatar_url"
         />
-        <span>&brvbar;</span>
-        <PostDateBrowseItem class="text-base" :date="post.posted_at" />
+        <span class="flex-shrink-0">&brvbar;</span>
+        <PostDateBrowseItem
+          class="flex-shrink-0 whitespace-nowrap text-base"
+          :date="post.posted_at"
+        />
       </div>
     </div>
 
-    <div class="xs:px-7 mx-auto mt-9 w-full max-w-screen-md px-6 sm:px-10">
+    <div class="xs:px-7 mx-auto mt-9 w-full max-w-screen-md sm:px-10">
       <article>
         <img :src="post.post_img" class="w-full object-cover" alt="投稿画像" />
         <div class="my-12 max-w-screen-md break-all">
