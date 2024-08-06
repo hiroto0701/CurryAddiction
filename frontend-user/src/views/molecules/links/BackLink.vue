@@ -24,7 +24,7 @@ const linkDestination = computed<RouteLocationRaw>(() => {
 })
 </script>
 <template>
-  <BottomTooltip text="前のページへ" position="bottom">
+  <BottomTooltip text="戻る" position="bottom">
     <router-link
       :to="linkDestination"
       class="peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"

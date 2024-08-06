@@ -59,7 +59,7 @@ async function doCreate() {
 }
 </script>
 <template>
-  <RegisterForm title="新規投稿" @submit.prevent="openModal">
+  <RegisterForm @submit.prevent="openModal">
     <StoreNameFormItem
       label="店名"
       :required="true"

@@ -1,19 +1,15 @@
 <script setup lang="ts">
-interface Props {
-  readonly title: string
-}
-defineProps<Props>()
+import BackLink from '@/views/molecules/links/BackLink.vue'
 </script>
 <template>
+  <div class="flex h-12 items-center">
+    <BackLink />
+  </div>
   <form
     autocomplete="off"
     enctype="multipart/form-data"
-    class="rounded-lg border border-gray-200 px-20 py-8 font-body"
+    class="relative rounded-lg py-8 font-body md:px-20"
   >
-    <!-- <div v-if="canBack" class="d-flex justify-content-end">
-      <back-button @click="$emit('back')" />
-    </div> -->
-    <h3 class="flex justify-center font-body text-2xl font-medium text-sumi-900">{{ title }}</h3>
     <slot />
   </form>
 </template>
