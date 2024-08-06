@@ -8,11 +8,16 @@ use App\Domains\Post\Controller\Request\CreateRequest;
 use App\Domains\Post\Controller\Resource\PostResource;
 use App\Domains\Post\Usecase\Command\CreateCommand;
 use App\Domains\Post\Usecase\CreateInteractor;
+use App\Models\OperationLog;
 use App\Models\User;
+use App\Traits\OperationLogTrait;
 use Illuminate\Routing\Controller;
 
 class CreateAction extends Controller
 {
+    use OperationLogTrait;
+
+    public const OPERATION_OVERVIEW = '投稿作成';
 
     /**
      * @var CreateInteractor
@@ -43,10 +48,13 @@ class CreateAction extends Controller
             $request->post_img->getClientOriginalExtension(),
             $request->post_img->getMimeType(),
         );
-        $result = new PostResource(
+
+        $post = new PostResource(
             $this->interactor->handle($command)
         );
 
-        return $result;
+        $this->addOperationLog(OperationLog::OPERATION_TYPE_REGISTER, "投稿ID", $post->id);
+
+        return $post;
     }
 }

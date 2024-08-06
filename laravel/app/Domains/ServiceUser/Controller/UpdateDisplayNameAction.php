@@ -8,11 +8,17 @@ use App\Domains\ServiceUser\Controller\Request\UpdateDisplayNameRequest;
 use App\Domains\ServiceUser\Controller\Resource\CurrentServiceUserResource;
 use App\Domains\ServiceUser\Usecase\Command\UpdateDisplayNameCommand;
 use App\Domains\ServiceUser\Usecase\UpdateDisplayNameInteractor;
+use App\Models\OperationLog;
 use App\Models\User;
+use App\Traits\OperationLogTrait;
 use Illuminate\Routing\Controller;
 
 class UpdateDisplayNameAction extends Controller
 {
+    use OperationLogTrait;
+
+    public const OPERATION_OVERVIEW = 'サービス利用者表示名更新';
+
     /**
      * @var UpdateDisplayNameInteractor
      */
@@ -31,6 +37,8 @@ class UpdateDisplayNameAction extends Controller
         $command = new UpdateDisplayNameCommand(
             $request->display_name,
         );
+
+        $this->addOperationLog(OperationLog::OPERATION_TYPE_UPDATE, "ユーザーID", User::AuthId());
 
         return new CurrentServiceUserResource(
             $this->interactor->handle(User::AuthServiceUser(), $command)
