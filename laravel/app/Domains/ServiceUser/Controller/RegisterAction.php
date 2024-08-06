@@ -9,9 +9,15 @@ use App\Domains\ServiceUser\Controller\Resource\CurrentServiceUserResource;
 use App\Domains\ServiceUser\Usecase\Command\RegisterCommand;
 use App\Domains\ServiceUser\Usecase\RegisterInteractor;
 use App\Http\Controllers\Controller;
+use App\Models\OperationLog;
+use App\Traits\OperationLogTrait;
 
 class RegisterAction extends Controller
 {
+    use OperationLogTrait;
+
+    public const OPERATION_OVERVIEW = 'サービス利用者登録';
+
     /**
      * @var RegisterInteractor
      */
@@ -32,8 +38,12 @@ class RegisterAction extends Controller
             $request->handle_name,
         );
 
-        return new CurrentServiceUserResource(
+        $serviceUser = new CurrentServiceUserResource(
             $this->interactor->handle($command)
         );
+
+        $this->addOperationLog(OperationLog::OPERATION_TYPE_REGISTER, "ユーザーID", $serviceUser->user_id, $serviceUser->user_id);
+
+        return $serviceUser;
     }
 }

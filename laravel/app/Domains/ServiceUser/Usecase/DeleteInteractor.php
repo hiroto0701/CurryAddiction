@@ -48,7 +48,7 @@ class DeleteInteractor
     }
 
     /**
-     * 次回新規登録時にunique制限を避けるためメールアドレスを更新する
+     * 同一メールアドレス登録できるようにunique制限を避けるためメールアドレスを更新する
      * ※ handle_name は更新しない
      *
      * @param ServiceUser $serviceUser
@@ -56,7 +56,7 @@ class DeleteInteractor
     private function updateEmail($serviceUser): void
     {
         $originalEmail = $serviceUser->email;
-        $newEmail = '【DELETED】' . $originalEmail;
+        $newEmail = '【DELETED_' . time() . '】' . $originalEmail;
         $serviceUser->email = $newEmail;
         $serviceUser->save();
     }

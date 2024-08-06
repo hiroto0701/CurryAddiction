@@ -9,7 +9,10 @@ use App\Domains\ServiceUser\Controller\Resource\CurrentServiceUserResource;
 use App\Exceptions\AuthenticationTokenException;
 use App\Exceptions\UserStatusException;
 use App\Http\Controllers\Controller;
+use App\Models\OperationLog;
 use App\Models\ServiceUser;
+use App\Models\User;
+use App\Traits\OperationLogTrait;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +20,10 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginAction extends Controller
 {
+    use OperationLogTrait;
+
+    public const OPERATION_OVERVIEW = 'サービス利用者ログイン';
+
     /**
      * @param LoginRequest $request
      * @return CurrentServiceUserResource
@@ -49,6 +56,8 @@ class LoginAction extends Controller
         }
 
         Auth::guard('service_users')->login($user);
+
+        $this->addOperationLog(OperationLog::OPERATION_TYPE_LOGIN, "ユーザーID", User::AuthId());
 
         $request->session()->regenerate();
         return new CurrentServiceUserResource($user);
