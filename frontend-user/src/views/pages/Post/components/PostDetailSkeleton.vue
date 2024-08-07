@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ImgSkeleton from '@/views/molecules/skeletons/ImgSkeleton.vue'
-import IconSkeleton from '@/views/molecules/skeletons/IconSkeleton.vue'
-import TextSkeleton from '@/views/molecules/skeletons/TextSkeleton.vue'
+import ImgSkeleton from '@/views/molecules/skeletons/ImgSkeleton.vue';
+import IconSkeleton from '@/views/molecules/skeletons/IconSkeleton.vue';
+import TextSkeleton from '@/views/molecules/skeletons/TextSkeleton.vue';
 </script>
 <template>
   <div class="h-12"></div>

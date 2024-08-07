@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue'
-import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue'
-import TrashedDateBrowseItem from '@/views/molecules/browseItems/TrashedDateBrowseItem.vue'
-import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue'
+import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue';
+import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue';
+import TrashedDateBrowseItem from '@/views/molecules/browseItems/TrashedDateBrowseItem.vue';
+import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue';
 
 interface Props {
-  readonly storeName: string
-  readonly deletedAt: string
+  readonly storeName: string;
+  readonly deletedAt: string;
 }
-defineProps<Props>()
+defineProps<Props>();
 
-const emits = defineEmits(['restore', 'delete'])
+const emits = defineEmits(['restore', 'delete']);
 </script>
 <template>
   <div class="flex-1">

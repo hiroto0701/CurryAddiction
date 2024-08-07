@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import BaseButton from '@/views/atoms/BaseButton.vue'
-import { tv } from 'tailwind-variants'
+import BaseButton from '@/views/atoms/BaseButton.vue';
+import { tv } from 'tailwind-variants';
 
 const button = tv({
   base: 'flex cursor-pointer items-center justify-center rounded-full bg-sky-500 font-body text-white',
@@ -12,12 +12,8 @@ const button = tv({
   defaultVariants: {
     hover: true
   }
-})
+});
 </script>
 <template>
-  <BaseButton 
-    type="button" 
-    :class="button()" 
-    text="投稿する" 
-  />
+  <BaseButton type="button" :class="button()" text="投稿する" />
 </template>

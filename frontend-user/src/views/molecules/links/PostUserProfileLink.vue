@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import PostAvatarBrowseItem from '@/views/molecules/browseItems/PostAvatarBrowseItem.vue'
-import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
+import { RouterLink } from 'vue-router';
+import PostAvatarBrowseItem from '@/views/molecules/browseItems/PostAvatarBrowseItem.vue';
+import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue';
 
 interface Props {
-  readonly displayName?: string
-  readonly handleName: string
-  readonly avatarUrl: string | null
+  readonly displayName?: string;
+  readonly handleName: string;
+  readonly avatarUrl: string | null;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <router-link

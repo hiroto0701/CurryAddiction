@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { Component } from 'vue'
-import type { RouteLocationRaw } from 'vue-router'
+import type { Component } from 'vue';
+import type { RouteLocationRaw } from 'vue-router';
 
 interface Props {
-  readonly to: RouteLocationRaw
-  readonly label: string
-  readonly iconComponent: Component
-  readonly isActive: boolean
-  readonly textColorClass: string
+  readonly to: RouteLocationRaw;
+  readonly label: string;
+  readonly iconComponent: Component;
+  readonly isActive: boolean;
+  readonly textColorClass: string;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <router-link

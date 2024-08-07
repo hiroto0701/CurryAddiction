@@ -1,9 +1,9 @@
 <script setup lang="ts">
 interface Props {
-  readonly fieldName: string
-  readonly errors?: Record<string, string[]>
+  readonly fieldName: string;
+  readonly errors?: Record<string, string[]>;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <div>

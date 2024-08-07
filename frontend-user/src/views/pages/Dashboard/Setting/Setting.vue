@@ -1,119 +1,119 @@
 <script setup lang="ts">
-import axios from 'axios'
-import { ref, computed, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAccountStore } from '@/stores/account'
-import { useAccountFormStore } from '@/stores/account_form'
-import { useCommonStore } from '@/stores/common'
-import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
-import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
-import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
-import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue'
-import GenreSettingButton from '@/views/molecules/buttons/GenreSettingButton.vue'
-import RegionSettingButton from '@/views/molecules/buttons/RegionSettingButton.vue'
-import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue'
-import DisplayNameViewer from '@/views/pages/Dashboard/Setting/components/DisplayNameViewer.vue'
-import DisplayNameEditor from '@/views/pages/Dashboard/Setting/components/DisplayNameEditor.vue'
-import AvatarEditor from '@/views/pages/Dashboard/Setting/components/AvatarEditor.vue'
-import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue'
+import axios from 'axios';
+import { ref, computed, onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAccountStore } from '@/stores/account';
+import { useAccountFormStore } from '@/stores/account_form';
+import { useCommonStore } from '@/stores/common';
+import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue';
+import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue';
+import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue';
+import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue';
+import GenreSettingButton from '@/views/molecules/buttons/GenreSettingButton.vue';
+import RegionSettingButton from '@/views/molecules/buttons/RegionSettingButton.vue';
+import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue';
+import DisplayNameViewer from '@/views/pages/Dashboard/Setting/components/DisplayNameViewer.vue';
+import DisplayNameEditor from '@/views/pages/Dashboard/Setting/components/DisplayNameEditor.vue';
+import AvatarEditor from '@/views/pages/Dashboard/Setting/components/AvatarEditor.vue';
+import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue';
 
-const router = useRouter()
-const accountStore = useAccountStore()
-const accountFormStore = useAccountFormStore()
-const commonStore = useCommonStore()
+const router = useRouter();
+const accountStore = useAccountStore();
+const accountFormStore = useAccountFormStore();
+const commonStore = useCommonStore();
 
-const isEditingDisplayName = ref<boolean>(false)
-const displayName = ref<string>(accountStore.state.display_name)
-const fileInfo = ref<File>()
-const preview = ref<string | undefined>()
-const open = ref<boolean>(false)
+const isEditingDisplayName = ref<boolean>(false);
+const displayName = ref<string>(accountStore.state.display_name);
+const fileInfo = ref<File>();
+const preview = ref<string | undefined>();
+const open = ref<boolean>(false);
 
-const modalContent = ref<string>(`一度削除したアカウントは復元できません。\n本当に削除しますか？`)
+const modalContent = ref<string>(`一度削除したアカウントは復元できません。\n本当に削除しますか？`);
 
 const displayNameError = computed(
   (): boolean =>
     'display_name' in accountFormStore.state.errors ||
     !displayName.value.length ||
     displayName.value.length > 20
-)
+);
 
 function handleFileSelected(event: Event): void {
-  const target = event.target as HTMLInputElement
+  const target = event.target as HTMLInputElement;
   if (target.files && target.files.length > 0) {
-    fileInfo.value = target.files[0]
-    preview.value = URL.createObjectURL(fileInfo.value)
+    fileInfo.value = target.files[0];
+    preview.value = URL.createObjectURL(fileInfo.value);
   }
 }
 
 function resetPreview(): void {
-  fileInfo.value = undefined
-  preview.value = undefined
+  fileInfo.value = undefined;
+  preview.value = undefined;
 }
 
 async function doUpdateAvatar(): Promise<void> {
   if (fileInfo.value && accountFormStore.avatarValidate(fileInfo.value)) {
     try {
-      await accountFormStore.updateAvatar(fileInfo.value)
+      await accountFormStore.updateAvatar(fileInfo.value);
     } finally {
-      fileInfo.value = undefined
-      preview.value = undefined
+      fileInfo.value = undefined;
+      preview.value = undefined;
     }
   }
 }
 
 function toggleEditMode(): void {
-  isEditingDisplayName.value = !isEditingDisplayName.value
+  isEditingDisplayName.value = !isEditingDisplayName.value;
   // displayNameをrefで管理しているので入力キャンセル時にstateの値に戻す
-  displayName.value = accountStore.state.display_name
-  accountFormStore.resetErrors()
+  displayName.value = accountStore.state.display_name;
+  accountFormStore.resetErrors();
 }
 
 async function doUpdateDisplayName(displayName: string): Promise<void> {
   if (accountFormStore.displayNameValidate(displayName)) {
     try {
-      await accountFormStore.updateDisplayName(displayName)
+      await accountFormStore.updateDisplayName(displayName);
     } finally {
-      isEditingDisplayName.value = false
+      isEditingDisplayName.value = false;
     }
   }
 }
 
 function openModal(): void {
-  open.value = true
-  document.body.style.overflow = 'hidden'
+  open.value = true;
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal(): void {
-  open.value = false
-  document.body.style.overflow = 'auto'
+  open.value = false;
+  document.body.style.overflow = 'auto';
 }
 
 async function doDelete(): Promise<void> {
   try {
-    commonStore.startApiLoading()
-    const response = await accountFormStore.deleteAccount(Number(accountStore.state.id))
+    commonStore.startApiLoading();
+    const response = await accountFormStore.deleteAccount(Number(accountStore.state.id));
     if (response.status === 200) {
-      closeModal()
-      router.push({ name: 'Login' })
-      document.body.style.overflow = 'auto'
+      closeModal();
+      router.push({ name: 'Login' });
+      document.body.style.overflow = 'auto';
     } else {
-      throw new Error(response.data.message)
+      throw new Error(response.data.message);
     }
   } catch (error) {
-    console.error('Failed to delete the account:', error)
+    console.error('Failed to delete the account:', error);
     if (axios.isAxiosError(error)) {
-      console.log(`削除に失敗しました: ${error.response?.data?.message || error.message}`, error)
+      console.log(`削除に失敗しました: ${error.response?.data?.message || error.message}`, error);
     } else {
-      console.log('予期せぬエラーが発生しました', error)
+      console.log('予期せぬエラーが発生しました', error);
     }
   } finally {
-    commonStore.stopApiLoading()
+    commonStore.stopApiLoading();
   }
 }
 
 onUnmounted((): void => {
-  accountFormStore.resetErrors()
-})
+  accountFormStore.resetErrors();
+});
 </script>
 <template>
   <DashboardContent title="設定">

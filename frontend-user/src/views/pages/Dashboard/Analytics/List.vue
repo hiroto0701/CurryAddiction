@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { useAccountStore } from '@/stores/account'
-import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue'
-import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue'
-import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue'
-import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue'
-import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
-import Analytics from '@/views/pages/Dashboard/Analytics/components/Analytics.vue'
+import { useAccountStore } from '@/stores/account';
+import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue';
+import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue';
+import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue';
+import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue';
+import UserAnalytics from '@/views/molecules/UserAnalytics.vue';
+import Analytics from '@/views/pages/Dashboard/Analytics/components/Analytics.vue';
 
-const accountStore = useAccountStore()
+const accountStore = useAccountStore();
 </script>
 <template>
   <DashboardContent title="投稿ダッシュボード">

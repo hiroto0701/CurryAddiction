@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import IconSkeleton from '@/views/molecules/skeletons/IconSkeleton.vue'
-import TextSkeleton from '@/views/molecules/skeletons/TextSkeleton.vue'
+import IconSkeleton from '@/views/molecules/skeletons/IconSkeleton.vue';
+import TextSkeleton from '@/views/molecules/skeletons/TextSkeleton.vue';
 </script>
 <template>
   <div class="flex animate-pulse gap-5 sm:gap-7">

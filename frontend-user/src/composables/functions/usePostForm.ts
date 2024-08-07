@@ -1,36 +1,36 @@
-import { ref, reactive, watch } from 'vue'
-import { useValidatePost } from '@/composables/functions/useValidatePost'
-import { useCreatePost } from '@/composables/functions/useCreatePost'
+import { ref, reactive, watch } from 'vue';
+import { useValidatePost } from '@/composables/functions/useValidatePost';
+import { useCreatePost } from '@/composables/functions/useCreatePost';
 
 export function usePostForm() {
-  const { errors, validate } = useValidatePost()
-  const { createPost } = useCreatePost()
+  const { errors, validate } = useValidatePost();
+  const { createPost } = useCreatePost();
 
-  const storeName = ref<string>('')
-  const comment = ref<string>('')
-  const genreId = ref<number | undefined>(1)
-  const fileInfo = ref<File>()
-  const preview = ref<string | undefined>()
-  const latitude = ref<number>(0.1)
-  const longitude = ref<number>(0.1)
+  const storeName = ref<string>('');
+  const comment = ref<string>('');
+  const genreId = ref<number | undefined>(1);
+  const fileInfo = ref<File>();
+  const preview = ref<string | undefined>();
+  const latitude = ref<number>(0.1);
+  const longitude = ref<number>(0.1);
 
-  const storeNameError = ref<boolean>(false)
-  const reactiveErrors = reactive(errors)
+  const storeNameError = ref<boolean>(false);
+  const reactiveErrors = reactive(errors);
 
   watch(storeName, (newValue) => {
-    storeNameError.value = !newValue.length || newValue.length > 30
-  })
+    storeNameError.value = !newValue.length || newValue.length > 30;
+  });
 
   function handleFileSelected(target: HTMLInputElement) {
     if (target.files && target.files.length > 0) {
-      fileInfo.value = target.files[0]
-      preview.value = URL.createObjectURL(fileInfo.value)
+      fileInfo.value = target.files[0];
+      preview.value = URL.createObjectURL(fileInfo.value);
     }
   }
 
   function resetPreview() {
-    fileInfo.value = undefined
-    preview.value = undefined
+    fileInfo.value = undefined;
+    preview.value = undefined;
   }
 
   async function submitForm(): Promise<boolean> {
@@ -41,10 +41,10 @@ export function usePostForm() {
       fileInfo.value,
       latitude.value,
       longitude.value
-    )
+    );
 
     if (!isValid) {
-      throw new Error('バリデーションエラー')
+      throw new Error('バリデーションエラー');
     }
 
     await createPost({
@@ -54,9 +54,9 @@ export function usePostForm() {
       post_img: fileInfo.value,
       latitude: latitude.value,
       longitude: longitude.value
-    })
+    });
 
-    return true
+    return true;
   }
 
   return {
@@ -72,5 +72,5 @@ export function usePostForm() {
     handleFileSelected,
     resetPreview,
     submitForm
-  }
+  };
 }

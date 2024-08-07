@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
+import StoreIcon from '@/views/atoms/icons/StoreIcon.vue';
 
 interface Props {
-  readonly storeName: string
+  readonly storeName: string;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <div class="flex h-fit items-center gap-2.5">

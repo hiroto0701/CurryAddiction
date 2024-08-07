@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useCommonStore } from '@/stores/common'
-import { useAccountStore } from '@/stores/account'
-import { useRouter } from 'vue-router'
-import AppLogo from '@/views/atoms/icons/AppLogo.vue'
-import MainHeader from '@/views/atoms/MainHeader.vue'
-import AuthenticatedHeaderDropDown from '@/views/molecules/dropdown/AuthenticatedHeaderDropDown.vue'
-import HeaderNavigation from '@/views/molecules/HeaderNavigation.vue'
-import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue'
+import { ref } from 'vue';
+import { useCommonStore } from '@/stores/common';
+import { useAccountStore } from '@/stores/account';
+import { useRouter } from 'vue-router';
+import AppLogo from '@/views/atoms/icons/AppLogo.vue';
+import MainHeader from '@/views/atoms/MainHeader.vue';
+import AuthenticatedHeaderDropDown from '@/views/molecules/dropdown/AuthenticatedHeaderDropDown.vue';
+import HeaderNavigation from '@/views/molecules/HeaderNavigation.vue';
+import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue';
 
-const accountStore = useAccountStore()
-const commonStore = useCommonStore()
-const router = useRouter()
-const open = ref<boolean>(false)
+const accountStore = useAccountStore();
+const commonStore = useCommonStore();
+const router = useRouter();
+const open = ref<boolean>(false);
 
 function openModal(): void {
-  open.value = true
-  document.body.style.overflow = 'hidden'
+  open.value = true;
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal(): void {
-  open.value = false
-  document.body.style.overflow = 'auto'
+  open.value = false;
+  document.body.style.overflow = 'auto';
 }
 
 function handleRouting(routeName: string): void {
-  router.push({ name: routeName })
+  router.push({ name: routeName });
 }
 
 function doLogout(): void {
   accountStore.logout().then(() => {
-    router.push({ name: 'Login' })
-    document.body.style.overflow = 'auto'
-  })
+    router.push({ name: 'Login' });
+    document.body.style.overflow = 'auto';
+  });
 }
 </script>
 <template>

@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import FloatingLabelFormItem from '@/views/molecules/formItems/FloatingLabelFormItem.vue'
-import PasswordHiddenIcon from '@/views/atoms/icons/PasswordHiddenIcon.vue'
-import PasswordVisibleIcon from '@/views/atoms/icons/PasswordVisibleIcon.vue'
+import { ref } from 'vue';
+import FloatingLabelFormItem from '@/views/molecules/formItems/FloatingLabelFormItem.vue';
+import PasswordHiddenIcon from '@/views/atoms/icons/PasswordHiddenIcon.vue';
+import PasswordVisibleIcon from '@/views/atoms/icons/PasswordVisibleIcon.vue';
 
 interface Props {
-  readonly label: string
-  readonly type: string
-  readonly isError: boolean
+  readonly label: string;
+  readonly type: string;
+  readonly isError: boolean;
 }
-defineProps<Props>()
+defineProps<Props>();
 
-const isPasswordVisible = ref<boolean>(false)
-const password = defineModel<string>()
+const isPasswordVisible = ref<boolean>(false);
+const password = defineModel<string>();
 
 function togglePasswordVisibility(): void {
-  isPasswordVisible.value = !isPasswordVisible.value
+  isPasswordVisible.value = !isPasswordVisible.value;
 }
 </script>
 <template>

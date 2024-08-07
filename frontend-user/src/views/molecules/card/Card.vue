@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-import TrashIcon from '@/views/atoms/icons/TrashIcon.vue'
-import MeatballMenuIcon from '@/views/atoms/icons/MeatballMenuIcon.vue'
-import CardImg from '@/views/atoms/CardImg.vue'
-import CardBody from '@/views/molecules/card/CardBody.vue'
-import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue'
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
+import TrashIcon from '@/views/atoms/icons/TrashIcon.vue';
+import MeatballMenuIcon from '@/views/atoms/icons/MeatballMenuIcon.vue';
+import CardImg from '@/views/atoms/CardImg.vue';
+import CardBody from '@/views/molecules/card/CardBody.vue';
+import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue';
 
 interface Props {
-  readonly src: string
-  readonly storeName: string
-  readonly location: string
-  readonly date: string
-  readonly displayName: string
-  readonly handleName: string
-  readonly avatarUrl: string | null
-  readonly isLiked: boolean
-  readonly isArchived: boolean
-  readonly isMine: boolean
+  readonly src: string;
+  readonly storeName: string;
+  readonly location: string;
+  readonly date: string;
+  readonly displayName: string;
+  readonly handleName: string;
+  readonly avatarUrl: string | null;
+  readonly isLiked: boolean;
+  readonly isArchived: boolean;
+  readonly isMine: boolean;
 }
-defineProps<Props>()
+defineProps<Props>();
 
 const emits = defineEmits<{
-  (e: 'navigateToDetail'): void
-  (e: 'like'): void
-  (e: 'archive'): void
-  (e: 'handlePost'): void
-}>()
+  (e: 'navigateToDetail'): void;
+  (e: 'like'): void;
+  (e: 'archive'): void;
+  (e: 'handlePost'): void;
+}>();
 </script>
 <template>
   <article class="overflow-hidden rounded-lg border border-gray-200">

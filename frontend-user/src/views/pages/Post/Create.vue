@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useCommonStore } from '@/stores/common'
-import { usePostForm } from '@/composables/functions/usePostForm'
-import StoreIcon from '@/views/atoms/icons/StoreIcon.vue'
-import CommentIcon from '@/views/atoms/icons/CommentIcon.vue'
-import CategoryIcon from '@/views/atoms/icons/CategoryIcon.vue'
-import LocationIcon from '@/views/atoms/icons/LocationIcon.vue'
-import PhotoIcon from '@/views/atoms/icons/PhotoIcon.vue'
-import CreatePostButton from '@/views/molecules/buttons/CreatePostButton.vue'
-import StoreNameFormItem from '@/views/molecules/formItems/StoreNameFormItem.vue'
-import CommentFormItem from '@/views/molecules/formItems/CommentFormItem.vue'
-import SelectBoxFormItem from '@/views/molecules/formItems/SelectBoxFormItem.vue'
-import PostImgUploadFormItem from '@/views/molecules/formItems/PostImgUploadFormItem.vue'
-import MapFormItem from '@/views/molecules/formItems/MapFormItem.vue'
-import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue'
-import RegisterForm from '@/views/templates/forms/RegisterForm.vue'
+import { ref } from 'vue';
+import { useCommonStore } from '@/stores/common';
+import { usePostForm } from '@/composables/functions/usePostForm';
+import StoreIcon from '@/views/atoms/icons/StoreIcon.vue';
+import CommentIcon from '@/views/atoms/icons/CommentIcon.vue';
+import CategoryIcon from '@/views/atoms/icons/CategoryIcon.vue';
+import LocationIcon from '@/views/atoms/icons/LocationIcon.vue';
+import PhotoIcon from '@/views/atoms/icons/PhotoIcon.vue';
+import CreatePostButton from '@/views/molecules/buttons/CreatePostButton.vue';
+import StoreNameFormItem from '@/views/molecules/formItems/StoreNameFormItem.vue';
+import CommentFormItem from '@/views/molecules/formItems/CommentFormItem.vue';
+import SelectBoxFormItem from '@/views/molecules/formItems/SelectBoxFormItem.vue';
+import PostImgUploadFormItem from '@/views/molecules/formItems/PostImgUploadFormItem.vue';
+import MapFormItem from '@/views/molecules/formItems/MapFormItem.vue';
+import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue';
+import RegisterForm from '@/views/templates/forms/RegisterForm.vue';
 
-const commonStore = useCommonStore()
+const commonStore = useCommonStore();
 const {
   storeName,
   comment,
@@ -27,34 +27,34 @@ const {
   handleFileSelected,
   resetPreview,
   submitForm
-} = usePostForm()
+} = usePostForm();
 
-const open = ref<boolean>(false)
+const open = ref<boolean>(false);
 
 function openModal(): void {
-  open.value = true
-  document.body.style.overflow = 'hidden'
+  open.value = true;
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal(): void {
-  open.value = false
-  document.body.style.overflow = 'auto'
+  open.value = false;
+  document.body.style.overflow = 'auto';
 }
 
 async function doCreate() {
   try {
-    const success = await submitForm()
+    const success = await submitForm();
     if (success) {
-      closeModal()
+      closeModal();
     }
   } catch (error) {
-    commonStore.setErrorMessage('投稿に失敗しました')
-    console.error(error)
+    commonStore.setErrorMessage('投稿に失敗しました');
+    console.error(error);
   } finally {
-    closeModal()
+    closeModal();
     window.scrollTo({
       top: 0
-    })
+    });
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BackLink from '@/views/molecules/links/BackLink.vue'
+import BackLink from '@/views/molecules/links/BackLink.vue';
 </script>
 <template>
   <div class="flex h-12 items-center">

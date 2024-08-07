@@ -1,9 +1,9 @@
 <script setup lang="ts">
 interface Props {
-  readonly handleName: null | string
+  readonly handleName: null | string;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <p class="truncate font-body text-sm text-sumi-500">curry-addiction/{{ handleName }}</p>

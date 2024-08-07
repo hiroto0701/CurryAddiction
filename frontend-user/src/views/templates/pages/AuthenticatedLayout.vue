@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useAccountStore } from '@/stores/account'
-import MeatballDropDown from '@/views/molecules/dropdown/MeatballDropDown.vue'
-import ScrollToTopButton from '@/views/molecules/buttons/ScrollToTopButton.vue'
+import { useAccountStore } from '@/stores/account';
+import MeatballDropDown from '@/views/molecules/dropdown/MeatballDropDown.vue';
+import ScrollToTopButton from '@/views/molecules/buttons/ScrollToTopButton.vue';
 
-const accountStore = useAccountStore()
+const accountStore = useAccountStore();
 </script>
 <template>
   <RouterView />

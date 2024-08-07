@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { RouterLink, type RouteLocationRaw } from 'vue-router'
-import HomeIcon from '@/views/atoms/icons/HomeIcon.vue'
-import PlusIcon from '@/views/atoms/icons/PlusIcon.vue'
-import SearchIcon from '@/views/atoms/icons/SearchIcon.vue'
-import NotificationIcon from '@/views/atoms/icons/NotificationIcon.vue'
-import AvatarIcon from '@/views/atoms/icons/AvatarIcon.vue'
-import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue'
+import { RouterLink, type RouteLocationRaw } from 'vue-router';
+import HomeIcon from '@/views/atoms/icons/HomeIcon.vue';
+import PlusIcon from '@/views/atoms/icons/PlusIcon.vue';
+import SearchIcon from '@/views/atoms/icons/SearchIcon.vue';
+import NotificationIcon from '@/views/atoms/icons/NotificationIcon.vue';
+import AvatarIcon from '@/views/atoms/icons/AvatarIcon.vue';
+import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue';
 
 interface NavItem {
-  name: string
-  icon: any
-  to?: RouteLocationRaw
-  props?: Record<string, string | null>
+  name: string;
+  icon: any;
+  to?: RouteLocationRaw;
+  props?: Record<string, string | null>;
 }
 
 interface Props {
-  handleName: string
-  avatarUrl: string | null
+  handleName: string;
+  avatarUrl: string | null;
 }
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
 const navItems: NavItem[] = [
   { name: 'ホーム', icon: HomeIcon, to: { name: 'Home' } },
@@ -31,7 +31,7 @@ const navItems: NavItem[] = [
     to: { name: 'UserPage', params: { username: props.handleName } },
     props: { avatarUrl: props.avatarUrl }
   }
-]
+];
 </script>
 <template>
   <div class="flex items-center gap-0.5 max-md:hidden">

@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import HeartIcon from '@/views/atoms/icons/HeartIcon.vue'
-import ArchiveIcon from '@/views/atoms/icons/ArchiveIcon.vue'
-import LikedAnimationDots from '@/views/atoms/LikedAnimationDots.vue'
+import { ref, computed } from 'vue';
+import HeartIcon from '@/views/atoms/icons/HeartIcon.vue';
+import ArchiveIcon from '@/views/atoms/icons/ArchiveIcon.vue';
+import LikedAnimationDots from '@/views/atoms/LikedAnimationDots.vue';
 
 interface Props {
-  readonly isLiked: boolean
-  readonly isArchived: boolean
+  readonly isLiked: boolean;
+  readonly isArchived: boolean;
 }
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
 const emits = defineEmits<{
-  (e: 'like'): void
-  (e: 'archive'): void
-}>()
+  (e: 'like'): void;
+  (e: 'archive'): void;
+}>();
 
-const localLikeState = ref<boolean>(props.isLiked)
+const localLikeState = ref<boolean>(props.isLiked);
 
 const showLikeAnimation = computed((): boolean => {
-  return !props.isLiked && localLikeState.value
-})
+  return !props.isLiked && localLikeState.value;
+});
 
 function toggleLike(): void {
-  localLikeState.value = !localLikeState.value
-  emits('like')
+  localLikeState.value = !localLikeState.value;
+  emits('like');
 }
 </script>
 <template>

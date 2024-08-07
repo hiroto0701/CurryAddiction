@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { Component } from 'vue'
+import type { Component } from 'vue';
 
 interface Props {
-  readonly label: string
-  readonly required: boolean
-  readonly optional: boolean
-  readonly iconComponent: Component
+  readonly label: string;
+  readonly required: boolean;
+  readonly optional: boolean;
+  readonly iconComponent: Component;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <div class="mt-8">

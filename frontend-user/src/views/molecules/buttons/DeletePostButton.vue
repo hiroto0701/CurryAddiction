@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import TrashIcon from '@/views/atoms/icons/TrashIcon.vue'
-import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue'
+import TrashIcon from '@/views/atoms/icons/TrashIcon.vue';
+import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue';
 
 interface Props {
-  readonly text: string
+  readonly text: string;
 }
-defineProps<Props>()
+defineProps<Props>();
 
 const emits = defineEmits<{
-  (e: 'delete'): void
-}>()
+  (e: 'delete'): void;
+}>();
 </script>
 <template>
   <BottomTooltip :text position="bottom">

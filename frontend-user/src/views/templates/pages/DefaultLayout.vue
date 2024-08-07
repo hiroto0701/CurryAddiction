@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import AuthenticatedHeader from '@/views/organisms/AuthenticatedHeader.vue'
-import AuthenticatedFooter from '@/views/organisms/AuthenticatedFooter.vue'
+import AuthenticatedHeader from '@/views/organisms/AuthenticatedHeader.vue';
+import AuthenticatedFooter from '@/views/organisms/AuthenticatedFooter.vue';
 </script>
 <template>
   <div class="flex h-screen flex-col">

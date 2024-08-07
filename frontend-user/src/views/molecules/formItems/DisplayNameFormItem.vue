@@ -1,10 +1,10 @@
 <script setup lang="ts">
 interface Props {
-  readonly isError: boolean
+  readonly isError: boolean;
 }
-defineProps<Props>()
+defineProps<Props>();
 
-const model = defineModel<string>()
+const model = defineModel<string>();
 </script>
 <template>
   <input

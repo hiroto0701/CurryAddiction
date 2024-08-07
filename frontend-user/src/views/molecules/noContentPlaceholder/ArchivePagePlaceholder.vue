@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import NoContentImg from '@/views/atoms/noContentPlaceholderItems/NoContentImg.vue'
-import NoContentHeading from '@/views/atoms/noContentPlaceholderItems/NoContentHeading.vue'
-import NoContentPlaceholder from '@/views/atoms/noContentPlaceholderItems/NoContentPlaceholder.vue'
+import NoContentImg from '@/views/atoms/noContentPlaceholderItems/NoContentImg.vue';
+import NoContentHeading from '@/views/atoms/noContentPlaceholderItems/NoContentHeading.vue';
+import NoContentPlaceholder from '@/views/atoms/noContentPlaceholderItems/NoContentPlaceholder.vue';
 </script>
 <template>
   <div class="flex w-full flex-col items-center justify-center py-16">

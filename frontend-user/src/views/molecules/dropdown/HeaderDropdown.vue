@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Menu, MenuButton, MenuItems } from '@headlessui/vue'
-import ChevronIcon from '@/views/atoms/icons/ChevronIcon.vue'
+import { Menu, MenuButton, MenuItems } from '@headlessui/vue';
+import ChevronIcon from '@/views/atoms/icons/ChevronIcon.vue';
 
 interface Props {
-  readonly username: null | string
+  readonly username: null | string;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <Menu as="div" class="relative ml-3">

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
-import Date from '@/views/atoms/Date.vue'
+import { computed, inject } from 'vue';
+import Date from '@/views/atoms/Date.vue';
 
 interface Props {
-  readonly date?: string
+  readonly date?: string;
 }
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
-const dayjs = inject('$dayjs') as typeof import('dayjs')
-const postDate = computed(() => dayjs(props.date).format('YYYY/M/D'))
+const dayjs = inject('$dayjs') as typeof import('dayjs');
+const postDate = computed(() => dayjs(props.date).format('YYYY/M/D'));
 </script>
 <template>
   <Date class="py-1 pr-2 text-gray-500" :date :formatted-date="postDate" />

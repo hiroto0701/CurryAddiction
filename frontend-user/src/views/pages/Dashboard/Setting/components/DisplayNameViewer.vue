@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
-import EditDisplayNameButton from '@/views/molecules/buttons/EditDisplayNameButton.vue'
+import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue';
+import EditDisplayNameButton from '@/views/molecules/buttons/EditDisplayNameButton.vue';
 
 interface Props {
-  readonly displayName?: string
+  readonly displayName?: string;
 }
-defineProps<Props>()
+defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: 'edit'): void
-}>()
+  (e: 'edit'): void;
+}>();
 </script>
 <template>
   <DisplayNameBrowseItem :display-name class="mt-3 text-sm text-utility" />

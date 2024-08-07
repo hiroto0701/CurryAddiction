@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TrashIcon from '@/views/atoms/icons/TrashIcon.vue'
+import TrashIcon from '@/views/atoms/icons/TrashIcon.vue';
 </script>
 <template>
   <button

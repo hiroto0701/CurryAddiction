@@ -1,14 +1,14 @@
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
-import type { RouteLocationNormalized } from 'vue-router'
+import { ref } from 'vue';
+import { defineStore } from 'pinia';
+import type { RouteLocationNormalized } from 'vue-router';
 
 interface AppState {
-  flashMessage: null | string
-  errorMessage: null | string
-  originalRoute: null | RouteLocationNormalized
-  apiLoading: boolean
-  uploading: boolean
-  loginLoading: boolean
+  flashMessage: null | string;
+  errorMessage: null | string;
+  originalRoute: null | RouteLocationNormalized;
+  apiLoading: boolean;
+  uploading: boolean;
+  loginLoading: boolean;
 }
 
 export const useCommonStore = defineStore('common', () => {
@@ -19,50 +19,50 @@ export const useCommonStore = defineStore('common', () => {
     apiLoading: false,
     uploading: false,
     loginLoading: false
-  })
+  });
 
   function setFlashMessage(message: string): void {
-    state.value.flashMessage = message
+    state.value.flashMessage = message;
   }
 
   function clearFlashMessage(): void {
-    state.value.flashMessage = null
+    state.value.flashMessage = null;
   }
 
   function setErrorMessage(message: string): void {
-    state.value.errorMessage = message
+    state.value.errorMessage = message;
   }
 
   function clearErrorMessage(): void {
-    state.value.errorMessage = null
+    state.value.errorMessage = null;
   }
 
   function setOriginalRoute(originalRoute: RouteLocationNormalized): void {
-    state.value.originalRoute = originalRoute
+    state.value.originalRoute = originalRoute;
   }
 
   function startApiLoading(): void {
-    state.value.apiLoading = true
+    state.value.apiLoading = true;
   }
 
   function stopApiLoading(): void {
-    state.value.apiLoading = false
+    state.value.apiLoading = false;
   }
 
   function startUploading(): void {
-    state.value.uploading = true
+    state.value.uploading = true;
   }
 
   function stopUploading(): void {
-    state.value.uploading = false
+    state.value.uploading = false;
   }
 
   function startLoginLoading(): void {
-    state.value.loginLoading = true
+    state.value.loginLoading = true;
   }
 
   function stopLoginLoading(): void {
-    state.value.loginLoading = false
+    state.value.loginLoading = false;
   }
 
   return {
@@ -78,5 +78,5 @@ export const useCommonStore = defineStore('common', () => {
     stopUploading,
     startLoginLoading,
     stopLoginLoading
-  }
-})
+  };
+});

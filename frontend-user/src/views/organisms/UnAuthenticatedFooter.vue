@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import AppLogo from '@/views/atoms/icons/AppLogo.vue'
-import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
+import { RouterLink } from 'vue-router';
+import AppLogo from '@/views/atoms/icons/AppLogo.vue';
+import LoginButton from '@/views/molecules/buttons/LoginButton.vue';
 
 const emits = defineEmits<{
-  (e: 'openModal'): void
-}>()
+  (e: 'openModal'): void;
+}>();
 </script>
 <template>
   <footer class="mt-auto bg-sumi-50 py-12">

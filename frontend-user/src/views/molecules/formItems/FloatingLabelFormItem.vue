@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue'
+import { ref } from 'vue';
+import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue';
 
 interface Props {
-  readonly label: string
-  readonly type: string
-  readonly isError: boolean
+  readonly label: string;
+  readonly type: string;
+  readonly isError: boolean;
 }
-defineProps<Props>()
+defineProps<Props>();
 
-const value = defineModel<string>()
-const isFocused = ref<boolean>(false)
+const value = defineModel<string>();
+const isFocused = ref<boolean>(false);
 </script>
 <template>
   <div class="relative w-full">

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import TooltipContainer from '@/views/atoms/TooltipContainer.vue'
-import TooltipText from '@/views/atoms/TooltipText.vue'
+import TooltipContainer from '@/views/atoms/TooltipContainer.vue';
+import TooltipText from '@/views/atoms/TooltipText.vue';
 
 interface Props {
-  readonly text: string
-  readonly position: 'top'
-  readonly open?: boolean
+  readonly text: string;
+  readonly position: 'top';
+  readonly open?: boolean;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <TooltipContainer>

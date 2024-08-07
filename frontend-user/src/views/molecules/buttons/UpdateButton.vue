@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import BaseButton from '@/views/atoms/BaseButton.vue'
-import LoadingSpinner from '@/views/atoms/LoadingSpinner.vue'
+import BaseButton from '@/views/atoms/BaseButton.vue';
+import LoadingSpinner from '@/views/atoms/LoadingSpinner.vue';
 
 interface Props {
-  readonly isLoading?: boolean
+  readonly isLoading?: boolean;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <BaseButton

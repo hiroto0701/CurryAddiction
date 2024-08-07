@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useCommonStore } from '@/stores/common'
-import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
-import UpdateButton from '@/views/molecules/buttons/UpdateButton.vue'
+import { useCommonStore } from '@/stores/common';
+import CancelButton from '@/views/molecules/buttons/CancelButton.vue';
+import UpdateButton from '@/views/molecules/buttons/UpdateButton.vue';
 
-const commonStore = useCommonStore()
+const commonStore = useCommonStore();
 
 const emits = defineEmits<{
-  (e: 'update'): void
-  (e: 'cancel'): void
-}>()
+  (e: 'update'): void;
+  (e: 'cancel'): void;
+}>();
 </script>
 <template>
   <div class="flex items-center gap-2">
