@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArchiveAction extends Controller
 {
+    public const OPERATION_OVERVIEW = '投稿保存';
 
     /**
      * @var ArchiveInteractor

@@ -11,6 +11,8 @@ use Illuminate\Routing\Controller;
 
 class ViewAction extends Controller
 {
+    public const OPERATION_OVERVIEW = '投稿詳細取得';
+
     public function __invoke(ViewRequest $request, Post $post): PostResource
     {
         return new PostResource($post);

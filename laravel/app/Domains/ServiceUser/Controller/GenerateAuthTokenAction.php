@@ -11,6 +11,8 @@ use App\Http\Controllers\Controller;
 
 class GenerateAuthTokenAction extends Controller
 {
+    public const OPERATION_OVERVIEW = 'ログイン用トークン生成';
+
     /**
      * @var TokenCreateInteractor
      */

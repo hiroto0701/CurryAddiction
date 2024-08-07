@@ -12,6 +12,8 @@ use Illuminate\Routing\Controller;
 
 class IndexAction extends Controller
 {
+    public const OPERATION_OVERVIEW = '投稿一覧取得';
+
     /**
      * @var IndexInteractor
      */

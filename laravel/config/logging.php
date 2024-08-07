@@ -54,7 +54,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily'],
             'ignore_exceptions' => false,
         ],
 
@@ -125,6 +125,15 @@ return [
 
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+
+        // 操作ログを出力
+        'operation' => [
+            'driver' => 'daily',
+            'tap' => [App\Logger\OperationLogFormatter::class],
+            'path' => storage_path('logs/operation.log'),
+            'level' => env('LOG_LEVEL', 'info'),
+            'days' => 0,
         ],
     ],
 

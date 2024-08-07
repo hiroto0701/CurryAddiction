@@ -11,6 +11,8 @@ use Illuminate\Routing\Controller;
 
 class ViewAction extends Controller
 {
+    public const OPERATION_OVERVIEW = 'サービス利用者詳細取得';
+
     public function __invoke(ViewRequest $request, ServiceUser $service_user): PrivateServiceUserResource
     {
         return new PrivateServiceUserResource($service_user);

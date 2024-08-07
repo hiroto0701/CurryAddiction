@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RestoreAction extends Controller
 {
+    public const OPERATION_OVERVIEW = '削除済み投稿（論理削除）復元';
+
     protected RestoreInteractor $interactor;
 
     public function __construct(RestoreInteractor $interactor)

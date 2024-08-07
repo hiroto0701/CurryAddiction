@@ -12,6 +12,8 @@ use Illuminate\Routing\Controller;
 
 class IndexAction extends Controller
 {
+    public const OPERATION_OVERVIEW = '削除済み（論理削除）投稿取得）';
+
     /**
      * @var IndexInteractor
      */
