@@ -13,6 +13,8 @@ use Illuminate\Routing\Controller;
 
 class IndexAction extends Controller
 {
+    public const OPERATION_OVERVIEW = 'ダッシュボード分析 - ユーザーの日別の投稿数取得';
+
     /**
      * @var IndexInteractor
      */

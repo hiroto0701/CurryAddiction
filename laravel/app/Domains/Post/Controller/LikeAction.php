@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LikeAction extends Controller
 {
+    public const OPERATION_OVERVIEW = '投稿いいね！';
 
     /**
      * @var LikeInteractor

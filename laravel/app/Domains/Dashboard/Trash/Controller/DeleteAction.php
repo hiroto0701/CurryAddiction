@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DeleteAction extends Controller
 {
+    public const OPERATION_OVERVIEW = '投稿削除（物理削除）';
+
     protected DeleteInteractor $interactor;
 
     public function __construct(DeleteInteractor $interactor)
