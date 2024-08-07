@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import { useAccountStore } from '@/stores/account'
-import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue'
+import { RouterLink } from 'vue-router';
+import { useAccountStore } from '@/stores/account';
+import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue';
 
-const accountStore = useAccountStore()
+const accountStore = useAccountStore();
 </script>
 <template>
   <router-link

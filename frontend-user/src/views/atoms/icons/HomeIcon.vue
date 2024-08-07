@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const router = useRouter();
 
-const isHomePage = computed(() => router.currentRoute.value.name === 'Home')
+const isHomePage = computed(() => router.currentRoute.value.name === 'Home');
 </script>
 <template>
   <svg

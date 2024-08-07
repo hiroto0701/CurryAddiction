@@ -1,69 +1,72 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useAccountStore } from '@/stores/account'
-import { useAccountFormStore } from '@/stores/account_form'
-import { useCommonStore } from '@/stores/common'
-import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
-import LoginModal from '@/views/molecules/modals/LoginModal.vue'
-import EmailRegisterModal from '@/views/molecules/modals/EmailRegisterModal.vue'
-import TokenSubmitModal from '@/views/molecules/modals/TokenSubmitModal.vue'
-import UnAuthenticatedFooter from '@/views/organisms/UnAuthenticatedFooter.vue'
+import { ref } from 'vue';
+import { useAccountStore } from '@/stores/account';
+import { useAccountFormStore } from '@/stores/account_form';
+import { useCommonStore } from '@/stores/common';
+import LoginButton from '@/views/molecules/buttons/LoginButton.vue';
+import LoginModal from '@/views/molecules/modals/LoginModal.vue';
+import EmailRegisterModal from '@/views/molecules/modals/EmailRegisterModal.vue';
+import TokenSubmitModal from '@/views/molecules/modals/TokenSubmitModal.vue';
+import UnAuthenticatedFooter from '@/views/organisms/UnAuthenticatedFooter.vue';
 
-const accountStore = useAccountStore()
-const accountFormStore = useAccountFormStore()
-const commonStore = useCommonStore()
-const email = ref<string>('')
-const token = ref<string>('')
-const modalState = ref<'login' | 'email' | 'token' | null>(null)
+const accountStore = useAccountStore();
+const accountFormStore = useAccountFormStore();
+const commonStore = useCommonStore();
+const email = ref<string>('');
+const token = ref<string>('');
+const modalState = ref<'login' | 'email' | 'token' | null>(null);
 
 function openModal(modalName: 'login' | 'email' | 'token'): void {
-  modalState.value = modalName
+  modalState.value = modalName;
 
   // モーダルを開くたびに入力データをリセット
   if (modalState.value === 'login') {
-    email.value = ''
-    token.value = ''
+    email.value = '';
+    token.value = '';
   }
-  accountStore.resetErrors()
-  document.body.style.overflow = 'hidden'
+  accountStore.resetErrors();
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal(): void {
-  modalState.value = null
-  document.body.style.overflow = 'auto'
+  modalState.value = null;
+  document.body.style.overflow = 'auto';
 }
 
 async function generateToken(): Promise<boolean> {
-  if (!accountStore.emailValidate(email.value)) return false
+  if (!accountStore.emailValidate(email.value)) return false;
 
-  accountFormStore.setEmail(email.value)
-  commonStore.startApiLoading()
-  const response: boolean = await accountStore.generateToken({ email: email.value })
-  commonStore.stopApiLoading()
+  accountFormStore.setEmail(email.value);
+  commonStore.startApiLoading();
+  const response: boolean = await accountStore.generateToken({ email: email.value });
+  commonStore.stopApiLoading();
 
   if (response) {
-    closeModal()
-    openModal('token')
-    return true
+    closeModal();
+    openModal('token');
+    return true;
   }
 
-  return false
+  return false;
 }
 
 async function login(): Promise<boolean> {
-  if (!accountStore.tokenValidate(token.value)) return false
+  if (!accountStore.tokenValidate(token.value)) return false;
 
-  accountFormStore.setToken(token.value)
-  commonStore.startApiLoading()
-  const loginSuccess: boolean = await accountStore.login({ email: email.value, token: token.value })
-  commonStore.stopApiLoading()
+  accountFormStore.setToken(token.value);
+  commonStore.startApiLoading();
+  const loginSuccess: boolean = await accountStore.login({
+    email: email.value,
+    token: token.value
+  });
+  commonStore.stopApiLoading();
 
   if (loginSuccess) {
-    closeModal()
-    return true
+    closeModal();
+    return true;
   }
 
-  return false
+  return false;
 }
 </script>
 <template>

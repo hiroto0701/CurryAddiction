@@ -1,9 +1,9 @@
 <script setup lang="ts">
 interface Props {
-  readonly displayName?: string
+  readonly displayName?: string;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <p class="truncate font-body">{{ displayName }}</p>

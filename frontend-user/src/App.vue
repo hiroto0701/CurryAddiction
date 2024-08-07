@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useCommonStore } from '@/stores/common'
-import SuccessToast from '@/views/molecules/toasts/SuccessToast.vue'
-import ErrorToast from '@/views/molecules/toasts/ErrorToast.vue'
+import { useCommonStore } from '@/stores/common';
+import SuccessToast from '@/views/molecules/toasts/SuccessToast.vue';
+import ErrorToast from '@/views/molecules/toasts/ErrorToast.vue';
 
-const commonStore = useCommonStore()
+const commonStore = useCommonStore();
 </script>
 <template>
   <RouterView />

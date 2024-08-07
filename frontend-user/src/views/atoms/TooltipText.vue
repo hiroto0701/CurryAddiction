@@ -1,11 +1,11 @@
 <script setup lang="ts">
 interface Props {
-  readonly text: string
-  readonly position: 'top' | 'bottom'
-  readonly open?: boolean
+  readonly text: string;
+  readonly position: 'top' | 'bottom';
+  readonly open?: boolean;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <span

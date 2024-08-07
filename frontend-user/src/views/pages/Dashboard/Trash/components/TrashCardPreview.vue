@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue'
-import PostCommentBrowseItem from '@/views/molecules/browseItems/PostCommentBrowseItem.vue'
+import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue';
+import PostCommentBrowseItem from '@/views/molecules/browseItems/PostCommentBrowseItem.vue';
 
 interface Props {
-  readonly storeName: string
-  readonly src: string
-  readonly comment?: string
+  readonly storeName: string;
+  readonly src: string;
+  readonly comment?: string;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <div class="select-none opacity-80">

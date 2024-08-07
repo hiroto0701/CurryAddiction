@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import LocationIcon from '@/views/atoms/icons/LocationIcon.vue'
+import LocationIcon from '@/views/atoms/icons/LocationIcon.vue';
 
 interface Props {
-  readonly location: string
-  readonly date: string
+  readonly location: string;
+  readonly date: string;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <div class="relative flex items-center gap-2.5 px-3 py-1">

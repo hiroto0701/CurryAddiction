@@ -1,85 +1,85 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import type { PaginationStatus } from '@/composables/useFetchPostData'
-import CharacterIcon from '@/views/atoms/icons/character/CharacterIcon.vue'
-import PageItem from '@/views/atoms/PageItem.vue'
+import { computed } from 'vue';
+import type { PaginationStatus } from '@/composables/useFetchPostData';
+import CharacterIcon from '@/views/atoms/icons/character/CharacterIcon.vue';
+import PageItem from '@/views/atoms/PageItem.vue';
 
 interface Props {
-  readonly paginationStatus: PaginationStatus | null
+  readonly paginationStatus: PaginationStatus | null;
 }
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
 const visiblePages = computed(() => {
-  if (!props.paginationStatus) return []
+  if (!props.paginationStatus) return [];
 
-  const BOTH_SIDE_PAGE_COUNT = 2
-  const MAX_VISIBLE_PAGES = 7
-  const currentPage = props.paginationStatus.current_page || 1
-  const lastPage = props.paginationStatus.last_page || 1
+  const BOTH_SIDE_PAGE_COUNT = 2;
+  const MAX_VISIBLE_PAGES = 7;
+  const currentPage = props.paginationStatus.current_page || 1;
+  const lastPage = props.paginationStatus.last_page || 1;
 
   if (lastPage <= MAX_VISIBLE_PAGES) {
-    return Array.from({ length: lastPage }, (_, i) => i + 1)
+    return Array.from({ length: lastPage }, (_, i) => i + 1);
   }
 
-  let pages: Array<number | string> = []
-  let startPage = Math.max(currentPage - BOTH_SIDE_PAGE_COUNT, 1)
-  let endPage = Math.min(currentPage + BOTH_SIDE_PAGE_COUNT, lastPage)
+  let pages: Array<number | string> = [];
+  let startPage = Math.max(currentPage - BOTH_SIDE_PAGE_COUNT, 1);
+  let endPage = Math.min(currentPage + BOTH_SIDE_PAGE_COUNT, lastPage);
 
   if (currentPage <= BOTH_SIDE_PAGE_COUNT + 1) {
-    endPage = Math.min(MAX_VISIBLE_PAGES - 2, lastPage - 2)
+    endPage = Math.min(MAX_VISIBLE_PAGES - 2, lastPage - 2);
   } else if (currentPage >= lastPage - BOTH_SIDE_PAGE_COUNT) {
-    startPage = Math.max(3, lastPage - (MAX_VISIBLE_PAGES - 3))
+    startPage = Math.max(3, lastPage - (MAX_VISIBLE_PAGES - 3));
   }
 
   if (startPage > 2) {
-    pages.push(1)
-    pages.push('...')
+    pages.push(1);
+    pages.push('...');
   } else {
-    startPage = 1
+    startPage = 1;
   }
 
   for (let i = startPage; i <= endPage; i++) {
-    pages.push(i)
+    pages.push(i);
   }
 
   if (endPage < lastPage - 1) {
-    pages.push('...')
-    pages.push(lastPage)
+    pages.push('...');
+    pages.push(lastPage);
   } else if (endPage === lastPage - 1) {
-    pages.push(lastPage)
+    pages.push(lastPage);
   }
 
-  return pages
-})
+  return pages;
+});
 
 const canPrev = computed((): boolean => {
-  if (!props.paginationStatus) return false
-  const currentPage = props.paginationStatus.current_page || 1
-  return 1 < currentPage
-})
+  if (!props.paginationStatus) return false;
+  const currentPage = props.paginationStatus.current_page || 1;
+  return 1 < currentPage;
+});
 
 const canNext = computed((): boolean => {
-  if (!props.paginationStatus) return false
-  const currentPage = props.paginationStatus.current_page || 1
-  const lastPage = props.paginationStatus.last_page || 1
-  return currentPage < lastPage
-})
+  if (!props.paginationStatus) return false;
+  const currentPage = props.paginationStatus.current_page || 1;
+  const lastPage = props.paginationStatus.last_page || 1;
+  return currentPage < lastPage;
+});
 
 const emit = defineEmits<{
-  (e: 'change-page', visiblePage: number | string): void
-}>()
+  (e: 'change-page', visiblePage: number | string): void;
+}>();
 
 function doPrev(): void {
   if (canPrev.value && props.paginationStatus) {
-    const currentPage = props.paginationStatus.current_page || 1
-    emit('change-page', currentPage - 1)
+    const currentPage = props.paginationStatus.current_page || 1;
+    emit('change-page', currentPage - 1);
   }
 }
 
 function doNext(): void {
   if (canNext.value && props.paginationStatus) {
-    const currentPage = props.paginationStatus.current_page || 1
-    emit('change-page', currentPage + 1)
+    const currentPage = props.paginationStatus.current_page || 1;
+    emit('change-page', currentPage + 1);
   }
 }
 </script>

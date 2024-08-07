@@ -1,8 +1,8 @@
 <script setup lang="ts">
 interface Props {
-  readonly isLoading?: boolean
+  readonly isLoading?: boolean;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <div v-show="isLoading" class="flex justify-center" aria-label="読み込み中">

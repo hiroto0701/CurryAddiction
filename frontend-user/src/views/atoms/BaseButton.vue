@@ -1,9 +1,9 @@
 <script setup lang="ts">
 interface Props {
-  readonly text: string
+  readonly text: string;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <button

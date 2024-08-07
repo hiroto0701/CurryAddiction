@@ -1,54 +1,54 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAccountStore } from '@/stores/account'
-import { useAccountFormStore } from '@/stores/account_form'
-import { useCommonStore } from '@/stores/common'
-import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue'
-import LogoIcon from '@/views/atoms/icons/LogoIcon.vue'
-import LoginButton from '@/views/molecules/buttons/LoginButton.vue'
-import AccountAbortConfirmModal from '@/views/molecules/modals/AccountAbortConfirmModal.vue'
-import HandleNameFormItem from '@/views/molecules/formItems/HandleNameFormItem.vue'
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAccountStore } from '@/stores/account';
+import { useAccountFormStore } from '@/stores/account_form';
+import { useCommonStore } from '@/stores/common';
+import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue';
+import LogoIcon from '@/views/atoms/icons/LogoIcon.vue';
+import LoginButton from '@/views/molecules/buttons/LoginButton.vue';
+import AccountAbortConfirmModal from '@/views/molecules/modals/AccountAbortConfirmModal.vue';
+import HandleNameFormItem from '@/views/molecules/formItems/HandleNameFormItem.vue';
 
-const router = useRouter()
-const accountStore = useAccountStore()
-const accountFormStore = useAccountFormStore()
-const commonStore = useCommonStore()
+const router = useRouter();
+const accountStore = useAccountStore();
+const accountFormStore = useAccountFormStore();
+const commonStore = useCommonStore();
 
-const open = ref<boolean>(false)
-const handleName = ref<string>('')
+const open = ref<boolean>(false);
+const handleName = ref<string>('');
 
-const handleNameError = computed((): boolean => 'handle_name' in accountFormStore.state.errors)
+const handleNameError = computed((): boolean => 'handle_name' in accountFormStore.state.errors);
 const handleNameLengthError = computed((): boolean => {
-  return handleName.value.length < 2 || handleName.value.length > 20
-})
+  return handleName.value.length < 2 || handleName.value.length > 20;
+});
 
 function openModal(): void {
-  open.value = true
-  document.body.style.overflow = 'hidden'
+  open.value = true;
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal(): void {
-  open.value = false
-  document.body.style.overflow = 'auto'
+  open.value = false;
+  document.body.style.overflow = 'auto';
 }
 
 function accountAbort(): void {
-  accountStore.resetData()
-  accountFormStore.resetData()
-  router.push({ name: 'Login' })
+  accountStore.resetData();
+  accountFormStore.resetData();
+  router.push({ name: 'Login' });
 }
 
 async function doLogin(): Promise<void> {
   if (accountFormStore.handleNameValidate(handleName.value)) {
-    commonStore.startApiLoading()
+    commonStore.startApiLoading();
     try {
-      const loginSuccess: boolean = await accountFormStore.registerAndLogin(handleName.value)
+      const loginSuccess: boolean = await accountFormStore.registerAndLogin(handleName.value);
       if (loginSuccess) {
-        closeModal()
+        closeModal();
       }
     } finally {
-      commonStore.stopApiLoading()
+      commonStore.stopApiLoading();
     }
   }
 }

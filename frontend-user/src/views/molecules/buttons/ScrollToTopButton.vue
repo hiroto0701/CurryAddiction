@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import ArrowTopIcon from '@/views/atoms/icons/ArrowTopIcon.vue'
-import TopTooltip from '@/views/molecules/tooltips/TopTooltip.vue'
+import ArrowTopIcon from '@/views/atoms/icons/ArrowTopIcon.vue';
+import TopTooltip from '@/views/molecules/tooltips/TopTooltip.vue';
 
 function pageTop(): void {
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
-  })
+  });
 }
 </script>
 <template>

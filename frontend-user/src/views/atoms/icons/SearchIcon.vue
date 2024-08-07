@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const router = useRouter();
 
-const isSearchPage = computed(() => router.currentRoute.value.meta.group === 'Search')
+const isSearchPage = computed(() => router.currentRoute.value.meta.group === 'Search');
 </script>
 <template>
   <svg

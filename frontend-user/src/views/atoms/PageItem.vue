@@ -1,10 +1,10 @@
 <script setup lang="ts">
 interface Props {
-  text: string | number
-  active?: boolean
-  disabled: boolean
+  text: string | number;
+  active?: boolean;
+  disabled: boolean;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <li

@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { Component } from 'vue'
-import { useRouter } from 'vue-router'
-import { tv } from 'tailwind-variants'
-import DashboardIcon from '@/views/atoms/icons/DashboardIcon.vue'
-import HeartIcon from '@/views/atoms/icons/HeartIcon.vue'
-import ArchiveIcon from '@/views/atoms/icons/ArchiveIcon.vue'
-import TrashIcon from '@/views/atoms/icons/TrashIcon.vue'
-import SettingIcon from '@/views/atoms/icons/SettingIcon.vue'
-import BackButtonIcon from '@/views/atoms/icons/BackButtonIcon.vue'
-import MenuBarIcon from '@/views/atoms/icons/MenuBarIcon.vue'
-import DashBoardSidebarItem from '@/views/molecules/dashboard/DashboardSideBarItem.vue'
+import { ref } from 'vue';
+import type { Component } from 'vue';
+import { useRouter } from 'vue-router';
+import { tv } from 'tailwind-variants';
+import DashboardIcon from '@/views/atoms/icons/DashboardIcon.vue';
+import HeartIcon from '@/views/atoms/icons/HeartIcon.vue';
+import ArchiveIcon from '@/views/atoms/icons/ArchiveIcon.vue';
+import TrashIcon from '@/views/atoms/icons/TrashIcon.vue';
+import SettingIcon from '@/views/atoms/icons/SettingIcon.vue';
+import BackButtonIcon from '@/views/atoms/icons/BackButtonIcon.vue';
+import MenuBarIcon from '@/views/atoms/icons/MenuBarIcon.vue';
+import DashBoardSidebarItem from '@/views/molecules/dashboard/DashboardSideBarItem.vue';
 
 interface SidebarItem {
-  readonly name: string
-  readonly label: string
-  readonly icon: Component
+  readonly name: string;
+  readonly label: string;
+  readonly icon: Component;
 }
 
-const router = useRouter()
+const router = useRouter();
 const sidebarItems: SidebarItem[] = [
   {
     name: 'PostDashboard',
@@ -45,20 +45,20 @@ const sidebarItems: SidebarItem[] = [
     label: '設定',
     icon: SettingIcon
   }
-]
+];
 
 function getTextColorClass(routeName: string): string {
-  return router.currentRoute.value.name === routeName ? 'text-sumi-900' : 'text-sumi-500'
+  return router.currentRoute.value.name === routeName ? 'text-sumi-900' : 'text-sumi-500';
 }
 
-const isMenuOpen = ref<boolean>(false)
+const isMenuOpen = ref<boolean>(false);
 
 function openMenu(): void {
-  isMenuOpen.value = true
+  isMenuOpen.value = true;
 }
 
 function closeMenu(): void {
-  isMenuOpen.value = false
+  isMenuOpen.value = false;
 }
 
 const menuButton = tv({
@@ -77,7 +77,7 @@ const menuButton = tv({
       class: 'md:hover:bg-slate-100 md:hover:opacity-100'
     }
   ]
-})
+});
 
 const sidebar = tv({
   base: 'fixed left-0 top-0 z-20 h-full transform overflow-y-auto bg-white p-5 transition-transform duration-300 ease-in-out md:sticky',
@@ -90,7 +90,7 @@ const sidebar = tv({
   defaultVariants: {
     isOpen: false
   }
-})
+});
 
 const overlay = tv({
   base: 'fixed inset-0 z-10 bg-black bg-opacity-50',
@@ -102,7 +102,7 @@ const overlay = tv({
   defaultVariants: {
     visibility: 'hidden'
   }
-})
+});
 </script>
 <template>
   <button :class="menuButton()" aria-label="ダッシュボードメニューを開く" @click="openMenu">

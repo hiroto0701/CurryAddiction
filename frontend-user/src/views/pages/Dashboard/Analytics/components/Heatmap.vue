@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import dayjs from 'dayjs'
-import type { Dayjs } from 'dayjs'
+import { ref, onMounted } from 'vue';
+import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
 import type {
   DataRecord,
   DateOptions,
@@ -9,23 +9,23 @@ import type {
   ScaleOptions,
   DomainOptions,
   SubDomain
-} from '@/composables/types/heatmap'
-import type { Analytics } from '@/composables/types/analytics'
-import CalHeatmap from 'cal-heatmap'
-import type { CalHeatmapOptions, TooltipOptions } from 'cal-heatmap'
-import Tooltip from 'cal-heatmap/plugins/Tooltip'
+} from '@/composables/types/heatmap';
+import type { Analytics } from '@/composables/types/analytics';
+import CalHeatmap from 'cal-heatmap';
+import type { CalHeatmapOptions, TooltipOptions } from 'cal-heatmap';
+import Tooltip from 'cal-heatmap/plugins/Tooltip';
 
 interface Props {
-  readonly analyticsData: Analytics[]
+  readonly analyticsData: Analytics[];
 }
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
-const today: string = dayjs().format('YYYY-MM-DD')
+const today: string = dayjs().format('YYYY-MM-DD');
 // UIのためにカレンダーの開始日を2カ月前に設定
-const calStartDate: string = dayjs().subtract(2, 'month').format('YYYY-MM-DD')
-const visibleMonths = ref<number>(12)
-const heatmapData = props.analyticsData.map((item) => ({ date: item.date, value: item.count }))
-const cal: CalHeatmap = new CalHeatmap()
+const calStartDate: string = dayjs().subtract(2, 'month').format('YYYY-MM-DD');
+const visibleMonths = ref<number>(12);
+const heatmapData = props.analyticsData.map((item) => ({ date: item.date, value: item.count }));
+const cal: CalHeatmap = new CalHeatmap();
 
 function paintCalendar() {
   const dateOptions: DateOptions = {
@@ -33,7 +33,7 @@ function paintCalendar() {
     highlight: [dayjs.utc(today).toDate()],
     locale: 'ja',
     timezone: 'Asia/Tokyo'
-  }
+  };
 
   const dataOptions: DataOptions = {
     source: heatmapData,
@@ -41,7 +41,7 @@ function paintCalendar() {
     x: 'date',
     y: (d: DataRecord) => +d['value'],
     defaultValue: null
-  }
+  };
 
   const scaleOptions: ScaleOptions = {
     color: {
@@ -49,7 +49,7 @@ function paintCalendar() {
       range: ['#e6e6e6', '#4dd05a'],
       domain: [1]
     }
-  }
+  };
 
   const domainOptions: DomainOptions = {
     type: 'month',
@@ -66,7 +66,7 @@ function paintCalendar() {
       width: 100
     },
     sort: 'asc'
-  }
+  };
 
   const subDomain: SubDomain = {
     type: 'ghDay',
@@ -75,14 +75,14 @@ function paintCalendar() {
     height: 11,
     radius: 2,
     label: null
-  }
+  };
 
   const TOOLTIP_OPTIONS: TooltipOptions = {
     enabled: true,
     text: (_: unknown, value: number | null, dayjsDate: Dayjs) => {
-      return `${value ?? 0} 件の投稿 ${dayjs(dayjsDate).format('YYYY/MM/DD')}`
+      return `${value ?? 0} 件の投稿 ${dayjs(dayjsDate).format('YYYY/MM/DD')}`;
     }
-  }
+  };
 
   const options: CalHeatmapOptions = {
     date: dateOptions,
@@ -92,12 +92,12 @@ function paintCalendar() {
     domain: domainOptions,
     subDomain,
     itemSelector: '#heatmap'
-  }
+  };
 
-  cal.paint(options, [[Tooltip, TOOLTIP_OPTIONS]])
+  cal.paint(options, [[Tooltip, TOOLTIP_OPTIONS]]);
 }
 
-onMounted(() => paintCalendar())
+onMounted(() => paintCalendar());
 </script>
 <template>
   <div

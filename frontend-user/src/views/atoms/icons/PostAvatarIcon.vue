@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
 
 interface Props {
-  readonly avatarUrl: string | null
+  readonly avatarUrl: string | null;
 }
-const prop = defineProps<Props>()
+const prop = defineProps<Props>();
 
 const avatar = computed((): string => {
   if (prop.avatarUrl === null) {
-    const defaultAvatar = '../../../../public/icon/default_avatar.jpg'
-    return defaultAvatar
+    const defaultAvatar = '../../../../public/icon/default_avatar.jpg';
+    return defaultAvatar;
   } else {
-    return prop.avatarUrl
+    return prop.avatarUrl;
   }
-})
+});
 </script>
 <template>
   <div class="w-7">

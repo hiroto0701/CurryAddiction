@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import type { Component } from 'vue'
-import { useRouter } from 'vue-router'
-import { Menu, MenuButton, MenuItems } from '@headlessui/vue'
-import MeatballMenuIcon from '@/views/atoms/icons/MeatballMenuIcon.vue'
-import DropDownMenuItem from '@/views/atoms/DropDownMenuItem.vue'
-import HomeIcon from '@/views/atoms/icons/HomeIcon.vue'
-import PlusIcon from '@/views/atoms/icons/PlusIcon.vue'
-import SearchIcon from '@/views/atoms/icons/SearchIcon.vue'
-import AvatarIcon from '@/views/atoms/icons/AvatarIcon.vue'
-import TopTooltip from '@/views/molecules/tooltips/TopTooltip.vue'
+import type { Component } from 'vue';
+import { useRouter } from 'vue-router';
+import { Menu, MenuButton, MenuItems } from '@headlessui/vue';
+import MeatballMenuIcon from '@/views/atoms/icons/MeatballMenuIcon.vue';
+import DropDownMenuItem from '@/views/atoms/DropDownMenuItem.vue';
+import HomeIcon from '@/views/atoms/icons/HomeIcon.vue';
+import PlusIcon from '@/views/atoms/icons/PlusIcon.vue';
+import SearchIcon from '@/views/atoms/icons/SearchIcon.vue';
+import AvatarIcon from '@/views/atoms/icons/AvatarIcon.vue';
+import TopTooltip from '@/views/molecules/tooltips/TopTooltip.vue';
 
 interface MeatBallMenuItem {
-  readonly name: string
-  readonly label: string
-  readonly params?: Record<string, string>
-  readonly icon: Component
-  readonly iconProps?: Record<string, string | null>
+  readonly name: string;
+  readonly label: string;
+  readonly params?: Record<string, string>;
+  readonly icon: Component;
+  readonly iconProps?: Record<string, string | null>;
 }
 
 interface Props {
-  handleName: string
-  avatarUrl: string | null
+  handleName: string;
+  avatarUrl: string | null;
 }
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
-const router = useRouter()
+const router = useRouter();
 
 const menuItems: MeatBallMenuItem[] = [
   {
@@ -49,14 +49,14 @@ const menuItems: MeatBallMenuItem[] = [
     icon: AvatarIcon,
     iconProps: { avatarUrl: props.avatarUrl }
   }
-]
+];
 
 function handleRouting(routeName: string, params?: Record<string, string>): void {
-  router.push({ name: routeName, params })
+  router.push({ name: routeName, params });
 }
 
 function getTextColorClass(routeName: string): string {
-  return router.currentRoute.value.name === routeName ? 'text-sumi-900' : 'text-sumi-500'
+  return router.currentRoute.value.name === routeName ? 'text-sumi-900' : 'text-sumi-500';
 }
 </script>
 <template>

@@ -1,7 +1,7 @@
-import { h, resolveComponent } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
-import { useAccountStore } from '@/stores/account'
-import { useCommonStore } from '@/stores/common'
+import { h, resolveComponent } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import { useAccountStore } from '@/stores/account';
+import { useCommonStore } from '@/stores/common';
 
 const routes = [
   {
@@ -70,7 +70,7 @@ const routes = [
             name: 'Post',
             component: {
               render() {
-                return h(resolveComponent('router-view'))
+                return h(resolveComponent('router-view'));
               }
             },
             children: [
@@ -177,29 +177,29 @@ const routes = [
       }
     ]
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior() {
     // ページ遷移のタイミングで一律最上部にスクロール
-    return { top: 0 }
+    return { top: 0 };
   }
-})
+});
 
 router.beforeEach(async (to, from, next) => {
-  const accountStore = useAccountStore()
-  const commonStore = useCommonStore()
+  const accountStore = useAccountStore();
+  const commonStore = useCommonStore();
 
   if (to.name === 'UserPage' && to.params.username) {
-    to.meta.title = to.params.username
+    to.meta.title = to.params.username;
   }
-  document.title = (to.meta.title ? to.meta.title + ' | ' : '') + 'Curry Addiction'
+  document.title = (to.meta.title ? to.meta.title + ' | ' : '') + 'Curry Addiction';
 
   // signupページへのダイレクトアクセス制限
   if (to.name === 'Signup' && !accountStore.state.isNewRegistration) {
-    return next({ name: 'Login' })
+    return next({ name: 'Login' });
   }
 
   // ログインしている場合は/loginへのアクセスを制限
@@ -210,17 +210,17 @@ router.beforeEach(async (to, from, next) => {
   // 認証が必要なページへのアクセス制限
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     // リファラの設定
-    commonStore.setOriginalRoute(from)
+    commonStore.setOriginalRoute(from);
 
     // リロード時ユーザー情報取得を待つ
     if (accountStore.isLoadingUserData) {
-      await accountStore.fetchUserData()
+      await accountStore.fetchUserData();
     }
 
-    return accountStore.isAuthenticated ? next() : next({ name: 'Login' })
+    return accountStore.isAuthenticated ? next() : next({ name: 'Login' });
   }
 
-  next()
-})
+  next();
+});
 
-export default router
+export default router;

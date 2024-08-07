@@ -1,74 +1,74 @@
 <script setup lang="ts">
-import axios from 'axios'
-import { ref, computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useCommonStore } from '@/stores/common'
-import type { Post } from '@/composables/types/post'
-import { useFetchPostDetail } from '@/composables/functions/useFetchPostDetail'
-import { useDeletePost } from '@/composables/functions/useDeletePost'
-import BackLink from '@/views/molecules/links/BackLink.vue'
-import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue'
-import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue'
-import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue'
-import PostCommentBrowseItem from '@/views/molecules/browseItems/PostCommentBrowseItem.vue'
-import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue'
-import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue'
+import axios from 'axios';
+import { ref, computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useCommonStore } from '@/stores/common';
+import type { Post } from '@/composables/types/post';
+import { useFetchPostDetail } from '@/composables/functions/useFetchPostDetail';
+import { useDeletePost } from '@/composables/functions/useDeletePost';
+import BackLink from '@/views/molecules/links/BackLink.vue';
+import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue';
+import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue';
+import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue';
+import PostCommentBrowseItem from '@/views/molecules/browseItems/PostCommentBrowseItem.vue';
+import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue';
+import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue';
 
-const route = useRoute()
-const router = useRouter()
-const commonStore = useCommonStore()
-const { fetchPostDetail } = useFetchPostDetail()
-const { softDeletePost } = useDeletePost()
-const post = ref<Post>({} as Post)
-const isMine = computed((): boolean => post.value.is_mine)
+const route = useRoute();
+const router = useRouter();
+const commonStore = useCommonStore();
+const { fetchPostDetail } = useFetchPostDetail();
+const { softDeletePost } = useDeletePost();
+const post = ref<Post>({} as Post);
+const isMine = computed((): boolean => post.value.is_mine);
 
-const open = ref<boolean>(false)
+const open = ref<boolean>(false);
 function openModal(): void {
-  open.value = true
-  document.body.style.overflow = 'hidden'
+  open.value = true;
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal(): void {
-  open.value = false
-  document.body.style.overflow = 'auto'
+  open.value = false;
+  document.body.style.overflow = 'auto';
 }
 
 async function load(postId: number) {
   try {
-    const data = await fetchPostDetail(postId)
-    post.value = data
+    const data = await fetchPostDetail(postId);
+    post.value = data;
   } catch (error) {
-    console.error('Failed to load posts:', error)
+    console.error('Failed to load posts:', error);
   }
 }
 
-await load(Number(route.params.id))
+await load(Number(route.params.id));
 
 async function doSoftDelete(): Promise<void> {
   try {
-    commonStore.startApiLoading()
-    const response = await softDeletePost(Number(route.params.id))
+    commonStore.startApiLoading();
+    const response = await softDeletePost(Number(route.params.id));
 
     if (response.status === 200) {
-      closeModal()
+      closeModal();
       await router.push({ name: 'Home' }).then((): void => {
-        commonStore.setFlashMessage('ごみ箱に入れました')
+        commonStore.setFlashMessage('ごみ箱に入れました');
         setTimeout(() => {
-          commonStore.clearFlashMessage()
-        }, 4000)
-      })
+          commonStore.clearFlashMessage();
+        }, 4000);
+      });
     } else {
-      throw new Error(response.data.message)
+      throw new Error(response.data.message);
     }
   } catch (error) {
-    console.error('Failed to delete the post:', error)
+    console.error('Failed to delete the post:', error);
     if (axios.isAxiosError(error)) {
-      console.log(`削除に失敗しました: ${error.response?.data?.message || error.message}`, error)
+      console.log(`削除に失敗しました: ${error.response?.data?.message || error.message}`, error);
     } else {
-      console.log('予期せぬエラーが発生しました', error)
+      console.log('予期せぬエラーが発生しました', error);
     }
   } finally {
-    commonStore.stopApiLoading()
+    commonStore.stopApiLoading();
   }
 }
 </script>

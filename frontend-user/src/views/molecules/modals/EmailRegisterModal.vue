@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useAccountStore } from '@/stores/account'
-import { useCommonStore } from '@/stores/common'
-import BaseModal from '@/views/atoms/modal/BaseModal.vue'
-import ModalBody from '@/views/atoms/modal/ModalBody.vue'
-import ModalFooter from '@/views/atoms/modal/ModalFooter.vue'
-import SubmitButton from '@/views/molecules/buttons/SubmitButton.vue'
-import FloatingLabelTextInputFormItem from '@/views/molecules/formItems/FloatingLabelTextInputFormItem.vue'
+import { computed } from 'vue';
+import { useAccountStore } from '@/stores/account';
+import { useCommonStore } from '@/stores/common';
+import BaseModal from '@/views/atoms/modal/BaseModal.vue';
+import ModalBody from '@/views/atoms/modal/ModalBody.vue';
+import ModalFooter from '@/views/atoms/modal/ModalFooter.vue';
+import SubmitButton from '@/views/molecules/buttons/SubmitButton.vue';
+import FloatingLabelTextInputFormItem from '@/views/molecules/formItems/FloatingLabelTextInputFormItem.vue';
 
 interface Props {
-  closeModal: () => void
+  closeModal: () => void;
 }
-defineProps<Props>()
+defineProps<Props>();
 
-const accountStore = useAccountStore()
-const commonStore = useCommonStore()
+const accountStore = useAccountStore();
+const commonStore = useCommonStore();
 
-const modalContent = '入力されたメールアドレスにログイン用コードが送られます。'
-const emailError = computed((): boolean => !!accountStore.state.errors?.email)
+const modalContent = '入力されたメールアドレスにログイン用コードが送られます。';
+const emailError = computed((): boolean => !!accountStore.state.errors?.email);
 
-const email = defineModel<string>()
+const email = defineModel<string>();
 const emits = defineEmits<{
-  (e: 'sendEmail'): void
-}>()
+  (e: 'sendEmail'): void;
+}>();
 </script>
 <template>
   <BaseModal :closeModal>

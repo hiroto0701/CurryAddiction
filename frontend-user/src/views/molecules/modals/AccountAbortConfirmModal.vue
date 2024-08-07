@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import BaseModal from '@/views/atoms/modal/BaseModal.vue'
-import ModalBody from '@/views/atoms/modal/ModalBody.vue'
-import ModalFooter from '@/views/atoms/modal/ModalFooter.vue'
-import AccountAbortButton from '@/views/molecules/buttons/AccountAbortButton.vue'
-import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
+import BaseModal from '@/views/atoms/modal/BaseModal.vue';
+import ModalBody from '@/views/atoms/modal/ModalBody.vue';
+import ModalFooter from '@/views/atoms/modal/ModalFooter.vue';
+import AccountAbortButton from '@/views/molecules/buttons/AccountAbortButton.vue';
+import CancelButton from '@/views/molecules/buttons/CancelButton.vue';
 
 interface Props {
-  closeModal: () => void
+  closeModal: () => void;
 }
-defineProps<Props>()
+defineProps<Props>();
 
-const modalContent = 'アカウントを作成せずに終了します。よろしいですか？'
+const modalContent = 'アカウントを作成せずに終了します。よろしいですか？';
 const emits = defineEmits<{
-  (e: 'abort'): void
-  (e: 'cancel'): void
-}>()
+  (e: 'abort'): void;
+  (e: 'cancel'): void;
+}>();
 </script>
 <template>
   <BaseModal :closeModal>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 interface Props {
-  readonly title: string
+  readonly title: string;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <header class="flex items-center gap-3 font-body text-xl text-sumi-900">

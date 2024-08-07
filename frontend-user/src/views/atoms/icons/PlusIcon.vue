@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const router = useRouter();
 
-const isPostPage = computed(() => router.currentRoute.value.meta.group === 'Post')
+const isPostPage = computed(() => router.currentRoute.value.meta.group === 'Post');
 </script>
 <template>
   <svg

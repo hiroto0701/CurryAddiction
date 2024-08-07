@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { MenuItem } from '@headlessui/vue'
-import type { Component } from 'vue'
+import { MenuItem } from '@headlessui/vue';
+import type { Component } from 'vue';
 
 interface Props {
-  readonly label: string
-  readonly iconComponent: Component
-  readonly isActive?: boolean
-  readonly textColorClass: string
-  readonly iconProps?: Record<string, string | null>
+  readonly label: string;
+  readonly iconComponent: Component;
+  readonly isActive?: boolean;
+  readonly textColorClass: string;
+  readonly iconProps?: Record<string, string | null>;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 
 function navigateAndClose(close: () => void): void {
-  close()
+  close();
 }
 </script>
 <template>

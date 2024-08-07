@@ -1,33 +1,33 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
-import { useAccountStore } from '@/stores/account'
-import { useCommonStore } from '@/stores/common'
-import AppLogo from '@/views/atoms/icons/AppLogo.vue'
-import LogoutButton from '@/views/molecules/buttons/LogoutButton.vue'
-import MyProfileLink from '@/views/molecules/links/MyProfileLink.vue'
-import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue'
+import { ref } from 'vue';
+import { useRouter, RouterLink } from 'vue-router';
+import { useAccountStore } from '@/stores/account';
+import { useCommonStore } from '@/stores/common';
+import AppLogo from '@/views/atoms/icons/AppLogo.vue';
+import LogoutButton from '@/views/molecules/buttons/LogoutButton.vue';
+import MyProfileLink from '@/views/molecules/links/MyProfileLink.vue';
+import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue';
 
-const accountStore = useAccountStore()
-const commonStore = useCommonStore()
-const router = useRouter()
-const open = ref<boolean>(false)
+const accountStore = useAccountStore();
+const commonStore = useCommonStore();
+const router = useRouter();
+const open = ref<boolean>(false);
 
 function openModal(): void {
-  open.value = true
-  document.body.style.overflow = 'hidden'
+  open.value = true;
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal(): void {
-  open.value = false
-  document.body.style.overflow = 'auto'
+  open.value = false;
+  document.body.style.overflow = 'auto';
 }
 
 function doLogout(): void {
   accountStore.logout().then(() => {
-    router.push({ name: 'Login' })
-    document.body.style.overflow = 'auto'
-  })
+    router.push({ name: 'Login' });
+    document.body.style.overflow = 'auto';
+  });
 }
 </script>
 <template>

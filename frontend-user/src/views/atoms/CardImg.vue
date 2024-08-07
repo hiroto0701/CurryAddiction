@@ -1,9 +1,9 @@
 <script setup lang="ts">
 interface Props {
-  readonly src: string
+  readonly src: string;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <div class="h-96 w-full border-gray-200 sm:h-60">

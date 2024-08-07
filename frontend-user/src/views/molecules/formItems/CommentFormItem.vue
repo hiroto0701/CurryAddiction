@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { Component } from 'vue'
-import PostFormErrorMessage from '@/views/atoms/ErrorMessage/PostFormErrorMessage.vue'
-import FormLayout from '@/views/templates/FormLayout.vue'
+import type { Component } from 'vue';
+import PostFormErrorMessage from '@/views/atoms/ErrorMessage/PostFormErrorMessage.vue';
+import FormLayout from '@/views/templates/FormLayout.vue';
 
 interface Props {
-  readonly label: string
-  readonly required: boolean
-  readonly optional: boolean
-  readonly iconComponent: Component
-  readonly errors?: Record<string, string[]>
+  readonly label: string;
+  readonly required: boolean;
+  readonly optional: boolean;
+  readonly iconComponent: Component;
+  readonly errors?: Record<string, string[]>;
 }
-defineProps<Props>()
+defineProps<Props>();
 
-const model = defineModel<string>()
+const model = defineModel<string>();
 </script>
 <template>
   <FormLayout

@@ -1,43 +1,43 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import type { ServiceUser } from '@/composables/types/serviceUser'
-import { useFetchProfile } from '@/composables/functions/useFetchProfile'
-import GotoSettingPageButton from '@/views/molecules/buttons/GotoSettingPageButton.vue'
-import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue'
-import HandleNameBrowseItem from '@/views/molecules/browseItems/HandleNameBrowseItem.vue'
-import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue'
-import UserAnalytics from '@/views/molecules/UserAnalytics.vue'
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import type { ServiceUser } from '@/composables/types/serviceUser';
+import { useFetchProfile } from '@/composables/functions/useFetchProfile';
+import GotoSettingPageButton from '@/views/molecules/buttons/GotoSettingPageButton.vue';
+import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue';
+import HandleNameBrowseItem from '@/views/molecules/browseItems/HandleNameBrowseItem.vue';
+import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue';
+import UserAnalytics from '@/views/molecules/UserAnalytics.vue';
 
-const { fetchProfile } = useFetchProfile()
-const route = useRoute()
+const { fetchProfile } = useFetchProfile();
+const route = useRoute();
 
-const service_user = ref<ServiceUser>({} as ServiceUser)
+const service_user = ref<ServiceUser>({} as ServiceUser);
 
 const emit = defineEmits<{
-  (e: 'user-loaded', user: ServiceUser): void
-}>()
+  (e: 'user-loaded', user: ServiceUser): void;
+}>();
 
 async function loadUser(username: string) {
   try {
-    const data = await fetchProfile(username)
-    service_user.value = data
-    emit('user-loaded', data)
+    const data = await fetchProfile(username);
+    service_user.value = data;
+    emit('user-loaded', data);
   } catch (error) {
-    console.error('Failed to load posts:', error)
+    console.error('Failed to load posts:', error);
   }
 }
 
-await loadUser(route.params.username as string)
+await loadUser(route.params.username as string);
 
 watch(
   () => route.params.username,
   async (newUsername) => {
     if (newUsername) {
-      await loadUser(newUsername as string)
+      await loadUser(newUsername as string);
     }
   }
-)
+);
 </script>
 <template>
   <div class="mb-12 overflow-hidden rounded-2xl border p-6 md:p-7">

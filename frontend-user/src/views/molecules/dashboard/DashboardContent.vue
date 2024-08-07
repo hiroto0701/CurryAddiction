@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import DashboardHeader from '@/views/atoms/dashboard/DashboardHeader.vue'
+import DashboardHeader from '@/views/atoms/dashboard/DashboardHeader.vue';
 
 interface Props {
-  readonly title: string
+  readonly title: string;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <DashboardHeader :title />

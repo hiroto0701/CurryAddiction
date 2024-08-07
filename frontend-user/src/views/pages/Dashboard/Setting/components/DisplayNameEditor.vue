@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { useCommonStore } from '@/stores/common'
-import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue'
-import UpdateButton from '@/views/molecules/buttons/UpdateButton.vue'
-import CancelButton from '@/views/molecules/buttons/CancelButton.vue'
-import DisplayNameFormItem from '@/views/molecules/formItems/DisplayNameFormItem.vue'
+import { useCommonStore } from '@/stores/common';
+import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue';
+import UpdateButton from '@/views/molecules/buttons/UpdateButton.vue';
+import CancelButton from '@/views/molecules/buttons/CancelButton.vue';
+import DisplayNameFormItem from '@/views/molecules/formItems/DisplayNameFormItem.vue';
 
 interface Props {
-  readonly displayName: string
-  readonly isError: boolean
+  readonly displayName: string;
+  readonly isError: boolean;
 }
-defineProps<Props>()
+defineProps<Props>();
 
-const commonStore = useCommonStore()
+const commonStore = useCommonStore();
 
-const model = defineModel<string>()
+const model = defineModel<string>();
 
 const emits = defineEmits<{
-  (e: 'update'): void
-  (e: 'cancel'): void
-}>()
+  (e: 'update'): void;
+  (e: 'cancel'): void;
+}>();
 </script>
 <template>
   <div class="relative">

@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useAccountStore } from '@/stores/account'
-import { useRoute, onBeforeRouteUpdate } from 'vue-router'
-import { useCommonStore } from '@/stores/common'
-import type { Trash, PaginationStatus } from '@/composables/types/trash'
-import { useFetchTrashPosts } from '@/composables/functions/useFetchTrashPosts'
-import { useRestorePost } from '@/composables/functions/useRestorePost'
-import { useDeletePost } from '@/composables/functions/useDeletePost'
-import TrashPagePlaceholder from '@/views/molecules/noContentPlaceholder/TrashPagePlaceholder.vue'
-import TrashCard from '@/views/pages/Dashboard/Trash/components/TrashCard.vue'
-import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue'
-import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue'
+import { ref } from 'vue';
+import { useAccountStore } from '@/stores/account';
+import { useRoute, onBeforeRouteUpdate } from 'vue-router';
+import { useCommonStore } from '@/stores/common';
+import type { Trash, PaginationStatus } from '@/composables/types/trash';
+import { useFetchTrashPosts } from '@/composables/functions/useFetchTrashPosts';
+import { useRestorePost } from '@/composables/functions/useRestorePost';
+import { useDeletePost } from '@/composables/functions/useDeletePost';
+import TrashPagePlaceholder from '@/views/molecules/noContentPlaceholder/TrashPagePlaceholder.vue';
+import TrashCard from '@/views/pages/Dashboard/Trash/components/TrashCard.vue';
+import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue';
+import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue';
 
-const accountStore = useAccountStore()
-const commonStore = useCommonStore()
-const route = useRoute()
-const { fetchTrashPostsList } = useFetchTrashPosts()
-const { restorePost } = useRestorePost()
-const { hardDeletePost } = useDeletePost()
+const accountStore = useAccountStore();
+const commonStore = useCommonStore();
+const route = useRoute();
+const { fetchTrashPostsList } = useFetchTrashPosts();
+const { restorePost } = useRestorePost();
+const { hardDeletePost } = useDeletePost();
 
-const posts = ref<Trash[]>([])
-const paginationStatus = ref<PaginationStatus | null>(null)
-const open = ref<boolean>(false)
-const selectedPostId = ref<number | null>(null)
-const selectedAction = ref<'restore' | 'delete' | null>(null)
+const posts = ref<Trash[]>([]);
+const paginationStatus = ref<PaginationStatus | null>(null);
+const open = ref<boolean>(false);
+const selectedPostId = ref<number | null>(null);
+const selectedAction = ref<'restore' | 'delete' | null>(null);
 
 async function loadPosts(page: number = 1, userId: number, forceReload: boolean = false) {
   if (
@@ -33,87 +33,87 @@ async function loadPosts(page: number = 1, userId: number, forceReload: boolean 
     posts.value.length === 0
   ) {
     try {
-      const { data, meta } = await fetchTrashPostsList({ page, userId })
-      posts.value = data
-      paginationStatus.value = meta
+      const { data, meta } = await fetchTrashPostsList({ page, userId });
+      posts.value = data;
+      paginationStatus.value = meta;
     } catch (error) {
-      console.error('投稿の読み込みに失敗しました。:', error)
+      console.error('投稿の読み込みに失敗しました。:', error);
     }
   }
 }
 
-await loadPosts(Number(route.query.page) || 1, accountStore.state.user_id as number)
+await loadPosts(Number(route.query.page) || 1, accountStore.state.user_id as number);
 
 onBeforeRouteUpdate(async (to): Promise<void> => {
-  const page = Number(to.query.page) || 1
-  await loadPosts(page, accountStore.state.user_id as number)
-})
+  const page = Number(to.query.page) || 1;
+  await loadPosts(page, accountStore.state.user_id as number);
+});
 
 function openModal(postId: number, action: 'restore' | 'delete'): void {
-  selectedPostId.value = postId
-  selectedAction.value = action
-  open.value = true
-  document.body.style.overflow = 'hidden'
+  selectedPostId.value = postId;
+  selectedAction.value = action;
+  open.value = true;
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal(): void {
-  open.value = false
-  selectedAction.value = null
-  document.body.style.overflow = 'auto'
+  open.value = false;
+  selectedAction.value = null;
+  document.body.style.overflow = 'auto';
 }
 
 async function doHardDelete() {
-  if (!selectedPostId.value) return
+  if (!selectedPostId.value) return;
 
   try {
-    commonStore.startApiLoading()
-    const response = await hardDeletePost(selectedPostId.value)
+    commonStore.startApiLoading();
+    const response = await hardDeletePost(selectedPostId.value);
     if (response.status === 200) {
-      closeModal()
-      posts.value = posts.value.filter((post) => post.id !== selectedPostId.value)
-      commonStore.setFlashMessage('投稿を削除しました')
+      closeModal();
+      posts.value = posts.value.filter((post) => post.id !== selectedPostId.value);
+      commonStore.setFlashMessage('投稿を削除しました');
       setTimeout(() => {
-        commonStore.clearFlashMessage()
-      }, 4000)
+        commonStore.clearFlashMessage();
+      }, 4000);
     } else {
-      throw new Error(response.data.message)
+      throw new Error(response.data.message);
     }
   } catch (error) {
-    closeModal()
-    commonStore.setErrorMessage('削除に失敗しました')
+    closeModal();
+    commonStore.setErrorMessage('削除に失敗しました');
     setTimeout(() => {
-      commonStore.clearErrorMessage()
-    }, 4000)
+      commonStore.clearErrorMessage();
+    }, 4000);
   } finally {
-    commonStore.stopApiLoading()
+    commonStore.stopApiLoading();
   }
 }
 
 async function doRestore() {
-  if (!selectedPostId.value) return
+  if (!selectedPostId.value) return;
 
   try {
-    commonStore.startApiLoading()
-    const response = await restorePost(selectedPostId.value)
+    commonStore.startApiLoading();
+    const response = await restorePost(selectedPostId.value);
     if (response.status === 200) {
-      closeModal()
-      posts.value = posts.value.filter((post) => post.id !== selectedPostId.value)
-      commonStore.setFlashMessage('投稿を復元しました')
+      closeModal();
+      posts.value = posts.value.filter((post) => post.id !== selectedPostId.value);
+      commonStore.setFlashMessage('投稿を復元しました');
       setTimeout(() => {
-        commonStore.clearFlashMessage()
-      }, 4000)
+        commonStore.clearFlashMessage();
+      }, 4000);
     } else {
-      throw new Error(response.data.message)
+      throw new Error(response.data.message);
     }
   } catch (error) {
-    closeModal()
-    console.error('Failed to restore the post:', error)
-    commonStore.setErrorMessage('復元に失敗しました')
+    closeModal();
+    console.error('Failed to restore the post:', error);
+    commonStore.setErrorMessage('復元に失敗しました');
     setTimeout(() => {
-      commonStore.clearErrorMessage()
-    }, 4000)
+      commonStore.clearErrorMessage();
+    }, 4000);
   } finally {
-    commonStore.stopApiLoading()
+    commonStore.stopApiLoading();
   }
 }
 </script>

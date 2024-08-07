@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import CrossIcon from '@/views/atoms/icons/CrossIcon.vue'
+import CrossIcon from '@/views/atoms/icons/CrossIcon.vue';
 
 interface Props {
-  readonly closeModal: () => void
+  readonly closeModal: () => void;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <div

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import IconSkeleton from '@/views/molecules/skeletons/IconSkeleton.vue'
-import TextSkeleton from '@/views/molecules/skeletons/TextSkeleton.vue'
+import IconSkeleton from '@/views/molecules/skeletons/IconSkeleton.vue';
+import TextSkeleton from '@/views/molecules/skeletons/TextSkeleton.vue';
 </script>
 <template>
   <div class="mb-12 animate-pulse overflow-hidden rounded-2xl border border-gray-200 p-6 md:p-7">

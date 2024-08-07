@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import BaseButton from '@/views/atoms/BaseButton.vue'
+import { RouterLink } from 'vue-router';
+import BaseButton from '@/views/atoms/BaseButton.vue';
 
 interface Props {
-  text: string
+  text: string;
 }
-defineProps<Props>()
+defineProps<Props>();
 </script>
 <template>
   <RouterLink :to="{ name: 'Setting' }">
