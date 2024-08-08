@@ -54,6 +54,7 @@ export function useCreatePost() {
       }, 4000);
     } finally {
       commonStore.stopApiLoading();
+      commonStore.clearErrorMessage();
     }
   }
 
