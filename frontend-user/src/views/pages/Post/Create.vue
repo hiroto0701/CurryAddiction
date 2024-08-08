@@ -52,6 +52,7 @@ async function doCreate() {
     console.error(error);
   } finally {
     closeModal();
+    commonStore.clearErrorMessage();
     window.scrollTo({
       top: 0
     });
