@@ -89,8 +89,6 @@ async function toggleLike(postId: number): Promise<void> {
     setTimeout(() => {
       commonStore.clearErrorMessage();
     }, 4000);
-  } finally {
-    commonStore.clearErrorMessage();
   }
 }
 

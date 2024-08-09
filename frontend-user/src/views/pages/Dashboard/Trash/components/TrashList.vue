@@ -86,7 +86,6 @@ async function doHardDelete() {
     }, 4000);
   } finally {
     commonStore.stopApiLoading();
-    commonStore.clearErrorMessage();
   }
 }
 
@@ -115,7 +114,6 @@ async function doRestore() {
     }, 4000);
   } finally {
     commonStore.stopApiLoading();
-    commonStore.clearErrorMessage();
   }
 }
 </script>

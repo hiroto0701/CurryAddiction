@@ -49,10 +49,12 @@ async function doCreate() {
     }
   } catch (error) {
     commonStore.setErrorMessage('投稿に失敗しました');
+    setTimeout(() => {
+      commonStore.clearErrorMessage();
+    }, 4000);
     console.error(error);
   } finally {
     closeModal();
-    commonStore.clearErrorMessage();
     window.scrollTo({
       top: 0
     });
