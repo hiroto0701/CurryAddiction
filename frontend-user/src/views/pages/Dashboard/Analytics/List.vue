@@ -28,6 +28,10 @@ const accountStore = useAccountStore();
         <template #default>
           <Analytics class="mt-5" />
         </template>
+
+        <template #fallback>
+          <p>Loading...</p>
+        </template>
       </Suspense>
     </DashboardSection>
   </DashboardContent>
