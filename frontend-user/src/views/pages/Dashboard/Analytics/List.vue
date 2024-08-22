@@ -30,7 +30,12 @@ const accountStore = useAccountStore();
         </template>
 
         <template #fallback>
-          <p>Loading...</p>
+          <div class="mt-5 flex justify-center" aria-label="読み込み中">
+            <div
+              class="aspect-square w-6 animate-spin rounded-full border-2 border-gray-400"
+              style="border-top-color: transparent"
+            ></div>
+          </div>
         </template>
       </Suspense>
     </DashboardSection>
