@@ -19,6 +19,7 @@ class PostResource extends JsonResource
             'comment' => !is_null($this->store_name) ? $this->comment : null,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'slug' => $this->slug,
             'post_img' => route(
                 'file.view',
                 ['type' => FileViewAction::TYPE_POST_IMG, 'uuid' => $this->postImg->uuid]
