@@ -31,7 +31,7 @@ class CreateInteractor
             $post->store_name = $command->getStoreName();
             $post->latitude = $command->getLatitude();
             $post->longitude = $command->getLongitude();
-            $post->slug = (string) Str::uuid();
+            $post->slug = Str::uuid();
 
             if (!empty($command->getComment())) {
                 $post->comment = $command->getComment();
@@ -43,7 +43,7 @@ class CreateInteractor
                 $uploadfile = new UploadFile();
                 $uploadfile->type = UploadFile::TYPE_POST_IMG;
                 $uploadfile->user_id = $command->getUserId();
-                $uploadfile->uuid = (string) Str::uuid();
+                $uploadfile->uuid = Str::uuid();
                 $uploadfile->path = $uploadDir . $uploadfile->uuid . '.' . $command->getFileExtension();
                 $uploadfile->content_type = $command->getContentType();
                 $uploadfile->uploaded_at = Carbon::now();
