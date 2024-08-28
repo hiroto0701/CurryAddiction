@@ -57,6 +57,11 @@ class LoginAction extends Controller
 
         Auth::guard('service_users')->login($user);
 
+        // トークンを無効化
+        $user->onetime_token = null;
+        $user->onetime_expiration = null;
+        $user->save();
+
         $this->addOperationLog(OperationLog::OPERATION_TYPE_LOGIN, "ユーザーID", User::AuthId());
 
         $request->session()->regenerate();
