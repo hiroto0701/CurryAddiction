@@ -17,6 +17,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\RateLimiter;
 
 class LoginAction extends Controller
 {
@@ -33,17 +34,25 @@ class LoginAction extends Controller
      */
     public function __invoke(LoginRequest $request): CurrentServiceUserResource
     {
+        $ip = $request->ip();
         $user = ServiceUser::where('email', $request->email)->first();
 
+        if ($this->checkRateLimit($ip)) {
+            throw new AuthenticationException('ログイン試行回数が多すぎます。時間を空けてもう一度試してください。');
+        }
+
         if (!$user) {
+            $this->incrementFailedAttempts($ip);
             throw new AuthenticationException();
         }
 
         if (!Hash::check($request->token, $user->onetime_token)) {
+            $this->incrementFailedAttempts($ip);
             throw new AuthenticationTokenException(unmatched: true);
         }
 
         if ($user->onetime_expiration < Carbon::now()) {
+            $this->incrementFailedAttempts($ip);
             throw new AuthenticationTokenException(expired: true);
         }
 
@@ -66,5 +75,45 @@ class LoginAction extends Controller
 
         $request->session()->regenerate();
         return new CurrentServiceUserResource($user);
+    }
+
+    private function checkRateLimit(string $ip): bool
+    {
+        $key = $this->throttleKey($ip);
+        $attempts = RateLimiter::attempts($key);
+
+        if ($attempts >= 10) {
+            return RateLimiter::tooManyAttempts($key, 60); // 1時間
+        } else if ($attempts >= 5) {
+            return RateLimiter::tooManyAttempts($key, 3); // 3分
+        } else if ($attempts >= 3) {
+            return RateLimiter::tooManyAttempts($key, 1); // 1分
+        }
+
+        return false;
+    }
+
+    private function incrementFailedAttempts(string $ip): void
+    {
+        $key = $this->throttleKey($ip);
+        RateLimiter::hit($key, $this->decayMinutes($key) * 60);
+    }
+
+    private function throttleKey(string $ip): string
+    {
+        return $ip;
+    }
+
+    private function decayMinutes(string $key): int
+    {
+        $attempts = RateLimiter::attempts($key);
+
+        if ($attempts >= 10) {
+            return 60;
+        } else if ($attempts >= 5) {
+            return 3;
+        } else {
+            return 1;
+        }
     }
 }
