@@ -7,6 +7,7 @@ export interface Post {
   comment: string;
   latitude: string | null;
   longitude: string | null;
+  slug: string | null;
   post_img: string;
   posted_at: string;
   posted_by: number;

@@ -33,16 +33,16 @@ function closeModal(): void {
   document.body.style.overflow = 'auto';
 }
 
-async function load(postId: number) {
+async function load(slug: string) {
   try {
-    const data = await fetchPostDetail(postId);
+    const data = await fetchPostDetail(slug);
     post.value = data;
   } catch (error) {
     console.error('Failed to load posts:', error);
   }
 }
 
-await load(Number(route.params.id));
+await load(String(route.params.slug));
 
 async function doSoftDelete(): Promise<void> {
   try {

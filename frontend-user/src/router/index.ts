@@ -84,7 +84,7 @@ const routes = [
                 component: () => import('@/views/pages/Post/Create.vue')
               },
               {
-                path: 'view/:id',
+                path: 'view/:slug',
                 name: 'PostViewer',
                 meta: {
                   title: '投稿詳細',
