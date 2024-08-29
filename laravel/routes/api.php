@@ -41,7 +41,7 @@ Route::prefix('/posts')->middleware((['auth:service_users']))->group(function() 
     Route::post('/', \App\Domains\Post\Controller\CreateAction::class);
     Route::post('/{post}/likes', \App\Domains\Post\Controller\LikeAction::class);
     Route::post('/{post}/archives', \App\Domains\Post\Controller\ArchiveAction::class);
-    Route::get('/{post}', \App\Domains\Post\Controller\ViewAction::class);
+    Route::get('/{post:slug}', \App\Domains\Post\Controller\ViewAction::class);
     Route::delete('/{post}', \App\Domains\Post\Controller\DeleteAction::class);
 });
 

@@ -2,8 +2,8 @@ import axios from 'axios';
 import type { Post } from '@/composables/types/post';
 
 export const useFetchPostDetail = () => {
-  async function fetchPostDetail(id: number): Promise<Post> {
-    const response = await axios.get(`/api/posts/${id}`);
+  async function fetchPostDetail(slug: string): Promise<Post> {
+    const response = await axios.get(`/api/posts/${slug}`);
     return response.data.data;
   }
 
