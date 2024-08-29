@@ -19,5 +19,5 @@ async function load(): Promise<void> {
 await load();
 </script>
 <template>
-  <Heatmap :analytics-data />
+  <Heatmap class="mt-5" :analytics-data />
 </template>

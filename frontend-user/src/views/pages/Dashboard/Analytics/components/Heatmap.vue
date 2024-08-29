@@ -47,7 +47,7 @@ function paintCalendar() {
     color: {
       type: 'threshold',
       range: ['#e6e6e6', '#4dd05a'],
-      domain: [1]
+      domain: [0, 1]
     }
   };
 
@@ -62,8 +62,7 @@ function paintCalendar() {
         x: 0,
         y: 0
       },
-      rotate: null,
-      width: 100
+      rotate: null
     },
     sort: 'asc'
   };
