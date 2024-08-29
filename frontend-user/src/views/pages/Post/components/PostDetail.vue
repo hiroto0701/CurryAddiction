@@ -106,12 +106,7 @@ async function doSoftDelete(): Promise<void> {
       <article>
         <img :src="post.post_img" class="w-full object-cover" alt="投稿画像" />
         <div class="my-12 max-w-screen-md break-all">
-          <PostCommentBrowseItem
-            v-if="post.comment"
-            :comment="post.comment"
-            class="max-w-screen-md"
-          />
-          <PostCommentBrowseItem v-else comment="一言感想はありません。" />
+          <PostCommentBrowseItem :comment="post.comment" class="max-w-screen-md" />
         </div>
       </article>
     </div>
