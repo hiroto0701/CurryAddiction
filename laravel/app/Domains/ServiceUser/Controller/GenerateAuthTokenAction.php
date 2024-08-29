@@ -30,7 +30,7 @@ class GenerateAuthTokenAction extends Controller
     {
         $command = new TokenCreateCommand(
             $request->email,
-            str_pad((string)random_int(0, 999999), 6, '0', STR_PAD_LEFT),
+            bin2hex(random_bytes(4))
         );
 
         $this->interactor->handle($command);

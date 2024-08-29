@@ -11,7 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 class CreateInteractor
 {
@@ -31,6 +31,7 @@ class CreateInteractor
             $post->store_name = $command->getStoreName();
             $post->latitude = $command->getLatitude();
             $post->longitude = $command->getLongitude();
+            $post->slug = Str::uuid();
 
             if (!empty($command->getComment())) {
                 $post->comment = $command->getComment();
@@ -42,7 +43,7 @@ class CreateInteractor
                 $uploadfile = new UploadFile();
                 $uploadfile->type = UploadFile::TYPE_POST_IMG;
                 $uploadfile->user_id = $command->getUserId();
-                $uploadfile->uuid = Uuid::uuid4();
+                $uploadfile->uuid = Str::uuid();
                 $uploadfile->path = $uploadDir . $uploadfile->uuid . '.' . $command->getFileExtension();
                 $uploadfile->content_type = $command->getContentType();
                 $uploadfile->uploaded_at = Carbon::now();

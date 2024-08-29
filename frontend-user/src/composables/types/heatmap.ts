@@ -45,7 +45,7 @@ export type LabelOptions = {
     y: number;
   };
   rotate: null | 'left' | 'right';
-  width: number;
+  width?: number;
   height?: number;
 };
 

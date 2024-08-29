@@ -71,8 +71,8 @@ async function doChangePage(page: number | string): Promise<void> {
   await router.push({ query: { page: page.toString() } });
 }
 
-function toViewer(postId: number): void {
-  router.push({ name: 'PostViewer', params: { id: postId } });
+function toViewer(slug: string): void {
+  router.push({ name: 'PostViewer', params: { slug } });
 }
 
 // いいね一覧ページではいいねした投稿のみ取得
@@ -184,7 +184,7 @@ watch(
         :is-liked="post.current_user_liked"
         :is-archived="post.current_user_archived"
         :is-mine="post.is_mine"
-        @navigate-to-detail="toViewer(post.id)"
+        @navigate-to-detail="toViewer(post.slug)"
         @like="removeLike(post.id)"
         @archive="toggleArchive(post.id)"
         @handle-post="openModal(post.id)"
