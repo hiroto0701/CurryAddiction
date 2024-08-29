@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $comment
  * @property double $latitude
  * @property double $longitude
+ * @property string $slug
  * @property Carbon $posted_at
  */
 class Post extends Model
@@ -43,6 +44,7 @@ class Post extends Model
         'comment',
         'latitude',
         'longitude',
+        'slug',
         'posted_at',
     ];
 
