@@ -2,8 +2,14 @@
 import { useCommonStore } from '@/stores/common';
 import SuccessToast from '@/views/molecules/toasts/SuccessToast.vue';
 import ErrorToast from '@/views/molecules/toasts/ErrorToast.vue';
+import { onMounted } from 'vue';
 
 const commonStore = useCommonStore();
+
+// カレーのジャンル情報を取得
+onMounted(() => {
+  console.log('mounted!!');
+});
 </script>
 <template>
   <RouterView />

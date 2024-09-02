@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// ユーザー情報系
 Route::prefix('/service_users')->group(function() {
     Route::post('/generate_token', \App\Domains\ServiceUser\Controller\GenerateAuthTokenAction::class);
     // 認証API
@@ -30,12 +31,17 @@ Route::prefix('/service_users')->group(function() {
     Route::middleware((['auth:service_users']))->group(function() {
         Route::put('/avatar', \App\Domains\ServiceUser\Controller\UpdateAvatarAction::class);
         Route::put('/display_name', \App\Domains\ServiceUser\Controller\UpdateDisplayNameAction::class);
-        Route::post('/', \App\Domains\ServiceUser\Controller\LogoutAction::class);
         Route::post('/logout', \App\Domains\ServiceUser\Controller\LogoutAction::class);
         Route::delete('/{service_user}', \App\Domains\ServiceUser\Controller\DeleteAction::class);
     });
 });
 
+// ユーザー詳細ページ
+Route::middleware((['auth:service_users']))->group(function() {
+    Route::get('/{service_user:handle_name}', \App\Domains\ServiceUser\Controller\ViewAction::class);
+});
+
+// 投稿系
 Route::prefix('/posts')->middleware((['auth:service_users']))->group(function() {
     Route::get('/', \App\Domains\Post\Controller\IndexAction::class);
     Route::post('/', \App\Domains\Post\Controller\CreateAction::class);
@@ -45,11 +51,12 @@ Route::prefix('/posts')->middleware((['auth:service_users']))->group(function() 
     Route::delete('/{post}', \App\Domains\Post\Controller\DeleteAction::class);
 });
 
-Route::middleware((['auth:service_users']))->group(function() {
-    Route::get('/{service_user:handle_name}', \App\Domains\ServiceUser\Controller\ViewAction::class);
-});
+// カレージャンル取得
+// Route::middleware((['auth:service_users']))->group(function() {
+//     Route::get('/genres', \App\Domains\Genre\Controller\IndexAction::class);
+// });
 
-
+// ダッシュボード系
 Route::prefix('/dashboard')->middleware(['auth:service_users'])->group(function() {
     Route::prefix('/analytics')->group(function () {
         Route::get('/', \App\Domains\Dashboard\Analytics\Controller\IndexAction::class);
