@@ -18,21 +18,21 @@ export const useCurryGenreStore = defineStore('curry_genre', () => {
     errors: {}
   });
 
-  const setData = (genres: Genre[]) => {
+  function setData(genres: Genre[]) {
     state.value.genres = genres;
-  };
+  }
 
-  const setErrors = (errors: Record<string, string[]>): void => {
+  function setErrors(errors: Record<string, string[]>): void {
     state.value.errors = { ...errors };
-  };
+  }
 
-  const resetErrors = (): void => {
+  function resetErrors(): void {
     state.value.errors = {};
-  };
+  }
 
-  const fetchGenres = async (): Promise<void> => {
+  async function fetchGenres(): Promise<void> {
     try {
-      const response = await axios.get('/api/service_users/genres');
+      const response = await axios.get('/api/genres');
 
       if (response.status === 200) {
         setData(response.data.data);
@@ -46,7 +46,7 @@ export const useCurryGenreStore = defineStore('curry_genre', () => {
         setErrors({ default: [String(error)] });
       }
     }
-  };
+  }
 
   return {
     state,

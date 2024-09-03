@@ -22,4 +22,7 @@ class Genre extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    // created_at, updated_atの更新はObserverで一括して行う
+    public $timestamps = false;
 }

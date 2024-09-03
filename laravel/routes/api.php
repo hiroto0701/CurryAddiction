@@ -36,6 +36,11 @@ Route::prefix('/service_users')->group(function() {
     });
 });
 
+// カレージャンル関連
+Route::prefix('/genres')->middleware(['auth:service_users'])->group(function() {
+    Route::get('/', \App\Domains\Genre\Controller\IndexAction::class);
+});
+
 // 投稿関連
 Route::prefix('/posts')->middleware(['auth:service_users'])->group(function() {
     Route::get('/', \App\Domains\Post\Controller\IndexAction::class);
@@ -61,6 +66,7 @@ Route::prefix('/dashboard')->middleware(['auth:service_users'])->group(function(
 });
 
 // ユーザー詳細ページ
+// 注意: このルートはプレフィックスがないため、他のURL構造と競合する可能性があるので、なるべく下に定義する
 Route::middleware(['auth:service_users'])->group(function() {
     Route::get('/{service_user:handle_name}', \App\Domains\ServiceUser\Controller\ViewAction::class);
 });

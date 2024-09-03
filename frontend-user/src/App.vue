@@ -1,14 +1,16 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { useCommonStore } from '@/stores/common';
+import { useCurryGenreStore } from '@/stores/curry_genre';
 import SuccessToast from '@/views/molecules/toasts/SuccessToast.vue';
 import ErrorToast from '@/views/molecules/toasts/ErrorToast.vue';
-import { onMounted } from 'vue';
 
 const commonStore = useCommonStore();
+const curryGenreStore = useCurryGenreStore();
 
 // カレーのジャンル情報を取得
 onMounted(() => {
-  console.log('mounted!!');
+  curryGenreStore.fetchGenres();
 });
 </script>
 <template>
