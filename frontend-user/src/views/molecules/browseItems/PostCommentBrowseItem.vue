@@ -8,10 +8,12 @@ interface Props {
 defineProps<Props>();
 </script>
 <template>
-  <div class="mb-3 flex items-center gap-2">
-    <CommentIcon />
-    <h3 class="font-body font-medium leading-relaxed text-sumi-900">感想</h3>
+  <div>
+    <div class="mb-3 flex items-center gap-2">
+      <CommentIcon />
+      <h3 class="font-body font-medium leading-relaxed text-sumi-900">感想</h3>
+    </div>
+    <p v-if="comment" class="font-body leading-relaxed text-sumi-900">{{ comment }}</p>
+    <p v-else class="font-body leading-relaxed text-sumi-900">感想はありません。</p>
   </div>
-  <p v-if="comment" class="font-body leading-relaxed text-sumi-900">{{ comment }}</p>
-  <p v-else class="font-body leading-relaxed text-sumi-900">感想はありません。</p>
 </template>
