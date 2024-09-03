@@ -21,6 +21,7 @@ const {
   storeName,
   comment,
   genreId,
+  genreOptions,
   preview,
   storeNameError,
   reactiveErrors,
@@ -87,6 +88,7 @@ async function doCreate() {
       :optional="false"
       :errors="reactiveErrors"
       :iconComponent="CategoryIcon"
+      :options="genreOptions"
       v-model="genreId"
     />
     <div class="flex items-end">
