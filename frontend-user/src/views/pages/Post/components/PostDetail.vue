@@ -9,6 +9,7 @@ import { useDeletePost } from '@/composables/functions/useDeletePost';
 import BackLink from '@/views/molecules/links/BackLink.vue';
 import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue';
 import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue';
+import GenreBrowseItem from '@/views/molecules/browseItems/GenreBrowseItem.vue';
 import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue';
 import PostCommentBrowseItem from '@/views/molecules/browseItems/PostCommentBrowseItem.vue';
 import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue';
@@ -85,6 +86,12 @@ async function doSoftDelete(): Promise<void> {
         <StoreNameBrowseItem
           class="w-full max-w-screen-md px-3 py-1 text-lg text-sumi-900 md:text-xl"
           :store-name="post.store_name"
+        />
+      </div>
+      <div class="mt-2 flex gap-2.5">
+        <GenreBrowseItem
+          class="w-fit max-w-screen-md px-3 py-1 text-lg text-sumi-900 md:text-xl"
+          :genre-id="post.genre_id as number"
         />
       </div>
       <div class="mt-20 flex max-w-2xl items-center justify-start gap-3 text-sumi-600">
