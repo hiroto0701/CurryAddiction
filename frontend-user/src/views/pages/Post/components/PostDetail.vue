@@ -9,6 +9,7 @@ import { useDeletePost } from '@/composables/functions/useDeletePost';
 import BackLink from '@/views/molecules/links/BackLink.vue';
 import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue';
 import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue';
+import GenreBrowseItem from '@/views/molecules/browseItems/GenreBrowseItem.vue';
 import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue';
 import PostCommentBrowseItem from '@/views/molecules/browseItems/PostCommentBrowseItem.vue';
 import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue';
@@ -47,7 +48,7 @@ await load(String(route.params.slug));
 async function doSoftDelete(): Promise<void> {
   try {
     commonStore.startApiLoading();
-    const response = await softDeletePost(Number(route.params.id));
+    const response = await softDeletePost(String(route.params.slug));
 
     if (response.status === 200) {
       closeModal();
@@ -87,6 +88,12 @@ async function doSoftDelete(): Promise<void> {
           :store-name="post.store_name"
         />
       </div>
+      <div class="mt-2 flex gap-2.5">
+        <GenreBrowseItem
+          class="w-fit max-w-screen-md px-3 py-1 text-lg text-sumi-900 md:text-xl"
+          :genre-id="post.genre_id as number"
+        />
+      </div>
       <div class="mt-20 flex max-w-2xl items-center justify-start gap-3 text-sumi-600">
         <PostUserProfileLink
           class="text-md min-w-0 flex-shrink truncate"
@@ -106,12 +113,7 @@ async function doSoftDelete(): Promise<void> {
       <article>
         <img :src="post.post_img" class="w-full object-cover" alt="投稿画像" />
         <div class="my-12 max-w-screen-md break-all">
-          <PostCommentBrowseItem
-            v-if="post.comment"
-            :comment="post.comment"
-            class="max-w-screen-md"
-          />
-          <PostCommentBrowseItem v-else comment="一言感想はありません。" />
+          <PostCommentBrowseItem :comment="post.comment" class="max-w-screen-md" />
         </div>
       </article>
     </div>

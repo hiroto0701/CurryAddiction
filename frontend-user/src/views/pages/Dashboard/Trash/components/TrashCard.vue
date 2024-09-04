@@ -3,18 +3,21 @@ import TrashCardPreview from '@/views/pages/Dashboard/Trash/components/TrashCard
 import TrashCardDetails from '@/views/pages/Dashboard/Trash/components/TrashCardDetails.vue';
 
 interface Props {
-  readonly storeName: string;
   readonly src: string;
+  readonly storeName: string;
   readonly deletedAt: string;
   readonly comment?: string;
 }
 defineProps<Props>();
 
-const emits = defineEmits(['delete', 'restore']);
+const emits = defineEmits<{
+  (e: 'delete'): void;
+  (e: 'restore'): void;
+}>();
 </script>
 <template>
   <div class="flex gap-5 sm:gap-7">
-    <TrashCardPreview :store-name="storeName" :src="src" :comment="comment" />
+    <TrashCardPreview :src="src" :store-name="storeName" :comment="comment" />
     <TrashCardDetails
       :store-name="storeName"
       :deleted-at="deletedAt"

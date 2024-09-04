@@ -4,7 +4,7 @@ import { useCommonStore } from '@/stores/common';
 import { usePostForm } from '@/composables/functions/usePostForm';
 import StoreIcon from '@/views/atoms/icons/StoreIcon.vue';
 import CommentIcon from '@/views/atoms/icons/CommentIcon.vue';
-import CategoryIcon from '@/views/atoms/icons/CategoryIcon.vue';
+import GenreIcon from '@/views/atoms/icons/GenreIcon.vue';
 import LocationIcon from '@/views/atoms/icons/LocationIcon.vue';
 import PhotoIcon from '@/views/atoms/icons/PhotoIcon.vue';
 import CreatePostButton from '@/views/molecules/buttons/CreatePostButton.vue';
@@ -21,6 +21,7 @@ const {
   storeName,
   comment,
   genreId,
+  genreOptions,
   preview,
   storeNameError,
   reactiveErrors,
@@ -86,7 +87,8 @@ async function doCreate() {
       :required="true"
       :optional="false"
       :errors="reactiveErrors"
-      :iconComponent="CategoryIcon"
+      :iconComponent="GenreIcon"
+      :options="genreOptions"
       v-model="genreId"
     />
     <div class="flex items-end">

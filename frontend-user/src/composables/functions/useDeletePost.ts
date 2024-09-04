@@ -1,12 +1,12 @@
 import axios, { type AxiosResponse } from 'axios';
 
 export const useDeletePost = () => {
-  async function softDeletePost(postId: number): Promise<AxiosResponse> {
-    return await axios.delete(`/api/posts/${postId}`);
+  async function softDeletePost(slug: string): Promise<AxiosResponse> {
+    return await axios.delete(`/api/posts/${slug}`);
   }
 
-  async function hardDeletePost(postId: number): Promise<AxiosResponse> {
-    return await axios.delete(`/api/dashboard/trash/${postId}`);
+  async function hardDeletePost(slug: string): Promise<AxiosResponse> {
+    return await axios.delete(`/api/dashboard/trash/${slug}`);
   }
 
   return { softDeletePost, hardDeletePost };

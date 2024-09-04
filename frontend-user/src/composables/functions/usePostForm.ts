@@ -1,14 +1,22 @@
-import { ref, reactive, watch } from 'vue';
+import { ref, reactive, watch, onMounted, type Ref } from 'vue';
+import type { Genre } from '@/composables/types/genre';
 import { useValidatePost } from '@/composables/functions/useValidatePost';
 import { useCreatePost } from '@/composables/functions/useCreatePost';
+import { useCurryGenreStore } from '@/stores/curry_genre';
 
 export function usePostForm() {
   const { errors, validate } = useValidatePost();
   const { createPost } = useCreatePost();
 
+  const curryGenreStore = useCurryGenreStore();
+
   const storeName = ref<string>('');
   const comment = ref<string>('');
-  const genreId = ref<number | undefined>(1);
+  const genreId = ref<number | undefined>();
+  const genreOptions: Ref<Genre[]> = ref([
+    { id: undefined, name: '選択してください', disabled: true }
+  ]);
+
   const fileInfo = ref<File>();
   const preview = ref<string | undefined>();
   const latitude = ref<number>(0.1);
@@ -19,6 +27,14 @@ export function usePostForm() {
 
   watch(storeName, (newValue) => {
     storeNameError.value = !newValue.length || newValue.length > 30;
+  });
+
+  onMounted(async (): Promise<void> => {
+    await curryGenreStore.fetchGenres();
+    genreOptions.value = [
+      { id: undefined, name: '選択してください', disabled: true },
+      ...curryGenreStore.state.genres.map((genre) => ({ ...genre, disabled: false }))
+    ];
   });
 
   function handleFileSelected(target: HTMLInputElement) {
@@ -63,6 +79,7 @@ export function usePostForm() {
     storeName,
     comment,
     genreId,
+    genreOptions,
     fileInfo,
     preview,
     latitude,

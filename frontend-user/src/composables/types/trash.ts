@@ -3,6 +3,7 @@ export interface Trash {
   user_id: number;
   store_name: string;
   comment: string;
+  slug: string | null;
   post_img: string;
   posted_at: string;
   deleted_at: string;
