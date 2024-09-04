@@ -47,7 +47,7 @@ await load(String(route.params.slug));
 async function doSoftDelete(): Promise<void> {
   try {
     commonStore.startApiLoading();
-    const response = await softDeletePost(Number(route.params.id));
+    const response = await softDeletePost(String(route.params.slug));
 
     if (response.status === 200) {
       closeModal();
