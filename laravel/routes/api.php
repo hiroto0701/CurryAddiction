@@ -48,7 +48,7 @@ Route::prefix('/posts')->middleware(['auth:service_users'])->group(function() {
     Route::post('/{post}/likes', \App\Domains\Post\Controller\LikeAction::class);
     Route::post('/{post}/archives', \App\Domains\Post\Controller\ArchiveAction::class);
     Route::get('/{post:slug}', \App\Domains\Post\Controller\ViewAction::class);
-    Route::delete('/{post}', \App\Domains\Post\Controller\DeleteAction::class);
+    Route::delete('/{post:slug}', \App\Domains\Post\Controller\DeleteAction::class);
 });
 
 // dashboard関連
@@ -60,8 +60,8 @@ Route::prefix('/dashboard')->middleware(['auth:service_users'])->group(function(
 
     Route::prefix('/trash')->group(function() {
         Route::get('/', \App\Domains\Dashboard\Trash\Controller\IndexAction::class);
-        Route::post('/{post}', \App\Domains\Dashboard\Trash\Controller\RestoreAction::class)->withTrashed();
-        Route::delete('/{post}', \App\Domains\Dashboard\Trash\Controller\DeleteAction::class)->withTrashed();
+        Route::post('/{post:slug}', \App\Domains\Dashboard\Trash\Controller\RestoreAction::class)->withTrashed();
+        Route::delete('/{post:slug}', \App\Domains\Dashboard\Trash\Controller\DeleteAction::class)->withTrashed();
     });
 });
 

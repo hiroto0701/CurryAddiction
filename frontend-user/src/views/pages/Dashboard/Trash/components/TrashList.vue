@@ -22,7 +22,7 @@ const { hardDeletePost } = useDeletePost();
 const posts = ref<Trash[]>([]);
 const paginationStatus = ref<PaginationStatus | null>(null);
 const open = ref<boolean>(false);
-const selectedPostId = ref<number | null>(null);
+const selectedPostSlug = ref<string | null>(null);
 const selectedAction = ref<'restore' | 'delete' | null>(null);
 
 async function loadPosts(page: number = 1, userId: number, forceReload: boolean = false) {
@@ -49,8 +49,8 @@ onBeforeRouteUpdate(async (to): Promise<void> => {
   await loadPosts(page, accountStore.state.user_id as number);
 });
 
-function openModal(postId: number, action: 'restore' | 'delete'): void {
-  selectedPostId.value = postId;
+function openModal(slug: string, action: 'restore' | 'delete'): void {
+  selectedPostSlug.value = slug;
   selectedAction.value = action;
   open.value = true;
   document.body.style.overflow = 'hidden';
@@ -63,14 +63,14 @@ function closeModal(): void {
 }
 
 async function doHardDelete() {
-  if (!selectedPostId.value) return;
+  if (!selectedPostSlug.value) return;
 
   try {
     commonStore.startApiLoading();
-    const response = await hardDeletePost(selectedPostId.value);
+    const response = await hardDeletePost(selectedPostSlug.value);
     if (response.status === 200) {
       closeModal();
-      posts.value = posts.value.filter((post) => post.id !== selectedPostId.value);
+      posts.value = posts.value.filter((post) => post.slug !== selectedPostSlug.value);
       commonStore.setFlashMessage('投稿を削除しました');
       setTimeout(() => {
         commonStore.clearFlashMessage();
@@ -90,14 +90,14 @@ async function doHardDelete() {
 }
 
 async function doRestore() {
-  if (!selectedPostId.value) return;
+  if (!selectedPostSlug.value) return;
 
   try {
     commonStore.startApiLoading();
-    const response = await restorePost(selectedPostId.value);
+    const response = await restorePost(selectedPostSlug.value);
     if (response.status === 200) {
       closeModal();
-      posts.value = posts.value.filter((post) => post.id !== selectedPostId.value);
+      posts.value = posts.value.filter((post) => post.slug !== selectedPostSlug.value);
       commonStore.setFlashMessage('投稿を復元しました');
       setTimeout(() => {
         commonStore.clearFlashMessage();
@@ -126,8 +126,8 @@ async function doRestore() {
       :store-name="post.store_name"
       :comment="post.comment || '一言感想はありません。'"
       :deleted-at="post.deleted_at"
-      @delete="openModal(post.id, 'delete')"
-      @restore="openModal(post.id, 'restore')"
+      @delete="openModal(post.slug as string, 'delete')"
+      @restore="openModal(post.slug as string, 'restore')"
     />
   </div>
 

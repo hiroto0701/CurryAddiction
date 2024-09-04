@@ -29,16 +29,16 @@ const paginationStatus = ref<PaginationStatus | null>(null);
 const pageUser = inject<Ref<ServiceUser | null>>('pageUser', ref(null));
 
 const open = ref<boolean>(false);
-const selectedPostId = ref<number | null>(null);
+const selectedPostSlug = ref<string | null>(null);
 
-function openModal(postId: number): void {
-  selectedPostId.value = postId;
+function openModal(slug: string): void {
+  selectedPostSlug.value = slug;
   open.value = true;
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal(): void {
-  selectedPostId.value = null;
+  selectedPostSlug.value = null;
   open.value = false;
   document.body.style.overflow = 'auto';
 }
@@ -125,14 +125,14 @@ async function toggleArchive(postId: number): Promise<void> {
 }
 
 async function doSoftDelete(): Promise<void> {
-  if (selectedPostId.value === null) return;
+  if (selectedPostSlug.value === null) return;
 
   try {
     commonStore.startApiLoading();
-    const response = await softDeletePost(selectedPostId.value);
+    const response = await softDeletePost(selectedPostSlug.value);
 
     if (response.status === 200) {
-      posts.value = posts.value.filter((post) => post.id !== selectedPostId.value);
+      posts.value = posts.value.filter((post) => post.slug !== selectedPostSlug.value);
       closeModal();
       commonStore.setFlashMessage('ごみ箱に入れました');
       setTimeout(() => {
@@ -184,10 +184,10 @@ watch(
         :is-liked="post.current_user_liked"
         :is-archived="post.current_user_archived"
         :is-mine="post.is_mine"
-        @navigate-to-detail="toViewer(post.slug)"
+        @navigate-to-detail="toViewer(post.slug as string)"
         @like="removeLike(post.id)"
         @archive="toggleArchive(post.id)"
-        @handle-post="openModal(post.id)"
+        @handle-post="openModal(post.slug as string)"
       />
     </CardDisplayAreaLayout>
     <Pagination class="mt-12" @change-page="doChangePage" :pagination-status="paginationStatus" />
