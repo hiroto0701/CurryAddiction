@@ -16,6 +16,7 @@ class TrashResource extends JsonResource
             'user_id' => $this->serviceUser->user_id,
             'store_name' => $this->store_name,
             'comment' => !is_null($this->store_name) ? $this->comment : null,
+            'slug' => $this->slug,
             'post_img' => route(
                 'file.view',
                 ['type' => FileViewAction::TYPE_POST_IMG, 'uuid' => $this->postImg->uuid]
