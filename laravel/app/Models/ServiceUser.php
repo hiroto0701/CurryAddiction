@@ -21,6 +21,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $display_name
  * @property string $email
  * @property int $avatar_id
+ * @property string $uuid
  * @property string $onetime_token
  * @property string $onetime_expiration
  * @property User $user
@@ -41,9 +42,9 @@ class ServiceUser extends Authenticatable
         'display_name',
         'email',
         'avatar_id',
+        'uuid',
         'onetime_token',
         'onetime_expiration',
-        'prefecture_ids',
         'registered_at',
     ];
 
