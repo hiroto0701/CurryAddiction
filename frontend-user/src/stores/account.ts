@@ -7,6 +7,7 @@ import { useCommonStore } from '@/stores/common';
 interface AccountState {
   id: number | null;
   user_id: number | null;
+  uuid: string | null;
   status: string | null;
   display_name: string;
   handle_name: string;
@@ -27,6 +28,7 @@ export const useAccountStore = defineStore('account', () => {
   const state = ref<AccountState>({
     id: null,
     user_id: null,
+    uuid: null,
     status: null,
     display_name: '',
     handle_name: '',
@@ -51,6 +53,7 @@ export const useAccountStore = defineStore('account', () => {
     state.value = {
       id: null,
       user_id: null,
+      uuid: null,
       status: null,
       display_name: '',
       handle_name: '',

@@ -32,7 +32,7 @@ Route::prefix('/service_users')->group(function() {
         Route::put('/avatar', \App\Domains\ServiceUser\Controller\UpdateAvatarAction::class);
         Route::put('/display_name', \App\Domains\ServiceUser\Controller\UpdateDisplayNameAction::class);
         Route::post('/logout', \App\Domains\ServiceUser\Controller\LogoutAction::class);
-        Route::delete('/{service_user}', \App\Domains\ServiceUser\Controller\DeleteAction::class);
+        Route::delete('/{service_user:uuid}', \App\Domains\ServiceUser\Controller\DeleteAction::class);
     });
 });
 
@@ -56,7 +56,6 @@ Route::prefix('/dashboard')->middleware(['auth:service_users'])->group(function(
     Route::prefix('/analytics')->group(function () {
         Route::get('/', \App\Domains\Dashboard\Analytics\Controller\IndexAction::class);
     });
-
 
     Route::prefix('/trash')->group(function() {
         Route::get('/', \App\Domains\Dashboard\Trash\Controller\IndexAction::class);

@@ -91,7 +91,7 @@ function closeModal(): void {
 async function doDelete(): Promise<void> {
   try {
     commonStore.startApiLoading();
-    const response = await accountFormStore.deleteAccount(Number(accountStore.state.id));
+    const response = await accountFormStore.deleteAccount(String(accountStore.state.uuid));
     if (response.status === 200) {
       closeModal();
       router.push({ name: 'Login' });
