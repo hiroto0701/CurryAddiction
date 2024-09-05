@@ -30,7 +30,7 @@ class IndexInteractor
         }
 
         $query->orderBy(
-            self::SORT_KEYS[$command->getSortAttribute()] ?? 'posted_at',
+            self::SORT_KEYS[$command->getSortAttribute()] ?? 'deleted_at',
             $command->getSortDirection() ?? 'desc'
         )->orderBy('deleted_at');
 

@@ -1,9 +1,17 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { useAccountStore } from '@/stores/account';
+import { useCurryGenreStore } from '@/stores/curry_genre';
 import MeatballDropDown from '@/views/molecules/dropdown/MeatballDropDown.vue';
 import ScrollToTopButton from '@/views/molecules/buttons/ScrollToTopButton.vue';
 
 const accountStore = useAccountStore();
+const curryGenreStore = useCurryGenreStore();
+
+// カレーのジャンル情報を取得
+onMounted(() => {
+  curryGenreStore.fetchGenres();
+});
 </script>
 <template>
   <RouterView />

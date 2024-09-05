@@ -11,6 +11,7 @@ use Database\Seeders\AbstractSeeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AccountSeeder extends AbstractSeeder
 {
@@ -53,6 +54,7 @@ class AccountSeeder extends AbstractSeeder
         DB::table('service_users')->insert(
             [
                 'user_id' => $serviceUserId,
+                'uuid' => Str::uuid(),
                 'status' => ServiceUser::STATUS_ENABLED,
 				'handle_name' => 'service_user',
 				'display_name' => 'ダミーユーザー',

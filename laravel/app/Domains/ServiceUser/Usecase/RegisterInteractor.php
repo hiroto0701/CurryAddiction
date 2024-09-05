@@ -8,6 +8,7 @@ use App\Domains\ServiceUser\Usecase\Command\RegisterCommand;
 use App\Models\ServiceUser;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class RegisterInteractor
 {
@@ -26,6 +27,7 @@ class RegisterInteractor
                 'handle_name' => $command->getHandleName(),
                 'display_name' => $command->getHandleName(),
                 'status' => ServiceUser::STATUS_ENABLED,
+                'uuid' => Str::uuid(),
                 'registered_at' => Carbon::now(),
             ]);
             return $service_user;

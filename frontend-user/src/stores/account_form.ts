@@ -226,8 +226,8 @@ export const useAccountFormStore = defineStore('account_form', () => {
     }
   }
 
-  async function deleteAccount(userId: number): Promise<AxiosResponse> {
-    return await axios.delete(`/api/service_users/${userId}`);
+  async function deleteAccount(uuid: string): Promise<AxiosResponse> {
+    return await axios.delete(`/api/service_users/${uuid}`);
   }
 
   return {
