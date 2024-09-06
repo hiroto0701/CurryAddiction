@@ -31,7 +31,8 @@ class CurryGenreSeeder extends AbstractSeeder
             'インドカレー',
             'ネパールカレー',
             'スリランカカレー',
-            'スープカレー'
+            'スープカレー',
+            'その他'
         ];
 
         foreach ($curryGenres as $genre) {

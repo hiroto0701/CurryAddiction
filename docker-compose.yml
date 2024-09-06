@@ -64,6 +64,14 @@ services:
     ports:
       - 8081:8081
 
+  curry_addiction_redis:
+    image: redis:7.4.0-alpine
+    container_name: curry_addiction_redis
+    volumes:
+      - ./data/redis:/data
+    ports:
+      - 6379:6379
+
   curry_addiction_minio:
     image: minio/minio:RELEASE.2021-11-09T03-21-45Z
     container_name: curry_addiction_minio
