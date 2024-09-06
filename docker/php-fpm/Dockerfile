@@ -5,7 +5,6 @@ ENV TZ=Asia/Tokyo
 COPY . /var/www/html
 
 # php-fpmの設定ファイルをコピー
-# HACK 頻繁に変えるならここでコピーしないで、composeで指定した方がbuildをしなくて済む
 COPY www.conf /etc/php-fpm.d/www.conf
 
 RUN apt-get update && \
@@ -20,10 +19,9 @@ RUN apt-get update && \
     vim \
     libpq-dev \
     libicu-dev \
-    && docker-php-ext-install pdo_pgsql bcmath intl && \
-    pecl install xdebug && \
-    docker-php-ext-enable xdebug
-    
+    && git clone https://github.com/phpredis/phpredis.git /usr/src/php/ext/redis \
+    && docker-php-ext-install pdo_pgsql bcmath intl redis
+
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
