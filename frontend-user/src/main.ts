@@ -14,19 +14,19 @@ import timezone from 'dayjs/plugin/timezone';
 axios.defaults.baseURL = import.meta.env.VITE_APP_API_ENDPOINT;
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
-// axios.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if ([401, 419].includes(error.response.status)) {
-//       // 認証エラーの場合、ログイン画面に遷移させる
-//       router.push({ name: 'Login' });
-//     } else if ([403, 404].includes(error.response.status)) {
-//       // 一律404画面を表示する
-//       // router.replace({name: 'ErrorNotFound'})
-//     }
-//     return Promise.reject(error);
-//   }
-// );
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if ([401, 419].includes(error.response.status)) {
+      // 認証エラーの場合、ログイン画面に遷移させる
+      router.push({ name: 'Top' });
+    } else if ([403, 404].includes(error.response.status)) {
+      // 一律404画面を表示する
+      // router.replace({name: 'ErrorNotFound'})
+    }
+    return Promise.reject(error);
+  }
+);
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

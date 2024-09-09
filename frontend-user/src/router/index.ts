@@ -5,16 +5,16 @@ import { useCommonStore } from '@/stores/common';
 
 const routes = [
   {
-    path: '/login',
+    path: '/top',
     component: () => import('@/views/templates/pages/UnAuthenticatedLayout.vue'),
     children: [
       {
         path: '',
-        name: 'Login',
+        name: 'Top',
         meta: {
-          title: 'ログイン'
+          title: ''
         },
-        component: () => import('@/views/pages/Login.vue')
+        component: () => import('@/views/pages/Top.vue')
       }
     ]
   },
@@ -199,7 +199,7 @@ router.beforeEach(async (to, from, next) => {
 
   // signupページへのダイレクトアクセス制限
   if (to.name === 'Signup' && !accountStore.state.isNewRegistration) {
-    return next({ name: 'Login' });
+    return next({ name: 'Top' });
   }
 
   // ログインしている場合は/loginへのアクセスを制限
@@ -217,7 +217,7 @@ router.beforeEach(async (to, from, next) => {
       await accountStore.fetchUserData();
     }
 
-    return accountStore.isAuthenticated ? next() : next({ name: 'Login' });
+    return accountStore.isAuthenticated ? next() : next({ name: 'Top' });
   }
 
   next();
