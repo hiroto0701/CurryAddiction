@@ -30,7 +30,7 @@ function handleRouting(routeName: string): void {
 
 function doLogout(): void {
   accountStore.logout().then(() => {
-    router.push({ name: 'Login' });
+    router.push({ name: 'Top' });
     document.body.style.overflow = 'auto';
   });
 }
