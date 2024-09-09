@@ -4,8 +4,9 @@ import { useRouter } from 'vue-router';
 import { useAccountStore } from '@/stores/account';
 import { useAccountFormStore } from '@/stores/account_form';
 import { useCommonStore } from '@/stores/common';
-import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue';
 import LogoIcon from '@/views/atoms/icons/LogoIcon.vue';
+import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue';
+// import LogoWithTextIcon from '@/views/atoms/icons/LogoWithTextIcon.vue';
 import LoginButton from '@/views/molecules/buttons/LoginButton.vue';
 import AccountAbortConfirmModal from '@/views/molecules/modals/AccountAbortConfirmModal.vue';
 import HandleNameFormItem from '@/views/molecules/formItems/HandleNameFormItem.vue';
@@ -36,7 +37,8 @@ function closeModal(): void {
 function accountAbort(): void {
   accountStore.resetData();
   accountFormStore.resetData();
-  router.push({ name: 'Login' });
+  document.body.style.overflow = 'auto';
+  router.push({ name: 'Top' });
 }
 
 async function doLogin(): Promise<void> {
@@ -57,8 +59,9 @@ async function doLogin(): Promise<void> {
   <main>
     <div class="py-10">
       <div class="xs:px-7 mx-auto w-full max-w-[600px] px-6 sm:px-10">
-        <div class="flex justify-center">
-          <LogoIcon class="w-24" />
+        <div class="flex flex-col items-center justify-center gap-4">
+          <LogoIcon class="w-32" />
+          <h1 class="font-TrainOne text-3xl text-sumi-900">Curry Addiction</h1>
         </div>
         <h1 class="mx-auto mt-3 w-fit font-body text-lg text-sumi-900">アカウントを作成します</h1>
         <div class="mx-auto mt-5 flex flex-col items-center rounded-3xl bg-slate-100 p-6">

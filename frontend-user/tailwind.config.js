@@ -29,8 +29,11 @@ export default {
       },
       fontSize: {
         mini: '0.625rem'
+      },
+      maxWidth: {
+        660: '660px'
       }
     }
   },
   plugins: []
-}
+};

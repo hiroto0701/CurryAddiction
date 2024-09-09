@@ -94,7 +94,7 @@ async function doDelete(): Promise<void> {
     const response = await accountFormStore.deleteAccount(String(accountStore.state.uuid));
     if (response.status === 200) {
       closeModal();
-      router.push({ name: 'Login' });
+      router.push({ name: 'Top' });
       document.body.style.overflow = 'auto';
     } else {
       throw new Error(response.data.message);
