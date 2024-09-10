@@ -127,8 +127,8 @@ async function login(): Promise<boolean> {
         <div class="-mt-4 flex justify-end sm:mt-6">
           <img
             src="http://localhost:9000/local-curry_addiction/illust/circle_of_people.svg"
-            class="w-44"
-            alt=""
+            class="w-36 sm:w-44"
+            alt="人が輪になっている画像"
           />
         </div>
       </div>
