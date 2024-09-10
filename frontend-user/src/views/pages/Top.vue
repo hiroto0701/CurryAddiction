@@ -92,7 +92,7 @@ async function login(): Promise<boolean> {
         text="カレーが大好きな作者が、もっと色んなカレーを知りたい！そして食べたカレーを共有することで、同じようなカレー好きの人に新たなカレーを知ってもらいたい！というカレーに対する熱い思いを込めてこのサービスを作り上げました。"
       />
       <LpText
-        text="このサービスで、カレーとの出会いを記録し、依存症（addiction）になるほどカレーにハマるきっかけになれればと思っています。"
+        text="このサービスで、カレーとの出会いを記録し、依存症（addiction）になるほどカレーにハマるきっかけになればと思っています。"
       />
     </section>
 
@@ -117,17 +117,17 @@ async function login(): Promise<boolean> {
     <div class="mt-16 flex flex-col gap-5">
       <div class="border-sumi-150 rounded-3xl border p-7 sm:flex sm:p-8">
         <div
-          class="xs:gap-5 xs:text-md sm:text-mdlg flex flex-1 flex-col items-start gap-4 text-sm leading-relaxed"
+          class="xs:gap-5 xs:text-md sm:text-md flex flex-1 flex-col items-start gap-4 text-sm leading-relaxed"
         >
           <h2 class="font-body text-sumi-900">
             早速Curry Addictionに参加して、あなただけのカレーコレクションを作り上げましょう。
           </h2>
           <LoginButton text="ログイン" @click="openModal('login')" />
         </div>
-        <div class="-mb-2 -mt-4 flex justify-end sm:mt-6">
+        <div class="-mt-4 flex justify-end sm:mt-6">
           <img
             src="http://localhost:9000/local-curry_addiction/illust/circle_of_people.svg"
-            class="w-32"
+            class="w-44"
             alt=""
           />
         </div>
