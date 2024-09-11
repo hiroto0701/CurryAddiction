@@ -5,7 +5,7 @@ import { useAccountStore } from '@/stores/account';
 import { useCommonStore } from '@/stores/common';
 import AppLogo from '@/views/atoms/icons/AppLogo.vue';
 import LogoutButton from '@/views/molecules/buttons/LogoutButton.vue';
-import MyProfileLink from '@/views/molecules/links/MyProfileLink.vue';
+import CurrentUserProfileLink from '@/views/molecules/links/CurrentUserProfileLink.vue';
 import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue';
 
 const accountStore = useAccountStore();
@@ -38,7 +38,7 @@ function doLogout(): void {
       <div class="flex w-fit flex-col gap-5">
         <AppLogo />
         <div class="flex items-center justify-between">
-          <MyProfileLink />
+          <CurrentUserProfileLink />
           <LogoutButton class="text-sm" text="ログアウト" @click="openModal" />
         </div>
       </div>

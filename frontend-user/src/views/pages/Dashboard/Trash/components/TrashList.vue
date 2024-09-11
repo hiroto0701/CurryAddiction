@@ -107,7 +107,7 @@ async function doRestore() {
     }
   } catch (error) {
     closeModal();
-    console.error('Failed to restore the post:', error);
+    console.error('復元に失敗しました:', error);
     commonStore.setErrorMessage('復元に失敗しました');
     setTimeout(() => {
       commonStore.clearErrorMessage();
