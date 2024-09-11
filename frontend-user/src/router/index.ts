@@ -113,6 +113,31 @@ const routes = [
               group: 'Account'
             },
             component: () => import('@/views/pages/Account/Profile.vue')
+          },
+          // error
+          {
+            path: '/:pathMatch(.*)*',
+            name: 'NotFound',
+            component: () => import('@/views/pages/Error/NotFound.vue')
+          },
+          {
+            path: 'error',
+            name: 'Error',
+            component: {
+              render() {
+                return h(resolveComponent('router-view'));
+              }
+            },
+            children: [
+              {
+                path: 'notfound',
+                name: 'ErrorNotFound',
+                meta: {
+                  title: 'ページを表示できません'
+                },
+                component: () => import('@/views/pages/Error/NotFound.vue')
+              }
+            ]
           }
         ]
       },
@@ -218,6 +243,12 @@ router.beforeEach(async (to, from, next) => {
     }
 
     return accountStore.isAuthenticated ? next() : next({ name: 'Top' });
+  }
+
+  // ルートが見つからない場合の処理
+  if (to.matched.length === 0) {
+    next({ name: 'NotFound' });
+    return;
   }
 
   next();
