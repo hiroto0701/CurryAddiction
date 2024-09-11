@@ -125,11 +125,11 @@ async function doSoftDelete(): Promise<void> {
       throw new Error(response.data.message);
     }
   } catch (error) {
-    console.error('Failed to delete the post:', error);
+    console.error('削除に失敗しました:', error);
     if (axios.isAxiosError(error)) {
-      console.log(`削除に失敗しました: ${error.response?.data?.message || error.message}`, error);
+      console.error(`削除に失敗しました: ${error.response?.data?.message || error.message}`, error);
     } else {
-      console.log('予期せぬエラーが発生しました', error);
+      console.error('予期せぬエラーが発生しました', error);
     }
   } finally {
     commonStore.stopApiLoading();
