@@ -74,6 +74,11 @@ const routes = [
               }
             },
             children: [
+              // /post へのアクセスをHomeページにリダイレクト
+              {
+                path: '',
+                redirect: { name: 'Home' }
+              },
               {
                 path: 'new',
                 name: 'PostCreate',
@@ -117,7 +122,10 @@ const routes = [
           // error
           {
             path: '/:pathMatch(.*)*',
-            name: 'NotFound',
+            name: 'ErrorNotFound',
+            meta: {
+              title: 'ページを表示できません'
+            },
             component: () => import('@/views/pages/Error/NotFound.vue')
           },
           {
@@ -151,6 +159,11 @@ const routes = [
             path: '',
             name: 'Dashboard',
             children: [
+              // /dashboard へのアクセスをPostDashboardページにリダイレクト
+              {
+                path: '',
+                redirect: { name: 'PostDashboard' }
+              },
               {
                 path: 'analytics',
                 name: 'PostDashboard',
