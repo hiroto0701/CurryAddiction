@@ -12,6 +12,7 @@ interface NavItem {
   icon: any;
   to?: RouteLocationRaw;
   props?: Record<string, string | null>;
+  isMyPage?: boolean;
 }
 
 interface Props {
@@ -29,22 +30,38 @@ const navItems: NavItem[] = [
     name: 'マイページ',
     icon: AvatarIcon,
     to: { name: 'UserPage', params: { username: props.handleName } },
-    props: { avatarUrl: props.avatarUrl }
+    props: { avatarUrl: props.avatarUrl },
+    isMyPage: true
   }
 ];
+
+const regularNavItems = navItems.filter((item) => !item.isMyPage);
+const myPageItem = navItems.find((item) => item.isMyPage);
 </script>
 <template>
-  <div class="flex items-center gap-0.5 max-md:hidden">
-    <template v-for="item in navItems" :key="item.name">
-      <BottomTooltip :text="item.name" position="bottom">
-        <component
-          :is="item.to ? RouterLink : 'div'"
-          :to="item.to"
-          class="peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"
-        >
-          <component :is="item.icon" v-bind="item.props || {}" />
-        </component>
-      </BottomTooltip>
-    </template>
+  <div class="flex items-center gap-0.5">
+    <div class="flex items-center gap-0.5 max-sm:hidden">
+      <template v-for="item in regularNavItems" :key="item.name">
+        <BottomTooltip :text="item.name" position="bottom">
+          <component
+            :is="item.to ? RouterLink : 'div'"
+            :to="item.to"
+            class="peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"
+          >
+            <component :is="item.icon" v-bind="item.props || {}" />
+          </component>
+        </BottomTooltip>
+      </template>
+    </div>
+
+    <BottomTooltip v-if="myPageItem" :text="myPageItem.name" position="bottom">
+      <component
+        :is="myPageItem.to ? RouterLink : 'div'"
+        :to="myPageItem.to"
+        class="peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"
+      >
+        <component :is="myPageItem.icon" v-bind="myPageItem.props || {}" />
+      </component>
+    </BottomTooltip>
   </div>
 </template>
