@@ -25,6 +25,7 @@ async function loadUser(username: string) {
     emit('user-loaded', data);
   } catch (error) {
     console.error('ユーザーの読み込みに失敗しました。:', error);
+    throw new Error('404 not found');
   }
 }
 
