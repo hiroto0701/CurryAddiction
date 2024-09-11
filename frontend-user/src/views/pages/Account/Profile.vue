@@ -16,7 +16,7 @@ onErrorCaptured((err: unknown) => {
   if (err instanceof Error) {
     error.value = err;
     if (err.message === '404 not found') {
-      router.replace({ name: 'NotFound' });
+      router.replace({ name: 'ErrorNotFound' });
     }
   }
   return false;
