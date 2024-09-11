@@ -22,6 +22,11 @@ class LogoutAction extends Controller
 
     private LoggingOperation $loggingOperation;
 
+    public function __construct(LoggingOperation $loggingOperation)
+    {
+        $this->loggingOperation = $loggingOperation;
+    }
+
     public function __invoke(Request $request): JsonResponse
     {
         // ログアウト後に操作ログを残すと認証ユーザが失われるため、ここで登録しておく

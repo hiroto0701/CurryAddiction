@@ -18,11 +18,11 @@ axios.interceptors.response.use(
   (response) => response,
   (error) => {
     if ([401, 419].includes(error.response.status)) {
-      // 認証エラーの場合、ログイン画面に遷移させる
+      // 認証エラーの場合、ランディングページに遷移させる
       router.push({ name: 'Top' });
     } else if ([403, 404].includes(error.response.status)) {
       // 一律404画面を表示する
-      // router.replace({name: 'ErrorNotFound'})
+      router.replace({ name: 'ErrorNotFound' });
     }
     return Promise.reject(error);
   }

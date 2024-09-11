@@ -53,7 +53,7 @@ async function doCreate() {
     setTimeout(() => {
       commonStore.clearErrorMessage();
     }, 4000);
-    console.error(error);
+    console.error('投稿に失敗しました:', error);
   } finally {
     closeModal();
     window.scrollTo({

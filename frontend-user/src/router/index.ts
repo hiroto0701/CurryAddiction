@@ -74,6 +74,11 @@ const routes = [
               }
             },
             children: [
+              // /post へのアクセスをHomeページにリダイレクト
+              {
+                path: '',
+                redirect: { name: 'Home' }
+              },
               {
                 path: 'new',
                 name: 'PostCreate',
@@ -113,6 +118,34 @@ const routes = [
               group: 'Account'
             },
             component: () => import('@/views/pages/Account/Profile.vue')
+          },
+          // error
+          {
+            path: '/:pathMatch(.*)*',
+            name: 'ErrorNotFound',
+            meta: {
+              title: 'ページを表示できません'
+            },
+            component: () => import('@/views/pages/Error/NotFound.vue')
+          },
+          {
+            path: 'error',
+            name: 'Error',
+            component: {
+              render() {
+                return h(resolveComponent('router-view'));
+              }
+            },
+            children: [
+              {
+                path: 'notfound',
+                name: 'ErrorNotFound',
+                meta: {
+                  title: 'ページを表示できません'
+                },
+                component: () => import('@/views/pages/Error/NotFound.vue')
+              }
+            ]
           }
         ]
       },
@@ -126,6 +159,11 @@ const routes = [
             path: '',
             name: 'Dashboard',
             children: [
+              // /dashboard へのアクセスをPostDashboardページにリダイレクト
+              {
+                path: '',
+                redirect: { name: 'PostDashboard' }
+              },
               {
                 path: 'analytics',
                 name: 'PostDashboard',
@@ -218,6 +256,12 @@ router.beforeEach(async (to, from, next) => {
     }
 
     return accountStore.isAuthenticated ? next() : next({ name: 'Top' });
+  }
+
+  // ルートが見つからない場合の処理
+  if (to.matched.length === 0) {
+    next({ name: 'NotFound' });
+    return;
   }
 
   next();
