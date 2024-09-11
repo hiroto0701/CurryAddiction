@@ -106,7 +106,7 @@ const routes = [
           },
           // ユーザ毎の投稿一覧ページ
           {
-            path: ':username',
+            path: ':username?',
             name: 'UserPage',
             meta: {
               title: 'ユーザーページ',
