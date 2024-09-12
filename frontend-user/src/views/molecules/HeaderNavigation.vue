@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, type RouteLocationRaw } from 'vue-router';
+import { tv } from 'tailwind-variants';
 import HomeIcon from '@/views/atoms/icons/HomeIcon.vue';
 import PlusIcon from '@/views/atoms/icons/PlusIcon.vue';
 import SearchIcon from '@/views/atoms/icons/SearchIcon.vue';
@@ -19,6 +20,7 @@ interface Props {
   handleName: string;
   avatarUrl: string | null;
 }
+
 const props = defineProps<Props>();
 
 const navItems: NavItem[] = [
@@ -35,33 +37,31 @@ const navItems: NavItem[] = [
   }
 ];
 
-const regularNavItems = navItems.filter((item) => !item.isMyPage);
-const myPageItem = navItems.find((item) => item.isMyPage);
+const navItemStyles = tv({
+  base: 'flex items-center gap-0.5',
+  variants: {
+    isMyPage: {
+      true: '',
+      false: 'max-md:hidden'
+    }
+  }
+});
+
+const itemStyles = tv({
+  base: 'peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100'
+});
 </script>
+
 <template>
   <div class="flex items-center gap-0.5">
-    <div class="flex items-center gap-0.5 max-sm:hidden">
-      <template v-for="item in regularNavItems" :key="item.name">
+    <template v-for="item in navItems" :key="item.name">
+      <div :class="navItemStyles({ isMyPage: item.isMyPage })">
         <BottomTooltip :text="item.name" position="bottom">
-          <component
-            :is="item.to ? RouterLink : 'div'"
-            :to="item.to"
-            class="peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"
-          >
+          <component :is="item.to ? RouterLink : 'div'" :to="item.to" :class="itemStyles()">
             <component :is="item.icon" v-bind="item.props || {}" />
           </component>
         </BottomTooltip>
-      </template>
-    </div>
-
-    <BottomTooltip v-if="myPageItem" :text="myPageItem.name" position="bottom">
-      <component
-        :is="myPageItem.to ? RouterLink : 'div'"
-        :to="myPageItem.to"
-        class="peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"
-      >
-        <component :is="myPageItem.icon" v-bind="myPageItem.props || {}" />
-      </component>
-    </BottomTooltip>
+      </div>
+    </template>
   </div>
 </template>
