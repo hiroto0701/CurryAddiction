@@ -223,7 +223,7 @@ export const useAccountStore = defineStore('account', () => {
       await axios.post('/api/service_users/logout');
       resetData();
       commonStore.setFlashMessage('ログアウトしました');
-      router.push({ name: 'Top' });
+      router.push({ name: 'Welcome' });
       setTimeout(() => {
         commonStore.clearFlashMessage();
       }, 4000);

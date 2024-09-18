@@ -38,7 +38,7 @@ function accountAbort(): void {
   accountStore.resetData();
   accountFormStore.resetData();
   document.body.style.overflow = 'auto';
-  router.push({ name: 'Top' });
+  router.push({ name: 'Welcome' });
 }
 
 async function doLogin(): Promise<void> {
