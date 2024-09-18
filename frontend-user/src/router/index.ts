@@ -5,16 +5,17 @@ import { useCommonStore } from '@/stores/common';
 
 const routes = [
   {
-    path: '/top',
+    path: '/',
     component: () => import('@/views/templates/pages/UnAuthenticatedLayout.vue'),
     children: [
       {
         path: '',
-        name: 'Top',
+        name: 'Welcome',
         meta: {
-          title: ''
+          title: '',
+          disableScroll: true
         },
-        component: () => import('@/views/pages/Top.vue')
+        component: () => import('@/views/pages/Welcome.vue')
       }
     ]
   },
@@ -56,7 +57,7 @@ const routes = [
         meta: { requiresAuth: true },
         children: [
           {
-            path: '/',
+            path: '/home',
             name: 'Home',
             meta: {
               title: 'HOME',
@@ -188,7 +189,11 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-  scrollBehavior() {
+  scrollBehavior(to, from) {
+    if (from.meta.disableScroll) {
+      return false;
+    }
+
     // ページ遷移のタイミングで一律最上部にスクロール
     return { top: 0 };
   }
@@ -205,13 +210,8 @@ router.beforeEach(async (to, from, next) => {
 
   // signupページへのダイレクトアクセス制限
   if (to.name === 'Signup' && !accountStore.state.isNewRegistration) {
-    return next({ name: 'Top' });
+    return next({ name: 'Welcome' });
   }
-
-  // ログインしている場合は/loginへのアクセスを制限
-  // if (to.name === 'Login') {
-  //   return accountStore.isAuthenticated ? next() : next({ name: 'Home' })
-  // }
 
   // 認証が必要なページへのアクセス制限
   if (to.matched.some((record) => record.meta.requiresAuth)) {
@@ -223,7 +223,7 @@ router.beforeEach(async (to, from, next) => {
       await accountStore.fetchUserData();
     }
 
-    return accountStore.isAuthenticated ? next() : next({ name: 'Top' });
+    return accountStore.isAuthenticated ? next() : next({ name: 'Welcome' });
   }
 
   // ルートが見つからない場合の処理

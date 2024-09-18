@@ -25,7 +25,7 @@ function closeModal(): void {
 
 function doLogout(): void {
   accountStore.logout().then(() => {
-    router.push({ name: 'Top' });
+    router.push({ name: 'Welcome' });
     document.body.style.overflow = 'auto';
   });
 }
