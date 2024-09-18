@@ -5,7 +5,6 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const isPostPage = computed(() => router.currentRoute.value.name === 'PostCreate');
-console.log(router.currentRoute.value);
 </script>
 <template>
   <svg
