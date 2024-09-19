@@ -82,12 +82,12 @@ class LoginAction extends Controller
         $key = $this->throttleKey($ip);
         $attempts = RateLimiter::attempts($key);
 
-        if ($attempts >= 10) {
-            return RateLimiter::tooManyAttempts($key, 60); // 1時間
-        } else if ($attempts >= 5) {
-            return RateLimiter::tooManyAttempts($key, 3); // 3分
-        } else if ($attempts >= 3) {
-            return RateLimiter::tooManyAttempts($key, 1); // 1分
+        if ($attempts >= config('constant.login_rate_limit.max_attempts.level3')) {
+            return RateLimiter::tooManyAttempts($key, config('constant.login_rate_limit.lockout_time.long'));
+        } else if ($attempts >= config('constant.login_rate_limit.max_attempts.level2')) {
+            return RateLimiter::tooManyAttempts($key, config('constant.login_rate_limit.lockout_time.medium'));
+        } else if ($attempts >= config('constant.login_rate_limit.max_attempts.level1')) {
+            return RateLimiter::tooManyAttempts($key, config('constant.login_rate_limit.lockout_time.short'));
         }
 
         return false;

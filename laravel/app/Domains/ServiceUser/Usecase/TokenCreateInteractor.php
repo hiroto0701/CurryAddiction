@@ -30,13 +30,13 @@ class TokenCreateInteractor
                     'status' => ServiceUser::STATUS_PENDING,
                     'email' => $command->getEmail(),
                     'onetime_token' => Hash::make($command->getOnetimeToken()),
-                    'onetime_expiration' => Carbon::now()->addMinutes(config('constant.two_step_authentication_valid_minute.default')),
+                    'onetime_expiration' => Carbon::now()->addMinutes(config('constant.token_expire_minutes.default')),
                 ]);
             } else {
                 $data = [
                     'email' => $command->getEmail(),
                     'onetime_token' => Hash::make($command->getOnetimeToken()),
-                    'onetime_expiration' => Carbon::now()->addMinutes(config('constant.two_step_authentication_valid_minute.default')),
+                    'onetime_expiration' => Carbon::now()->addMinutes(config('constant.token_expire_minutes.default')),
                 ];
 
                 $service_user = ServiceUser::updateOrCreate(
