@@ -1,6 +1,6 @@
+import axios from 'axios';
 import { describe, it, expect, vi } from 'vitest';
 import { useFetchAnalytics } from '@/composables/functions/useFetchAnalytics';
-import axios from 'axios';
 import type { AnalyticsResponse } from '@/composables/types/analytics';
 
 // モックデータの作成
