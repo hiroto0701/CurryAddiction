@@ -6,7 +6,6 @@ import { useAccountFormStore } from '@/stores/account_form';
 import { useCommonStore } from '@/stores/common';
 import LogoIcon from '@/views/atoms/icons/LogoIcon.vue';
 import ErrorIcon from '@/views/atoms/icons/ErrorIcon.vue';
-// import LogoWithTextIcon from '@/views/atoms/icons/LogoWithTextIcon.vue';
 import LoginButton from '@/views/molecules/buttons/LoginButton.vue';
 import AccountAbortConfirmModal from '@/views/molecules/modals/AccountAbortConfirmModal.vue';
 import HandleNameFormItem from '@/views/molecules/formItems/HandleNameFormItem.vue';
@@ -22,6 +21,13 @@ const handleName = ref<string>('');
 const handleNameError = computed((): boolean => 'handle_name' in accountFormStore.state.errors);
 const handleNameLengthError = computed((): boolean => {
   return handleName.value.length < 2 || handleName.value.length > 20;
+});
+
+const handleNameCountClass = computed((): string => {
+  if (handleName.value.length === 0) {
+    return 'text-sumi-500';
+  }
+  return handleNameLengthError.value ? 'text-red-400' : 'text-sumi-500';
 });
 
 function openModal(): void {
@@ -63,30 +69,29 @@ async function doLogin(): Promise<void> {
           <LogoIcon class="w-32" />
           <h1 class="font-TrainOne text-3xl text-sumi-900">Curry Addiction</h1>
         </div>
-        <h1 class="mx-auto mt-3 w-fit font-body text-lg text-sumi-900">アカウントを作成します</h1>
         <div class="mx-auto mt-5 flex flex-col items-center rounded-3xl bg-slate-100 p-6">
           <h2 class="mx-auto w-fit font-body text-lg text-sumi-900">
             ハンドルネームを決めましょう
           </h2>
-          <form class="px-5" @submit.prevent="doLogin">
-            <div class="mt-5 flex items-center">
-              <div class="font-body text-sumi-600">curry-addiction/</div>
-              <div class="relative">
-                <HandleNameFormItem class="ml-1" v-model="handleName" :is-error="handleNameError" />
+          <form class="w-full px-5 md:px-16" @submit.prevent="doLogin">
+            <div
+              class="justify-stat mt-5 flex flex-col items-start gap-3 md:flex-row md:items-center md:gap-0"
+            >
+              <div class="font-body text-sumi-600">curry-addiction /</div>
+              <div class="relative flex-1">
+                <HandleNameFormItem
+                  class="w-full md:ml-1"
+                  v-model="handleName"
+                  :is-error="handleNameError"
+                />
                 <ErrorIcon
                   v-if="handleNameError"
                   class="absolute right-3 top-1/2 -translate-y-1/2"
                 />
               </div>
             </div>
-            <span
-              class="mt-2 flex justify-end"
-              :class="{
-                'text-sumi-500': !handleNameLengthError,
-                'text-red-400': handleNameLengthError
-              }"
-            >
-              {{ handleName ? handleName.length : 0 }} / 20
+            <span class="mt-2 flex justify-end" :class="handleNameCountClass">
+              {{ handleName.length }} / 20
             </span>
             <p
               v-show="accountFormStore.state.errors.handle_name"
