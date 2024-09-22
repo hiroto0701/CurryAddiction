@@ -52,11 +52,20 @@ export const useAccountFormStore = defineStore('account_form', () => {
     state.value.errors = {};
   }
 
-  // バリデーション条件
-  // 空白不可、スペース不可、ひらがな漢字不可、「-,_」以外の記号不可
+  /*
+   * バリデーション条件
+   * 1. 空白不可
+   * 2. スペース不可
+   * 3. ひらがな・漢字不可
+   * 4. 許可される記号は「-」「_」のみ
+   * 5. 先頭に記号は使用不可
+   * 6. 連続した記号は使用不可
+   */
   function handleNameValidate(handleName: string): boolean {
     const errors: Record<string, string[]> = {};
-    const pattern = /^[a-zA-Z0-9-_]+$/;
+    const validCharsPattern = /^[a-zA-Z0-9-_]+$/;
+    const startsAndEndsWithLetterOrDigitPattern = /^[a-zA-Z0-9].*[a-zA-Z0-9]$/;
+    const consecutiveSpecialCharsPattern = /[-_]{2,}/;
 
     if (!handleName) {
       errors.handle_name = ['ハンドルネームを入力してください'];
@@ -64,8 +73,18 @@ export const useAccountFormStore = defineStore('account_form', () => {
       errors.handle_name = ['ハンドルネームは20字以下で設定してください'];
     } else if (handleName.length < 2) {
       errors.handle_name = ['ハンドルネームは2字以上で設定してください'];
-    } else if (!pattern.test(handleName)) {
-      errors.handle_name = ['ハンドルネームに使用できるのは半角英数字、"-"、"_"のみです'];
+    } else if (consecutiveSpecialCharsPattern.test(handleName)) {
+      errors.handle_name = [
+        'ハイフン、アンダースコア（"-"、"_"）を連続して使用することはできません'
+      ];
+    } else {
+      if (!validCharsPattern.test(handleName)) {
+        errors.handle_name = ['使用できるのは半角英数字、"-"、"_"のみです'];
+      }
+      if (!startsAndEndsWithLetterOrDigitPattern.test(handleName)) {
+        errors.handle_name = errors.handle_name || [];
+        errors.handle_name.push('ハンドルネームの先頭と末尾に記号は使用できません');
+      }
     }
 
     if (Object.keys(errors).length > 0) {
