@@ -25,7 +25,7 @@ class UpdateAvatarInteractor
         return DB::transaction(function () use ($service_user, $command) {
 
             if (!empty($command->getFileContent())) {
-                $uploadDir = sprintf(config('constant.avatar.uploadfiles_path_format'), User::AuthId());
+                $uploadDir = sprintf(config('constant.upload_files_path_format.avatar'), User::AuthId());
 
                 $uploadfile = new UploadFile();
                 $uploadfile->type = UploadFile::TYPE_AVATAR;

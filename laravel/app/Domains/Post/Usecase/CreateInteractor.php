@@ -38,7 +38,7 @@ class CreateInteractor
             }
 
             if (!empty($command->getFileContent())) {
-                $uploadDir = sprintf(config('constant.post_img.uploadfiles_path_format'), User::AuthId());
+                $uploadDir = sprintf(config('constant.upload_files_path_format.post_img'), User::AuthId());
 
                 $uploadfile = new UploadFile();
                 $uploadfile->type = UploadFile::TYPE_POST_IMG;
