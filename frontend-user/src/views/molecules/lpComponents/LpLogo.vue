@@ -11,6 +11,6 @@ defineProps<Props>();
   <div class="flex flex-col items-center justify-center gap-4">
     <LogoIcon class="w-32" />
     <h1 class="font-TrainOne text-3xl text-sumi-900">{{ title }}</h1>
-    <h2 class="font-body text-lg text-sumi-900">カレー好きのためのSNS</h2>
+    <h2 class="font-body text-lg text-sumi-900">{{ subTitle }}</h2>
   </div>
 </template>
