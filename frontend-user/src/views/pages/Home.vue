@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import PostList from '@/views/pages/Post/components/PostList.vue';
-import PostListSkeleton from '@/views/pages/Post/components/PostListSkeleton.vue';
+import HomePagePlaceholder from '@/views/molecules/noContentPlaceholder/HomePagePlaceholder.vue';
+import PostList from '@/views/organisms/PostList.vue';
+import PostListSkeleton from '@/views/organisms/PostListSkeleton.vue';
 </script>
 <template>
   <Suspense>
     <template #default>
-      <PostList />
+      <PostList :placeholder-component="HomePagePlaceholder" page-type="home" />
     </template>
 
     <template #fallback>

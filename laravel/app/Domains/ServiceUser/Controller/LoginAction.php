@@ -51,6 +51,18 @@ class LoginAction extends Controller
             throw new AuthenticationException();
         }
 
+        // 認証トークン整合性チェック
+        if (!Hash::check($request->token, $user->onetime_token)) {
+            $this->incrementFailedAttempts($ip);
+            throw new AuthenticationTokenException(unmatched: true);
+        }
+
+        // 認証トークン有効期限チェック
+        if ($user->onetime_expiration < Carbon::now()) {
+            $this->incrementFailedAttempts($ip);
+            throw new AuthenticationTokenException(expired: true);
+        }
+
         // アカウントのステータスチェック
         if ($user->status !== ServiceUser::STATUS_ENABLED) {
             if ($user->status === ServiceUser::STATUS_PENDING) {
@@ -59,18 +71,7 @@ class LoginAction extends Controller
             throw new UserStatusException('アカウントが無効です。');
         }
 
-        // トークンの検証
-        if (!Hash::check($request->token, $user->onetime_token)) {
-            $this->incrementFailedAttempts($ip);
-            throw new AuthenticationTokenException(unmatched: true);
-        }
-
-        if ($user->onetime_expiration < Carbon::now()) {
-            $this->incrementFailedAttempts($ip);
-            throw new AuthenticationTokenException(expired: true);
-        }
-
-        // 認証成功
+        // 認証成功時
         Auth::guard('service_users')->login($user);
 
         // トークンを無効化

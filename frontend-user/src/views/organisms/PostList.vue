@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import axios from 'axios';
-import { ref, type Ref, inject, watch } from 'vue';
+import { ref, inject, watch, type Ref, type Component } from 'vue';
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
 import { useCommonStore } from '@/stores/common';
 import type { Post, PaginationStatus } from '@/composables/types/post';
@@ -9,11 +9,16 @@ import { useFetchPosts } from '@/composables/functions/useFetchPosts';
 import { useLikePost } from '@/composables/functions/useLikePost';
 import { useArchivePost } from '@/composables/functions/useArchivePost';
 import { useDeletePost } from '@/composables/functions/useDeletePost';
-import HomePagePlaceholder from '@/views/molecules/noContentPlaceholder/HomePagePlaceholder.vue';
 import Card from '@/views/molecules/card/Card.vue';
 import Pagination from '@/views/molecules/Pagination.vue';
 import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue';
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue';
+
+interface Props {
+  readonly placeholderComponent: null | Component;
+  readonly pageType: String;
+}
+const props = defineProps<Props>();
 
 const commonStore = useCommonStore();
 const { fetchPostsList } = useFetchPosts();
@@ -51,7 +56,11 @@ async function loadPosts(page: number = 1, userId?: number, forceReload: boolean
     posts.value.length === 0
   ) {
     try {
-      const { data, meta } = await fetchPostsList({ page, userId });
+      const params: any = { page, userId };
+      if (props.pageType === 'like') params.isLiked = true;
+      if (props.pageType === 'archive') params.isArchived = true;
+
+      const { data, meta } = await fetchPostsList(params);
       posts.value = data;
       paginationStatus.value = meta;
     } catch (error) {
@@ -70,13 +79,19 @@ function toViewer(slug: string): void {
   router.push({ name: 'PostViewer', params: { slug } });
 }
 
-async function toggleLike(postId: number): Promise<void> {
+async function handleLike(postId: number): Promise<void> {
   try {
     const response = await likePost(postId);
     if (response.status === 200) {
-      const postIndex = posts.value.findIndex((post) => post.id === postId);
-      if (postIndex !== -1) {
-        posts.value[postIndex].current_user_liked = !posts.value[postIndex].current_user_liked;
+      // いいね一覧ページではいいねした投稿のみ取得
+      // =>いいねの解除のみ可能
+      if (props.pageType === 'like') {
+        removePost(postId);
+      } else {
+        const postIndex = posts.value.findIndex((post) => post.id === postId);
+        if (postIndex !== -1) {
+          posts.value[postIndex].current_user_liked = !posts.value[postIndex].current_user_liked;
+        }
       }
     }
   } catch (error) {
@@ -87,14 +102,20 @@ async function toggleLike(postId: number): Promise<void> {
   }
 }
 
-async function toggleArchive(postId: number): Promise<void> {
+async function handleArchive(postId: number): Promise<void> {
   try {
     const response = await archivePost(postId);
     if (response.status === 200) {
-      const postIndex = posts.value.findIndex((post) => post.id === postId);
-      if (postIndex !== -1) {
-        posts.value[postIndex].current_user_archived =
-          !posts.value[postIndex].current_user_archived;
+      // アーカイブ一覧ページではアーカイブした投稿のみ取得
+      // =>アーカイブの解除のみ可能
+      if (props.pageType === 'archive') {
+        removePost(postId);
+      } else {
+        const postIndex = posts.value.findIndex((post) => post.id === postId);
+        if (postIndex !== -1) {
+          posts.value[postIndex].current_user_archived =
+            !posts.value[postIndex].current_user_archived;
+        }
       }
     }
   } catch (error) {
@@ -102,6 +123,25 @@ async function toggleArchive(postId: number): Promise<void> {
     setTimeout(() => {
       commonStore.clearErrorMessage();
     }, 4000);
+  }
+}
+
+function removePost(postId: number): void {
+  posts.value = posts.value.filter((post) => post.id !== postId);
+
+  // ページネーションの総数を更新
+  if (paginationStatus.value && paginationStatus.value.total) {
+    paginationStatus.value.total -= 1;
+  }
+
+  // 現在のページの投稿が0になった場合、前のページに戻る
+  if (
+    posts.value.length === 0 &&
+    paginationStatus.value &&
+    paginationStatus.value.current_page &&
+    paginationStatus.value.current_page > 1
+  ) {
+    doChangePage(paginationStatus.value.current_page - 1);
   }
 }
 
@@ -168,14 +208,15 @@ watch(
         :is-archived="post.current_user_archived"
         :is-mine="post.is_mine"
         @navigate-to-detail="toViewer(post.slug as string)"
-        @like="toggleLike(post.id)"
-        @archive="toggleArchive(post.id)"
+        @like="handleLike(post.id)"
+        @archive="handleArchive(post.id)"
         @handle-post="openModal(post.slug as string)"
       />
     </CardDisplayAreaLayout>
     <Pagination class="mt-12" @change-page="doChangePage" :pagination-status="paginationStatus" />
   </div>
-  <HomePagePlaceholder v-else />
+
+  <component :is="placeholderComponent" v-else />
 
   <Teleport to="body">
     <DeleteConfirmModal
