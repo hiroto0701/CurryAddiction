@@ -185,6 +185,9 @@ export const useAccountStore = defineStore('account', () => {
               setErrors({ auth: ['メールアドレスまたは認証コードが違います。'] });
               return false;
             }
+          } else if (response.status === 429) {
+            setErrors({ token: [response.data.message] } as Record<string, string[]>);
+            return false;
           }
         }
       }
