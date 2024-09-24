@@ -4,8 +4,9 @@ import { useRouter } from 'vue-router';
 import type { ServiceUser } from '@/composables/types/serviceUser';
 import ProfileContent from '@/views/pages/Account/components/ProfileContent.vue';
 import ProfileSkeleton from '@/views/pages/Account/components/ProfileSkeleton.vue';
-import PostList from '@/views/pages/Account/components/PostList.vue';
-import PostListSkeleton from '@/views/pages/Post/components/PostListSkeleton.vue';
+import PostList from '@/views/organisms/PostList.vue';
+import PostListSkeleton from '@/views/organisms/PostListSkeleton.vue';
+import ProfilePagePlaceholder from '@/views/molecules/noContentPlaceholder/ProfilePagePlaceholder.vue';
 
 const router = useRouter();
 const error = ref<Error | null>(null);
@@ -35,7 +36,7 @@ onErrorCaptured((err: unknown) => {
 
     <Suspense v-if="pageUser?.user_id">
       <template #default>
-        <PostList />
+        <PostList :placeholder-component="ProfilePagePlaceholder" page-type="profile" />
       </template>
       <template #fallback>
         <PostListSkeleton />
