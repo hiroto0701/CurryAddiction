@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class LoginAction extends Controller
 {
@@ -28,24 +29,37 @@ class LoginAction extends Controller
     /**
      * @param LoginRequest $request
      * @return CurrentServiceUserResource
-     * @throws AuthenticationException  // 認証エラー
-     * @throws AuthenticationTokenException  // トークンエラー
-     * @throws UserStatusException  // ユーザー未登録エラー
+     * @throws AuthenticationException
+     * @throws AuthenticationTokenException
+     * @throws UserStatusException
+     * @throws TooManyRequestsHttpException
      */
     public function __invoke(LoginRequest $request): CurrentServiceUserResource
     {
         $ip = $request->ip();
-        $user = ServiceUser::where('email', $request->email)->first();
+        $email = $request->email;
 
+        // レートリミットチェック
         if ($this->checkRateLimit($ip)) {
-            throw new AuthenticationException('ログイン試行回数が多すぎます。時間を空けてもう一度試してください。');
+            throw new TooManyRequestsHttpException(null, 'ログイン試行回数が多すぎます。時間を空けてもう一度試してください。');
         }
+
+        $user = ServiceUser::where('email', $email)->first();
 
         if (!$user) {
             $this->incrementFailedAttempts($ip);
             throw new AuthenticationException();
         }
 
+        // アカウントのステータスチェック
+        if ($user->status !== ServiceUser::STATUS_ENABLED) {
+            if ($user->status === ServiceUser::STATUS_PENDING) {
+                throw new UserStatusException('ユーザーが登録されていません。', 401, null, 'pending');
+            }
+            throw new UserStatusException('アカウントが無効です。');
+        }
+
+        // トークンの検証
         if (!Hash::check($request->token, $user->onetime_token)) {
             $this->incrementFailedAttempts($ip);
             throw new AuthenticationTokenException(unmatched: true);
@@ -56,20 +70,16 @@ class LoginAction extends Controller
             throw new AuthenticationTokenException(expired: true);
         }
 
-        if ($user->status !== ServiceUser::STATUS_ENABLED) {
-            // アカウント未登録時はpendingをthrowする
-            if ($user->status === ServiceUser::STATUS_PENDING) {
-                throw new UserStatusException('The user is not registered.', 401, null, 'pending');
-            }
-            throw new UserStatusException();
-        }
-
+        // 認証成功
         Auth::guard('service_users')->login($user);
 
         // トークンを無効化
         $user->onetime_token = null;
         $user->onetime_expiration = null;
         $user->save();
+
+        // 失敗カウントリセット
+        $this->resetFailedAttempts($ip);
 
         $this->addOperationLog(OperationLog::OPERATION_TYPE_LOGIN, "ユーザーID", User::AuthId());
 
@@ -84,9 +94,9 @@ class LoginAction extends Controller
 
         if ($attempts >= config('constant.login_rate_limit.max_attempts.level3')) {
             return RateLimiter::tooManyAttempts($key, config('constant.login_rate_limit.lockout_time.long'));
-        } else if ($attempts >= config('constant.login_rate_limit.max_attempts.level2')) {
+        } elseif ($attempts >= config('constant.login_rate_limit.max_attempts.level2')) {
             return RateLimiter::tooManyAttempts($key, config('constant.login_rate_limit.lockout_time.medium'));
-        } else if ($attempts >= config('constant.login_rate_limit.max_attempts.level1')) {
+        } elseif ($attempts >= config('constant.login_rate_limit.max_attempts.level1')) {
             return RateLimiter::tooManyAttempts($key, config('constant.login_rate_limit.lockout_time.short'));
         }
 
@@ -99,21 +109,27 @@ class LoginAction extends Controller
         RateLimiter::hit($key, $this->decayMinutes($key) * 60);
     }
 
+    private function resetFailedAttempts(string $ip): void
+    {
+        $key = $this->throttleKey($ip);
+        RateLimiter::clear($key);
+    }
+
     private function throttleKey(string $ip): string
     {
-        return $ip;
+        return "login_attempts:{$ip}";
     }
 
     private function decayMinutes(string $key): int
     {
         $attempts = RateLimiter::attempts($key);
 
-        if ($attempts >= 10) {
-            return 60;
-        } else if ($attempts >= 5) {
-            return 3;
+        if ($attempts >= config('constant.login_rate_limit.max_attempts.level3')) {
+            return config('constant.login_rate_limit.lockout_time.long');
+        } elseif ($attempts >= config('constant.login_rate_limit.max_attempts.level2')) {
+            return config('constant.login_rate_limit.lockout_time.medium');
         } else {
-            return 1;
+            return config('constant.login_rate_limit.lockout_time.short');
         }
     }
 }
