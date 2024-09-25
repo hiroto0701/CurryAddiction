@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PaginationStatus } from '@/composables/types/post.ts';
+import type { PaginationStatus } from '@/types/post';
 import CharacterIcon from '@/views/atoms/icons/character/CharacterIcon.vue';
 import PageItem from '@/views/atoms/PageItem.vue';
 

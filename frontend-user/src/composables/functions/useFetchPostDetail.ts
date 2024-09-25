@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Post } from '@/composables/types/post';
+import type { Post } from '@/types/post';
 
 export const useFetchPostDetail = () => {
   async function fetchPostDetail(slug: string): Promise<Post> {

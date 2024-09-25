@@ -1,4 +1,3 @@
-import { h, resolveComponent } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAccountStore } from '@/stores/account';
 import { useCommonStore } from '@/stores/common';
@@ -43,7 +42,7 @@ const routes = [
         meta: {
           title: 'プライバシーポリシー'
         },
-        component: () => import('@/views/pages/PrivacyPolicy.vue')
+        component: () => import('@/views/pages/PrivacyPolicy/Index.vue')
       }
     ]
   },
@@ -63,7 +62,7 @@ const routes = [
               title: 'HOME',
               group: 'Home'
             },
-            component: () => import('@/views/pages/Home.vue')
+            component: () => import('@/views/pages/Index.vue')
           },
           // 投稿関連
           {
@@ -99,7 +98,7 @@ const routes = [
               title: '検索',
               group: 'Search'
             },
-            component: () => import('@/views/pages/Search.vue')
+            component: () => import('@/views/pages/Search/Index.vue')
           },
           // ユーザ毎の投稿一覧ページ
           {
@@ -109,7 +108,7 @@ const routes = [
               title: 'ユーザーページ',
               group: 'Account'
             },
-            component: () => import('@/views/pages/Account/Profile.vue')
+            component: () => import('@/views/pages/Account/Index.vue')
           },
           // error
           {
@@ -140,7 +139,7 @@ const routes = [
                   title: '投稿ダッシュボード',
                   group: 'Dashboard'
                 },
-                component: () => import('@/views/pages/Dashboard/Analytics/List.vue')
+                component: () => import('@/views/pages/Dashboard/Analytics/Index.vue')
               },
               {
                 path: 'liked',
@@ -149,7 +148,7 @@ const routes = [
                   title: 'いいねした投稿',
                   group: 'Dashboard'
                 },
-                component: () => import('@/views/pages/Dashboard/Like/List.vue')
+                component: () => import('@/views/pages/Dashboard/Like/Index.vue')
               },
               {
                 path: 'archived',
@@ -158,7 +157,7 @@ const routes = [
                   title: '保存した投稿',
                   group: 'Dashboard'
                 },
-                component: () => import('@/views/pages/Dashboard/Archive/List.vue')
+                component: () => import('@/views/pages/Dashboard/Archive/Index.vue')
               },
               {
                 path: 'trash',
@@ -167,7 +166,7 @@ const routes = [
                   title: 'ごみ箱',
                   group: 'Dashboard'
                 },
-                component: () => import('@/views/pages/Dashboard/Trash/List.vue')
+                component: () => import('@/views/pages/Dashboard/Trash/Index.vue')
               },
               {
                 path: 'setting',
@@ -176,7 +175,7 @@ const routes = [
                   title: '設定',
                   group: 'Dashboard'
                 },
-                component: () => import('@/views/pages/Dashboard/Setting/Setting.vue')
+                component: () => import('@/views/pages/Dashboard/Setting/Index.vue')
               }
             ]
           }
@@ -189,7 +188,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-  scrollBehavior(to, from) {
+  scrollBehavior(_, from) {
     if (from.meta.disableScroll) {
       return false;
     }
