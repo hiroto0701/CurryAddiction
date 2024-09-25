@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { PostsResponse } from '@/composables/types/post';
+import type { PostsResponse } from '@/types/post';
 
 export const useFetchPosts = () => {
   async function fetchPostsList(params?: Record<string, any>): Promise<PostsResponse> {

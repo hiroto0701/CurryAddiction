@@ -9,8 +9,8 @@ import type {
   ScaleOptions,
   DomainOptions,
   SubDomain
-} from '@/composables/types/heatmap';
-import type { Analytics } from '@/composables/types/analytics';
+} from '@/types/heatmap';
+import type { Analytics } from '@/types/analytics';
 import CalHeatmap from 'cal-heatmap';
 import type { CalHeatmapOptions, TooltipOptions } from 'cal-heatmap';
 import Tooltip from 'cal-heatmap/plugins/Tooltip';

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import type { ServiceUser } from '@/composables/types/serviceUser';
+import type { ServiceUser } from '@/types/serviceUser';
 import { useFetchProfile } from '@/composables/functions/useFetchProfile';
 import GotoSettingPageButton from '@/views/molecules/buttons/GotoSettingPageButton.vue';
 import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue';

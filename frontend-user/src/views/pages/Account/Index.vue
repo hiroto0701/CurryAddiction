@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, provide, onErrorCaptured } from 'vue';
 import { useRouter } from 'vue-router';
-import type { ServiceUser } from '@/composables/types/serviceUser';
+import type { ServiceUser } from '@/types/serviceUser';
 import ProfileContent from '@/views/pages/Account/components/ProfileContent.vue';
 import ProfileSkeleton from '@/views/pages/Account/components/ProfileSkeleton.vue';
 import PostList from '@/views/organisms/PostList.vue';

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { AnalyticsResponse } from '@/composables/types/analytics';
+import type { AnalyticsResponse } from '@/types/analytics';
 
 export const useFetchAnalytics = () => {
   async function fetchAnalytics(): Promise<AnalyticsResponse> {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { Genre } from '@/composables/types/genre';
+import type { Genre } from '@/types/genre';
 import { useCurryGenreStore } from '@/stores/curry_genre';
 import GenreIcon from '@/views/atoms/icons/GenreIcon.vue';
 

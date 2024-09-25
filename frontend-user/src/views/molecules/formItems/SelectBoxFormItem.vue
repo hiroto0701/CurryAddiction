@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Component } from 'vue';
-import type { Genre } from '@/composables/types/genre';
+import type { Genre } from '@/types/genre';
 import PostFormErrorMessage from '@/views/atoms/ErrorMessage/PostFormErrorMessage.vue';
 import FormLayout from '@/views/templates/FormLayout.vue';
 

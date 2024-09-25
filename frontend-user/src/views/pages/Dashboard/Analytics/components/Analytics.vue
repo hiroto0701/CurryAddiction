@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useFetchAnalytics } from '@/composables/functions/useFetchAnalytics';
-import type { Analytics } from '@/composables/types/analytics';
+import type { Analytics } from '@/types/analytics';
 import Heatmap from '@/views/pages/Dashboard/Analytics/components/Heatmap.vue';
 
 const { fetchAnalytics } = useFetchAnalytics();

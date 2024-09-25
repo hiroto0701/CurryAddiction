@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useAccountStore } from '@/stores/account';
 import { useRoute, onBeforeRouteUpdate } from 'vue-router';
 import { useCommonStore } from '@/stores/common';
-import type { Trash, PaginationStatus } from '@/composables/types/trash';
+import type { Trash, PaginationStatus } from '@/types/trash';
 import { useFetchTrashPosts } from '@/composables/functions/useFetchTrashPosts';
 import { useRestorePost } from '@/composables/functions/useRestorePost';
 import { useDeletePost } from '@/composables/functions/useDeletePost';
