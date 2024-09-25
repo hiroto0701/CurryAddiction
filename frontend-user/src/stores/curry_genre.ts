@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import type { Genre } from '@/composables/types/genre';
+import type { Genre } from '@/types/genre';
 
 interface GenreState {
   genres: Genre[];

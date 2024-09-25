@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PaginationStatus } from '@/composables/types/post.ts';
+import type { PaginationStatus } from '@/types/post';
 import CharacterIcon from '@/views/atoms/icons/character/CharacterIcon.vue';
-import PageItem from '@/views/atoms/PageItem.vue';
+import PaginationItem from '@/views/atoms/PaginationItem.vue';
 
 interface Props {
   readonly paginationStatus: PaginationStatus | null;
@@ -108,8 +108,8 @@ function doNext(): void {
       class="isolate mx-auto flex w-fit -space-x-px rounded-md shadow-sm"
       aria-label="Pagination"
     >
-      <PageItem text="前へ" @click="doPrev" :disabled="!canPrev" />
-      <PageItem
+      <PaginationItem text="前へ" @click="doPrev" :disabled="!canPrev" />
+      <PaginationItem
         v-for="(visiblePage, key) in visiblePages"
         :key="key"
         :active="paginationStatus.current_page === visiblePage"
@@ -117,7 +117,7 @@ function doNext(): void {
         :disabled="visiblePage === '...'"
         @click="visiblePage !== '...' && emit('change-page', visiblePage)"
       />
-      <PageItem text="次へ" @click="doNext" :disabled="!canNext" />
+      <PaginationItem text="次へ" @click="doNext" :disabled="!canNext" />
     </ul>
   </div>
 </template>

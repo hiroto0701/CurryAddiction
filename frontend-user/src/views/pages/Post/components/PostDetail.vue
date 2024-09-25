@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useCommonStore } from '@/stores/common';
-import type { Post } from '@/composables/types/post';
+import type { Post } from '@/types/post';
 import { useFetchPostDetail } from '@/composables/functions/useFetchPostDetail';
 import { useDeletePost } from '@/composables/functions/useDeletePost';
 import BackLink from '@/views/molecules/links/BackLink.vue';

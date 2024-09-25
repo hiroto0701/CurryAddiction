@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { ServiceUser } from '@/composables/types/serviceUser';
+import type { ServiceUser } from '@/types/serviceUser';
 
 export const useFetchProfile = () => {
   async function fetchProfile(username: string): Promise<ServiceUser> {

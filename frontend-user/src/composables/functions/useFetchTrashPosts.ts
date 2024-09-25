@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { TrashResponse } from '@/composables/types/trash';
+import type { TrashResponse } from '@/types/trash';
 
 export const useFetchTrashPosts = () => {
   async function fetchTrashPostsList(params?: Record<string, any>): Promise<TrashResponse> {

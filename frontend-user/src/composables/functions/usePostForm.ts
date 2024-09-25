@@ -1,5 +1,5 @@
 import { ref, reactive, watch, onMounted, type Ref } from 'vue';
-import type { Genre } from '@/composables/types/genre';
+import type { Genre } from '@/types/genre';
 import { useValidatePost } from '@/composables/functions/useValidatePost';
 import { useCreatePost } from '@/composables/functions/useCreatePost';
 import { useCurryGenreStore } from '@/stores/curry_genre';
