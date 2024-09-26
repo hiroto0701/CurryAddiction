@@ -233,7 +233,9 @@ export const useAccountFormStore = defineStore('account_form', () => {
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 422) {
-          setErrors(error.response.data.errors);
+          setErrors({
+            avatar: ['画像ファイルが大きすぎます。1024KB以下のファイルを指定して下さい。']
+          });
         } else {
           setErrors({ avatar: ['プロフィール画像の更新に失敗しました'] });
         }
