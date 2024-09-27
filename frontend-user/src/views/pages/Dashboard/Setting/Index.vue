@@ -9,11 +9,12 @@ import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue';
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue';
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue';
 import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue';
-import GenreSettingButton from '@/views/molecules/buttons/GenreSettingButton.vue';
 import RegionSettingButton from '@/views/molecules/buttons/RegionSettingButton.vue';
 import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue';
 import DisplayNameViewer from '@/views/pages/Dashboard/Setting/components/DisplayNameViewer.vue';
 import DisplayNameEditor from '@/views/pages/Dashboard/Setting/components/DisplayNameEditor.vue';
+import FavoriteGenreViewer from '@/views/pages/Dashboard/Setting/components/FavoriteGenreViewer.vue';
+import FavoriteGenreEditor from '@/views/pages/Dashboard/Setting/components/FavoriteGenreEditor.vue';
 import AvatarEditor from '@/views/pages/Dashboard/Setting/components/AvatarEditor.vue';
 import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue';
 
@@ -23,6 +24,7 @@ const accountFormStore = useAccountFormStore();
 const commonStore = useCommonStore();
 
 const isEditingDisplayName = ref<boolean>(false);
+const isEditingFavoriteGenre = ref<boolean>(false);
 const displayName = ref<string>(accountStore.state.display_name);
 const fileInfo = ref<File>();
 const preview = ref<string | undefined>();
@@ -61,10 +63,16 @@ async function doUpdateAvatar(): Promise<void> {
   }
 }
 
-function toggleEditMode(): void {
+function toggleEditName(): void {
   isEditingDisplayName.value = !isEditingDisplayName.value;
   // displayNameをrefで管理しているので入力キャンセル時にstateの値に戻す
   displayName.value = accountStore.state.display_name;
+  accountFormStore.resetErrors();
+}
+
+function toggleEditGenre(): void {
+  isEditingFavoriteGenre.value = !isEditingFavoriteGenre.value;
+
   accountFormStore.resetErrors();
 }
 
@@ -151,7 +159,7 @@ onUnmounted((): void => {
       <DisplayNameViewer
         v-if="!isEditingDisplayName"
         :display-name="accountStore.state.display_name"
-        @edit="toggleEditMode"
+        @edit="toggleEditName"
       />
       <DisplayNameEditor
         v-else
@@ -159,7 +167,7 @@ onUnmounted((): void => {
         :display-name="accountStore.state.display_name"
         v-model="displayName"
         @update="doUpdateDisplayName(displayName)"
-        @cancel="toggleEditMode"
+        @cancel="toggleEditName"
       />
       <p
         v-show="accountFormStore.state.errors.display_name"
@@ -173,11 +181,12 @@ onUnmounted((): void => {
       <DashboardSectionHeader title="カレーのジャンル" />
       <SectionInfo
         text="表示するカレーのジャンルを登録・変更できます。"
-        class="mt-3 text-sm text-utility"
+        class="my-5 text-sm text-utility"
       />
-      <GenreSettingButton
-        class="mt-4 inline-flex items-center justify-center border px-4 py-3 text-sm"
-      />
+      <FavoriteGenreViewer v-if="!isEditingFavoriteGenre" @edit="toggleEditGenre" />
+      <FavoriteGenreEditor v-else :is-error="displayNameError" @cancel="toggleEditGenre" />
+      <!-- v-model="displayName" -->
+      <!-- @update="doUpdateDisplayName(displayName)" -->
     </DashboardSection>
 
     <DashboardSection>
