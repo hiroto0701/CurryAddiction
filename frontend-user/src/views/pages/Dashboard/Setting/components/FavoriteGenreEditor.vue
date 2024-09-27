@@ -11,26 +11,26 @@ defineProps<Props>();
 
 const commonStore = useCommonStore();
 const curryGenreStore = useCurryGenreStore();
-
-const formatGenreName = (name: string): string => {
-  return name
-    .replace(/カレー/g, '')
-    .replace(/（.*?）/g, '')
-    .trim();
-};
+const model = defineModel<string[]>();
 
 const emits = defineEmits<{
-  // (e: 'update'): void;
+  (e: 'update'): void;
   (e: 'cancel'): void;
 }>();
 </script>
 <template>
   <div class="flex flex-col gap-5">
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
+    <div class="grid grid-cols-2 gap-4">
       <div v-for="genre in curryGenreStore.state.genres" :key="genre.id" class="flex items-center">
-        <input type="checkbox" class="mr-2 h-4 w-4" :id="'genre-' + genre.id" :value="genre.id" />
+        <input
+          type="checkbox"
+          class="mr-2 h-4 w-4"
+          :id="'genre-' + genre.id"
+          :value="genre.id"
+          v-model="model"
+        />
         <label :for="'genre-' + genre.id" class="font-body text-sm text-sumi-700">
-          {{ formatGenreName(genre.name) }}
+          {{ genre.name }}
         </label>
       </div>
     </div>
@@ -39,8 +39,8 @@ const emits = defineEmits<{
         class="inline-flex items-center justify-center px-4 py-3 text-sm"
         :is-loading="commonStore.state.apiLoading"
         :disabled="commonStore.state.apiLoading"
+        @click="emits('update')"
       />
-      <!-- @click="emits('update')" -->
       <CancelButton
         class="inline-flex items-center justify-center px-4 py-3 text-sm"
         @click="emits('cancel')"

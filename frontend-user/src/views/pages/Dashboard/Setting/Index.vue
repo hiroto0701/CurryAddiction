@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router';
 import { useAccountStore } from '@/stores/account';
 import { useAccountFormStore } from '@/stores/account_form';
 import { useCommonStore } from '@/stores/common';
+import { useFavoriteGenre } from '@/composables/functions/useFavoriteGenre';
 import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue';
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue';
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue';
@@ -22,10 +23,12 @@ const router = useRouter();
 const accountStore = useAccountStore();
 const accountFormStore = useAccountFormStore();
 const commonStore = useCommonStore();
+const { favoriteGenre } = useFavoriteGenre();
 
 const isEditingDisplayName = ref<boolean>(false);
 const isEditingFavoriteGenre = ref<boolean>(false);
 const displayName = ref<string>(accountStore.state.display_name);
+const checkedGenres = ref<string[]>([]);
 const fileInfo = ref<File>();
 const preview = ref<string | undefined>();
 const open = ref<boolean>(false);
@@ -70,12 +73,6 @@ function toggleEditName(): void {
   accountFormStore.resetErrors();
 }
 
-function toggleEditGenre(): void {
-  isEditingFavoriteGenre.value = !isEditingFavoriteGenre.value;
-
-  accountFormStore.resetErrors();
-}
-
 async function doUpdateDisplayName(displayName: string): Promise<void> {
   if (accountFormStore.displayNameValidate(displayName)) {
     try {
@@ -83,6 +80,20 @@ async function doUpdateDisplayName(displayName: string): Promise<void> {
     } finally {
       isEditingDisplayName.value = false;
     }
+  }
+}
+
+function toggleEditGenre(): void {
+  isEditingFavoriteGenre.value = !isEditingFavoriteGenre.value;
+
+  accountFormStore.resetErrors();
+}
+
+async function doUpdateFavoriteGenre(selectedGenres: string[]): Promise<void> {
+  try {
+    await favoriteGenre(selectedGenres);
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -184,9 +195,13 @@ onUnmounted((): void => {
         class="my-5 text-sm text-utility"
       />
       <FavoriteGenreViewer v-if="!isEditingFavoriteGenre" @edit="toggleEditGenre" />
-      <FavoriteGenreEditor v-else :is-error="displayNameError" @cancel="toggleEditGenre" />
-      <!-- v-model="displayName" -->
-      <!-- @update="doUpdateDisplayName(displayName)" -->
+      <FavoriteGenreEditor
+        v-else
+        :is-error="displayNameError"
+        @update="doUpdateFavoriteGenre(checkedGenres)"
+        @cancel="toggleEditGenre"
+        v-model="checkedGenres"
+      />
     </DashboardSection>
 
     <DashboardSection>
