@@ -67,7 +67,6 @@ async function doCreate() {
     <StoreNameFormItem
       label="店名"
       :required="true"
-      :optional="false"
       :iconComponent="StoreIcon"
       :is-error="storeNameError"
       :errors="reactiveErrors"
@@ -77,7 +76,6 @@ async function doCreate() {
     <CommentFormItem
       label="感想"
       :required="false"
-      :optional="true"
       :iconComponent="CommentIcon"
       :errors="reactiveErrors"
       v-model="comment"
@@ -85,7 +83,6 @@ async function doCreate() {
     <SelectBoxFormItem
       label="ジャンル"
       :required="true"
-      :optional="false"
       :errors="reactiveErrors"
       :iconComponent="GenreIcon"
       :options="genreOptions"
@@ -95,7 +92,6 @@ async function doCreate() {
       <PostImgUploadFormItem
         label="カレーの写真"
         :required="true"
-        :optional="false"
         :iconComponent="PhotoIcon"
         :img-preview="preview"
         :errors="reactiveErrors"
@@ -106,12 +102,7 @@ async function doCreate() {
     <div v-show="preview" class="mx-auto mt-8 h-fit w-80 border border-gray-200">
       <img class="object-fit w-full" :src="preview" alt="投稿画像" />
     </div>
-    <MapFormItem
-      label="位置情報"
-      :required="true"
-      :optional="false"
-      :iconComponent="LocationIcon"
-    />
+    <MapFormItem label="位置情報" :required="true" :iconComponent="LocationIcon" />
     <CreatePostButton class="mx-auto mt-8 block w-52 p-3" text="投稿する" @click="openModal" />
 
     <Teleport to="body">

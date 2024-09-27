@@ -4,7 +4,6 @@ import type { Component } from 'vue';
 interface Props {
   readonly label: string;
   readonly required: boolean;
-  readonly optional: boolean;
   readonly iconComponent: Component;
 }
 defineProps<Props>();
@@ -20,7 +19,7 @@ defineProps<Props>();
         >必須</span
       >
       <span
-        v-else-if="optional"
+        v-else
         class="inline-flex items-center rounded bg-green-500 px-1 py-0.5 font-body text-mini font-normal text-white"
         >任意</span
       >

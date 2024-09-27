@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PaginationStatus } from '@/types/post';
-import CharacterIcon from '@/views/atoms/icons/character/CharacterIcon.vue';
+import CharacterIcon from '@/views/atoms/icons/CharacterIcon.vue';
 import PaginationItem from '@/views/atoms/PaginationItem.vue';
 
 interface Props {
