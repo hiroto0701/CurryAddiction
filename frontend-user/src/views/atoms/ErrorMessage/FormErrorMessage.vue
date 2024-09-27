@@ -7,7 +7,7 @@ defineProps<Props>();
 </script>
 <template>
   <div>
-    <p v-show="errors && errors[fieldName]" class="mt-1 font-body text-xs text-red-400">
+    <p v-show="errors" class="font-body text-xs text-red-400">
       {{ errors && errors[fieldName]?.[0] }}
     </p>
   </div>

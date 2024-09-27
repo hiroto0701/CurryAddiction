@@ -1,10 +1,10 @@
 import { ref } from 'vue';
 
 interface PostErrors {
-  store_name?: string[];
+  storeName?: string[];
   comment?: string[];
-  genre_id?: string[];
-  post_img?: string[];
+  genreId?: string[];
+  postImg?: string[];
   location?: string[];
 }
 
@@ -23,9 +23,9 @@ export function useValidatePost() {
 
     // 店名のバリデーション
     if (!storeName) {
-      errors.value.store_name = ['店名は必須項目です'];
+      errors.value.storeName = ['店名は必須項目です'];
     } else if (storeName.length > 30) {
-      errors.value.store_name = ['店名は30文字以内で入力してください'];
+      errors.value.storeName = ['店名は30文字以内で入力してください'];
     }
 
     // 感想のバリデーション
@@ -35,7 +35,7 @@ export function useValidatePost() {
 
     // ジャンルIDのバリデーション
     if (!genreId) {
-      errors.value.genre_id = ['カレーのジャンルは必須項目です'];
+      errors.value.genreId = ['カレーのジャンルは必須項目です'];
     }
 
     // 投稿画像のバリデーション
@@ -44,12 +44,12 @@ export function useValidatePost() {
       const extension: string | undefined = postImg.name.split('.').pop()?.toLowerCase();
 
       if (postImg.size > 10 * 1024 * 1024) {
-        errors.value.post_img = ['カレーの画像のサイズは10MB以内にしてください'];
+        errors.value.postImg = ['カレーの画像のサイズは10MB以内にしてください'];
       } else if (!extension || !allowedExtensions.includes(extension)) {
-        errors.value.post_img = ['ファイルは.png .jpeg .jpg形式を指定してください。'];
+        errors.value.postImg = ['ファイルは.png .jpeg .jpg形式を指定してください。'];
       }
     } else {
-      errors.value.post_img = ['カレーの画像は必須項目です'];
+      errors.value.postImg = ['カレーの画像は必須項目です'];
     }
 
     // 緯度経度のバリデーション
