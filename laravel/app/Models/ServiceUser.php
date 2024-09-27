@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Like;
 use App\Traits\OperatorRecordable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -80,6 +79,11 @@ class ServiceUser extends Authenticatable
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class, 'user_id', 'user_id');
+    }
+
+    public function favoriteGenres(): HasMany
+    {
+        return $this->hasMany(UserFavoriteGenre::class, 'user_id', 'user_id');
     }
 
 }
