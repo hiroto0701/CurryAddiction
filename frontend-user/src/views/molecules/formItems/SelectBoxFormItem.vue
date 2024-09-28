@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { Component } from 'vue';
 import type { Genre } from '@/types/genre';
-import PostFormErrorMessage from '@/views/atoms/ErrorMessage/PostFormErrorMessage.vue';
+import FormErrorMessage from '@/views/atoms/ErrorMessage/FormErrorMessage.vue';
 import FormLayout from '@/views/templates/FormLayout.vue';
 
 interface Props {
   readonly label: string;
   readonly required: boolean;
-  readonly optional: boolean;
   readonly iconComponent: Component;
   readonly errors?: Record<string, string[]>;
   readonly options: Genre[];
@@ -18,12 +17,7 @@ defineProps<Props>();
 const modelValue = defineModel<number | undefined>();
 </script>
 <template>
-  <FormLayout
-    :label="label"
-    :required="required"
-    :optional="optional"
-    :iconComponent="iconComponent"
-  >
+  <FormLayout :label :required :iconComponent>
     <select
       v-model="modelValue"
       name="genre"
@@ -38,6 +32,6 @@ const modelValue = defineModel<number | undefined>();
         {{ option.name }}
       </option>
     </select>
-    <PostFormErrorMessage field-name="genre_id" :errors="errors" />
+    <FormErrorMessage class="mt-1" field-name="genreId" :errors />
   </FormLayout>
 </template>

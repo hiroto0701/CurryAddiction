@@ -39,6 +39,7 @@ Route::prefix('/service_users')->group(function() {
 // カレージャンル関連
 Route::prefix('/genres')->middleware(['auth:service_users'])->group(function() {
     Route::get('/', \App\Domains\Genre\Controller\IndexAction::class);
+    Route::post('/favorite', \App\Domains\Genre\Controller\FavoriteAction::class);
 });
 
 // 投稿関連

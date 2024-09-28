@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import type { Component } from 'vue';
-import PostFormErrorMessage from '@/views/atoms/ErrorMessage/PostFormErrorMessage.vue';
+import FormErrorMessage from '@/views/atoms/ErrorMessage/FormErrorMessage.vue';
 import FormLayout from '@/views/templates/FormLayout.vue';
 
 interface Props {
   readonly label: string;
   readonly required: boolean;
-  readonly optional: boolean;
   readonly iconComponent: Component;
   readonly errors?: Record<string, string[]>;
 }
@@ -15,12 +14,7 @@ defineProps<Props>();
 const model = defineModel<string>();
 </script>
 <template>
-  <FormLayout
-    :label="label"
-    :required="required"
-    :optional="optional"
-    :iconComponent="iconComponent"
-  >
+  <FormLayout :label :required :iconComponent>
     <textarea
       class="h-24 w-full rounded border border-gray-200 p-2 font-body"
       :class="{
@@ -33,9 +27,7 @@ const model = defineModel<string>();
       v-model="model"
     ></textarea>
     <div class="flex justify-between">
-      <div>
-        <PostFormErrorMessage field-name="comment" :errors="errors" />
-      </div>
+      <FormErrorMessage class="mt-1" field-name="comment" :errors />
       <span
         class="flex justify-end"
         :class="{

@@ -6,7 +6,6 @@ import CancelButton from '@/views/molecules/buttons/CancelButton.vue';
 import DisplayNameFormItem from '@/views/molecules/formItems/DisplayNameFormItem.vue';
 
 interface Props {
-  readonly displayName: string;
   readonly isError: boolean;
 }
 defineProps<Props>();

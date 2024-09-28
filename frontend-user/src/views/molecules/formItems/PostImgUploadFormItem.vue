@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { Component } from 'vue';
-import PostFormErrorMessage from '@/views/atoms/ErrorMessage/PostFormErrorMessage.vue';
+import FormErrorMessage from '@/views/atoms/ErrorMessage/FormErrorMessage.vue';
 import FormLayout from '@/views/templates/FormLayout.vue';
 import DeletePostImgButton from '@/views/molecules/buttons/DeletePostImgButton.vue';
 
 interface Props {
   readonly label: string;
   readonly required: boolean;
-  readonly optional: boolean;
   readonly iconComponent: Component;
   readonly imgPreview?: string;
   readonly errors?: Record<string, string[]>;
@@ -27,12 +26,7 @@ const emits = defineEmits<{
 }>();
 </script>
 <template>
-  <FormLayout
-    :label="label"
-    :required="required"
-    :optional="optional"
-    :iconComponent="iconComponent"
-  >
+  <FormLayout :label :required :iconComponent>
     <div class="flex gap-2">
       <div>
         <label
@@ -53,6 +47,6 @@ const emits = defineEmits<{
       </div>
       <DeletePostImgButton v-show="imgPreview" @click="emits('delete')" />
     </div>
-    <PostFormErrorMessage field-name="post_img" :errors="errors" />
+    <FormErrorMessage class="mt-1" field-name="postImg" :errors />
   </FormLayout>
 </template>

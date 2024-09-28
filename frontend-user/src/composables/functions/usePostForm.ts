@@ -29,6 +29,7 @@ export function usePostForm() {
     storeNameError.value = !newValue.length || newValue.length > 30;
   });
 
+  // 「選択してください」は選択不可（非活性）にする
   onMounted(async (): Promise<void> => {
     await curryGenreStore.fetchGenres();
     genreOptions.value = [
