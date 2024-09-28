@@ -11,7 +11,7 @@ defineProps<Props>();
 
 const commonStore = useCommonStore();
 const curryGenreStore = useCurryGenreStore();
-const model = defineModel<string[]>();
+const model = defineModel<number[]>();
 
 const emits = defineEmits<{
   (e: 'update'): void;
@@ -28,6 +28,7 @@ const emits = defineEmits<{
           :id="'genre-' + genre.id"
           :value="genre.id"
           v-model="model"
+          :checked="model?.includes(genre.id)"
         />
         <label :for="'genre-' + genre.id" class="font-body text-sm text-sumi-700">
           {{ genre.name }}

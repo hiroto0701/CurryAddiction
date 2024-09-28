@@ -28,6 +28,17 @@ class UserFavoriteGenre extends Model
         'deleted_at',
     ];
 
+    protected $hidden = [
+        'id',
+        'user_id',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'created_by',
+        'updated_by',
+        'deleted_by',
+    ];
+
     // created_at, updated_atの更新はObserverで一括して行う
     public $timestamps = false;
 

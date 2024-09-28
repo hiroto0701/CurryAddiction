@@ -38,6 +38,6 @@ class FavoriteAction extends Controller
 
         $this->interactor->handle($userId, $genreIds);
 
-        return response()->json(['message' => 'お気に入りのジャンルを更新しました。'], 200);
+        return response()->json(['message' => 'お気に入りのカレーのジャンルを更新しました。'], 200);
     }
 }

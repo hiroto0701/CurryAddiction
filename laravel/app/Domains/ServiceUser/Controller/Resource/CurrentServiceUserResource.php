@@ -25,6 +25,7 @@ class CurrentServiceUserResource extends JsonResource
                 ['type' => FileViewAction::TYPE_AVATAR, 'uuid' => $this->avatar->uuid]
             ) : null,
             'post_summary' => Post::where('user_id', $this->user_id)->count(),
+            'favorite_genres' => $this->favoriteGenres,
             'registered_at' => $this->registered_at,
         ];
     }

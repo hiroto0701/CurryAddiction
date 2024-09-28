@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 class FavoriteInteractor
 {
     /**
-     *
      * @param int $userId
      * @param array $genreIds
      * @return void

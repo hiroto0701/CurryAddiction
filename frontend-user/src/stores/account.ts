@@ -4,6 +4,10 @@ import { useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useCommonStore } from '@/stores/common';
 
+export interface FavoriteGenre {
+  genre_id: number;
+}
+
 interface AccountState {
   id: number | null;
   user_id: number | null;
@@ -13,9 +17,9 @@ interface AccountState {
   handle_name: string;
   email: string | null;
   avatar_url: string | null;
-  // todo => string -> Date | null
   registered_at: string;
   post_summary: number;
+  favorite_genres: FavoriteGenre[];
   isNewRegistration?: boolean;
   errors: Record<string, string[]>;
 }
@@ -36,6 +40,7 @@ export const useAccountStore = defineStore('account', () => {
     avatar_url: null,
     registered_at: '',
     post_summary: 0,
+    favorite_genres: [],
     errors: {}
   });
 
@@ -61,6 +66,7 @@ export const useAccountStore = defineStore('account', () => {
       avatar_url: null,
       registered_at: '',
       post_summary: 0,
+      favorite_genres: [],
       errors: {}
     };
   }
@@ -84,6 +90,10 @@ export const useAccountStore = defineStore('account', () => {
 
   function updateAvatar(avatar: string | null): void {
     state.value.avatar_url = avatar;
+  }
+
+  function updateFavoriteGenres(selectedGenres: number[]): void {
+    state.value.favorite_genres = selectedGenres.map((genre_id) => ({ genre_id }));
   }
 
   function emailValidate(email: string): boolean {
@@ -257,6 +267,7 @@ export const useAccountStore = defineStore('account', () => {
     isAxiosError,
     updateDisplayName,
     updateAvatar,
+    updateFavoriteGenres,
     emailValidate,
     tokenValidate,
     generateToken,

@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         // データ削除
         // \App\Models\User::truncate();
         // \App\Models\ServiceUser::truncate();
+        // \App\Models\Genre::truncate();
 
         $this->call([
             \Database\Seeders\Dev\AccountSeeder::class,

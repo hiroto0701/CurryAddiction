@@ -28,7 +28,7 @@ const { favoriteGenre } = useFavoriteGenre();
 const isEditingDisplayName = ref<boolean>(false);
 const isEditingFavoriteGenre = ref<boolean>(false);
 const displayName = ref<string>(accountStore.state.display_name);
-const checkedGenres = ref<string[]>([]);
+const favoriteGenres = ref(accountStore.state.favorite_genres.map((fg) => fg.genre_id));
 const fileInfo = ref<File>();
 const preview = ref<string | undefined>();
 const open = ref<boolean>(false);
@@ -41,6 +41,16 @@ const displayNameError = computed(
     !displayName.value.length ||
     displayName.value.length > 20
 );
+
+function openModal(): void {
+  open.value = true;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(): void {
+  open.value = false;
+  document.body.style.overflow = 'auto';
+}
 
 function handleFileSelected(event: Event): void {
   const target = event.target as HTMLInputElement;
@@ -85,26 +95,41 @@ async function doUpdateDisplayName(displayName: string): Promise<void> {
 
 function toggleEditGenre(): void {
   isEditingFavoriteGenre.value = !isEditingFavoriteGenre.value;
-
+  // favoriteGenresをrefで管理しているので入力キャンセル時にstateの値に戻す
+  favoriteGenres.value = accountStore.state.favorite_genres.map((fg) => fg.genre_id);
   accountFormStore.resetErrors();
 }
 
-async function doUpdateFavoriteGenre(selectedGenres: string[]): Promise<void> {
+async function doUpdateFavoriteGenre(selectedGenres: number[]): Promise<void> {
   try {
-    await favoriteGenre(selectedGenres);
+    commonStore.startApiLoading();
+    const response = await favoriteGenre(selectedGenres);
+
+    if (response?.status === 200) {
+      // stateのfavorite_genresを更新
+      accountStore.updateFavoriteGenres(selectedGenres);
+
+      commonStore.setFlashMessage('更新しました');
+      setTimeout(() => {
+        commonStore.clearFlashMessage();
+      }, 4000);
+    } else {
+      throw new Error(response?.data.message);
+    }
   } catch (error) {
-    console.error(error);
+    console.error('お気に入りのジャンルの更新に失敗しました:', error);
+    if (axios.isAxiosError(error)) {
+      console.error(
+        `お気に入りのジャンルの更新に失敗しました: ${error.response?.data?.message || error.message}`,
+        error
+      );
+    } else {
+      console.error('予期せぬエラーが発生しました', error);
+    }
+  } finally {
+    isEditingFavoriteGenre.value = false;
+    commonStore.stopApiLoading();
   }
-}
-
-function openModal(): void {
-  open.value = true;
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal(): void {
-  open.value = false;
-  document.body.style.overflow = 'auto';
 }
 
 async function doDelete(): Promise<void> {
@@ -175,7 +200,6 @@ onUnmounted((): void => {
       <DisplayNameEditor
         v-else
         :is-error="displayNameError"
-        :display-name="accountStore.state.display_name"
         v-model="displayName"
         @update="doUpdateDisplayName(displayName)"
         @cancel="toggleEditName"
@@ -198,9 +222,9 @@ onUnmounted((): void => {
       <FavoriteGenreEditor
         v-else
         :is-error="displayNameError"
-        @update="doUpdateFavoriteGenre(checkedGenres)"
+        @update="doUpdateFavoriteGenre(favoriteGenres)"
         @cancel="toggleEditGenre"
-        v-model="checkedGenres"
+        v-model="favoriteGenres"
       />
     </DashboardSection>
 

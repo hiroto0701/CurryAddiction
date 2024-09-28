@@ -1,5 +1,5 @@
 export interface Genre {
-  id: number | undefined;
+  id: number;
   name: string;
   disabled?: boolean;
 }
