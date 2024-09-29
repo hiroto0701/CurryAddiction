@@ -215,7 +215,7 @@ onUnmounted((): void => {
     <DashboardSection>
       <DashboardSectionHeader title="カレーのジャンル" />
       <SectionInfo
-        text="表示するカレーのジャンルを登録・変更できます。"
+        text="表示する投稿のカレーのジャンルを登録・変更できます。"
         class="my-5 text-sm text-utility"
       />
       <FavoriteGenreViewer v-if="!isEditingFavoriteGenre" @edit="toggleEditGenre" />
