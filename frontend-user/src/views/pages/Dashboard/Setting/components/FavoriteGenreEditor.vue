@@ -21,16 +21,20 @@ const emits = defineEmits<{
 <template>
   <div class="flex flex-col gap-5">
     <div class="grid grid-cols-2 gap-4">
-      <div v-for="genre in curryGenreStore.state.genres" :key="genre.id" class="flex items-center">
+      <div
+        v-for="genre in curryGenreStore.state.genres"
+        :key="genre.id"
+        class="flex w-fit cursor-pointer items-center"
+      >
         <input
           type="checkbox"
-          class="mr-2 h-4 w-4"
+          class="mr-2 h-4 w-4 cursor-pointer"
           :id="'genre-' + genre.id"
           :value="genre.id"
           v-model="model"
           :checked="model?.includes(genre.id)"
         />
-        <label :for="'genre-' + genre.id" class="font-body text-sm text-sumi-700">
+        <label :for="'genre-' + genre.id" class="cursor-pointer font-body text-sm text-sumi-700">
           {{ genre.name }}
         </label>
       </div>

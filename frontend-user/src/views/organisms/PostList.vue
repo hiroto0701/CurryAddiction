@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { ref, inject, watch, type Ref, type Component } from 'vue';
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
+import { useAccountStore } from '@/stores/account';
 import { useCommonStore } from '@/stores/common';
 import type { Post, PaginationStatus } from '@/types/post';
 import type { ServiceUser } from '@/types/serviceUser';
@@ -20,6 +21,7 @@ interface Props {
 }
 const props = defineProps<Props>();
 
+const accountStore = useAccountStore();
 const commonStore = useCommonStore();
 const { fetchPostsList } = useFetchPosts();
 const { likePost } = useLikePost();
@@ -56,9 +58,23 @@ async function loadPosts(page: number = 1, userId?: number, forceReload: boolean
     posts.value.length === 0
   ) {
     try {
-      const params: any = { page, userId };
-      if (props.pageType === 'like') params.isLiked = true;
-      if (props.pageType === 'archive') params.isArchived = true;
+      const params = new URLSearchParams();
+      params.append('page', page.toString());
+      if (userId) params.append('userId', userId.toString());
+
+      // いいねページの場合はパラメータにいいねの情報を付与
+      if (props.pageType === 'like') params.append('isLiked', 'true');
+
+      // アーカイブページの場合はパラメータにアーカイブの情報を付与
+      if (props.pageType === 'archive') params.append('isArchived', 'true');
+
+      // 一覧ページ（Home）の場合はお気に入りジャンル情報を付与
+      if (props.pageType === 'home') {
+        const favoriteGenres = accountStore.state.favorite_genres.map((fg) => fg.genre_id);
+        favoriteGenres.forEach((genreId) => {
+          params.append('favorite_genres[]', genreId.toString());
+        });
+      }
 
       const { data, meta } = await fetchPostsList(params);
       posts.value = data;
