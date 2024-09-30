@@ -9,6 +9,7 @@ class IndexCommand
     private ?int $perPage;
     private ?bool $isLiked;
     private ?bool $isArchived;
+    private array $favoriteGenres;
     private ?string $sortAttribute;
     private ?string $sortDirection;
 
@@ -18,6 +19,8 @@ class IndexCommand
         ?int $perPage,
         ?bool $isLiked,
         ?bool $isArchived,
+        array $favoriteGenres = [],
+
         ?string $sortAttribute,
         ?string $sortDirection,
     ) {
@@ -26,6 +29,7 @@ class IndexCommand
         $this->perPage = $perPage;
         $this->isLiked = $isLiked;
         $this->isArchived = $isArchived;
+        $this->favoriteGenres = $favoriteGenres;
         $this->sortAttribute = $sortAttribute;
         $this->sortDirection = $sortDirection;
     }
@@ -68,6 +72,14 @@ class IndexCommand
     public function getIsArchived(): ?bool
     {
         return $this->isArchived;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFavoriteGenres(): array
+    {
+        return $this->favoriteGenres;
     }
 
     /**

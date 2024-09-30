@@ -9,6 +9,7 @@ use App\Domains\Post\Controller\Resource\PostCollection;
 use App\Domains\Post\Usecase\Command\IndexCommand;
 use App\Domains\Post\Usecase\IndexInteractor;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 
 class IndexAction extends Controller
 {
@@ -35,6 +36,7 @@ class IndexAction extends Controller
             $request->per_page ? (int)$request->per_page : config('constant.api.max_item_per_page'),
             (boolean)$request->isLiked ?? null,
             (boolean)$request->isArchived ?? null,
+            $request->favorite_genres ?? [],
             $request->sort_attribute,
             $request->sort_direction,
         );

@@ -42,13 +42,17 @@ class IndexInteractor
             });
         }
 
+        if (!empty($command->getFavoriteGenres())) {
+            $query->whereIn('genre_id', $command->getFavoriteGenres());
+        }
+
         $query->with([
             'likes' => function ($query) {
                 $query->where('user_id', User::AuthId());
             },
             'archives' => function ($query) {
                 $query->where('user_id', User::AuthId());
-            }
+            },
         ]);
 
         $query->orderBy(
