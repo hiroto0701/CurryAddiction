@@ -10,6 +10,7 @@ import { useFetchPosts } from '@/composables/functions/useFetchPosts';
 import { useLikePost } from '@/composables/functions/useLikePost';
 import { useArchivePost } from '@/composables/functions/useArchivePost';
 import { useDeletePost } from '@/composables/functions/useDeletePost';
+import PostFilterButton from '@/views/molecules/buttons/PostFilterButton.vue';
 import Card from '@/views/molecules/card/Card.vue';
 import Pagination from '@/views/molecules/Pagination.vue';
 import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue';
@@ -208,42 +209,45 @@ watch(
 );
 </script>
 <template>
-  <div v-if="posts.length">
-    <CardDisplayAreaLayout>
-      <Card
-        v-for="post in posts"
-        :key="post.id"
-        :src="post.post_img"
-        :store-name="post.store_name"
-        location="福岡市 中央区"
-        :date="post.posted_at"
-        :display-name="post.user.display_name"
-        :handle-name="post.user.handle_name"
-        :avatar-url="post.user.avatar_url"
-        :is-liked="post.current_user_liked"
-        :is-archived="post.current_user_archived"
-        :is-mine="post.is_mine"
-        @navigate-to-detail="toViewer(post.slug as string)"
-        @like="handleLike(post.id)"
-        @archive="handleArchive(post.id)"
-        @handle-post="openModal(post.slug as string)"
+  <div class="relative w-full">
+    <PostFilterButton text="ごみ箱に入れる" />
+    <div v-if="posts.length">
+      <CardDisplayAreaLayout>
+        <Card
+          v-for="post in posts"
+          :key="post.id"
+          :src="post.post_img"
+          :store-name="post.store_name"
+          location="福岡市 中央区"
+          :date="post.posted_at"
+          :display-name="post.user.display_name"
+          :handle-name="post.user.handle_name"
+          :avatar-url="post.user.avatar_url"
+          :is-liked="post.current_user_liked"
+          :is-archived="post.current_user_archived"
+          :is-mine="post.is_mine"
+          @navigate-to-detail="toViewer(post.slug as string)"
+          @like="handleLike(post.id)"
+          @archive="handleArchive(post.id)"
+          @handle-post="openModal(post.slug as string)"
+        />
+      </CardDisplayAreaLayout>
+      <Pagination class="mt-12" @change-page="doChangePage" :pagination-status="paginationStatus" />
+    </div>
+
+    <component :is="placeholderComponent" v-else />
+
+    <Teleport to="body">
+      <DeleteConfirmModal
+        v-show="open"
+        :is-loading="commonStore.state.apiLoading"
+        modal-title="ごみ箱に入れますか？"
+        modal-content="ごみ箱の投稿は30日後に完全に削除されます。"
+        button-text="ごみ箱に入れる"
+        @delete="doSoftDelete"
+        @cancel="closeModal"
+        :closeModal="closeModal"
       />
-    </CardDisplayAreaLayout>
-    <Pagination class="mt-12" @change-page="doChangePage" :pagination-status="paginationStatus" />
+    </Teleport>
   </div>
-
-  <component :is="placeholderComponent" v-else />
-
-  <Teleport to="body">
-    <DeleteConfirmModal
-      v-show="open"
-      :is-loading="commonStore.state.apiLoading"
-      modal-title="ごみ箱に入れますか？"
-      modal-content="ごみ箱の投稿は30日後に完全に削除されます。"
-      button-text="ごみ箱に入れる"
-      @delete="doSoftDelete"
-      @cancel="closeModal"
-      :closeModal="closeModal"
-    />
-  </Teleport>
 </template>

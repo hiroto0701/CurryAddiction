@@ -10,6 +10,7 @@ import TrashIcon from '@/views/atoms/icons/TrashIcon.vue';
 import SettingIcon from '@/views/atoms/icons/SettingIcon.vue';
 import BackButtonIcon from '@/views/atoms/icons/BackButtonIcon.vue';
 import MenuBarIcon from '@/views/atoms/icons/MenuBarIcon.vue';
+import HamburgerMenuButton from '@/views/molecules/buttons/HamburgerMenuButton.vue';
 import DashBoardSidebarItem from '@/views/molecules/dashboard/DashboardSideBarItem.vue';
 
 interface SidebarItem {
@@ -61,24 +62,6 @@ function closeMenu(): void {
   isMenuOpen.value = false;
 }
 
-const menuButton = tv({
-  base: 'fixed right-3 top-8 flex h-12 w-12 items-center justify-center rounded-full border border-gray-300 bg-white opacity-70 shadow-sm duration-300',
-  variants: {
-    visibility: {
-      hidden: 'md:hidden'
-    }
-  },
-  defaultVariants: {
-    visibility: 'hidden'
-  },
-  compoundVariants: [
-    {
-      visibility: 'hidden',
-      class: 'md:hover:bg-slate-100 md:hover:opacity-100'
-    }
-  ]
-});
-
 const sidebar = tv({
   base: 'fixed left-0 top-0 z-20 h-full transform overflow-y-auto bg-white p-5 transition-transform duration-300 ease-in-out md:sticky',
   variants: {
@@ -105,9 +88,7 @@ const overlay = tv({
 });
 </script>
 <template>
-  <button :class="menuButton()" aria-label="ダッシュボードメニューを開く" @click="openMenu">
-    <MenuBarIcon class="text-sumi-900" />
-  </button>
+  <HamburgerMenuButton @toggle-menu="openMenu" />
 
   <aside :class="sidebar({ isOpen: isMenuOpen })" style="width: 258px">
     <DashBoardSidebarItem
