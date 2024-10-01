@@ -5,9 +5,7 @@ import AuthenticatedFooter from '@/views/organisms/AuthenticatedFooter.vue';
 <template>
   <div class="flex h-screen flex-col">
     <AuthenticatedHeader />
-    <main
-      class="xs:px-7 mx-auto my-16 flex h-auto w-full max-w-4xl flex-col px-6 sm:px-10 md:my-20"
-    >
+    <main class="xs:px-7 mx-auto my-12 flex h-auto w-full max-w-4xl flex-col px-6 sm:px-10">
       <RouterView />
     </main>
     <AuthenticatedFooter />

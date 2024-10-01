@@ -8,7 +8,6 @@ const emit = defineEmits<{
   (e: 'toggleMenu'): void;
 }>();
 </script>
-
 <template>
   <button
     class="group relative mb-5 ml-auto mr-0 flex aspect-square w-9 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"
@@ -17,7 +16,7 @@ const emit = defineEmits<{
   >
     <FilterIcon class="relative w-6 text-sumi-600 group-hover:text-sumi-900" />
     <div
-      class="absolute -right-[1px] -top-[1px] h-2 w-2 rounded-full bg-red-400"
+      class="absolute right-0 top-0 h-2 w-2 rounded-full bg-red-400"
       v-if="accountStore.state.favorite_genres.length > 0"
     ></div>
   </button>
