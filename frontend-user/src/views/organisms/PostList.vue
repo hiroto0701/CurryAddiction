@@ -10,11 +10,12 @@ import { useFetchPosts } from '@/composables/functions/useFetchPosts';
 import { useLikePost } from '@/composables/functions/useLikePost';
 import { useArchivePost } from '@/composables/functions/useArchivePost';
 import { useDeletePost } from '@/composables/functions/useDeletePost';
-import PostFilterButton from '@/views/molecules/buttons/PostFilterButton.vue';
 import Card from '@/views/molecules/card/Card.vue';
 import Pagination from '@/views/molecules/Pagination.vue';
 import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue';
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue';
+
+import Sidebar from '@/views/organisms/Sidebar.vue';
 
 interface Props {
   readonly placeholderComponent: null | Component;
@@ -210,7 +211,7 @@ watch(
 </script>
 <template>
   <div class="relative w-full">
-    <PostFilterButton text="ごみ箱に入れる" />
+    <Sidebar v-if="pageType === 'home'" :favorite-genres="accountStore.state.favorite_genres" />
     <div v-if="posts.length">
       <CardDisplayAreaLayout>
         <Card

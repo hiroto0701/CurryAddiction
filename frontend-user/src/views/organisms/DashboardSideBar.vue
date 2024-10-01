@@ -9,7 +9,6 @@ import ArchiveIcon from '@/views/atoms/icons/ArchiveIcon.vue';
 import TrashIcon from '@/views/atoms/icons/TrashIcon.vue';
 import SettingIcon from '@/views/atoms/icons/SettingIcon.vue';
 import BackButtonIcon from '@/views/atoms/icons/BackButtonIcon.vue';
-import MenuBarIcon from '@/views/atoms/icons/MenuBarIcon.vue';
 import HamburgerMenuButton from '@/views/molecules/buttons/HamburgerMenuButton.vue';
 import DashBoardSidebarItem from '@/views/molecules/dashboard/DashboardSideBarItem.vue';
 
