@@ -15,7 +15,7 @@ import Pagination from '@/views/molecules/Pagination.vue';
 import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue';
 import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue';
 
-import Sidebar from '@/views/organisms/Sidebar.vue';
+import PostFilterSideBar from '@/views/organisms/PostFilterSideBar.vue';
 
 interface Props {
   readonly placeholderComponent: null | Component;
@@ -211,7 +211,10 @@ watch(
 </script>
 <template>
   <div class="relative w-full">
-    <Sidebar v-if="pageType === 'home'" :favorite-genres="accountStore.state.favorite_genres" />
+    <PostFilterSideBar
+      v-if="pageType === 'home'"
+      :favorite-genres="accountStore.state.favorite_genres"
+    />
     <div v-if="posts.length">
       <CardDisplayAreaLayout>
         <Card
