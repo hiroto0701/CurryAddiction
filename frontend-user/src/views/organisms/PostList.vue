@@ -13,9 +13,8 @@ import { useDeletePost } from '@/composables/functions/useDeletePost';
 import Card from '@/views/molecules/card/Card.vue';
 import Pagination from '@/views/molecules/Pagination.vue';
 import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue';
-import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue';
-
 import PostFilterSideBar from '@/views/organisms/PostFilterSideBar.vue';
+import CardDisplayAreaLayout from '@/views/templates/CardDisplayAreaLayout.vue';
 
 interface Props {
   readonly placeholderComponent: null | Component;
