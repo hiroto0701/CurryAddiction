@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Component } from 'vue';
 import { RouterLink, type RouteLocationRaw } from 'vue-router';
 import { tv } from 'tailwind-variants';
 import HomeIcon from '@/views/atoms/icons/HomeIcon.vue';
@@ -10,7 +11,7 @@ import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue';
 
 interface NavItem {
   name: string;
-  icon: any;
+  component: Component;
   to?: RouteLocationRaw;
   props?: Record<string, string | null>;
   isMyPage?: boolean;
@@ -24,13 +25,13 @@ interface Props {
 const props = defineProps<Props>();
 
 const navItems: NavItem[] = [
-  { name: 'ホーム', icon: HomeIcon, to: { name: 'Home' } },
-  { name: '投稿する', icon: PlusIcon, to: { name: 'PostCreate' } },
-  { name: '検索する', icon: SearchIcon, to: { name: 'Search' } },
-  { name: 'お知らせ', icon: NotificationIcon },
+  { name: 'ホーム', component: HomeIcon, to: { name: 'Home' } },
+  { name: '投稿する', component: PlusIcon, to: { name: 'PostCreate' } },
+  { name: '検索する', component: SearchIcon, to: { name: 'Search' } },
+  { name: 'お知らせ', component: NotificationIcon },
   {
     name: 'マイページ',
-    icon: AvatarIcon,
+    component: AvatarIcon,
     to: { name: 'UserPage', params: { username: props.handleName } },
     props: { avatarUrl: props.avatarUrl },
     isMyPage: true
@@ -51,14 +52,13 @@ const itemStyles = tv({
   base: 'peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100'
 });
 </script>
-
 <template>
   <div class="flex items-center gap-0.5">
     <template v-for="item in navItems" :key="item.name">
       <div :class="navItemStyles({ isMyPage: item.isMyPage })">
         <BottomTooltip :text="item.name" position="bottom">
           <component :is="item.to ? RouterLink : 'div'" :to="item.to" :class="itemStyles()">
-            <component :is="item.icon" v-bind="item.props || {}" />
+            <component :is="item.component" v-bind="item.props || {}" />
           </component>
         </BottomTooltip>
       </div>
