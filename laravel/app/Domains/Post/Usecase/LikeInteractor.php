@@ -7,8 +7,8 @@ namespace App\Domains\Post\Usecase;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\ServiceUser;
-use Illuminate\Support\Facades\DB;
 use App\Notifications\LikeNotification;
+use Illuminate\Support\Facades\DB;
 
 class LikeInteractor
 {
@@ -37,7 +37,7 @@ class LikeInteractor
 
             $result = $like->save();
 
-            // いいねを追加し、投稿者が自分自身でない場合に通知を送信
+            // いいねを追加し、投稿者が自分自身でない場合に通知を作成
             if ($result && $post->user_id !== $serviceUser->user_id) {
                 $postOwner = ServiceUser::where('user_id', $post->user_id)->first();
                 if ($postOwner) {

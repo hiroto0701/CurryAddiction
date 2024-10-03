@@ -34,17 +34,6 @@ class LikeNotification extends Notification
         return ['database'];
     }
 
-    // /**
-    //  * Get the mail representation of the notification.
-    //  */
-    // public function toMail(object $notifiable): MailMessage
-    // {
-    //     return (new MailMessage)
-    //                 ->line('The introduction to the notification.')
-    //                 ->action('Notification Action', url('/'))
-    //                 ->line('Thank you for using our application!');
-    // }
-
     /**
      * Get the array representation of the notification.
      *
@@ -53,13 +42,17 @@ class LikeNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'post_id' => $this->post->id,
-            'post_slug' => $this->post->slug,
-            'post_title' => $this->post->store_name,
-            'user_id' => $this->user->user_id,
-            'handle_name' => $this->user->handle_name,
-            'display_name' => $this->user->display_name,
-            'avatar_url' => $this->user->avatar ? $this->user->avatar->url : null,
+            'notified_target' => [
+                'post_id' => $this->post->id,
+                'slug' => $this->post->slug,
+                'store_name' => $this->post->store_name,
+            ],
+            'notified_from_user' => [
+                'user_id' => $this->user->user_id,
+                'handle_name' => $this->user->handle_name,
+                'display_name' => $this->user->display_name,
+                'avatar_url' => $this->user->avatar ? $this->user->avatar->url : null,
+            ],
         ];
     }
 }
