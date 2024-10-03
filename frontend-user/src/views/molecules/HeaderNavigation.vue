@@ -5,8 +5,8 @@ import { tv } from 'tailwind-variants';
 import HomeIcon from '@/views/atoms/icons/HomeIcon.vue';
 import PlusIcon from '@/views/atoms/icons/PlusIcon.vue';
 import SearchIcon from '@/views/atoms/icons/SearchIcon.vue';
-import NotificationIcon from '@/views/atoms/icons/NotificationIcon.vue';
 import AvatarIcon from '@/views/atoms/icons/AvatarIcon.vue';
+import NotificationDropDown from '@/views/molecules/dropdown/NotificationDropDown.vue';
 import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue';
 
 interface NavItem {
@@ -28,7 +28,7 @@ const navItems: NavItem[] = [
   { name: 'ホーム', component: HomeIcon, to: { name: 'Home' } },
   { name: '投稿する', component: PlusIcon, to: { name: 'PostCreate' } },
   { name: '検索する', component: SearchIcon, to: { name: 'Search' } },
-  { name: 'お知らせ', component: NotificationIcon },
+  { name: 'お知らせ', component: NotificationDropDown },
   {
     name: 'マイページ',
     component: AvatarIcon,
