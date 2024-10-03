@@ -27,7 +27,8 @@ use Laravel\Sanctum\HasApiTokens;
  */
 class ServiceUser extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens;
+    use Notifiable;
     use HasFactory;
     use SoftDeletes;
     use OperatorRecordable;

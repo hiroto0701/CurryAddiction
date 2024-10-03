@@ -235,7 +235,7 @@ watch(
           @handle-post="openModal(post.slug as string)"
         />
       </CardDisplayAreaLayout>
-      <Pagination class="mt-12" @change-page="doChangePage" :pagination-status="paginationStatus" />
+      <Pagination class="mt-12" @change-page="doChangePage" :paginationStatus />
     </div>
 
     <component :is="placeholderComponent" v-else />
