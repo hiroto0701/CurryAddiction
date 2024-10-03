@@ -3,8 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
+use App\Http\Controllers\FileViewAction;
 use Illuminate\Notifications\Notification;
 
 class LikeNotification extends Notification
@@ -51,7 +50,10 @@ class LikeNotification extends Notification
                 'user_id' => $this->user->user_id,
                 'handle_name' => $this->user->handle_name,
                 'display_name' => $this->user->display_name,
-                'avatar_url' => $this->user->avatar ? $this->user->avatar->url : null,
+                'avatar_url' => $this->user->avatar ? route(
+                    'file.view',
+                    ['type' => FileViewAction::TYPE_AVATAR, 'uuid' => $this->user->avatar->uuid]
+                ) : null,
             ],
         ];
     }

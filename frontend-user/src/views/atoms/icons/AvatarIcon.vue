@@ -7,10 +7,9 @@ interface Props {
 }
 const props = defineProps<Props>();
 
-const avatar_url = computed((): string => {
+const avatar = computed((): string => {
   if (props.avatarUrl === null) {
-    const defaultAvatar = 'http://localhost:9000/local-curry_addiction/avatar/default_avatar.jpg';
-    return defaultAvatar;
+    return 'http://localhost:9000/local-curry_addiction/avatar/default_avatar.jpg';
   } else {
     return props.avatarUrl;
   }
@@ -26,7 +25,7 @@ const avatar_url = computed((): string => {
 
   <img
     v-show="!preview"
-    :src="avatar_url"
+    :src="avatar"
     alt="プロフィール画像"
     class="aspect-square rounded-full bg-transparent object-cover"
   />

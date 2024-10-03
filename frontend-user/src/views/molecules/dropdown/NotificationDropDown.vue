@@ -1,19 +1,25 @@
 <script setup lang="ts">
 import { Menu } from '@headlessui/vue';
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
+import type { Notification, PaginationStatus } from '@/types/notification';
 import { useFetchNotifications } from '@/composables/functions/useFetchNotifications';
 import NotificationButton from '@/views/molecules/buttons/NotificationButton.vue';
 import NotificationList from '@/views/molecules/NotificationList.vue';
 
 const { fetchNotificationList } = useFetchNotifications();
 
+const notificationData = ref<Notification[]>([]);
+const paginationData = ref<PaginationStatus | null>(null);
+
 async function loadNotifications(page: number = 1) {
   try {
     const params = new URLSearchParams();
     params.append('page', page.toString());
     const { data, meta } = await fetchNotificationList(params);
-    console.log(data);
-    console.log(meta);
+
+    notificationData.value = data;
+    paginationData.value = meta;
+    console.log(paginationData.value);
   } catch (error) {
     console.error('投稿の読み込みに失敗しました。:', error);
   }
@@ -34,7 +40,7 @@ onMounted(async () => {
       leave-from-class="transform opacity-100 scale-100"
       leave-to-class="transform opacity-0 scale-95"
     >
-      <NotificationList class="absolute top-8 z-10" />
+      <NotificationList class="absolute top-8 z-10" :notificationData :paginationData />
     </Transition>
   </Menu>
 </template>

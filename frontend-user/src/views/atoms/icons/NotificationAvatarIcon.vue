@@ -15,7 +15,7 @@ const avatar = computed((): string => {
 });
 </script>
 <template>
-  <div class="w-7">
+  <div class="h-10 w-10">
     <img
       :src="avatar"
       alt="プロフィール画像"
