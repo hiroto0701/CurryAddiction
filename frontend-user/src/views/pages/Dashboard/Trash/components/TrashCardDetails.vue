@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import CalenderIcon from '@/views/atoms/icons/CalenderIcon.vue';
 import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue';
-import TrashedDateBrowseItem from '@/views/molecules/browseItems/TrashedDateBrowseItem.vue';
+import DateBrowseItem from '@/views/molecules/browseItems/DateBrowseItem.vue';
 import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue';
 
 interface Props {
@@ -22,7 +22,7 @@ const emits = defineEmits(['restore', 'delete']);
       <div class="flex items-center gap-2.5">
         <CalenderIcon class="text-gray-500" />
         <span class="font-body text-sm text-gray-500">削除した日付:</span>
-        <TrashedDateBrowseItem class="text-sm" :date="deletedAt" />
+        <DateBrowseItem class="py-1 pr-2 text-sm" :date="deletedAt" />
       </div>
       <div class="mt-3 flex items-center gap-2.5">
         <button

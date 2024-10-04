@@ -19,9 +19,8 @@ async function loadNotifications(page: number = 1) {
 
     notificationData.value = data;
     paginationData.value = meta;
-    console.log(paginationData.value);
   } catch (error) {
-    console.error('投稿の読み込みに失敗しました。:', error);
+    console.error('通知の読み込みに失敗しました。:', error);
   }
 }
 
@@ -31,7 +30,7 @@ onMounted(async () => {
 </script>
 <template>
   <Menu class="relative flex items-center justify-center" as="div" v-slot="{}">
-    <NotificationButton />
+    <NotificationButton class="flex h-8 w-8 items-center justify-center" />
     <Transition
       enter-active-class="transition ease-out duration-100"
       enter-from-class="transform opacity-0 scale-95"
@@ -40,7 +39,7 @@ onMounted(async () => {
       leave-from-class="transform opacity-100 scale-100"
       leave-to-class="transform opacity-0 scale-95"
     >
-      <NotificationList class="absolute top-8 z-10" :notificationData :paginationData />
+      <NotificationList class="absolute -right-16 top-8 z-10" :notificationData :paginationData />
     </Transition>
   </Menu>
 </template>
