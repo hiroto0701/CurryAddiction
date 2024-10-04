@@ -39,7 +39,7 @@ onMounted(async () => {
       leave-from-class="transform opacity-100 scale-100"
       leave-to-class="transform opacity-0 scale-95"
     >
-      <NotificationList class="absolute -right-16 top-8 z-10" :notificationData :paginationData />
+      <NotificationList class="absolute -right-32 top-8 z-10" :notificationData :paginationData />
     </Transition>
   </Menu>
 </template>
