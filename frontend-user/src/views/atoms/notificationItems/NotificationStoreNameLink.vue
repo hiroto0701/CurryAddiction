@@ -9,7 +9,7 @@ defineProps<Props>();
 </script>
 <template>
   <span class="mx-1 font-semibold text-sumi-900 hover:underline">
-    <router-link :to="{ name: 'PostViewer', params: { slug } }" class="">
+    <router-link :to="{ name: 'PostViewer', params: { slug } }">
       {{ storeName }}
     </router-link>
   </span>

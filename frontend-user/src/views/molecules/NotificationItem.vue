@@ -22,6 +22,7 @@ defineProps<Props>();
         :handle-name="notification.notified_from_user.handle_name"
         :store-name="notification.notified_target.store_name"
         :slug="notification.notified_target.slug"
+        :notified-at="notification.created_at"
       />
     </div>
   </MenuItem>
