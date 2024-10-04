@@ -23,8 +23,8 @@ export interface PaginationStatus {
   current_page: number | null;
   last_page: number | null;
   per_page: number | null;
-  has_more_page?: boolean;
-  next_page?: number | null;
+  has_more_pages?: boolean;
+  next_page: number | null;
 }
 
 export interface NotificationsResponse {

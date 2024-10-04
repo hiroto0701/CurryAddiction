@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import axios from 'axios';
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useCommonStore } from '@/stores/common';
 import type { Post } from '@/types/post';
@@ -10,7 +10,7 @@ import BackLink from '@/views/molecules/links/BackLink.vue';
 import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue';
 import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue';
 import GenreBrowseItem from '@/views/molecules/browseItems/GenreBrowseItem.vue';
-import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue';
+import DateBrowseItem from '@/views/molecules/browseItems/DateBrowseItem.vue';
 import PostCommentBrowseItem from '@/views/molecules/browseItems/PostCommentBrowseItem.vue';
 import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue';
 import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue';
@@ -72,6 +72,15 @@ async function doSoftDelete(): Promise<void> {
     commonStore.stopApiLoading();
   }
 }
+
+watch(
+  () => route.params.slug,
+  async (newSlug) => {
+    if (newSlug) {
+      await load(newSlug as string);
+    }
+  }
+);
 </script>
 <template>
   <div class="flex h-12 items-center justify-between lg:sticky lg:top-0">
@@ -102,8 +111,8 @@ async function doSoftDelete(): Promise<void> {
           :avatar-url="post.user.avatar_url"
         />
         <span class="flex-shrink-0">&brvbar;</span>
-        <PostDateBrowseItem
-          class="flex-shrink-0 whitespace-nowrap text-base"
+        <DateBrowseItem
+          class="flex-shrink-0 whitespace-nowrap py-1 pr-2 text-base"
           :date="post.posted_at"
         />
       </div>
