@@ -58,7 +58,9 @@ const itemStyles = tv({
       <div :class="navItemStyles({ isMyPage: item.isMyPage })">
         <BottomTooltip :text="item.name" position="bottom">
           <component :is="item.to ? RouterLink : 'div'" :to="item.to" :class="itemStyles()">
-            <component :is="item.component" v-bind="item.props || {}" />
+            <Suspense>
+              <component :is="item.component" v-bind="item.props || {}" />
+            </Suspense>
           </component>
         </BottomTooltip>
       </div>
