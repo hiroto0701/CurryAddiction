@@ -27,4 +27,3 @@ defineProps<Props>();
     </div>
   </MenuItem>
 </template>
-<style scoped></style>

@@ -49,7 +49,7 @@ async function moreLoad(page: number | null) {
       leave-to-class="transform opacity-0 scale-95"
     >
       <NotificationList
-        class="absolute -right-32 top-8 z-10"
+        class="absolute -right-32 top-9 z-10"
         :notificationData
         :paginationData
         :is-loading="commonStore.state.apiLoading"
