@@ -38,7 +38,7 @@ async function moreLoad(page: number | null) {
 }
 </script>
 <template>
-  <Menu class="relative flex items-center justify-center" as="div" v-slot="{}">
+  <Menu class="relative flex items-center justify-center" as="div" v-slot="{ open }">
     <NotificationButton class="flex h-8 w-8 items-center justify-center" />
     <Transition
       enter-active-class="transition ease-out duration-100"

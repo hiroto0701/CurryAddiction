@@ -6,8 +6,6 @@ import HomeIcon from '@/views/atoms/icons/HomeIcon.vue';
 import PlusIcon from '@/views/atoms/icons/PlusIcon.vue';
 import SearchIcon from '@/views/atoms/icons/SearchIcon.vue';
 import NotificationIcon from '@/views/atoms/icons/NotificationIcon.vue';
-import ProfileIcon from '@/views/atoms/icons/ProfileIcon.vue';
-import AuthenticatedDropDown from '@/views/molecules/dropdown/AuthenticatedDropDown.vue';
 </script>
 <template>
   <MainHeader>
@@ -21,9 +19,7 @@ import AuthenticatedDropDown from '@/views/molecules/dropdown/AuthenticatedDropD
               <PlusIcon />
               <SearchIcon />
               <NotificationIcon />
-              <ProfileIcon />
             </div>
-            <AuthenticatedDropDown />
           </div>
         </div>
       </div>

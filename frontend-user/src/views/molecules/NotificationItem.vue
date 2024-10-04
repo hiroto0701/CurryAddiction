@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { MenuItem } from '@headlessui/vue';
 import type { Notification } from '@/types/notification';
 import NotifiedUserProfileLink from '@/views/molecules/links/NotifiedUserProfileLink.vue';
@@ -7,22 +8,27 @@ import NotificationContent from '@/views/molecules/NotificationContent.vue';
 interface Props {
   readonly notification: Notification;
 }
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const avatarUrl = ref<string | null>(props.notification.notified_from_user.avatar_url);
+const handleName = ref<string>(props.notification.notified_from_user.handle_name);
+const displayName = ref<string>(props.notification.notified_from_user.display_name);
+const storeName = ref<string>(props.notification.notified_target.store_name);
+const slug = ref<string>(props.notification.notified_target.slug);
+const notifiedAt = ref<string>(props.notification.created_at);
 </script>
 <template>
-  <MenuItem class="border-t border-gray-200 px-4 py-3 first:border-none" v-slot="{}">
+  <MenuItem class="border-t border-gray-200 px-4 py-3 first:border-none" v-slot="{ close }">
     <div class="flex justify-between">
-      <NotifiedUserProfileLink
-        :avatar-url="notification.notified_from_user.avatar_url"
-        :handle-name="notification.notified_from_user.handle_name"
-      />
+      <NotifiedUserProfileLink :avatar-url :handle-name :close />
       <NotificationContent
         class="w-[calc(100%-50px)] font-body text-xs leading-5 text-utility"
-        :display-name="notification.notified_from_user.display_name"
-        :handle-name="notification.notified_from_user.handle_name"
-        :store-name="notification.notified_target.store_name"
-        :slug="notification.notified_target.slug"
-        :notified-at="notification.created_at"
+        :display-name
+        :handle-name
+        :store-name
+        :slug
+        :notified-at
+        :close
       />
     </div>
   </MenuItem>
