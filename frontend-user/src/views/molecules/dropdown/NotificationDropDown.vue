@@ -38,7 +38,7 @@ async function moreLoad(page: number | null) {
 }
 </script>
 <template>
-  <Menu class="relative flex items-center justify-center" as="div" v-slot="{}">
+  <Menu class="relative flex items-center justify-center" as="div" v-slot="{ open }">
     <NotificationButton class="flex h-8 w-8 items-center justify-center" />
     <Transition
       enter-active-class="transition ease-out duration-100"
@@ -49,7 +49,7 @@ async function moreLoad(page: number | null) {
       leave-to-class="transform opacity-0 scale-95"
     >
       <NotificationList
-        class="absolute -right-32 top-8 z-10"
+        class="absolute -right-32 top-9 z-10"
         :notificationData
         :paginationData
         :is-loading="commonStore.state.apiLoading"

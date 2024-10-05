@@ -9,13 +9,19 @@ interface Props {
   readonly storeName: string;
   readonly slug: string;
   readonly notifiedAt: string;
+  readonly close: () => void;
 }
 defineProps<Props>();
+
+function navigateAndClose(close: () => void): void {
+  close();
+}
 </script>
 <template>
   <p>
-    <NotificationUserNameLink :display-name :handle-name />さんが
-    <NotificationStoreNameLink :store-name :slug /> の投稿にいいねしました
+    <NotificationUserNameLink :display-name :handle-name @click="navigateAndClose(close)" />さんが
+    <NotificationStoreNameLink :store-name :slug @click="navigateAndClose(close)" />
+    の投稿にいいねしました
     <DateBrowseItem class="text-mini" :date="notifiedAt" />
   </p>
 </template>
