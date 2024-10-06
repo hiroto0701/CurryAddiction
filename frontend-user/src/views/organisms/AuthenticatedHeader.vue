@@ -5,8 +5,8 @@ import { useAccountStore } from '@/stores/account';
 import { useRouter } from 'vue-router';
 import AppLogo from '@/views/atoms/icons/AppLogo.vue';
 import MainHeader from '@/views/atoms/MainHeader.vue';
-import AuthenticatedHeaderDropDown from '@/views/molecules/dropdown/AuthenticatedHeaderDropDown.vue';
 import HeaderNavigation from '@/views/molecules/HeaderNavigation.vue';
+import AuthenticatedHeaderDropDown from '@/views/molecules/dropdown/AuthenticatedHeaderDropDown.vue';
 import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue';
 
 const accountStore = useAccountStore();
@@ -47,6 +47,7 @@ function doLogout(): void {
               :avatar-url="accountStore.state.avatar_url"
             />
             <AuthenticatedHeaderDropDown
+              class="md:block"
               :username="accountStore.state.display_name"
               @to-post-dashboard="handleRouting('PostDashboard')"
               @to-liked-post-dashboard="handleRouting('LikedPostDashboard')"

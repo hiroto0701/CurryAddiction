@@ -14,7 +14,7 @@ interface NavItem {
   component: Component;
   to?: RouteLocationRaw;
   props?: Record<string, string | null>;
-  isMyPage?: boolean;
+  visibleOnMobile?: boolean;
 }
 
 interface Props {
@@ -28,20 +28,20 @@ const navItems: NavItem[] = [
   { name: 'ホーム', component: HomeIcon, to: { name: 'Home' } },
   { name: '投稿する', component: PlusIcon, to: { name: 'PostCreate' } },
   { name: '検索する', component: SearchIcon, to: { name: 'Search' } },
-  { name: 'お知らせ', component: NotificationDropDown },
+  { name: 'お知らせ', component: NotificationDropDown, visibleOnMobile: true },
   {
     name: 'マイページ',
     component: AvatarIcon,
     to: { name: 'UserPage', params: { username: props.handleName } },
     props: { avatarUrl: props.avatarUrl },
-    isMyPage: true
+    visibleOnMobile: true
   }
 ];
 
 const navItemStyles = tv({
   base: 'flex items-center gap-0.5',
   variants: {
-    isMyPage: {
+    visibleOnMobile: {
       true: '',
       false: 'max-md:hidden'
     }
@@ -55,12 +55,10 @@ const itemStyles = tv({
 <template>
   <div class="flex items-center gap-0.5">
     <template v-for="item in navItems" :key="item.name">
-      <div :class="navItemStyles({ isMyPage: item.isMyPage })">
+      <div :class="navItemStyles({ visibleOnMobile: item.visibleOnMobile })">
         <BottomTooltip :text="item.name" position="bottom">
           <component :is="item.to ? RouterLink : 'div'" :to="item.to" :class="itemStyles()">
-            <Suspense>
-              <component :is="item.component" v-bind="item.props || {}" />
-            </Suspense>
+            <component :is="item.component" v-bind="item.props || {}" />
           </component>
         </BottomTooltip>
       </div>
