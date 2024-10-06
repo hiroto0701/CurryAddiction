@@ -26,5 +26,6 @@ class AuthServiceProvider extends ServiceProvider
         \App\Domains\Dashboard\Analytics\Controller\Policy\ActionPolicy::register();
         \App\Domains\Dashboard\Trash\Controller\Policy\ActionPolicy::register();
         \App\Domains\Genre\Controller\Policy\ActionPolicy::register();
+        \App\Domains\Notification\Controller\Policy\ActionPolicy::register();
     }
 }

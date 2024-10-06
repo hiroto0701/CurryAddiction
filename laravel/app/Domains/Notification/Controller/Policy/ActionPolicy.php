@@ -13,6 +13,7 @@ class ActionPolicy
     public static function register()
     {
         Gate::define('notification-index', [self::class, 'index']);
+        Gate::define('notification-read', [self::class, 'read']);
     }
 
     public function index($user, $notification): bool
@@ -24,6 +25,15 @@ class ActionPolicy
         if ($user instanceof Administrator) {
             // 管理者は全ての通知を閲覧可能
             return true;
+        }
+        return false;
+    }
+
+    public function read($user, $notification): bool
+    {
+        if ($user instanceof ServiceUser) {
+            // 自分の通知のみ既読可能
+            return $user->id === $notification->user_id;
         }
         return false;
     }
