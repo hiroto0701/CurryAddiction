@@ -7,6 +7,7 @@ namespace App\Domains\Genre\Controller;
 use App\Domains\Genre\Controller\Resource\GenreCollection;
 use App\Domains\Genre\Usecase\IndexInteractor;
 use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
 
 class IndexAction extends Controller
 {
@@ -25,7 +26,7 @@ class IndexAction extends Controller
         $this->interactor = $interactor;
     }
 
-    public function __invoke(): GenreCollection
+    public function __invoke(Request $request): GenreCollection
     {
         return new GenreCollection(
             $this->interactor->handle()

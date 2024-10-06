@@ -11,6 +11,13 @@ class IndexInteractor
 {
     public function handle(): LengthAwarePaginator
     {
-        return User::AuthUser()->notifications()->paginate(config('constant.api.max_notification_per_page'));
+       $user = User::AuthUser();
+
+        $notifications = $user->notifications()->paginate(config('constant.api.max_notification_per_page'));
+        $unreadCount = $user->unreadNotifications()->count();
+
+        $notifications->unreadCount = $unreadCount;
+
+        return $notifications;
     }
 }
