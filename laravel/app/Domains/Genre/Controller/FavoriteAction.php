@@ -27,7 +27,6 @@ class FavoriteAction extends Controller
     }
 
     /**
-     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */

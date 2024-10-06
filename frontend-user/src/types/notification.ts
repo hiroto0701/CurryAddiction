@@ -30,4 +30,5 @@ export interface PaginationStatus {
 export interface NotificationsResponse {
   data: Notification[];
   meta: PaginationStatus;
+  unreadCount: number;
 }

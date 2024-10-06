@@ -7,6 +7,7 @@ namespace App\Domains\Notification\Controller;
 use App\Domains\Notification\Usecase\ReadInteractor;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ReadAction extends Controller
 {
@@ -28,7 +29,7 @@ class ReadAction extends Controller
     /**
      * @return JsonResponse
      */
-    public function __invoke(): JsonResponse
+    public function __invoke(Request $request): JsonResponse
     {
         $this->interactor->handle();
 

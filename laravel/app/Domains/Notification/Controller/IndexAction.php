@@ -7,6 +7,7 @@ namespace App\Domains\Notification\Controller;
 use App\Domains\Notification\Controller\Resource\NotificationCollection;
 use App\Domains\Notification\Usecase\IndexInteractor;
 use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
 
 class IndexAction extends Controller
 {
@@ -25,7 +26,7 @@ class IndexAction extends Controller
         $this->interactor = $interactor;
     }
 
-    public function __invoke(): NotificationCollection
+    public function __invoke(Request $request): NotificationCollection
     {
         return new NotificationCollection(
             $this->interactor->handle()

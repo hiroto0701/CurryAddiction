@@ -18,6 +18,7 @@ class NotificationCollection extends ResourceCollection
         return [
             'data' => $this->collection,
             'meta' => $this->getCustomMeta(),
+            'unreadCount' => $this->resource->unreadCount ?? 0,
         ];
     }
 
