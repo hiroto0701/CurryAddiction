@@ -14,7 +14,7 @@ const { fetchNotificationList } = useFetchNotifications();
 
 const notificationData = ref<Notification[]>([]);
 const paginationData = ref<PaginationStatus | null>(null);
-const refUnreadCount = ref<number>(25);
+const refUnreadCount = ref<number>();
 
 async function loadNotifications(page: number = 1) {
   try {
@@ -25,7 +25,7 @@ async function loadNotifications(page: number = 1) {
 
     notificationData.value = [...notificationData.value, ...data];
     paginationData.value = meta;
-    refUnreadCount.value = 30;
+    refUnreadCount.value = unreadCount;
   } catch (error) {
     console.error('通知の読み込みに失敗しました。:', error);
   } finally {
@@ -61,10 +61,10 @@ onMounted(() => {
         @click="markAsRead"
       />
       <span
-        class="absolute -right-1 top-0 flex h-4 w-fit min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-center font-body text-mini text-white"
+        class="absolute left-4 top-0 flex h-4 w-fit min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-center font-body text-mini text-white"
         v-if="refUnreadCount"
       >
-        {{ refUnreadCount }}
+        {{ refUnreadCount > 99 ? '99+' : refUnreadCount }}
       </span>
     </BottomTooltip>
     <Transition

@@ -51,7 +51,11 @@ watch(
         />
         <HandleNameBrowseItem :handle-name="service_user.handle_name" />
       </div>
-      <GotoSettingPageButton v-if="service_user.is_mine" text="設定" class="flex-shrink-0" />
+      <GotoSettingPageButton
+        v-if="service_user.is_mine"
+        text="設定"
+        class="hidden flex-shrink-0 sm:block"
+      />
     </div>
     <UserAnalytics
       :registered-at="service_user.registered_at"

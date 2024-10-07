@@ -7,7 +7,7 @@ import AppLogo from '@/views/atoms/icons/AppLogo.vue';
 import MainHeader from '@/views/atoms/MainHeader.vue';
 import HeaderNavigation from '@/views/molecules/HeaderNavigation.vue';
 import NotificationDropDown from '@/views/molecules/dropdown/NotificationDropDown.vue';
-import HeaderDropDown from '@/views/molecules/dropdown/HeaderDropdown.vue';
+import HeaderDropDown from '@/views/molecules/dropdown/HeaderDropDown.vue';
 import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue';
 
 const accountStore = useAccountStore();

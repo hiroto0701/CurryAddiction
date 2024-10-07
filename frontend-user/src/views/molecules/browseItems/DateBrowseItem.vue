@@ -9,7 +9,7 @@ interface Props {
 const props = defineProps<Props>();
 
 const dayjs = inject('$dayjs') as typeof import('dayjs');
-const fullDate = computed(() => dayjs(props.date).format('YYYY/M/D'));
+const fullDate = computed(() => dayjs(props.date).format('YYYY/MM/DD'));
 
 // 相対時間を計算
 const relativeTime = useRelativeTime(props.date || '');
