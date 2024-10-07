@@ -87,9 +87,9 @@ function getTextColorClass(routeName: string): string {
           :key="item.name"
           @click="handleRouting(item.name, item.params)"
           :label="item.label"
-          :isActive="router.currentRoute.value.name === item.name"
-          :textColorClass="getTextColorClass(item.name)"
-          :iconComponent="item.icon"
+          :is-active="router.currentRoute.value.name === item.name"
+          :text-color-class="getTextColorClass(item.name)"
+          :icon-component="item.icon"
           :icon-props="item.iconProps"
         />
       </MenuItems>

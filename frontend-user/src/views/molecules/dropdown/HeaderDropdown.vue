@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItems } from '@headlessui/vue';
 import type { Component } from 'vue';
+import { useRouter } from 'vue-router';
 import DropDownMenuItem from '@/views/atoms/DropDownMenuItem.vue';
 import LogoutIcon from '@/views/atoms/icons/LogoutIcon.vue';
 import SettingIcon from '@/views/atoms/icons/SettingIcon.vue';
@@ -19,6 +20,7 @@ interface Props {
 interface MenuItem {
   label: string;
   icon: Component;
+  name?: string;
   event:
     | 'toMyPage'
     | 'toPostDashboard'
@@ -58,18 +60,31 @@ function handleMenuItem(
   emits(event);
 }
 
+const router = useRouter();
+
 const menuItems: MenuItem[] = [
   {
     label: 'マイページ',
+    name: 'UserPage',
     icon: AvatarIcon,
     event: 'toMyPage',
     props: { avatarUrl: props.avatarUrl }
   },
-  { label: 'ダッシュボード', icon: DashboardIcon, event: 'toPostDashboard' },
-  { label: 'いいねした投稿', icon: HeartIcon, event: 'toLikedPostDashboard' },
-  { label: '保存した投稿', icon: ArchiveIcon, event: 'toArchivedPostDashboard' },
-  { label: 'ごみ箱', icon: TrashIcon, event: 'toTrashDashboard' },
-  { label: '設定', icon: SettingIcon, event: 'toSetting' },
+  { label: 'ダッシュボード', name: 'PostDashboard', icon: DashboardIcon, event: 'toPostDashboard' },
+  {
+    label: 'いいねした投稿',
+    name: 'LikedPostDashboard',
+    icon: HeartIcon,
+    event: 'toLikedPostDashboard'
+  },
+  {
+    label: '保存した投稿',
+    name: 'ArchivedPostDashboard',
+    icon: ArchiveIcon,
+    event: 'toArchivedPostDashboard'
+  },
+  { label: 'ごみ箱', name: 'TrashDashboard', icon: TrashIcon, event: 'toTrashDashboard' },
+  { label: '設定', name: 'Setting', icon: SettingIcon, event: 'toSetting' },
   { label: 'ログアウト', icon: LogoutIcon, event: 'logout' }
 ];
 </script>
@@ -96,6 +111,7 @@ const menuItems: MenuItem[] = [
           :key="item.event"
           @click="handleMenuItem(item.event)"
           :label="item.label"
+          :is-active="router.currentRoute.value.name === item.name"
           :icon-component="item.icon"
           :icon-props="item.props"
           text-color-class="text-sumi-500"
