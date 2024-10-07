@@ -7,6 +7,7 @@ import type { Notification, PaginationStatus } from '@/types/notification';
 import { useFetchNotifications } from '@/composables/functions/useFetchNotifications';
 import NotificationButton from '@/views/molecules/buttons/NotificationButton.vue';
 import NotificationList from '@/views/molecules/NotificationList.vue';
+import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue';
 
 const commonStore = useCommonStore();
 const { fetchNotificationList } = useFetchNotifications();
@@ -38,7 +39,7 @@ async function moreLoad(page: number | null) {
 }
 
 async function markAsRead() {
-  if (!refUnreadCount) return;
+  if (!refUnreadCount.value) return;
 
   try {
     refUnreadCount.value = 0;
@@ -54,16 +55,18 @@ onMounted(() => {
 </script>
 <template>
   <Menu class="relative flex items-center justify-center" as="div" v-slot="{ open }">
-    <NotificationButton
-      class="relative flex h-8 w-8 items-center justify-center"
-      @click="markAsRead"
-    />
-    <span
-      class="absolute -right-1 top-0 flex h-4 w-fit items-center justify-center rounded-full bg-red-500 p-1 font-body text-mini text-white"
-      v-if="refUnreadCount"
-    >
-      {{ refUnreadCount }}
-    </span>
+    <BottomTooltip :open text="お知らせ" position="bottom">
+      <NotificationButton
+        class="peer relative flex h-8 w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"
+        @click="markAsRead"
+      />
+      <span
+        class="absolute -right-1 top-0 flex h-4 w-fit min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-center font-body text-mini text-white"
+        v-if="refUnreadCount"
+      >
+        {{ refUnreadCount }}
+      </span>
+    </BottomTooltip>
     <Transition
       enter-active-class="transition ease-out duration-100"
       enter-from-class="transform opacity-0 scale-95"
@@ -73,11 +76,10 @@ onMounted(() => {
       leave-to-class="transform opacity-0 scale-95"
     >
       <NotificationList
-        class="absolute -right-32 top-9 z-10"
+        class="absolute -right-4 top-9 z-10"
         :notificationData
         :paginationData
         :is-loading="commonStore.state.apiLoading"
-        :disabled="commonStore.state.apiLoading"
         @load="moreLoad"
       />
     </Transition>

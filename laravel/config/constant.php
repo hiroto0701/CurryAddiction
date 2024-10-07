@@ -8,7 +8,7 @@ return [
         // 1ページ当たりの投稿表示数
         'max_post_per_page' => 18,
         // 1ページ当たりの通知数
-        'max_notification_per_page' => 15,
+        'max_notification_per_page' => 10,
     ],
     // 画像パス
     'upload_files_path_format' => [

@@ -6,7 +6,8 @@ import { useRouter } from 'vue-router';
 import AppLogo from '@/views/atoms/icons/AppLogo.vue';
 import MainHeader from '@/views/atoms/MainHeader.vue';
 import HeaderNavigation from '@/views/molecules/HeaderNavigation.vue';
-import AuthenticatedHeaderDropDown from '@/views/molecules/dropdown/AuthenticatedHeaderDropDown.vue';
+import NotificationDropDown from '@/views/molecules/dropdown/NotificationDropDown.vue';
+import HeaderDropDown from '@/views/molecules/dropdown/HeaderDropdown.vue';
 import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue';
 
 const accountStore = useAccountStore();
@@ -25,7 +26,14 @@ function closeModal(): void {
 }
 
 function handleRouting(routeName: string): void {
-  router.push({ name: routeName });
+  if (routeName === 'UserPage') {
+    router.push({
+      name: routeName,
+      params: { username: accountStore.state.handle_name }
+    });
+  } else {
+    router.push({ name: routeName });
+  }
 }
 
 function doLogout(): void {
@@ -41,14 +49,16 @@ function doLogout(): void {
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
           <AppLogo />
-          <div class="flex items-center gap-1 max-sm:ml-3 md:gap-3">
+          <div class="flex items-center max-sm:ml-3">
             <HeaderNavigation
               :handle-name="accountStore.state.handle_name"
               :avatar-url="accountStore.state.avatar_url"
             />
-            <AuthenticatedHeaderDropDown
-              class="md:block"
+            <NotificationDropDown />
+            <HeaderDropDown
               :username="accountStore.state.display_name"
+              :avatar-url="accountStore.state.avatar_url"
+              @to-my-page="handleRouting('UserPage')"
               @to-post-dashboard="handleRouting('PostDashboard')"
               @to-liked-post-dashboard="handleRouting('LikedPostDashboard')"
               @to-archived-post-dashboard="handleRouting('ArchivedPostDashboard')"
