@@ -3,13 +3,13 @@ import { Menu, MenuButton, MenuItems } from '@headlessui/vue';
 import type { Component } from 'vue';
 import { useRouter } from 'vue-router';
 import DropDownMenuItem from '@/views/atoms/DropDownMenuItem.vue';
-import LogoutIcon from '@/views/atoms/icons/LogoutIcon.vue';
-import SettingIcon from '@/views/atoms/icons/SettingIcon.vue';
 import DashboardIcon from '@/views/atoms/icons/DashboardIcon.vue';
 import HeartIcon from '@/views/atoms/icons/HeartIcon.vue';
 import ArchiveIcon from '@/views/atoms/icons/ArchiveIcon.vue';
 import TrashIcon from '@/views/atoms/icons/TrashIcon.vue';
+import SettingIcon from '@/views/atoms/icons/SettingIcon.vue';
 import AvatarIcon from '@/views/atoms/icons/AvatarIcon.vue';
+import LogoutIcon from '@/views/atoms/icons/LogoutIcon.vue';
 import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue';
 
 interface Props {

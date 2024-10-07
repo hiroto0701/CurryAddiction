@@ -22,9 +22,8 @@ function navigateAndClose(close: () => void): void {
       :class="{ 'bg-slate-100': isActive, [textColorClass]: true }"
       @click="navigateAndClose(close)"
       type="button"
-      tabindex="0"
     >
-      <div class="w-5">
+      <div class="w-6">
         <component :is="iconComponent" v-bind="iconProps || {}" />
       </div>
       {{ label }}

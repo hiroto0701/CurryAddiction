@@ -30,7 +30,7 @@ function toggleLike(): void {
   <div class="flex h-fit justify-between px-1.5 py-1">
     <div
       @click.stop="toggleLike"
-      class="relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-opacity duration-500"
+      class="relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-opacity duration-500"
       :class="{
         'md:hover:bg-pink-50': localLikeState,
         'md:hover:bg-gray-100': !localLikeState
@@ -48,7 +48,7 @@ function toggleLike(): void {
     </div>
     <div
       @click.stop="emits('archive')"
-      class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-opacity duration-500 md:hover:bg-gray-100"
+      class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-opacity duration-500 md:hover:bg-gray-100"
     >
       <ArchiveIcon
         class="cursor-pointer text-gray-700"

@@ -31,9 +31,9 @@ const itemStyles = tv({
 });
 </script>
 <template>
-  <div class="flex items-center gap-0.5">
+  <div class="flex items-center gap-1">
     <template v-for="item in navItems" :key="item.name">
-      <div class="flex items-center gap-0.5">
+      <div class="flex items-center">
         <BottomTooltip :text="item.name" position="bottom">
           <component :is="item.to ? RouterLink : 'div'" :to="item.to" :class="itemStyles()">
             <component :is="item.component" />

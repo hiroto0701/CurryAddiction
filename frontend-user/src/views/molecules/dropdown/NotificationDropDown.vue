@@ -14,7 +14,7 @@ const { fetchNotificationList } = useFetchNotifications();
 
 const notificationData = ref<Notification[]>([]);
 const paginationData = ref<PaginationStatus | null>(null);
-const refUnreadCount = ref<number>();
+const refUnreadCount = ref<number>(25);
 
 async function loadNotifications(page: number = 1) {
   try {
@@ -25,7 +25,7 @@ async function loadNotifications(page: number = 1) {
 
     notificationData.value = [...notificationData.value, ...data];
     paginationData.value = meta;
-    refUnreadCount.value = unreadCount;
+    refUnreadCount.value = 30;
   } catch (error) {
     console.error('通知の読み込みに失敗しました。:', error);
   } finally {

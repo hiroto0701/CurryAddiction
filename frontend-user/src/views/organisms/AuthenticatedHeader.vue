@@ -49,7 +49,7 @@ function doLogout(): void {
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
           <AppLogo />
-          <div class="flex items-center max-sm:ml-3">
+          <div class="flex items-center gap-1 max-sm:ml-3">
             <HeaderNavigation
               :handle-name="accountStore.state.handle_name"
               :avatar-url="accountStore.state.avatar_url"
