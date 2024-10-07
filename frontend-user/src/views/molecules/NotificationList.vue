@@ -30,6 +30,7 @@ const emit = defineEmits<{
         <NotificationLoadButton
           text="さらに読み込む"
           :is-loading
+          :disabled="isLoading"
           @click="emit('load', paginationData?.next_page)"
         />
       </div>
