@@ -5,16 +5,12 @@ import { tv } from 'tailwind-variants';
 import HomeIcon from '@/views/atoms/icons/HomeIcon.vue';
 import PlusIcon from '@/views/atoms/icons/PlusIcon.vue';
 import SearchIcon from '@/views/atoms/icons/SearchIcon.vue';
-import AvatarIcon from '@/views/atoms/icons/AvatarIcon.vue';
-import NotificationDropDown from '@/views/molecules/dropdown/NotificationDropDown.vue';
 import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue';
 
 interface NavItem {
   name: string;
   component: Component;
-  to?: RouteLocationRaw;
-  props?: Record<string, string | null>;
-  isMyPage?: boolean;
+  to: RouteLocationRaw;
 }
 
 interface Props {
@@ -22,45 +18,25 @@ interface Props {
   avatarUrl: string | null;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const navItems: NavItem[] = [
   { name: 'ホーム', component: HomeIcon, to: { name: 'Home' } },
   { name: '投稿する', component: PlusIcon, to: { name: 'PostCreate' } },
-  { name: '検索する', component: SearchIcon, to: { name: 'Search' } },
-  { name: 'お知らせ', component: NotificationDropDown },
-  {
-    name: 'マイページ',
-    component: AvatarIcon,
-    to: { name: 'UserPage', params: { username: props.handleName } },
-    props: { avatarUrl: props.avatarUrl },
-    isMyPage: true
-  }
+  { name: '検索する', component: SearchIcon, to: { name: 'Search' } }
 ];
-
-const navItemStyles = tv({
-  base: 'flex items-center gap-0.5',
-  variants: {
-    isMyPage: {
-      true: '',
-      false: 'max-md:hidden'
-    }
-  }
-});
 
 const itemStyles = tv({
   base: 'peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100'
 });
 </script>
 <template>
-  <div class="flex items-center gap-0.5">
+  <div class="flex items-center gap-1">
     <template v-for="item in navItems" :key="item.name">
-      <div :class="navItemStyles({ isMyPage: item.isMyPage })">
+      <div class="flex items-center">
         <BottomTooltip :text="item.name" position="bottom">
           <component :is="item.to ? RouterLink : 'div'" :to="item.to" :class="itemStyles()">
-            <Suspense>
-              <component :is="item.component" v-bind="item.props || {}" />
-            </Suspense>
+            <component :is="item.component" />
           </component>
         </BottomTooltip>
       </div>

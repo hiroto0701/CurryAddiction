@@ -9,7 +9,6 @@ interface Props {
   readonly textColorClass: string;
   readonly iconProps?: Record<string, string | null>;
 }
-
 defineProps<Props>();
 
 function navigateAndClose(close: () => void): void {
@@ -19,11 +18,12 @@ function navigateAndClose(close: () => void): void {
 <template>
   <MenuItem class="flex items-center gap-x-2 px-4 text-sm" v-slot="{ close }">
     <button
-      class="text-md block w-full py-2 font-body text-sumi-500 hover:bg-slate-100 hover:text-sumi-900"
+      class="text-md block h-12 w-full py-2 font-body text-sumi-500 hover:bg-slate-100 hover:text-sumi-900"
       :class="{ 'bg-slate-100': isActive, [textColorClass]: true }"
       @click="navigateAndClose(close)"
+      type="button"
     >
-      <div class="w-5">
+      <div class="w-6">
         <component :is="iconComponent" v-bind="iconProps || {}" />
       </div>
       {{ label }}

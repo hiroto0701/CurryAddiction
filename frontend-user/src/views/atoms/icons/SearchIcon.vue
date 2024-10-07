@@ -12,7 +12,7 @@ const isSearchPage = computed(() => router.currentRoute.value.meta.group === 'Se
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
-    class="aspect-square w-5"
+    class="aspect-square w-6"
   >
     <path
       fill-rule="evenodd"
@@ -28,7 +28,7 @@ const isSearchPage = computed(() => router.currentRoute.value.meta.group === 'Se
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"
-    class="aspect-square w-5 cursor-pointer text-slate-600 hover:text-main"
+    class="aspect-square w-6 cursor-pointer text-slate-600 hover:text-main"
   >
     <path
       stroke-linecap="round"
