@@ -102,7 +102,14 @@ async function doCreate() {
     <div v-show="preview" class="mx-auto mt-8 h-fit w-80 border border-gray-200">
       <img class="object-fit w-full" :src="preview" alt="投稿画像" />
     </div>
-    <MapFormItem label="位置情報" :required="true" :iconComponent="LocationIcon" />
+    <MapFormItem
+      label="位置情報"
+      :required="true"
+      :iconComponent="LocationIcon"
+      :errors="reactiveErrors"
+      placeholder="場所を検索"
+      v-model="location"
+    />
     <CreatePostButton class="mx-auto mt-8 block w-52 p-3" text="投稿する" @click="openModal" />
 
     <Teleport to="body">
