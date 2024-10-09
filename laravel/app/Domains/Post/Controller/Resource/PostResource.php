@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Domains\Post\Controller\Resource;
 
 use App\Http\Controllers\FileViewAction;
-use App\Models\ServiceUser;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 

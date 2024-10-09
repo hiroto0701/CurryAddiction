@@ -8,8 +8,7 @@ const prop = defineProps<Props>();
 
 const avatar = computed((): string => {
   if (prop.avatarUrl === null) {
-    const defaultAvatar = '../../../../public/icon/default_avatar.jpg';
-    return defaultAvatar;
+    return '../../../../public/icon/default_avatar.jpg';
   } else {
     return prop.avatarUrl;
   }

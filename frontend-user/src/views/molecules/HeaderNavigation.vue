@@ -1,19 +1,16 @@
 <script setup lang="ts">
+import type { Component } from 'vue';
 import { RouterLink, type RouteLocationRaw } from 'vue-router';
 import { tv } from 'tailwind-variants';
 import HomeIcon from '@/views/atoms/icons/HomeIcon.vue';
 import PlusIcon from '@/views/atoms/icons/PlusIcon.vue';
 import SearchIcon from '@/views/atoms/icons/SearchIcon.vue';
-import NotificationIcon from '@/views/atoms/icons/NotificationIcon.vue';
-import AvatarIcon from '@/views/atoms/icons/AvatarIcon.vue';
 import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue';
 
 interface NavItem {
   name: string;
-  icon: any;
-  to?: RouteLocationRaw;
-  props?: Record<string, string | null>;
-  isMyPage?: boolean;
+  component: Component;
+  to: RouteLocationRaw;
 }
 
 interface Props {
@@ -21,44 +18,25 @@ interface Props {
   avatarUrl: string | null;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const navItems: NavItem[] = [
-  { name: 'ホーム', icon: HomeIcon, to: { name: 'Home' } },
-  { name: '投稿する', icon: PlusIcon, to: { name: 'PostCreate' } },
-  { name: '検索する', icon: SearchIcon, to: { name: 'Search' } },
-  { name: 'お知らせ', icon: NotificationIcon },
-  {
-    name: 'マイページ',
-    icon: AvatarIcon,
-    to: { name: 'UserPage', params: { username: props.handleName } },
-    props: { avatarUrl: props.avatarUrl },
-    isMyPage: true
-  }
+  { name: 'ホーム', component: HomeIcon, to: { name: 'Home' } },
+  { name: '投稿する', component: PlusIcon, to: { name: 'PostCreate' } },
+  { name: '検索する', component: SearchIcon, to: { name: 'Search' } }
 ];
-
-const navItemStyles = tv({
-  base: 'flex items-center gap-0.5',
-  variants: {
-    isMyPage: {
-      true: '',
-      false: 'max-md:hidden'
-    }
-  }
-});
 
 const itemStyles = tv({
   base: 'peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100'
 });
 </script>
-
 <template>
-  <div class="flex items-center gap-0.5">
+  <div class="flex items-center gap-1">
     <template v-for="item in navItems" :key="item.name">
-      <div :class="navItemStyles({ isMyPage: item.isMyPage })">
+      <div class="flex items-center">
         <BottomTooltip :text="item.name" position="bottom">
           <component :is="item.to ? RouterLink : 'div'" :to="item.to" :class="itemStyles()">
-            <component :is="item.icon" v-bind="item.props || {}" />
+            <component :is="item.component" />
           </component>
         </BottomTooltip>
       </div>

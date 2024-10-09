@@ -2,7 +2,7 @@
 import CardIcons from '@/views/molecules/card/CardIcons.vue';
 import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue';
 import StoreLocationBrowseItem from '@/views/molecules/browseItems/StoreLocationBrowseItem.vue';
-import PostDateBrowseItem from '@/views/molecules/browseItems/PostDateBrowseItem.vue';
+import DateBrowseItem from '@/views/molecules/browseItems/DateBrowseItem.vue';
 
 interface Props {
   readonly storeName: string;
@@ -24,7 +24,7 @@ const emits = defineEmits<{
     <StoreNameBrowseItem class="text-md px-3 py-1 text-sumi-900" :store-name="storeName" />
     <div class="flex items-center justify-between">
       <StoreLocationBrowseItem :location :date />
-      <PostDateBrowseItem class="text-xs" :date />
+      <DateBrowseItem class="py-1 pr-2 text-xs" :date />
     </div>
   </div>
 </template>

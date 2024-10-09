@@ -33,7 +33,7 @@ class IndexAction extends Controller
         $command = new IndexCommand(
             $request->userId ?? null,
             $request->page ? (int)$request->page : 1,
-            $request->per_page ? (int)$request->per_page : config('constant.api.max_item_per_page'),
+            $request->per_page ? (int)$request->per_page : config('constant.api.max_post_per_page'),
             (boolean)$request->isLiked ?? null,
             (boolean)$request->isArchived ?? null,
             $request->favorite_genres ?? [],

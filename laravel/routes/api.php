@@ -42,6 +42,12 @@ Route::prefix('/genres')->middleware(['auth:service_users'])->group(function() {
     Route::post('/favorite', \App\Domains\Genre\Controller\FavoriteAction::class);
 });
 
+// 通知関連
+Route::prefix('/notifications')->middleware(['auth:service_users'])->group(function() {
+    Route::get('/', \App\Domains\Notification\Controller\IndexAction::class);
+    Route::post('/read', \App\Domains\Notification\Controller\ReadAction::class);
+});
+
 // 投稿関連
 Route::prefix('/posts')->middleware(['auth:service_users'])->group(function() {
     Route::get('/', \App\Domains\Post\Controller\IndexAction::class);
