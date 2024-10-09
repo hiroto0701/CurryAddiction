@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Domains\ServiceUser\Controller\Resource;
 
 use App\Http\Controllers\FileViewAction;
-use App\Models\User;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PrivateServiceUserResource extends JsonResource
