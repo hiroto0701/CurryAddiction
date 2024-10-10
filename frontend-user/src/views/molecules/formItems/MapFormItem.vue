@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import type { Component } from 'vue';
 import FormLayout from '@/views/templates/FormLayout.vue';
 import FormErrorMessage from '@/views/atoms/ErrorMessage/FormErrorMessage.vue';
@@ -96,25 +96,89 @@ function initMap(position?: GeolocationPosition) {
       if (placeNameElement) placeNameElement.textContent = place.name || '';
       if (placeAddressElement) placeAddressElement.textContent = place.formatted_address || '';
       infowindow.open(map.value, marker);
+
+      // 検証用
+      // 住所コンポーネントの型定義
+      interface AddressComponent {
+        long_name: string;
+        short_name: string;
+        types: string[];
+      }
+
+      interface StructuredAddressJP {
+        postal_code: string;
+        prefecture: string;
+        city: string;
+        ward: string;
+        district: string;
+        sublocality: string;
+        block_number: string;
+        premise: string;
+        subpremise: string;
+      }
+
+      function structureAddressJP(addressComponents: AddressComponent[]): StructuredAddressJP {
+        const result: StructuredAddressJP = {
+          postal_code: '',
+          prefecture: '',
+          city: '',
+          ward: '',
+          district: '',
+          sublocality: '',
+          block_number: '',
+          premise: '',
+          subpremise: ''
+        };
+
+        addressComponents.forEach((component) => {
+          if (component.types.includes('postal_code')) {
+            result.postal_code = component.long_name;
+          } else if (component.types.includes('administrative_area_level_1')) {
+            result.prefecture = component.long_name;
+          } else if (component.types.includes('locality')) {
+            result.city = component.long_name;
+          } else if (component.types.includes('sublocality_level_1')) {
+            result.ward = component.long_name;
+          } else if (component.types.includes('sublocality_level_2')) {
+            result.district = component.long_name;
+          } else if (component.types.some((type) => type.startsWith('sublocality'))) {
+            result.sublocality += (result.sublocality ? 'ー' : '') + component.long_name;
+          } else if (component.types.includes('premise')) {
+            result.premise += result.premise + component.long_name;
+          } else if (component.types.includes('subpremise')) {
+            result.subpremise = component.long_name;
+          }
+        });
+
+        return result;
+      }
+
+      const structuredAddress = structureAddressJP(place.address_components);
+
+      // sublocality → 市以降の住所
+      console.log(structuredAddress);
+      console.log(place.address_components);
     });
   }
 }
 
-if ('geolocation' in navigator) {
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      initMap(position);
-    },
-    (error) => {
-      console.error('Error getting current location:', error);
-      initMap();
-    },
-    { enableHighAccuracy: true, timeout: 3000, maximumAge: 0 }
-  );
-} else {
-  console.log('Geolocation is not supported by this browser.');
-  initMap();
-}
+onMounted(() => {
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        initMap(position);
+      },
+      (error) => {
+        console.error('Error getting current location:', error);
+        initMap();
+      },
+      { enableHighAccuracy: true, timeout: 3000, maximumAge: 0 }
+    );
+  } else {
+    console.log('Geolocation is not supported by this browser.');
+    initMap();
+  }
+});
 </script>
 <template>
   <FormLayout :label="label" :required="required" :iconComponent="iconComponent">
