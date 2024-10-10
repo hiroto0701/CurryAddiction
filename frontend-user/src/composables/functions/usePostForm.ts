@@ -19,8 +19,8 @@ export function usePostForm() {
 
   const fileInfo = ref<File>();
   const preview = ref<string | undefined>();
-  const latitude = ref<number>(0.1);
-  const longitude = ref<number>(0.1);
+  const latitude = ref<number | undefined>();
+  const longitude = ref<number | undefined>();
 
   const storeNameError = ref<boolean>(false);
   const reactiveErrors = reactive(errors);

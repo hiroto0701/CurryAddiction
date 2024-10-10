@@ -16,6 +16,6 @@ defineProps<Props>();
     <p v-if="comment" class="font-body leading-relaxed text-sumi-900" style="white-space: pre-wrap">
       {{ comment }}
     </p>
-    <p v-else class="font-body leading-relaxed text-sumi-900">感想はありません。</p>
+    <p v-else class="font-body leading-relaxed text-sumi-900">感想はありません💭</p>
   </div>
 </template>
