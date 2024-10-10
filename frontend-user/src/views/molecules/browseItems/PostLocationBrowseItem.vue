@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue';
 import LocationIcon from '@/views/atoms/icons/LocationIcon.vue';
 
 interface Props {
+  readonly storeName: string;
   readonly latitude: number;
   readonly longitude: number;
 }
@@ -20,6 +21,7 @@ function createCustomInfoWindowContent(formattedAddress: string, lat: number, ln
   const googleMapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
   return `
     <div>
+      <p class="text-base font-medium">${props.storeName}</p>
       <p>${formattedAddress}</p>
       <a href="${googleMapsLink}" class="text-blue-600 md:hover:underline" target="_blank" rel="noopener noreferrer">GoogleMapで見る</a>
     </div>
