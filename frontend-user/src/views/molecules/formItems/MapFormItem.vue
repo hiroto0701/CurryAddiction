@@ -30,11 +30,13 @@ function initMap(position?: GeolocationPosition) {
       : defaultPosition;
 
     // 地図の初期化
-    map.value = new google.maps.Map(mapContainer.value, {
-      center: center,
+    const mapOptions = {
+      center,
       zoom: 15,
       mapTypeControl: true
-    });
+    };
+
+    map.value = new google.maps.Map(mapContainer.value, mapOptions);
 
     // AutoComplete初期化
     const input = document.getElementById('pac-input') as HTMLInputElement;
@@ -47,7 +49,7 @@ function initMap(position?: GeolocationPosition) {
 
     autocomplete.value.bindTo('bounds', map.value);
 
-    autocomplete.value.setTypes(['bar', 'bakery', 'cafe', 'restaurant']);
+    autocomplete.value.setTypes(['bar', 'bakery', 'cafe', 'restaurant', 'food']);
     autocomplete.value.setComponentRestrictions({
       country: ['jp']
     });
