@@ -23,6 +23,8 @@ const {
   genreId,
   genreOptions,
   preview,
+  latitude,
+  longitude,
   storeNameError,
   reactiveErrors,
   handleFileSelected,
@@ -40,6 +42,11 @@ function openModal(): void {
 function closeModal(): void {
   open.value = false;
   document.body.style.overflow = 'auto';
+}
+
+function getLocationValue(location: { lat: number; lng: number }) {
+  latitude.value = location.lat;
+  longitude.value = location.lng;
 }
 
 async function doCreate() {
@@ -108,7 +115,7 @@ async function doCreate() {
       :iconComponent="LocationIcon"
       :errors="reactiveErrors"
       placeholder="場所を検索"
-      v-model="location"
+      @update:location="getLocationValue"
     />
     <CreatePostButton class="mx-auto mt-8 block w-52 p-3" text="投稿する" @click="openModal" />
 

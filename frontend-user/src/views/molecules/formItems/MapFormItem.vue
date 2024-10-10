@@ -13,6 +13,10 @@ interface Props {
 }
 defineProps<Props>();
 
+const emits = defineEmits<{
+  (e: 'update:location', location: { lat: number; lng: number }): void;
+}>();
+
 const mapContainer = ref<HTMLElement | null>(null);
 const map = ref<google.maps.Map | null>(null);
 const autocomplete = ref<google.maps.places.Autocomplete | null>(null);
@@ -34,13 +38,18 @@ function initMap(position?: GeolocationPosition) {
     // AutoComplete初期化
     const input = document.getElementById('pac-input') as HTMLInputElement;
     const options = {
-      fields: ['formatted_address', 'geometry', 'name'],
+      fields: ['formatted_address', 'geometry', 'name', 'address_components', 'website'],
       types: ['establishment']
     };
 
     autocomplete.value = new google.maps.places.Autocomplete(input, options);
 
     autocomplete.value.bindTo('bounds', map.value);
+
+    autocomplete.value.setTypes(['bar', 'bakery', 'cafe', 'restaurant']);
+    autocomplete.value.setComponentRestrictions({
+      country: ['jp']
+    });
 
     // 詳細表示ツールチップ
     const infowindow = new google.maps.InfoWindow();
@@ -53,7 +62,7 @@ function initMap(position?: GeolocationPosition) {
       anchorPoint: new google.maps.Point(0, -29)
     });
 
-    // AutoCompleteの結果が選択されたときのイベントリスナー
+    // AutoCompleteの結果が選択されたときのイベント
     autocomplete.value.addListener('place_changed', () => {
       infowindow.close();
       marker.setVisible(false);
@@ -76,10 +85,17 @@ function initMap(position?: GeolocationPosition) {
       marker.setPosition(place.geometry.location);
       marker.setVisible(true);
 
-      console.log(place.geometry.location);
-      infowindowContent.children['place-name'].textContent = place.name;
-      infowindowContent.children['place-address'].textContent = place.formatted_address;
-      infowindow.open(map, marker);
+      // 緯度経度を親コンポーネントに送信
+      const lat = place.geometry.location.lat();
+      const lng = place.geometry.location.lng();
+      emits('update:location', { lat, lng });
+
+      // 情報ウィンドウの表示
+      const placeNameElement = infowindowContent.querySelector('#place-name') as HTMLElement;
+      const placeAddressElement = infowindowContent.querySelector('#place-address') as HTMLElement;
+      if (placeNameElement) placeNameElement.textContent = place.name || '';
+      if (placeAddressElement) placeAddressElement.textContent = place.formatted_address || '';
+      infowindow.open(map.value, marker);
     });
   }
 }
@@ -107,15 +123,15 @@ if ('geolocation' in navigator) {
         type="text"
         class="w-full rounded border border-gray-200 p-2 pr-9 font-body"
         id="pac-input"
-        :placeholder
+        :placeholder="placeholder"
       />
     </div>
     <div class="flex justify-between">
-      <FormErrorMessage class="mt-1" field-name="location" :errors />
+      <FormErrorMessage class="mt-1" field-name="location" :errors="errors" />
     </div>
 
     <div ref="mapContainer" class="mt-5" style="width: 100%; height: 400px"></div>
-    <div id="infowindow-content">
+    <div id="infowindow-content" class="font-body font-normal">
       <span id="place-name" class="title"></span><br />
       <span id="place-address"></span>
     </div>

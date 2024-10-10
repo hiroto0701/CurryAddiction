@@ -11,8 +11,8 @@ export function useCreatePost() {
     comment?: string;
     genre_id?: number;
     post_img?: File;
-    latitude: number;
-    longitude: number;
+    latitude: number | undefined;
+    longitude: number | undefined;
   }) {
     const formData = new FormData();
     formData.append('genre_id', payload.genre_id ? payload.genre_id.toString() : '');
@@ -25,8 +25,12 @@ export function useCreatePost() {
     if (payload.post_img) {
       formData.append('post_img', payload.post_img);
     }
-    formData.append('latitude', payload.latitude.toString());
-    formData.append('longitude', payload.longitude.toString());
+    if (payload.latitude !== undefined) {
+      formData.append('latitude', payload.latitude.toString());
+    }
+    if (payload.longitude !== undefined) {
+      formData.append('longitude', payload.longitude.toString());
+    }
 
     const config = {
       headers: {
