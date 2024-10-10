@@ -229,10 +229,10 @@ watch(
           :is-liked="post.current_user_liked"
           :is-archived="post.current_user_archived"
           :is-mine="post.is_mine"
-          @navigate-to-detail="toViewer(post.slug as string)"
+          @navigate-to-detail="toViewer(post.slug)"
           @like="handleLike(post.id)"
           @archive="handleArchive(post.id)"
-          @handle-post="openModal(post.slug as string)"
+          @handle-post="openModal(post.slug)"
         />
       </CardDisplayAreaLayout>
       <Pagination class="mt-12" @change-page="doChangePage" :paginationStatus />

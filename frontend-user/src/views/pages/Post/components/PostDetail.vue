@@ -11,7 +11,9 @@ import PostUserProfileLink from '@/views/molecules/links/PostUserProfileLink.vue
 import StoreNameBrowseItem from '@/views/molecules/browseItems/StoreNameBrowseItem.vue';
 import GenreBrowseItem from '@/views/molecules/browseItems/GenreBrowseItem.vue';
 import DateBrowseItem from '@/views/molecules/browseItems/DateBrowseItem.vue';
+import PostImgBrowseItem from '@/views/molecules/browseItems/PostImgBrowseItem.vue';
 import PostCommentBrowseItem from '@/views/molecules/browseItems/PostCommentBrowseItem.vue';
+import PostLocationBrowseItem from '@/views/molecules/browseItems/PostLocationBrowseItem.vue';
 import DeletePostButton from '@/views/molecules/buttons/DeletePostButton.vue';
 import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue';
 
@@ -100,7 +102,7 @@ watch(
       <div class="mt-2 flex gap-2.5">
         <GenreBrowseItem
           class="w-fit max-w-screen-md px-3 py-1 text-lg text-sumi-900 md:text-xl"
-          :genre-id="post.genre_id as number"
+          :genre-id="post.genre_id"
         />
       </div>
       <div class="mt-20 flex max-w-2xl items-center justify-start gap-3 text-sumi-600">
@@ -120,10 +122,9 @@ watch(
 
     <div class="xs:px-7 mx-auto mt-9 w-full max-w-screen-md sm:px-10">
       <article>
-        <img :src="post.post_img" class="w-full object-cover" alt="投稿画像" />
-        <div class="my-12 max-w-screen-md break-all">
-          <PostCommentBrowseItem :comment="post.comment" class="max-w-screen-md" />
-        </div>
+        <PostImgBrowseItem :post-img="post.post_img" class="w-full object-cover" />
+        <PostCommentBrowseItem :comment="post.comment" class="my-12 max-w-screen-md break-all" />
+        <PostLocationBrowseItem :latitude="post.latitude" :longitude="post.longitude" />
       </article>
     </div>
   </div>

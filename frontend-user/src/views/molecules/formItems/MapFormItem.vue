@@ -113,7 +113,6 @@ function initMap(position?: GeolocationPosition) {
         ward: string;
         district: string;
         sublocality: string;
-        block_number: string;
         premise: string;
         subpremise: string;
       }
@@ -126,24 +125,34 @@ function initMap(position?: GeolocationPosition) {
           ward: '',
           district: '',
           sublocality: '',
-          block_number: '',
           premise: '',
           subpremise: ''
         };
 
-        addressComponents.forEach((component) => {
+        addressComponents.reverse().forEach((component) => {
+          // 郵便番号
           if (component.types.includes('postal_code')) {
             result.postal_code = component.long_name;
-          } else if (component.types.includes('administrative_area_level_1')) {
+          }
+          // 都道府県
+          else if (component.types.includes('administrative_area_level_1')) {
             result.prefecture = component.long_name;
-          } else if (component.types.includes('locality')) {
+          }
+          // 市町村
+          else if (component.types.includes('locality')) {
             result.city = component.long_name;
-          } else if (component.types.includes('sublocality_level_1')) {
+          }
+          // ○○区
+          else if (component.types.includes('sublocality_level_1')) {
             result.ward = component.long_name;
-          } else if (component.types.includes('sublocality_level_2')) {
+          }
+          // 地名
+          else if (component.types.includes('sublocality_level_2')) {
             result.district = component.long_name;
-          } else if (component.types.some((type) => type.startsWith('sublocality'))) {
-            result.sublocality += (result.sublocality ? 'ー' : '') + component.long_name;
+          }
+          // それ以降の番地など
+          else if (component.types.some((type) => type.startsWith('sublocality'))) {
+            result.sublocality += (result.sublocality ? '―' : '') + component.long_name;
           } else if (component.types.includes('premise')) {
             result.premise += result.premise + component.long_name;
           } else if (component.types.includes('subpremise')) {
@@ -156,7 +165,6 @@ function initMap(position?: GeolocationPosition) {
 
       const structuredAddress = structureAddressJP(place.address_components as AddressComponent[]);
 
-      // sublocality → 市以降の住所
       console.log(structuredAddress);
       console.log(place.address_components);
     });

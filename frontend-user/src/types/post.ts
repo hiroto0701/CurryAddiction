@@ -1,13 +1,13 @@
 export interface Post {
   id: number;
-  genre_id: number | null;
+  genre_id: number;
   region_id: number | null;
   prefecture_id: number | null;
   store_name: string;
   comment: string;
-  latitude: string | null;
-  longitude: string | null;
-  slug: string | null;
+  latitude: number;
+  longitude: number;
+  slug: string;
   post_img: string;
   posted_at: string;
   posted_by: number;
