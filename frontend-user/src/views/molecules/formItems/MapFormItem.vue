@@ -1,4 +1,5 @@
 <script setup lang="ts">
+/// <reference types="google.maps" />
 import { ref, onMounted } from 'vue';
 import type { Component } from 'vue';
 import FormLayout from '@/views/templates/FormLayout.vue';
@@ -70,7 +71,7 @@ function initMap(position?: GeolocationPosition) {
       const place = autocomplete.value?.getPlace();
 
       if (!place?.geometry || !place.geometry.location) {
-        window.alert(`「${place.name}」 に該当する結果を得られませんでした。`);
+        window.alert(`「${place?.name}」 に該当する結果を得られませんでした。`);
         return;
       }
 
@@ -153,7 +154,7 @@ function initMap(position?: GeolocationPosition) {
         return result;
       }
 
-      const structuredAddress = structureAddressJP(place.address_components);
+      const structuredAddress = structureAddressJP(place.address_components as AddressComponent[]);
 
       // sublocality → 市以降の住所
       console.log(structuredAddress);
