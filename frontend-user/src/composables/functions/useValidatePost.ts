@@ -16,8 +16,8 @@ export function useValidatePost() {
     comment: string,
     genreId: number | undefined,
     postImg: File | undefined,
-    latitude: number | null,
-    longitude: number | null
+    latitude: number | undefined,
+    longitude: number | undefined
   ): boolean {
     errors.value = {};
 

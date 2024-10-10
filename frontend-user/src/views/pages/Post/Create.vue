@@ -23,6 +23,8 @@ const {
   genreId,
   genreOptions,
   preview,
+  latitude,
+  longitude,
   storeNameError,
   reactiveErrors,
   handleFileSelected,
@@ -40,6 +42,11 @@ function openModal(): void {
 function closeModal(): void {
   open.value = false;
   document.body.style.overflow = 'auto';
+}
+
+function getLocationValue(location: { lat: number; lng: number }) {
+  latitude.value = location.lat;
+  longitude.value = location.lng;
 }
 
 async function doCreate() {
@@ -102,7 +109,14 @@ async function doCreate() {
     <div v-show="preview" class="mx-auto mt-8 h-fit w-80 border border-gray-200">
       <img class="object-fit w-full" :src="preview" alt="投稿画像" />
     </div>
-    <MapFormItem label="位置情報" :required="true" :iconComponent="LocationIcon" />
+    <MapFormItem
+      label="位置情報"
+      :required="true"
+      :iconComponent="LocationIcon"
+      :errors="reactiveErrors"
+      placeholder="場所を検索"
+      @update:location="getLocationValue"
+    />
     <CreatePostButton class="mx-auto mt-8 block w-52 p-3" text="投稿する" @click="openModal" />
 
     <Teleport to="body">
