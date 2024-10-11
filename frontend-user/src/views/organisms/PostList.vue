@@ -221,7 +221,7 @@ watch(
           :key="post.id"
           :src="post.post_img"
           :store-name="post.store_name"
-          location="福岡市 中央区"
+          :location="`${post.prefecture} ${post.municipality}`"
           :date="post.posted_at"
           :display-name="post.user.display_name"
           :handle-name="post.user.handle_name"

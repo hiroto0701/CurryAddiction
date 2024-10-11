@@ -31,10 +31,19 @@ class CreateInteractor
             $post->store_name = $command->getStoreName();
             $post->latitude = $command->getLatitude();
             $post->longitude = $command->getLongitude();
+            $post->formatted_address = $command->getFormattedAddress();
+            $post->postcode = $command->getPostcode();
+            $post->prefecture = $command->getPrefecture();
+            $post->municipality = $command->getMunicipality();
+            $post->district = $command->getDistrict();
             $post->slug = Str::uuid();
 
             if (!empty($command->getComment())) {
                 $post->comment = $command->getComment();
+            }
+
+            if (!empty($command->getWard())) {
+                $post->ward = $command->getWard();
             }
 
             if (!empty($command->getFileContent())) {

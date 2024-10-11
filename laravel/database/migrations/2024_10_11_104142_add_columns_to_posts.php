@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->string('postcode')->nullable();
-            $table->text('formatted_address')->nullable();
+            $table->string('postcode');
+            $table->text('formatted_address');
             $table->string('prefecture')->index();
-            $table->string('municipality')->nullable()->index();
+            $table->string('municipality')->index();
             $table->string('ward')->nullable()->index();
             $table->string('district')->nullable();
         });
