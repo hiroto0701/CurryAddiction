@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             \Database\Seeders\Dev\AccountSeeder::class,
             \Database\Seeders\Dev\MailTemplateSeeder::class,
             \Database\Seeders\Dev\CurryGenreSeeder::class,
+            \Database\Seeders\Dev\RegionSeeder::class,
+            \Database\Seeders\Dev\PrefectureSeeder::class,
         ]);
     }
 }

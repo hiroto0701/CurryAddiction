@@ -2,6 +2,10 @@
 import { ref } from 'vue';
 import { useCommonStore } from '@/stores/common';
 import { usePostForm } from '@/composables/functions/usePostForm';
+import {
+  convertPrefectureNameToPrefId,
+  convertPrefectureNameToRegionId
+} from '@/constant/prefecture';
 import StoreIcon from '@/views/atoms/icons/StoreIcon.vue';
 import CommentIcon from '@/views/atoms/icons/CommentIcon.vue';
 import GenreIcon from '@/views/atoms/icons/GenreIcon.vue';
@@ -16,6 +20,14 @@ import MapFormItem from '@/views/molecules/formItems/MapFormItem.vue';
 import ActionConfirmModal from '@/views/molecules/modals/ActionConfirmModal.vue';
 import RegisterForm from '@/views/templates/forms/RegisterForm.vue';
 
+interface StructuredAddress {
+  postcode: string;
+  prefecture: string;
+  municipality: string;
+  ward?: string;
+  district: string;
+}
+
 const commonStore = useCommonStore();
 const {
   storeName,
@@ -25,6 +37,14 @@ const {
   preview,
   latitude,
   longitude,
+  formattedAddress,
+  postcode,
+  prefecture,
+  municipality,
+  ward,
+  district,
+  regionId,
+  prefectureId,
   storeNameError,
   reactiveErrors,
   handleFileSelected,
@@ -44,9 +64,20 @@ function closeModal(): void {
   document.body.style.overflow = 'auto';
 }
 
-function getLocationValue(location: { lat: number; lng: number }) {
+function getLocationValue(location: { lat: number; lng: number }): void {
   latitude.value = location.lat;
   longitude.value = location.lng;
+}
+
+function getLocationInfo(formatted_address: string, structuredAddress: StructuredAddress): void {
+  formattedAddress.value = formatted_address;
+  postcode.value = structuredAddress.postcode;
+  prefecture.value = structuredAddress.prefecture;
+  municipality.value = structuredAddress.municipality;
+  ward.value = structuredAddress?.ward;
+  district.value = structuredAddress.district;
+  regionId.value = convertPrefectureNameToRegionId(prefecture.value);
+  prefectureId.value = convertPrefectureNameToPrefId(prefecture.value);
 }
 
 async function doCreate() {
@@ -116,6 +147,7 @@ async function doCreate() {
       :errors="reactiveErrors"
       placeholder="場所を検索"
       @update:location="getLocationValue"
+      @update:location-info="getLocationInfo"
     />
     <CreatePostButton class="mx-auto mt-8 block w-52 p-3" text="投稿する" @click="openModal" />
 

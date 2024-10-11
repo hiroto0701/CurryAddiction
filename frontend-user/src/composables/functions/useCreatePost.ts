@@ -7,29 +7,46 @@ export function useCreatePost() {
   const commonStore = useCommonStore();
 
   async function createPost(payload: {
-    store_name: string;
+    storeName: string;
     comment?: string;
-    genre_id?: number;
-    post_img?: File;
+    genreId?: number;
+    postImg?: File;
     latitude: number | undefined;
     longitude: number | undefined;
+    formattedAddress: string;
+    postcode: string;
+    prefecture: string;
+    municipality: string;
+    ward?: string;
+    district: string;
+    regionId: number;
+    prefectureId: number;
   }) {
     const formData = new FormData();
-    formData.append('genre_id', payload.genre_id ? payload.genre_id.toString() : '');
-    formData.append('region_id', '1');
-    formData.append('prefecture_id', '2');
-    formData.append('store_name', payload.store_name);
+    formData.append('genre_id', payload.genreId ? payload.genreId.toString() : '');
+    formData.append('store_name', payload.storeName);
+    formData.append('formatted_address', payload.formattedAddress);
+    formData.append('postcode', payload.postcode);
+    formData.append('prefecture', payload.prefecture);
+    formData.append('municipality', payload.municipality);
+    formData.append('district', payload.district);
+    formData.append('region_id', payload.regionId.toString());
+    formData.append('prefecture_id', payload.prefectureId.toString());
+
     if (payload.comment) {
       formData.append('comment', payload.comment);
     }
-    if (payload.post_img) {
-      formData.append('post_img', payload.post_img);
+    if (payload.postImg) {
+      formData.append('post_img', payload.postImg);
     }
     if (payload.latitude !== undefined) {
       formData.append('latitude', payload.latitude.toString());
     }
     if (payload.longitude !== undefined) {
       formData.append('longitude', payload.longitude.toString());
+    }
+    if (payload.ward) {
+      formData.append('ward', payload.ward);
     }
 
     const config = {
