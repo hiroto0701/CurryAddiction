@@ -5,6 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
 return new class extends Migration
 {
     use CommonColumns;
@@ -19,9 +20,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('genres', function (Blueprint $table) {
+        Schema::create('prefectures', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 20)->collation(self::COLLATION)->unique();
+            $table->foreignId('region_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete()->index();
+            $table->string('name', 20)->unique();
             // 共通カラム
             $this->addCommonColumns($table);
         });
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('genres');
+        Schema::dropIfExists('prefectures');
     }
 };

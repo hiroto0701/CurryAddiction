@@ -5,6 +5,20 @@ import type { Component } from 'vue';
 import FormLayout from '@/views/templates/FormLayout.vue';
 import FormErrorMessage from '@/views/atoms/ErrorMessage/FormErrorMessage.vue';
 
+interface AddressComponent {
+  long_name: string;
+  short_name: string;
+  types: string[];
+}
+
+interface StructuredAddress {
+  postcode: string;
+  prefecture: string;
+  municipality: string;
+  ward?: string;
+  district: string;
+}
+
 interface Props {
   readonly label: string;
   readonly required: boolean;
@@ -16,6 +30,7 @@ defineProps<Props>();
 
 const emits = defineEmits<{
   (e: 'update:location', location: { lat: number; lng: number }): void;
+  (e: 'update:locationInfo', formatted_address: string, structuredAddress: StructuredAddress): void;
 }>();
 
 const mapContainer = ref<HTMLElement | null>(null);
@@ -54,7 +69,7 @@ function initMap(position?: GeolocationPosition) {
       country: ['jp']
     });
 
-    // 詳細表示ツールチップ
+    // 情報ウィンドウ
     const infowindow = new google.maps.InfoWindow();
     const infowindowContent = document.getElementById('infowindow-content') as HTMLElement;
 
@@ -88,10 +103,15 @@ function initMap(position?: GeolocationPosition) {
       marker.setPosition(place.geometry.location);
       marker.setVisible(true);
 
-      // 緯度経度を親コンポーネントに送信
+      // 親コンポーネントに送信
       const lat = place.geometry.location.lat();
       const lng = place.geometry.location.lng();
       emits('update:location', { lat, lng });
+      emits(
+        'update:locationInfo',
+        place.formatted_address as string,
+        structureAddress(place.address_components as AddressComponent[])
+      );
 
       // 情報ウィンドウの表示
       const placeNameElement = infowindowContent.querySelector('#place-name') as HTMLElement;
@@ -99,78 +119,43 @@ function initMap(position?: GeolocationPosition) {
       if (placeNameElement) placeNameElement.textContent = place.name || '';
       if (placeAddressElement) placeAddressElement.textContent = place.formatted_address || '';
       infowindow.open(map.value, marker);
-
-      // 検証用
-      // 住所コンポーネントの型定義
-      interface AddressComponent {
-        long_name: string;
-        short_name: string;
-        types: string[];
-      }
-
-      interface StructuredAddressJP {
-        postal_code: string;
-        prefecture: string;
-        city: string;
-        ward: string;
-        district: string;
-        sublocality: string;
-        premise: string;
-        subpremise: string;
-      }
-
-      function structureAddressJP(addressComponents: AddressComponent[]): StructuredAddressJP {
-        const result: StructuredAddressJP = {
-          postal_code: '',
-          prefecture: '',
-          city: '',
-          ward: '',
-          district: '',
-          sublocality: '',
-          premise: '',
-          subpremise: ''
-        };
-
-        addressComponents.reverse().forEach((component) => {
-          // 郵便番号
-          if (component.types.includes('postal_code')) {
-            result.postal_code = component.long_name;
-          }
-          // 都道府県
-          else if (component.types.includes('administrative_area_level_1')) {
-            result.prefecture = component.long_name;
-          }
-          // 市町村
-          else if (component.types.includes('locality')) {
-            result.city = component.long_name;
-          }
-          // ○○区
-          else if (component.types.includes('sublocality_level_1')) {
-            result.ward = component.long_name;
-          }
-          // 地名
-          else if (component.types.includes('sublocality_level_2')) {
-            result.district = component.long_name;
-          }
-          // それ以降の番地など
-          else if (component.types.some((type) => type.startsWith('sublocality'))) {
-            result.sublocality += (result.sublocality ? '―' : '') + component.long_name;
-          } else if (component.types.includes('premise')) {
-            result.premise += result.premise + component.long_name;
-          } else if (component.types.includes('subpremise')) {
-            result.subpremise = component.long_name;
-          }
-        });
-
-        return result;
-      }
-
-      const structuredAddress = structureAddressJP(place.address_components as AddressComponent[]);
-
-      console.log(structuredAddress);
-      console.log(place.address_components);
     });
   }
+}
+
+function structureAddress(addressComponents: AddressComponent[]): StructuredAddress {
+  const result: StructuredAddress = {
+    postcode: '',
+    prefecture: '',
+    municipality: '',
+    ward: '',
+    district: ''
+  };
+
+  addressComponents.reverse().forEach((component) => {
+    // 郵便番号
+    if (component.types.includes('postal_code')) {
+      result.postcode = component.long_name;
+    }
+    // 都道府県
+    else if (component.types.includes('administrative_area_level_1')) {
+      result.prefecture = component.long_name;
+    }
+    // 市町村
+    else if (component.types.includes('locality')) {
+      result.municipality = component.long_name;
+    }
+    // ○○区
+    else if (component.types.includes('sublocality_level_1')) {
+      result.ward = component.long_name;
+    }
+    // 地名
+    else if (component.types.includes('sublocality_level_2')) {
+      result.district = component.long_name;
+    }
+  });
+
+  return result;
 }
 
 onMounted(() => {

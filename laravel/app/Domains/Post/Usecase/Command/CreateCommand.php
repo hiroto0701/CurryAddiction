@@ -14,6 +14,12 @@ class CreateCommand
     private ?string $comment;
     private float $latitude;
     private float $longitude;
+    private string $formattedAddress;
+    private string $postcode;
+    private string $prefecture;
+    private string $municipality;
+    private ?string $ward;
+    private string $district;
     private string $fileContent;
     private string $filename;
     private string $fileExtension;
@@ -28,6 +34,12 @@ class CreateCommand
         ?string $comment,
         float $latitude,
         float $longitude,
+        string $formattedAddress,
+        string $postcode,
+        string $prefecture,
+        string $municipality,
+        ?string $ward,
+        string $district,
         string $fileContent,
         string $filename,
         string $fileExtension,
@@ -41,6 +53,12 @@ class CreateCommand
         $this->comment = $comment;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
+        $this->formattedAddress = $formattedAddress;
+        $this->postcode = $postcode;
+        $this->prefecture = $prefecture;
+        $this->municipality = $municipality;
+        $this->ward = $ward;
+        $this->district = $district;
         $this->fileContent = $fileContent;
         $this->filename = $filename;
         $this->fileExtension = $fileExtension;
@@ -110,6 +128,53 @@ class CreateCommand
         return $this->longitude;
     }
 
+    /**
+     * @return string
+     */
+    public function getFormattedAddress(): string
+    {
+        return $this->formattedAddress;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostcode(): string
+    {
+        return $this->postcode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrefecture(): string
+    {
+        return $this->prefecture;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMunicipality(): string
+    {
+        return $this->municipality;
+    }
+
+    /**
+     * @return string | null
+     */
+    public function getWard(): ?string
+    {
+        return $this->ward;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDistrict(): string
+    {
+        return $this->district;
+    }
 
     /**
      * @return string

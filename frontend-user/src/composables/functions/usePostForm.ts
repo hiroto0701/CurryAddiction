@@ -16,12 +16,18 @@ export function usePostForm() {
   const genreOptions: Ref<Genre[]> = ref([
     { id: undefined, name: '選択してください', disabled: true }
   ]);
-
   const fileInfo = ref<File>();
   const preview = ref<string | undefined>();
   const latitude = ref<number | undefined>();
   const longitude = ref<number | undefined>();
-
+  const formattedAddress = ref<string>('');
+  const postcode = ref<string>('');
+  const prefecture = ref<string>('');
+  const municipality = ref<string>('');
+  const ward = ref<string | undefined>();
+  const district = ref<string>('');
+  const regionId = ref<number | null>(null);
+  const prefectureId = ref<number | null>(null);
   const storeNameError = ref<boolean>(false);
   const reactiveErrors = reactive(errors);
 
@@ -65,12 +71,20 @@ export function usePostForm() {
     }
 
     await createPost({
-      store_name: storeName.value,
+      storeName: storeName.value,
       comment: comment.value,
-      genre_id: genreId.value,
-      post_img: fileInfo.value,
+      genreId: genreId.value,
+      postImg: fileInfo.value,
       latitude: latitude.value,
-      longitude: longitude.value
+      longitude: longitude.value,
+      formattedAddress: formattedAddress.value,
+      postcode: postcode.value,
+      prefecture: prefecture.value,
+      municipality: municipality.value,
+      ward: ward.value,
+      district: district.value,
+      regionId: regionId.value as number,
+      prefectureId: prefectureId.value as number
     });
 
     return true;
@@ -85,6 +99,14 @@ export function usePostForm() {
     preview,
     latitude,
     longitude,
+    formattedAddress,
+    postcode,
+    prefecture,
+    municipality,
+    ward,
+    district,
+    regionId,
+    prefectureId,
     storeNameError,
     reactiveErrors,
     handleFileSelected,
