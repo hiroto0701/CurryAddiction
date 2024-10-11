@@ -5,6 +5,11 @@ import type { Component } from 'vue';
 import FormLayout from '@/views/templates/FormLayout.vue';
 import FormErrorMessage from '@/views/atoms/ErrorMessage/FormErrorMessage.vue';
 
+import {
+  convertPrefectureNameToPrefId,
+  convertPrefectureNameToRegionId
+} from '@/constant/prefecture';
+
 interface Props {
   readonly label: string;
   readonly required: boolean;
@@ -114,9 +119,6 @@ function initMap(position?: GeolocationPosition) {
         city: string;
         ward: string;
         district: string;
-        sublocality: string;
-        premise: string;
-        subpremise: string;
       }
 
       function structureAddressJP(addressComponents: AddressComponent[]): StructuredAddressJP {
@@ -125,10 +127,7 @@ function initMap(position?: GeolocationPosition) {
           prefecture: '',
           city: '',
           ward: '',
-          district: '',
-          sublocality: '',
-          premise: '',
-          subpremise: ''
+          district: ''
         };
 
         addressComponents.reverse().forEach((component) => {
@@ -152,14 +151,6 @@ function initMap(position?: GeolocationPosition) {
           else if (component.types.includes('sublocality_level_2')) {
             result.district = component.long_name;
           }
-          // それ以降の番地など
-          else if (component.types.some((type) => type.startsWith('sublocality'))) {
-            result.sublocality += (result.sublocality ? '―' : '') + component.long_name;
-          } else if (component.types.includes('premise')) {
-            result.premise += result.premise + component.long_name;
-          } else if (component.types.includes('subpremise')) {
-            result.subpremise = component.long_name;
-          }
         });
 
         return result;
@@ -167,7 +158,15 @@ function initMap(position?: GeolocationPosition) {
 
       const structuredAddress = structureAddressJP(place.address_components as AddressComponent[]);
 
-      console.log(structuredAddress);
+      console.log('郵便番号' + structuredAddress.postal_code);
+      console.log('都道府県' + structuredAddress.prefecture);
+      console.log('市' + structuredAddress.city);
+      console.log('区' + structuredAddress.ward);
+      console.log('地名' + structuredAddress.district);
+
+      console.log('test:::', convertPrefectureNameToPrefId(structuredAddress.prefecture));
+      console.log('test:::', convertPrefectureNameToRegionId(structuredAddress.prefecture));
+
       console.log(place.address_components);
     });
   }
