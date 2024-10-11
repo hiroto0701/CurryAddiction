@@ -148,7 +148,7 @@ async function doDelete(): Promise<void> {
     if (axios.isAxiosError(error)) {
       console.error(`削除に失敗しました: ${error.response?.data?.message || error.message}`, error);
     } else {
-      console.log('予期せぬエラーが発生しました', error);
+      console.error('予期せぬエラーが発生しました', error);
     }
   } finally {
     commonStore.stopApiLoading();

@@ -20,6 +20,8 @@ class CreateRequest extends FormRequest
             'store_name' => ['required', 'string', 'max:'.config('validation.maxStoreName')],
             'comment' => ['nullable', 'string', 'max:'.config('validation.maxComment')],
             'genre_id' => ['required', 'numeric'],
+            'region_id' => ['required', 'numeric'],
+            'prefecture_id' => ['required', 'numeric'],
             'post_img' => [
                 'required',
                 'image',
@@ -28,6 +30,12 @@ class CreateRequest extends FormRequest
             ],
             'latitude' => ['required', 'numeric'],
             'longitude' => ['required', 'numeric'],
+            'formatted_address' => ['required', 'string'],
+            'postcode' => ['required', 'string', 'max: 255'],
+            'prefecture' => ['required', 'string', 'max: 20'],
+            'municipality' => ['required', 'string'],
+            'ward' => ['nullable', 'string'],
+            'district' => ['nullable', 'string'],
         ];
     }
 }

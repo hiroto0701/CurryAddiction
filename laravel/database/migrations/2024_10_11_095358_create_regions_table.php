@@ -19,7 +19,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('genres', function (Blueprint $table) {
+        Schema::create('regions', function (Blueprint $table) {
             $table->id();
             $table->string('name', 20)->collation(self::COLLATION)->unique();
             // 共通カラム
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('genres');
+        Schema::dropIfExists('regions');
     }
 };

@@ -30,15 +30,15 @@ const emits = defineEmits<{
     <div class="flex h-14 items-center justify-between border-b border-gray-200 bg-white p-3">
       <PostUserProfileLink
         class="w-fit text-xs md:max-w-48"
-        :display-name="displayName"
-        :handle-name="handleName"
+        :display-name
+        :handle-name
         :avatar-url
       />
       <CardDropDown :is-mine @handle-post="emits('handlePost')" />
     </div>
     <CardImg :src class="cursor-pointer md:hover:opacity-95" @click="emits('navigateToDetail')" />
     <CardBody
-      :store-name="storeName"
+      :store-name
       :location
       :date
       :is-liked

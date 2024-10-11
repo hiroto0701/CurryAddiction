@@ -14,10 +14,18 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'genre_id' => $this->genre_id,
+            'region_id' => $this->region_id,
+            'prefecture_id' => $this->prefecture_id,
             'store_name' => $this->store_name,
             'comment' => !is_null($this->store_name) ? $this->comment : null,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'formatted_address' => $this->formatted_address,
+            'postcode' => $this->postcode,
+            'prefecture' => $this->prefecture,
+            'municipality' => $this->municipality,
+            'ward' => $this->ward ?? null,
+            'district' => $this->district,
             'slug' => $this->slug,
             'post_img' => route(
                 'file.view',

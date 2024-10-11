@@ -1,12 +1,18 @@
 export interface Post {
   id: number;
   genre_id: number;
-  region_id: number | null;
-  prefecture_id: number | null;
+  region_id: number;
+  prefecture_id: number;
   store_name: string;
   comment: string;
   latitude: number;
   longitude: number;
+  formatted_address: string;
+  postcode: string;
+  prefecture: string;
+  municipality: string;
+  ward?: string;
+  district: string;
   slug: string;
   post_img: string;
   posted_at: string;
