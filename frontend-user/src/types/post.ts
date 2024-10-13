@@ -7,6 +7,7 @@ export interface Post {
   comment: string;
   latitude: number;
   longitude: number;
+  official_name: string;
   formatted_address: string;
   postcode: string;
   prefecture: string;

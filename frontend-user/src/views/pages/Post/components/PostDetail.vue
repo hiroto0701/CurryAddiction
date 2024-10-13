@@ -122,14 +122,14 @@ watch(
 
     <div class="xs:px-7 mx-auto mt-9 w-full max-w-screen-md sm:px-10">
       <article>
-        <PostImgBrowseItem :post-img="post.post_img" class="w-full object-cover" />
+        <PostImgBrowseItem :post-img="post.post_img" class="w-full rounded-lg object-cover" />
         <PostCommentBrowseItem
           :comment="post.comment"
           class="mt-12 max-w-screen-md break-all border-b border-dashed border-gray-300 pb-6"
         />
         <PostLocationBrowseItem
           class="mb-12 mt-6 max-w-screen-md"
-          :store-name="post.store_name"
+          :official-name="post.official_name"
           :latitude="Number(post.latitude)"
           :longitude="Number(post.longitude)"
         />

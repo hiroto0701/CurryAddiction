@@ -31,6 +31,7 @@ class CreateInteractor
             $post->store_name = $command->getStoreName();
             $post->latitude = $command->getLatitude();
             $post->longitude = $command->getLongitude();
+            $post->official_name = $command->getOfficialName();
             $post->formatted_address = $command->getFormattedAddress();
             $post->postcode = $command->getPostcode();
             $post->prefecture = $command->getPrefecture();

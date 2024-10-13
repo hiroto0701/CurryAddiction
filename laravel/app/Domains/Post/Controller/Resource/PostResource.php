@@ -20,6 +20,7 @@ class PostResource extends JsonResource
             'comment' => !is_null($this->store_name) ? $this->comment : null,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'official_name' => $this->official_name,
             'formatted_address' => $this->formatted_address,
             'postcode' => $this->postcode,
             'prefecture' => $this->prefecture,

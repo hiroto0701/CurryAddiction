@@ -14,6 +14,7 @@ class CreateCommand
     private ?string $comment;
     private float $latitude;
     private float $longitude;
+    private string $officialName;
     private string $formattedAddress;
     private string $postcode;
     private string $prefecture;
@@ -34,6 +35,7 @@ class CreateCommand
         ?string $comment,
         float $latitude,
         float $longitude,
+        string $officialName,
         string $formattedAddress,
         string $postcode,
         string $prefecture,
@@ -53,6 +55,7 @@ class CreateCommand
         $this->comment = $comment;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
+        $this->officialName = $officialName;
         $this->formattedAddress = $formattedAddress;
         $this->postcode = $postcode;
         $this->prefecture = $prefecture;
@@ -126,6 +129,14 @@ class CreateCommand
     public function getLongitude(): float
     {
         return $this->longitude;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOfficialName(): string
+    {
+        return $this->officialName;
     }
 
     /**
