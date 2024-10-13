@@ -43,6 +43,7 @@ class CreateAction extends Controller
             !is_null($request->comment) ? $request->comment : null,
             (float)$request->latitude,
             (float)$request->longitude,
+            $request->official_name,
             $request->formatted_address,
             $request->postcode,
             $request->prefecture,

@@ -129,7 +129,7 @@ watch(
         />
         <PostLocationBrowseItem
           class="mb-12 mt-6 max-w-screen-md"
-          :store-name="post.store_name"
+          :official-name="post.official_name"
           :latitude="Number(post.latitude)"
           :longitude="Number(post.longitude)"
         />

@@ -30,6 +30,7 @@ class CreateRequest extends FormRequest
             ],
             'latitude' => ['required', 'numeric'],
             'longitude' => ['required', 'numeric'],
+            'official_name' => ['required', 'string'],
             'formatted_address' => ['required', 'string'],
             'postcode' => ['required', 'string', 'max: 255'],
             'prefecture' => ['required', 'string', 'max: 20'],

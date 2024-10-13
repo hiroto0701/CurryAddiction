@@ -13,6 +13,7 @@ export function useCreatePost() {
     postImg?: File;
     latitude: number | undefined;
     longitude: number | undefined;
+    officialName: string;
     formattedAddress: string;
     postcode: string;
     prefecture: string;
@@ -25,6 +26,7 @@ export function useCreatePost() {
     const formData = new FormData();
     formData.append('genre_id', payload.genreId ? payload.genreId.toString() : '');
     formData.append('store_name', payload.storeName);
+    formData.append('official_name', payload.officialName);
     formData.append('formatted_address', payload.formattedAddress);
     formData.append('postcode', payload.postcode);
     formData.append('prefecture', payload.prefecture);
