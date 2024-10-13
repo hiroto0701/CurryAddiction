@@ -30,97 +30,112 @@ defineProps<Props>();
 
 const emits = defineEmits<{
   (e: 'update:location', location: { lat: number; lng: number }): void;
-  (e: 'update:locationInfo', formatted_address: string, structuredAddress: StructuredAddress): void;
+  (
+    e: 'update:locationInfo',
+    official_name: string,
+    formatted_address: string,
+    structuredAddress: StructuredAddress
+  ): void;
 }>();
 
 const mapContainer = ref<HTMLElement | null>(null);
 const map = ref<google.maps.Map | null>(null);
 const autocomplete = ref<google.maps.places.Autocomplete | null>(null);
+const marker = ref<google.maps.marker.AdvancedMarkerElement | null>(null);
 
-function initMap(position?: GeolocationPosition) {
-  if (mapContainer.value) {
-    const defaultPosition = { lat: 35.6812, lng: 139.7671 }; // 東京駅をデフォルト位置にする
-    const center = position
-      ? { lat: position.coords.latitude, lng: position.coords.longitude }
-      : defaultPosition;
+async function initMap(position?: GeolocationPosition) {
+  if (!mapContainer.value) return;
 
-    // 地図の初期化
-    const mapOptions = {
-      center,
-      zoom: 15,
-      mapTypeControl: true
-    };
+  const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary;
+  const { AdvancedMarkerElement } = (await google.maps.importLibrary(
+    'marker'
+  )) as google.maps.MarkerLibrary;
 
-    map.value = new google.maps.Map(mapContainer.value, mapOptions);
+  const defaultPosition = { lat: 35.6812, lng: 139.7671 }; // 東京駅をデフォルト位置にする
+  const center = position
+    ? { lat: position.coords.latitude, lng: position.coords.longitude }
+    : defaultPosition;
 
-    // AutoComplete初期化
-    const input = document.getElementById('pac-input') as HTMLInputElement;
-    const options = {
-      fields: ['formatted_address', 'geometry', 'name', 'address_components', 'website'],
-      types: ['establishment']
-    };
+  // 地図の初期化
+  const mapOptions = {
+    center,
+    zoom: 15,
+    mapTypeControl: true,
+    mapId: 'DEMO_MAP_ID'
+  };
+  map.value = new Map(mapContainer.value, mapOptions);
 
-    autocomplete.value = new google.maps.places.Autocomplete(input, options);
+  // マーカーの初期化
+  marker.value = new AdvancedMarkerElement({
+    map: map.value,
+    position: center
+  });
 
-    autocomplete.value.bindTo('bounds', map.value);
+  // AutoComplete初期化
+  const input = document.getElementById('pac-input') as HTMLInputElement;
+  const options = {
+    fields: ['formatted_address', 'geometry', 'name', 'address_components', 'website'],
+    types: ['establishment']
+  };
 
-    autocomplete.value.setTypes(['bar', 'bakery', 'cafe', 'restaurant', 'food']);
-    autocomplete.value.setComponentRestrictions({
-      country: ['jp']
-    });
+  autocomplete.value = new google.maps.places.Autocomplete(input, options);
 
-    // 情報ウィンドウ
-    const infowindow = new google.maps.InfoWindow();
-    const infowindowContent = document.getElementById('infowindow-content') as HTMLElement;
+  autocomplete.value.bindTo('bounds', map.value);
 
-    infowindow.setContent(infowindowContent);
+  autocomplete.value.setTypes(['bar', 'bakery', 'cafe', 'restaurant', 'food']);
+  autocomplete.value.setComponentRestrictions({
+    country: ['jp']
+  });
 
-    const marker = new google.maps.Marker({
-      map: map.value,
-      anchorPoint: new google.maps.Point(0, -29)
-    });
+  // 情報ウィンドウ
+  const infowindow = new google.maps.InfoWindow();
+  const infowindowContent = document.getElementById('infowindow-content') as HTMLElement;
 
-    // AutoCompleteの結果が選択されたときのイベント
-    autocomplete.value.addListener('place_changed', () => {
-      infowindow.close();
-      marker.setVisible(false);
+  infowindow.setContent(infowindowContent);
 
-      const place = autocomplete.value?.getPlace();
+  // AutoCompleteの結果が選択されたときのイベント
+  autocomplete.value.addListener('place_changed', () => {
+    infowindow.close();
+    if (marker.value) marker.value.map = null; // 古いマーカーをクリア
 
-      if (!place?.geometry || !place.geometry.location) {
-        window.alert(`「${place?.name}」 に該当する結果を得られませんでした。`);
-        return;
-      }
+    const place = autocomplete.value?.getPlace();
 
-      // 地図の表示範囲を調整
-      if (place.geometry.viewport) {
-        map.value?.fitBounds(place.geometry.viewport);
-      } else {
-        map.value?.setCenter(place.geometry.location);
-        map.value?.setZoom(17);
-      }
+    if (!place?.geometry || !place.geometry.location) {
+      window.alert(`「${place?.name}」 に該当する結果を得られませんでした。`);
+      return;
+    }
 
-      marker.setPosition(place.geometry.location);
-      marker.setVisible(true);
+    // 地図の表示範囲を調整
+    if (place.geometry.viewport) {
+      map.value?.fitBounds(place.geometry.viewport);
+    } else {
+      map.value?.setCenter(place.geometry.location);
+      map.value?.setZoom(17);
+    }
 
-      // 親コンポーネントに送信
-      const lat = place.geometry.location.lat();
-      const lng = place.geometry.location.lng();
-      emits('update:location', { lat, lng });
-      emits(
-        'update:locationInfo',
-        place.formatted_address as string,
-        structureAddress(place.address_components as AddressComponent[])
-      );
+    if (marker.value) {
+      marker.value.position = place.geometry.location;
+      marker.value.map = map.value; // マーカーを表示する
+    }
 
-      // 情報ウィンドウの表示
-      const placeNameElement = infowindowContent.querySelector('#place-name') as HTMLElement;
-      const placeAddressElement = infowindowContent.querySelector('#place-address') as HTMLElement;
-      if (placeNameElement) placeNameElement.textContent = place.name || '';
-      if (placeAddressElement) placeAddressElement.textContent = place.formatted_address || '';
-      infowindow.open(map.value, marker);
-    });
-  }
+    // 親コンポーネントに送信
+    const lat = place.geometry.location.lat();
+    const lng = place.geometry.location.lng();
+    emits('update:location', { lat, lng });
+    emits(
+      'update:locationInfo',
+      place.name as string,
+      place.formatted_address as string,
+      structureAddress(place.address_components as AddressComponent[])
+    );
+
+    // 情報ウィンドウの表示
+    const placeNameElement = infowindowContent.querySelector('#place-name') as HTMLElement;
+    const placeAddressElement = infowindowContent.querySelector('#place-address') as HTMLElement;
+    if (placeNameElement) placeNameElement.textContent = place.name || '';
+    if (placeAddressElement) placeAddressElement.textContent = place.formatted_address || '';
+    infowindow.open(map.value, marker.value);
+  });
 }
 
 function structureAddress(addressComponents: AddressComponent[]): StructuredAddress {
@@ -158,7 +173,7 @@ function structureAddress(addressComponents: AddressComponent[]): StructuredAddr
   return result;
 }
 
-onMounted(() => {
+onMounted(async () => {
   if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(
       (position) => {

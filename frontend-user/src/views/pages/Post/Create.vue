@@ -37,6 +37,7 @@ const {
   preview,
   latitude,
   longitude,
+  officialName,
   formattedAddress,
   postcode,
   prefecture,
@@ -69,7 +70,12 @@ function getLocationValue(location: { lat: number; lng: number }): void {
   longitude.value = location.lng;
 }
 
-function getLocationInfo(formatted_address: string, structuredAddress: StructuredAddress): void {
+function getLocationInfo(
+  official_name: string,
+  formatted_address: string,
+  structuredAddress: StructuredAddress
+): void {
+  officialName.value = official_name;
   formattedAddress.value = formatted_address;
   postcode.value = structuredAddress.postcode;
   prefecture.value = structuredAddress.prefecture;

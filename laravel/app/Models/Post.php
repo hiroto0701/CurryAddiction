@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $comment
  * @property double $latitude
  * @property double $longitude
+ * @property string $official_name
  * @property string $formatted_address
  * @property string $postcode
  * @property string $prefecture
@@ -50,6 +51,7 @@ class Post extends Model
         'comment',
         'latitude',
         'longitude',
+        'official_name',
         'formatted_address',
         'prefecture',
         'municipality',

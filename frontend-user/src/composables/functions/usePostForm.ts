@@ -20,6 +20,7 @@ export function usePostForm() {
   const preview = ref<string | undefined>();
   const latitude = ref<number | undefined>();
   const longitude = ref<number | undefined>();
+  const officialName = ref<string>('');
   const formattedAddress = ref<string>('');
   const postcode = ref<string>('');
   const prefecture = ref<string>('');
@@ -77,6 +78,7 @@ export function usePostForm() {
       postImg: fileInfo.value,
       latitude: latitude.value,
       longitude: longitude.value,
+      officialName: officialName.value,
       formattedAddress: formattedAddress.value,
       postcode: postcode.value,
       prefecture: prefecture.value,
@@ -99,6 +101,7 @@ export function usePostForm() {
     preview,
     latitude,
     longitude,
+    officialName,
     formattedAddress,
     postcode,
     prefecture,
