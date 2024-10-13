@@ -4,7 +4,7 @@ import { ref, onMounted } from 'vue';
 import LocationIcon from '@/views/atoms/icons/LocationIcon.vue';
 
 interface Props {
-  readonly storeName: string;
+  readonly officialName: string;
   readonly latitude: number;
   readonly longitude: number;
 }
@@ -14,44 +14,43 @@ const address = ref<string>('');
 const mapElement = ref<HTMLElement | null>(null);
 
 let map: google.maps.Map;
-let marker: google.maps.Marker;
+let marker: google.maps.marker.AdvancedMarkerElement;
 let infowindow: google.maps.InfoWindow;
 
 function createCustomInfoWindowContent(formattedAddress: string, lat: number, lng: number): string {
-  const googleMapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
+  const googleMapsLink = `https://www.google.com/maps?q=${props.officialName}${formattedAddress}`;
   return `
     <div>
-      <p class="text-base font-medium">${props.storeName}</p>
+      <p class="text-base font-medium">${props.officialName}</p>
       <p>${formattedAddress}</p>
       <a href="${googleMapsLink}" class="text-blue-600 md:hover:underline" target="_blank" rel="noopener noreferrer">GoogleMapで見る</a>
     </div>
   `;
 }
 
-function initMap() {
+async function initMap() {
+  const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary;
+  const { AdvancedMarkerElement } = (await google.maps.importLibrary(
+    'marker'
+  )) as google.maps.MarkerLibrary;
+
   const mapOptions = {
     center: { lat: props.latitude, lng: props.longitude },
-    zoom: 15
+    zoom: 15,
+    mapId: 'DEMO_MAP_ID'
   };
-  map = new google.maps.Map(mapElement.value!, mapOptions);
+  map = new Map(mapElement.value!, mapOptions);
+
   infowindow = new google.maps.InfoWindow();
 
-  marker = new google.maps.Marker({
+  marker = new AdvancedMarkerElement({
     position: { lat: props.latitude, lng: props.longitude },
-    map: map,
-    draggable: true
-  });
-
-  google.maps.event.addListener(marker, 'dragend', function () {
-    const newPosition = marker.getPosition();
-    if (newPosition) {
-      reverseGeocode(newPosition.lat(), newPosition.lng());
-    }
+    map: map
   });
 
   map.addListener('click', (event: google.maps.MapMouseEvent) => {
     if (event.latLng) {
-      marker.setPosition(event.latLng);
+      marker.position = event.latLng;
       reverseGeocode(event.latLng.lat(), event.latLng.lng());
     }
   });
