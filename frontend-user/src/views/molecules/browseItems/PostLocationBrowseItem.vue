@@ -21,7 +21,7 @@ function createCustomInfoWindowContent(formattedAddress: string, lat: number, ln
   const googleMapsLink = `https://www.google.com/maps?q=${props.officialName}${formattedAddress}`;
   return `
     <div>
-      <p class="text-base font-medium">${props.officialName}</p>
+      <h3 class="text-base font-medium">${props.officialName}</h3>
       <p>${formattedAddress}</p>
       <a href="${googleMapsLink}" class="text-blue-600 md:hover:underline" target="_blank" rel="noopener noreferrer">GoogleMapで見る</a>
     </div>
@@ -36,7 +36,7 @@ async function initMap() {
 
   const mapOptions = {
     center: { lat: props.latitude, lng: props.longitude },
-    zoom: 15,
+    zoom: 16,
     mapId: 'DEMO_MAP_ID'
   };
   map = new Map(mapElement.value!, mapOptions);
@@ -46,13 +46,6 @@ async function initMap() {
   marker = new AdvancedMarkerElement({
     position: { lat: props.latitude, lng: props.longitude },
     map: map
-  });
-
-  map.addListener('click', (event: google.maps.MapMouseEvent) => {
-    if (event.latLng) {
-      marker.position = event.latLng;
-      reverseGeocode(event.latLng.lat(), event.latLng.lng());
-    }
   });
 
   reverseGeocode(props.latitude, props.longitude);

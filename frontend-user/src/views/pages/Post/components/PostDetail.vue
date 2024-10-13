@@ -122,7 +122,7 @@ watch(
 
     <div class="xs:px-7 mx-auto mt-9 w-full max-w-screen-md sm:px-10">
       <article>
-        <PostImgBrowseItem :post-img="post.post_img" class="w-full object-cover" />
+        <PostImgBrowseItem :post-img="post.post_img" class="w-full rounded-lg object-cover" />
         <PostCommentBrowseItem
           :comment="post.comment"
           class="mt-12 max-w-screen-md break-all border-b border-dashed border-gray-300 pb-6"
