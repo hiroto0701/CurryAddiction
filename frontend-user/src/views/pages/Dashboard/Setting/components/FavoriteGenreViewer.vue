@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import GenreSettingButton from '@/views/molecules/buttons/GenreSettingButton.vue';
 
-// interface Props {
-//   readonly displayName?: string;
-// }
-// defineProps<Props>();
-
 const emit = defineEmits<{
   (e: 'edit'): void;
 }>();

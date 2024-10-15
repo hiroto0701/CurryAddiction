@@ -32,7 +32,7 @@ const emits = defineEmits<{
           :id="'genre-' + genre.id"
           :value="genre.id"
           v-model="model"
-          :checked="model?.includes(genre.id)"
+          :checked="model?.includes(genre.id as number)"
         />
         <label :for="'genre-' + genre.id" class="cursor-pointer font-body text-sm text-sumi-700">
           {{ genre.name }}
