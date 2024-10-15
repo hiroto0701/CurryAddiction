@@ -32,7 +32,7 @@ class PostResource extends JsonResource
                 'file.view',
                 ['type' => FileViewAction::TYPE_POST_IMG, 'uuid' => $this->postImg->uuid]
             ),
-            'liked_count' => $this->likes()->count(),
+            'liked_count' => $this->likes->count(),
             'posted_at' => $this->posted_at,
             'posted_by' => $this->user_id,
             'user' => [

@@ -15,9 +15,9 @@ const mapElement = ref<HTMLElement | null>(null);
 
 let map: google.maps.Map;
 let marker: google.maps.marker.AdvancedMarkerElement;
-let infowindow: google.maps.InfoWindow;
+let infoWindow: google.maps.InfoWindow;
 
-function createCustomInfoWindowContent(formattedAddress: string, lat: number, lng: number): string {
+function createCustomInfoWindowContent(formattedAddress: string): string {
   const googleMapsLink = `https://www.google.com/maps?q=${props.officialName}${formattedAddress}`;
   return `
     <div>
@@ -41,7 +41,7 @@ async function initMap() {
   };
   map = new Map(mapElement.value!, mapOptions);
 
-  infowindow = new google.maps.InfoWindow();
+  infoWindow = new google.maps.InfoWindow();
 
   marker = new AdvancedMarkerElement({
     position: { lat: props.latitude, lng: props.longitude },
@@ -61,22 +61,22 @@ function reverseGeocode(lat: number, lng: number) {
       if (response.results[0]) {
         const formattedAddress = response.results[0].formatted_address;
         address.value = formattedAddress;
-        const content = createCustomInfoWindowContent(formattedAddress, lat, lng);
-        infowindow.setContent(content);
-        infowindow.open(map, marker);
+        const content = createCustomInfoWindowContent(formattedAddress);
+        infoWindow.setContent(content);
+        infoWindow.open(map, marker);
       } else {
         address.value = '住所が見つかりません';
-        const content = createCustomInfoWindowContent('住所が見つかりません', lat, lng);
-        infowindow.setContent(content);
-        infowindow.open(map, marker);
+        const content = createCustomInfoWindowContent('住所が見つかりません');
+        infoWindow.setContent(content);
+        infoWindow.open(map, marker);
       }
     })
     .catch((e) => {
       console.error('Geocoder failed due to: ' + e);
       address.value = 'ジオコーディングに失敗しました';
-      const content = createCustomInfoWindowContent('ジオコーディングに失敗しました', lat, lng);
-      infowindow.setContent(content);
-      infowindow.open(map, marker);
+      const content = createCustomInfoWindowContent('ジオコーディングに失敗しました');
+      infoWindow.setContent(content);
+      infoWindow.open(map, marker);
     });
 }
 

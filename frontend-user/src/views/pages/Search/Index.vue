@@ -3,15 +3,18 @@
 import { ref, onMounted } from 'vue';
 
 const mapContainer = ref<HTMLElement | null>(null);
-const map = ref<google.maps.Map | null>(null);
 const searchBox = ref<google.maps.places.SearchBox | null>(null);
-let markers: google.maps.Marker[] = [];
+let map: google.maps.Map;
+let markers: google.maps.marker.AdvancedMarkerElement[] = [];
 let infoWindow: google.maps.InfoWindow | null = null;
 
 async function initMap(position?: GeolocationPosition) {
   if (!mapContainer.value) return;
 
   const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary;
+  const { AdvancedMarkerElement } = (await google.maps.importLibrary(
+    'marker'
+  )) as google.maps.MarkerLibrary;
 
   const defaultPosition = { lat: 35.6812, lng: 139.7671 }; // 東京駅をデフォルト位置にする
   const center = position
@@ -25,7 +28,8 @@ async function initMap(position?: GeolocationPosition) {
     mapTypeControl: true,
     mapId: 'DEMO_MAP_ID'
   };
-  map.value = new Map(mapContainer.value, mapOptions);
+
+  map = new Map(mapContainer.value, mapOptions);
 
   // InfoWindow の初期化
   infoWindow = new google.maps.InfoWindow();
@@ -44,7 +48,7 @@ async function initMap(position?: GeolocationPosition) {
 
     // 古いマーカーをクリア
     markers.forEach((marker) => {
-      marker.setMap(null);
+      marker.map = null;
     });
     markers = [];
 
@@ -56,11 +60,11 @@ async function initMap(position?: GeolocationPosition) {
         return;
       }
 
-      // 各場所にマーカーを作成
-      const marker = new google.maps.Marker({
-        map: map.value,
-        title: place.name,
-        position: place.geometry.location
+      // 各場所にAdvancedMarkerElementを作成
+      const marker = new AdvancedMarkerElement({
+        map,
+        position: place.geometry.location,
+        title: place.name
       });
 
       markers.push(marker);
@@ -78,13 +82,13 @@ async function initMap(position?: GeolocationPosition) {
       // マーカーにクリックイベントを追加
       marker.addListener('click', () => {
         infoWindow?.setContent(content);
-        infoWindow?.open(map.value, marker);
+        infoWindow?.open(map, marker);
       });
 
       // 検索結果が1件のみの場合、InfoWindowを自動的に表示
       if (places.length === 1) {
         infoWindow?.setContent(content);
-        infoWindow?.open(map.value, marker);
+        infoWindow?.open(map, marker);
       }
 
       if (place.geometry.viewport) {
@@ -94,7 +98,7 @@ async function initMap(position?: GeolocationPosition) {
       }
     });
 
-    map.value?.fitBounds(bounds);
+    map?.fitBounds(bounds);
   });
 }
 

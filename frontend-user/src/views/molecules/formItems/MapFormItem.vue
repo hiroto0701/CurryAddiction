@@ -39,9 +39,10 @@ const emits = defineEmits<{
 }>();
 
 const mapContainer = ref<HTMLElement | null>(null);
-const map = ref<google.maps.Map | null>(null);
 const autocomplete = ref<google.maps.places.Autocomplete | null>(null);
-const marker = ref<google.maps.marker.AdvancedMarkerElement | null>(null);
+let map: google.maps.Map;
+let marker: google.maps.marker.AdvancedMarkerElement | null = null;
+let infoWindow: google.maps.InfoWindow | null = null;
 
 async function initMap(position?: GeolocationPosition) {
   if (!mapContainer.value) return;
@@ -63,12 +64,13 @@ async function initMap(position?: GeolocationPosition) {
     mapTypeControl: true,
     mapId: 'DEMO_MAP_ID'
   };
-  map.value = new Map(mapContainer.value, mapOptions);
+
+  map = new Map(mapContainer.value, mapOptions);
 
   // マーカーの初期化
-  marker.value = new AdvancedMarkerElement({
-    map: map.value,
-    position: center
+  marker = new AdvancedMarkerElement({
+    map,
+    position: null
   });
 
   // AutoComplete初期化
@@ -80,7 +82,7 @@ async function initMap(position?: GeolocationPosition) {
 
   autocomplete.value = new google.maps.places.Autocomplete(input, options);
 
-  autocomplete.value.bindTo('bounds', map.value);
+  autocomplete.value.bindTo('bounds', map);
 
   autocomplete.value.setTypes(['bar', 'bakery', 'cafe', 'restaurant', 'food']);
   autocomplete.value.setComponentRestrictions({
@@ -88,15 +90,15 @@ async function initMap(position?: GeolocationPosition) {
   });
 
   // 情報ウィンドウ
-  const infowindow = new google.maps.InfoWindow();
-  const infowindowContent = document.getElementById('infowindow-content') as HTMLElement;
+  infoWindow = new google.maps.InfoWindow();
+  const infoWindowContent = document.getElementById('infoWindow-content') as HTMLElement;
 
-  infowindow.setContent(infowindowContent);
+  infoWindow.setContent(infoWindowContent);
 
   // AutoCompleteの結果が選択されたときのイベント
   autocomplete.value.addListener('place_changed', () => {
-    infowindow.close();
-    if (marker.value) marker.value.map = null; // 古いマーカーをクリア
+    infoWindow?.close();
+    if (marker) marker.map = null; // 古いマーカーをクリア
 
     const place = autocomplete.value?.getPlace();
 
@@ -107,15 +109,15 @@ async function initMap(position?: GeolocationPosition) {
 
     // 地図の表示範囲を調整
     if (place.geometry.viewport) {
-      map.value?.fitBounds(place.geometry.viewport);
+      map?.fitBounds(place.geometry.viewport);
     } else {
-      map.value?.setCenter(place.geometry.location);
-      map.value?.setZoom(17);
+      map?.setCenter(place.geometry.location);
+      map?.setZoom(17);
     }
 
-    if (marker.value) {
-      marker.value.position = place.geometry.location;
-      marker.value.map = map.value; // マーカーを表示する
+    if (marker) {
+      marker.position = place.geometry.location;
+      marker.map = map; // マーカーを表示する
     }
 
     // 親コンポーネントに送信
@@ -130,11 +132,11 @@ async function initMap(position?: GeolocationPosition) {
     );
 
     // 情報ウィンドウの表示
-    const placeNameElement = infowindowContent.querySelector('#place-name') as HTMLElement;
-    const placeAddressElement = infowindowContent.querySelector('#place-address') as HTMLElement;
+    const placeNameElement = infoWindowContent.querySelector('#place-name') as HTMLElement;
+    const placeAddressElement = infoWindowContent.querySelector('#place-address') as HTMLElement;
     if (placeNameElement) placeNameElement.textContent = place.name || '';
     if (placeAddressElement) placeAddressElement.textContent = place.formatted_address || '';
-    infowindow.open(map.value, marker.value);
+    infoWindow?.open(map, marker);
   });
 }
 
@@ -206,7 +208,7 @@ onMounted(async () => {
     </div>
 
     <div ref="mapContainer" class="mt-5" style="width: 100%; height: 400px"></div>
-    <div id="infowindow-content" class="font-body font-normal">
+    <div id="infoWindow-content" class="font-body font-normal">
       <span id="place-name" class="title"></span><br />
       <span id="place-address"></span>
     </div>
