@@ -3,8 +3,8 @@
 import { ref, onMounted } from 'vue';
 
 const mapContainer = ref<HTMLElement | null>(null);
-let map: google.maps.Map;
 const searchBox = ref<google.maps.places.SearchBox | null>(null);
+let map: google.maps.Map;
 let markers: google.maps.marker.AdvancedMarkerElement[] = [];
 let infoWindow: google.maps.InfoWindow | null = null;
 
