@@ -17,7 +17,7 @@ let map: google.maps.Map;
 let marker: google.maps.marker.AdvancedMarkerElement;
 let infowindow: google.maps.InfoWindow;
 
-function createCustomInfoWindowContent(formattedAddress: string, lat: number, lng: number): string {
+function createCustomInfoWindowContent(formattedAddress: string): string {
   const googleMapsLink = `https://www.google.com/maps?q=${props.officialName}${formattedAddress}`;
   return `
     <div>
@@ -61,12 +61,12 @@ function reverseGeocode(lat: number, lng: number) {
       if (response.results[0]) {
         const formattedAddress = response.results[0].formatted_address;
         address.value = formattedAddress;
-        const content = createCustomInfoWindowContent(formattedAddress, lat, lng);
+        const content = createCustomInfoWindowContent(formattedAddress);
         infowindow.setContent(content);
         infowindow.open(map, marker);
       } else {
         address.value = '住所が見つかりません';
-        const content = createCustomInfoWindowContent('住所が見つかりません', lat, lng);
+        const content = createCustomInfoWindowContent('住所が見つかりません');
         infowindow.setContent(content);
         infowindow.open(map, marker);
       }
@@ -74,7 +74,7 @@ function reverseGeocode(lat: number, lng: number) {
     .catch((e) => {
       console.error('Geocoder failed due to: ' + e);
       address.value = 'ジオコーディングに失敗しました';
-      const content = createCustomInfoWindowContent('ジオコーディングに失敗しました', lat, lng);
+      const content = createCustomInfoWindowContent('ジオコーディングに失敗しました');
       infowindow.setContent(content);
       infowindow.open(map, marker);
     });
