@@ -3,14 +3,7 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useCommonStore } from '@/stores/common';
-
-export interface FavoriteGenre {
-  genre_id: number;
-}
-
-export interface FavoritePrefecture {
-  prefecture_id: number;
-}
+import type { FavoriteGenre, FavoritePrefecture } from '@/types/favorite';
 
 interface AccountState {
   id: number | null;

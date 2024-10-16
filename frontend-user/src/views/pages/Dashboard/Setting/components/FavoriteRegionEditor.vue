@@ -45,9 +45,9 @@ const emits = defineEmits<{
 }>();
 </script>
 <template>
-  <div class="flex flex-col gap-3">
-    <details v-for="region in groupedPrefectures" :key="region.regionId" class="mb-2">
-      <summary class="w-fit cursor-pointer text-sumi-800">
+  <div class="flex flex-col gap-5">
+    <details v-for="region in groupedPrefectures" :key="region.regionId">
+      <summary class="w-fit cursor-pointer font-body text-sm text-sumi-800">
         {{ region.regionName }}
         <span v-if="region.favoriteCount > 0" class="ml-2 font-body text-sm text-sumi-600">
           ({{ region.favoriteCount }})
@@ -57,7 +57,7 @@ const emits = defineEmits<{
         <div
           v-for="prefecture in region.prefectures"
           :key="prefecture.prefId"
-          class="flex items-center px-3 py-2"
+          class="flex items-center px-3 pt-3"
         >
           <input
             type="checkbox"
