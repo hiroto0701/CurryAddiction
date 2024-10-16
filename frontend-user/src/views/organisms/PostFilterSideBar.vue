@@ -98,7 +98,10 @@ const groupedPrefectures = computed((): GroupedRegion[] => {
         </details>
       </div>
 
-      <p class="mt-8 font-body text-xs leading-5 text-sumi-600" v-else>
+      <p
+        class="mt-8 font-body text-xs leading-5 text-sumi-600"
+        v-if="!props.favoriteGenres || !props.favoritePrefectures"
+      >
         お気に入りのカレーのジャンルや地方・都道府県を登録することで、タイムラインに表示する投稿を絞り込むことができます。
       </p>
       <div class="mt-8 flex w-full justify-center">
