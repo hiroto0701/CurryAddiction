@@ -26,6 +26,7 @@ class CurrentServiceUserResource extends JsonResource
             ) : null,
             'post_summary' => Post::where('user_id', $this->user_id)->count(),
             'favorite_genres' => $this->favoriteGenres,
+            'favorite_prefectures' => $this->favoritePrefectures,
             'registered_at' => $this->registered_at,
         ];
     }

@@ -4,11 +4,6 @@ import { useCurryGenreStore } from '@/stores/curry_genre';
 import UpdateButton from '@/views/molecules/buttons/UpdateButton.vue';
 import CancelButton from '@/views/molecules/buttons/CancelButton.vue';
 
-interface Props {
-  readonly isError: boolean;
-}
-defineProps<Props>();
-
 const commonStore = useCommonStore();
 const curryGenreStore = useCurryGenreStore();
 const model = defineModel<number[]>();
