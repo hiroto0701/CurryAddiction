@@ -46,6 +46,10 @@ class IndexInteractor
             $query->whereIn('genre_id', $command->getFavoriteGenres());
         }
 
+        if (!empty($command->getFavoritePrefectures())) {
+            $query->whereIn('prefecture_id', $command->getFavoritePrefectures());
+        }
+
         $query->with([
             'likes' => function ($query) {
                 $query->where('user_id', User::AuthId());

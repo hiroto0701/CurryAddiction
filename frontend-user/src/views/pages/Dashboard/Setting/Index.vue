@@ -6,16 +6,18 @@ import { useAccountStore } from '@/stores/account';
 import { useAccountFormStore } from '@/stores/account_form';
 import { useCommonStore } from '@/stores/common';
 import { useFavoriteGenre } from '@/composables/functions/useFavoriteGenre';
+import { useFavoritePrefecture } from '@/composables/functions/useFavoritePrefecture';
 import SectionInfo from '@/views/atoms/dashboard/SectionInfo.vue';
 import DashboardContent from '@/views/molecules/dashboard/DashboardContent.vue';
 import DashboardSectionHeader from '@/views/atoms/dashboard/DashboardSectionHeader.vue';
 import DashboardSection from '@/views/molecules/dashboard/DashboardSection.vue';
-import RegionSettingButton from '@/views/molecules/buttons/RegionSettingButton.vue';
 import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue';
 import DisplayNameViewer from '@/views/pages/Dashboard/Setting/components/DisplayNameViewer.vue';
 import DisplayNameEditor from '@/views/pages/Dashboard/Setting/components/DisplayNameEditor.vue';
 import FavoriteGenreViewer from '@/views/pages/Dashboard/Setting/components/FavoriteGenreViewer.vue';
 import FavoriteGenreEditor from '@/views/pages/Dashboard/Setting/components/FavoriteGenreEditor.vue';
+import FavoriteRegionViewer from '@/views/pages/Dashboard/Setting/components/FavoriteRegionViewer.vue';
+import FavoriteRegionEditor from '@/views/pages/Dashboard/Setting/components/FavoriteRegionEditor.vue';
 import AvatarEditor from '@/views/pages/Dashboard/Setting/components/AvatarEditor.vue';
 import DeleteConfirmModal from '@/views/molecules/modals/DeleteConfirmModal.vue';
 
@@ -24,11 +26,16 @@ const accountStore = useAccountStore();
 const accountFormStore = useAccountFormStore();
 const commonStore = useCommonStore();
 const { favoriteGenre } = useFavoriteGenre();
+const { favoritePrefecture } = useFavoritePrefecture();
 
 const isEditingDisplayName = ref<boolean>(false);
 const isEditingFavoriteGenre = ref<boolean>(false);
+const isEditingFavoritePrefecture = ref<boolean>(false);
 const displayName = ref<string>(accountStore.state.display_name);
-const favoriteGenres = ref(accountStore.state.favorite_genres.map((fg) => fg.genre_id));
+const favoriteGenres = ref<number[]>(accountStore.state.favorite_genres.map((fg) => fg.genre_id));
+const favoritePrefectures = ref<number[]>(
+  accountStore.state.favorite_prefectures.map((fp) => fp.prefecture_id)
+);
 const fileInfo = ref<File>();
 const preview = ref<string | undefined>();
 const open = ref<boolean>(false);
@@ -103,11 +110,12 @@ function toggleEditGenre(): void {
 async function doUpdateFavoriteGenre(selectedGenres: number[]): Promise<void> {
   try {
     commonStore.startApiLoading();
-    const response = await favoriteGenre(selectedGenres);
+    const sortedSelectGenres = selectedGenres.sort();
+    const response = await favoriteGenre(sortedSelectGenres);
 
     if (response?.status === 200) {
       // stateのfavorite_genresを更新
-      accountStore.updateFavoriteGenres(selectedGenres);
+      accountStore.updateFavoriteGenres(sortedSelectGenres);
 
       commonStore.setFlashMessage('更新しました');
       setTimeout(() => {
@@ -128,6 +136,46 @@ async function doUpdateFavoriteGenre(selectedGenres: number[]): Promise<void> {
     }
   } finally {
     isEditingFavoriteGenre.value = false;
+    commonStore.stopApiLoading();
+  }
+}
+
+function toggleEditPrefecture(): void {
+  isEditingFavoritePrefecture.value = !isEditingFavoritePrefecture.value;
+  // favoritePrefecturesをrefで管理しているので入力キャンセル時にstateの値に戻す
+  favoritePrefectures.value = accountStore.state.favorite_prefectures.map((fp) => fp.prefecture_id);
+  accountFormStore.resetErrors();
+}
+
+async function doUpdateFavoritePrefecture(selectedPrefectures: number[]): Promise<void> {
+  try {
+    commonStore.startApiLoading();
+    const sortedSelectPrefectures = selectedPrefectures.sort();
+    const response = await favoritePrefecture(sortedSelectPrefectures);
+
+    if (response?.status === 200) {
+      // stateのfavorite_prefecturesを更新
+      accountStore.updateFavoritePrefectures(sortedSelectPrefectures);
+
+      commonStore.setFlashMessage('更新しました');
+      setTimeout(() => {
+        commonStore.clearFlashMessage();
+      }, 4000);
+    } else {
+      throw new Error(response?.data.message);
+    }
+  } catch (error) {
+    console.error('お気に入りのジャンルの更新に失敗しました:', error);
+    if (axios.isAxiosError(error)) {
+      console.error(
+        `お気に入りのジャンルの更新に失敗しました: ${error.response?.data?.message || error.message}`,
+        error
+      );
+    } else {
+      console.error('予期せぬエラーが発生しました', error);
+    }
+  } finally {
+    isEditingFavoritePrefecture.value = false;
     commonStore.stopApiLoading();
   }
 }
@@ -221,7 +269,6 @@ onUnmounted((): void => {
       <FavoriteGenreViewer v-if="!isEditingFavoriteGenre" @edit="toggleEditGenre" />
       <FavoriteGenreEditor
         v-else
-        :is-error="displayNameError"
         @update="doUpdateFavoriteGenre(favoriteGenres)"
         @cancel="toggleEditGenre"
         v-model="favoriteGenres"
@@ -232,10 +279,14 @@ onUnmounted((): void => {
       <DashboardSectionHeader title="地方・都道府県" />
       <SectionInfo
         text="表示する投稿の地方や都道府県を登録・変更できます。"
-        class="mt-3 text-sm text-utility"
+        class="my-5 text-sm text-utility"
       />
-      <RegionSettingButton
-        class="mt-4 inline-flex items-center justify-center border px-4 py-3 text-sm"
+      <FavoriteRegionViewer v-if="!isEditingFavoritePrefecture" @edit="toggleEditPrefecture" />
+      <FavoriteRegionEditor
+        v-else
+        @update="doUpdateFavoritePrefecture(favoritePrefectures)"
+        @cancel="toggleEditPrefecture"
+        v-model="favoritePrefectures"
       />
     </DashboardSection>
 

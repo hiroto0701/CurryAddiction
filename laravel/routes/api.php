@@ -42,6 +42,11 @@ Route::prefix('/genres')->middleware(['auth:service_users'])->group(function() {
     Route::post('/favorite', \App\Domains\Genre\Controller\FavoriteAction::class);
 });
 
+// 地方・都道府県関連
+Route::prefix('/prefectures')->middleware(['auth:service_users'])->group(function() {
+    Route::post('/favorite', \App\Domains\Prefecture\Controller\FavoriteAction::class);
+});
+
 // 通知関連
 Route::prefix('/notifications')->middleware(['auth:service_users'])->group(function() {
     Route::get('/', \App\Domains\Notification\Controller\IndexAction::class);

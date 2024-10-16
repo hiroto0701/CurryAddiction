@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import GenreSettingButton from '@/views/molecules/buttons/GenreSettingButton.vue';
+import RegionSettingButton from '@/views/molecules/buttons/RegionSettingButton.vue';
 
 const emit = defineEmits<{
   (e: 'edit'): void;
 }>();
 </script>
 <template>
-  <GenreSettingButton
+  <RegionSettingButton
     class="inline-flex items-center justify-center border px-4 py-3 text-sm"
     @click="emit('edit')"
   />

@@ -17,7 +17,10 @@ const emit = defineEmits<{
     <FilterIcon class="relative w-6 text-sumi-600 group-hover:text-sumi-900" />
     <div
       class="absolute right-0 top-0 h-2 w-2 rounded-full bg-red-400"
-      v-if="accountStore.state.favorite_genres.length > 0"
+      v-if="
+        accountStore.state.favorite_genres.length > 0 ||
+        accountStore.state.favorite_prefectures.length > 0
+      "
     ></div>
   </button>
 </template>

@@ -37,6 +37,7 @@ class IndexAction extends Controller
             (boolean)$request->isLiked ?? null,
             (boolean)$request->isArchived ?? null,
             $request->favorite_genres ?? [],
+            $request->favorite_prefectures ?? [],
             $request->sort_attribute,
             $request->sort_direction,
         );

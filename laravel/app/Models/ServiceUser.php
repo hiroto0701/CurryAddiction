@@ -87,4 +87,14 @@ class ServiceUser extends Authenticatable
         return $this->hasMany(UserFavoriteGenre::class, 'user_id', 'user_id');
     }
 
+    public function favoriteRegions(): HasMany
+    {
+        return $this->hasMany(UserFavoriteRegion::class, 'user_id', 'user_id');
+    }
+
+    public function favoritePrefectures(): HasMany
+    {
+        return $this->hasMany(UserFavoritePrefecture::class, 'user_id', 'user_id');
+    }
+
 }

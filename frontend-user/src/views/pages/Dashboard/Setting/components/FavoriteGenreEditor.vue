@@ -4,11 +4,6 @@ import { useCurryGenreStore } from '@/stores/curry_genre';
 import UpdateButton from '@/views/molecules/buttons/UpdateButton.vue';
 import CancelButton from '@/views/molecules/buttons/CancelButton.vue';
 
-interface Props {
-  readonly isError: boolean;
-}
-defineProps<Props>();
-
 const commonStore = useCommonStore();
 const curryGenreStore = useCurryGenreStore();
 const model = defineModel<number[]>();
@@ -32,7 +27,7 @@ const emits = defineEmits<{
           :id="'genre-' + genre.id"
           :value="genre.id"
           v-model="model"
-          :checked="model?.includes(genre.id)"
+          :checked="model?.includes(genre.id as number)"
         />
         <label :for="'genre-' + genre.id" class="cursor-pointer font-body text-sm text-sumi-700">
           {{ genre.name }}

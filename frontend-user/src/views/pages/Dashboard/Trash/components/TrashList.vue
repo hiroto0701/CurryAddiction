@@ -119,6 +119,9 @@ async function doRestore() {
 </script>
 <template>
   <div class="grid grid-cols-1 gap-10" v-if="posts.length">
+    <p class="font-body text-sm text-utility">
+      ごみ箱に入れて30日を経過した投稿は自動で削除されます。
+    </p>
     <TrashCard
       v-for="post in posts"
       :key="post.id"

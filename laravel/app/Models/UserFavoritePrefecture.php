@@ -2,23 +2,24 @@
 
 namespace App\Models;
 
-use App\Models\Genre;
+use App\Models\Prefecture;
 use App\Models\ServiceUser;
 use App\Traits\OperatorRecordable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserFavoriteGenre extends Model
+
+class UserFavoritePrefecture extends Model
 {
     use HasFactory;
     use OperatorRecordable;
 
-    protected $table = 'user_favorite_genres';
+    protected $table = 'user_favorite_prefectures';
 
     protected $fillable = [
         'user_id',
-        'genre_id'
+        'prefecture_id'
     ];
 
     protected $dates = [
@@ -46,8 +47,8 @@ class UserFavoriteGenre extends Model
         return $this->belongsTo(ServiceUser::class, 'user_id', 'user_id');
     }
 
-    public function genre(): BelongsTo
+    public function prefecture(): BelongsTo
     {
-        return $this->belongsTo(Genre::class, 'genre_id');
+        return $this->belongsTo(Prefecture::class);
     }
 }

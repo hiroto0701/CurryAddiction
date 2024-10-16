@@ -3,10 +3,7 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useCommonStore } from '@/stores/common';
-
-export interface FavoriteGenre {
-  genre_id: number;
-}
+import type { FavoriteGenre, FavoritePrefecture } from '@/types/favorite';
 
 interface AccountState {
   id: number | null;
@@ -20,6 +17,7 @@ interface AccountState {
   registered_at: string;
   post_summary: number;
   favorite_genres: FavoriteGenre[];
+  favorite_prefectures: FavoritePrefecture[];
   isNewRegistration?: boolean;
   errors: Record<string, string[]>;
 }
@@ -41,6 +39,7 @@ export const useAccountStore = defineStore('account', () => {
     registered_at: '',
     post_summary: 0,
     favorite_genres: [],
+    favorite_prefectures: [],
     errors: {}
   });
 
@@ -67,6 +66,7 @@ export const useAccountStore = defineStore('account', () => {
       registered_at: '',
       post_summary: 0,
       favorite_genres: [],
+      favorite_prefectures: [],
       errors: {}
     };
   }
@@ -94,6 +94,12 @@ export const useAccountStore = defineStore('account', () => {
 
   function updateFavoriteGenres(selectedGenres: number[]): void {
     state.value.favorite_genres = selectedGenres.map((genre_id) => ({ genre_id }));
+  }
+
+  function updateFavoritePrefectures(selectedPrefectures: number[]): void {
+    state.value.favorite_prefectures = selectedPrefectures.map((prefecture_id) => ({
+      prefecture_id
+    }));
   }
 
   function emailValidate(email: string): boolean {
@@ -268,6 +274,7 @@ export const useAccountStore = defineStore('account', () => {
     updateDisplayName,
     updateAvatar,
     updateFavoriteGenres,
+    updateFavoritePrefectures,
     emailValidate,
     tokenValidate,
     generateToken,
