@@ -69,11 +69,18 @@ async function loadPosts(page: number = 1, userId?: number, forceReload: boolean
       // アーカイブページの場合はパラメータにアーカイブの情報を付与
       if (props.pageType === 'archive') params.append('isArchived', 'true');
 
-      // 一覧ページ（Home）の場合はお気に入りジャンル情報を付与
+      // 一覧ページ（Home）の場合はお気に入りジャンル情報,お気に入り都道府県情報を付与
       if (props.pageType === 'home') {
         const favoriteGenres = accountStore.state.favorite_genres.map((fg) => fg.genre_id);
         favoriteGenres.forEach((genreId) => {
           params.append('favorite_genres[]', genreId.toString());
+        });
+
+        const favoritePrefectures = accountStore.state.favorite_prefectures.map(
+          (fp) => fp.prefecture_id
+        );
+        favoritePrefectures.forEach((prefectureId) => {
+          params.append('favorite_prefectures[]', prefectureId.toString());
         });
       }
 
@@ -213,6 +220,7 @@ watch(
     <PostFilterSideBar
       v-if="pageType === 'home'"
       :favorite-genres="accountStore.state.favorite_genres"
+      :favorite-prefectures="accountStore.state.favorite_prefectures"
     />
     <div v-if="posts.length">
       <CardDisplayAreaLayout>

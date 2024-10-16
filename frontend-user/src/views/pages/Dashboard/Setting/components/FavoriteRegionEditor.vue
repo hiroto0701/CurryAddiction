@@ -15,15 +15,24 @@ const groupedPrefectures = computed(() => {
         acc[cur.regionId] = {
           regionId: cur.regionId,
           regionName: cur.regionName,
-          prefectures: []
+          prefectures: [],
+          favoriteCount: 0
         };
       }
       acc[cur.regionId].prefectures.push(cur);
+      if (model.value?.includes(cur.prefId)) {
+        acc[cur.regionId].favoriteCount++;
+      }
       return acc;
     },
     {} as Record<
       number,
-      { regionId: number; regionName: string; prefectures: typeof PREFECTURE_LIST }
+      {
+        regionId: number;
+        regionName: string;
+        prefectures: typeof PREFECTURE_LIST;
+        favoriteCount: number;
+      }
     >
   );
 
@@ -40,6 +49,9 @@ const emits = defineEmits<{
     <details v-for="region in groupedPrefectures" :key="region.regionId" class="mb-2">
       <summary class="w-fit cursor-pointer text-sumi-800">
         {{ region.regionName }}
+        <span v-if="region.favoriteCount > 0" class="ml-2 font-body text-sm text-sumi-600">
+          ({{ region.favoriteCount }})
+        </span>
       </summary>
       <div class="grid grid-cols-3 gap-1">
         <div
