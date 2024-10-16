@@ -10,6 +10,7 @@ class IndexCommand
     private ?bool $isLiked;
     private ?bool $isArchived;
     private array $favoriteGenres;
+    private array $favoritePrefectures;
     private ?string $sortAttribute;
     private ?string $sortDirection;
 
@@ -20,7 +21,7 @@ class IndexCommand
         ?bool $isLiked,
         ?bool $isArchived,
         array $favoriteGenres = [],
-
+        array $favoritePrefectures = [],
         ?string $sortAttribute,
         ?string $sortDirection,
     ) {
@@ -30,6 +31,7 @@ class IndexCommand
         $this->isLiked = $isLiked;
         $this->isArchived = $isArchived;
         $this->favoriteGenres = $favoriteGenres;
+        $this->favoritePrefectures = $favoritePrefectures;
         $this->sortAttribute = $sortAttribute;
         $this->sortDirection = $sortDirection;
     }
@@ -80,6 +82,14 @@ class IndexCommand
     public function getFavoriteGenres(): array
     {
         return $this->favoriteGenres;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFavoritePrefectures(): array
+    {
+        return $this->favoritePrefectures;
     }
 
     /**

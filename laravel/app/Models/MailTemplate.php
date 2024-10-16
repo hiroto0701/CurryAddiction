@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $type
  * @property string $subject
  * @property string $body
- * @property ManagementCompany $company
  */
 class MailTemplate extends Model
 {
