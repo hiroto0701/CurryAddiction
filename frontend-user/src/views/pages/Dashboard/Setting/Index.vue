@@ -110,11 +110,12 @@ function toggleEditGenre(): void {
 async function doUpdateFavoriteGenre(selectedGenres: number[]): Promise<void> {
   try {
     commonStore.startApiLoading();
-    const response = await favoriteGenre(selectedGenres);
+    const sortedSelectGenres = selectedGenres.sort();
+    const response = await favoriteGenre(sortedSelectGenres);
 
     if (response?.status === 200) {
       // stateのfavorite_genresを更新
-      accountStore.updateFavoriteGenres(selectedGenres);
+      accountStore.updateFavoriteGenres(sortedSelectGenres);
 
       commonStore.setFlashMessage('更新しました');
       setTimeout(() => {
@@ -149,11 +150,12 @@ function toggleEditPrefecture(): void {
 async function doUpdateFavoritePrefecture(selectedPrefectures: number[]): Promise<void> {
   try {
     commonStore.startApiLoading();
-    const response = await favoritePrefecture(selectedPrefectures);
+    const sortedSelectPrefectures = selectedPrefectures.sort();
+    const response = await favoritePrefecture(sortedSelectPrefectures);
 
     if (response?.status === 200) {
       // stateのfavorite_prefecturesを更新
-      accountStore.updateFavoritePrefectures(selectedPrefectures);
+      accountStore.updateFavoritePrefectures(sortedSelectPrefectures);
 
       commonStore.setFlashMessage('更新しました');
       setTimeout(() => {
