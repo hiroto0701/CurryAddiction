@@ -207,20 +207,25 @@ router.beforeEach(async (to, from, next) => {
   }
   document.title = (to.meta.title ? to.meta.title + ' | ' : '') + 'Curry Addiction';
 
+  // リロード時やアプリ起動時にユーザー情報を取得
+  if (accountStore.isLoadingUserData) {
+    await accountStore.fetchUserData();
+  }
+
   // signupページへのダイレクトアクセス制限
   if (to.name === 'Signup' && !accountStore.state.isNewRegistration) {
     return next({ name: 'Welcome' });
+  }
+
+  // ログイン中にWelcomeページにアクセスしようとした場合、Homeにリダイレクト
+  if (to.name === 'Welcome' && accountStore.isAuthenticated) {
+    return next({ name: 'Home' });
   }
 
   // 認証が必要なページへのアクセス制限
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     // リファラの設定
     commonStore.setOriginalRoute(from);
-
-    // リロード時ユーザー情報取得を待つ
-    if (accountStore.isLoadingUserData) {
-      await accountStore.fetchUserData();
-    }
 
     return accountStore.isAuthenticated ? next() : next({ name: 'Welcome' });
   }
