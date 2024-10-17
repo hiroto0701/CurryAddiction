@@ -186,6 +186,8 @@ async function doDelete(): Promise<void> {
     const response = await accountFormStore.deleteAccount(String(accountStore.state.uuid));
     if (response.status === 200) {
       closeModal();
+      accountStore.resetData();
+      window.alert('アカウントを削除しました。');
       router.push({ name: 'Welcome' });
       document.body.style.overflow = 'auto';
     } else {

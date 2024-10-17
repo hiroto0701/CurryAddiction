@@ -39,6 +39,7 @@ class DeleteInteractor
 
             // ServiceUserモデル削除
             $serviceUser->delete();
+            $serviceUser->update(['status' => ServiceUser::STATUS_DELETED]);
 
             DB::commit();
         } catch (\Exception $e) {
@@ -48,7 +49,7 @@ class DeleteInteractor
     }
 
     /**
-     * 同一メールアドレス登録できるようにunique制限を避けるためメールアドレスを更新する
+     * 次回同一メールアドレス登録できるようにunique制限を避けるためメールアドレスを更新する
      * ※ handle_name は更新しない
      *
      * @param ServiceUser $serviceUser

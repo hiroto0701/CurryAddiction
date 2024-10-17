@@ -57,7 +57,7 @@ onMounted(() => {
   <Menu class="relative flex items-center justify-center" as="div" v-slot="{ open }">
     <BottomTooltip :open text="お知らせ" position="bottom">
       <NotificationButton
-        class="peer relative flex h-8 w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"
+        class="peer relative flex h-8 w-8 items-center justify-center rounded-full transition-opacity duration-500 lg:hover:bg-gray-100"
         @click="markAsRead"
       />
       <span
