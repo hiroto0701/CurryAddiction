@@ -1,25 +1,13 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useAccountStore } from '@/stores/account';
-import { useCurryGenreStore } from '@/stores/curry_genre';
-import MeatballDropDown from '@/views/molecules/dropdown/MeatballDropDown.vue';
-import ScrollToTopButton from '@/views/molecules/buttons/ScrollToTopButton.vue';
-
-const accountStore = useAccountStore();
-const curryGenreStore = useCurryGenreStore();
-
-// カレーのジャンル情報を取得
-onMounted(() => {
-  curryGenreStore.fetchGenres();
-});
+import AuthenticatedHeader from '@/views/organisms/AuthenticatedHeader.vue';
+import AuthenticatedFooter from '@/views/organisms/AuthenticatedFooter.vue';
 </script>
 <template>
-  <RouterView />
-  <MeatballDropDown
-    class="z-10"
-    :key="accountStore.state.avatar_url ?? ''"
-    :handle-name="accountStore.state.handle_name"
-    :avatar-url="accountStore.state.avatar_url"
-  />
-  <ScrollToTopButton class="z-10" />
+  <div class="flex h-screen flex-col">
+    <AuthenticatedHeader />
+    <main class="xs:px-7 mx-auto my-12 flex h-auto w-full max-w-4xl flex-col px-6 sm:px-10">
+      <RouterView />
+    </main>
+    <AuthenticatedFooter />
+  </div>
 </template>
