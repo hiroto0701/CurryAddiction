@@ -1,75 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useAccountStore } from '@/stores/account';
-import { useAccountFormStore } from '@/stores/account_form';
-import { useCommonStore } from '@/stores/common';
 import CameraIcon from '@/views/atoms/icons/CameraIcon.vue';
 import HeartIcon from '@/views/atoms/icons/HeartIcon.vue';
 import SearchIcon from '@/views/atoms/icons/SearchIcon.vue';
 import LoginButton from '@/views/molecules/buttons/LoginButton.vue';
-import LoginModal from '@/views/molecules/modals/LoginModal.vue';
-import EmailRegisterModal from '@/views/molecules/modals/EmailRegisterModal.vue';
-import TokenSubmitModal from '@/views/molecules/modals/TokenSubmitModal.vue';
 import LpLogo from '@/views/molecules/lpComponents/LpLogo.vue';
 import LpText from '@/views/molecules/lpComponents/LpText.vue';
 import FeatureCard from '@/views/molecules/lpComponents/FeatureCard.vue';
 
-interface Props {
-  openModal: (modalName: 'login' | 'email' | 'token') => void;
-  closeModal: () => void;
-  modalState: 'login' | 'email' | 'token' | null;
-}
-const props = defineProps<Props>();
-
-const accountStore = useAccountStore();
-const accountFormStore = useAccountFormStore();
-const commonStore = useCommonStore();
-
-const email = defineModel<string>('email', { default: '' });
-const token = defineModel<string>('token', { default: '' });
-
-async function generateToken(): Promise<boolean> {
-  if (!accountStore.emailValidate(email.value)) return false;
-
-  accountFormStore.setEmail(email.value);
-  commonStore.startApiLoading();
-  const response: boolean = await accountStore.generateToken({ email: email.value });
-  commonStore.stopApiLoading();
-
-  if (response) {
-    props.closeModal();
-    props.openModal('token');
-    return true;
-  }
-
-  return false;
-}
-
-async function login(): Promise<boolean> {
-  if (!accountStore.tokenValidate(token.value)) return false;
-
-  accountFormStore.setToken(token.value);
-  commonStore.startApiLoading();
-  const loginSuccess: boolean = await accountStore.login({
-    email: email.value,
-    token: token.value
-  });
-  commonStore.stopApiLoading();
-
-  if (loginSuccess) {
-    props.closeModal();
-    return true;
-  }
-
-  return false;
-}
+const emits = defineEmits<{
+  (e: 'openModal'): void;
+}>();
 </script>
-
 <template>
   <section>
     <LpLogo title="Curry Addiction" sub-title="カレー好きのためのSNS" />
     <div class="mt-6 flex justify-center">
-      <LoginButton text="ログイン" @click="openModal('login')" />
+      <LoginButton text="ログイン" @click="emits('openModal')" />
     </div>
   </section>
 
@@ -111,7 +57,7 @@ async function login(): Promise<boolean> {
         <h2 class="font-body text-sumi-900">
           早速Curry Addictionに参加して、あなただけのカレーコレクションを作り上げましょう。
         </h2>
-        <LoginButton text="ログイン" @click="openModal('login')" />
+        <LoginButton text="ログイン" @click="emits('openModal')" />
       </div>
       <div class="-mt-4 flex justify-end sm:mt-6">
         <img
@@ -122,31 +68,4 @@ async function login(): Promise<boolean> {
       </div>
     </div>
   </div>
-
-  <form
-    @submit.prevent="login"
-    class="flex w-1/2 flex-col gap-4 border-r border-sumi-300 px-10"
-    novalidate
-  >
-    <Teleport to="body">
-      <LoginModal
-        v-show="modalState === 'login'"
-        @start-login="openModal('email')"
-        :closeModal="closeModal"
-      />
-      <EmailRegisterModal
-        v-show="modalState === 'email'"
-        v-model="email"
-        @send-email="generateToken"
-        :closeModal="closeModal"
-      />
-      <TokenSubmitModal
-        v-show="modalState === 'token'"
-        v-model="token"
-        :email
-        @do-login="login"
-        :closeModal="closeModal"
-      />
-    </Teleport>
-  </form>
 </template>
