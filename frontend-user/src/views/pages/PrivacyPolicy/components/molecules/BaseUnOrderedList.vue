@@ -6,7 +6,7 @@ interface Props {
 defineProps<Props>();
 </script>
 <template>
-  <ul class="mt-5 flex flex-col gap-2 pl-10 font-body text-sm leading-relaxed text-sumi-800">
+  <ul class="mt-5 flex flex-col gap-2 pl-5 font-body text-sm leading-relaxed text-sumi-800">
     <li v-for="(item, index) in items" :key="index" class="list-disc">
       {{ item }}
     </li>

@@ -58,7 +58,7 @@ const groupedPrefectures = computed((): GroupedRegion[] => {
   <SideBar v-model="isMenuOpen" position="right" :menu-component="PostFilterButton">
     <template #default="{ close }">
       <div class="flex items-center justify-between">
-        <h2 class="font-body text-sm text-sumi-600">表示する投稿の絞り込み条件</h2>
+        <h2 class="font-body text-sm text-sumi-600">投稿の絞り込み</h2>
         <CloseButton @close="close" />
       </div>
 

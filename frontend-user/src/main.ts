@@ -17,10 +17,7 @@ axios.defaults.withXSRFToken = true;
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
-    if ([401, 419].includes(error.response.status)) {
-      // 認証エラーの場合、ランディングページに遷移させる
-      router.push({ name: 'Welcome' });
-    } else if ([403, 404].includes(error.response.status)) {
+    if ([403, 404].includes(error.response.status)) {
       // 一律404画面を表示する
       router.replace({ name: 'ErrorNotFound' });
     }
