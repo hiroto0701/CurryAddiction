@@ -175,7 +175,7 @@ export const useAccountFormStore = defineStore('account_form', () => {
       resetErrors();
       commonStore.startApiLoading();
 
-      const response = await axios.put('/api/service_users/display_name', {
+      const response = await axios.put('/api/service_users/display-name', {
         display_name: displayName
       });
 

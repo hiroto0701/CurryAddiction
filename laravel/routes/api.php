@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 // ユーザー情報関連
 Route::prefix('/service_users')->group(function() {
-    Route::post('/generate_token', \App\Domains\ServiceUser\Controller\GenerateAuthTokenAction::class);
+    Route::post('/generate-token', \App\Domains\ServiceUser\Controller\GenerateAuthTokenAction::class);
     // 認証API
     Route::post('/login', \App\Domains\ServiceUser\Controller\LoginAction::class);
     // ユーザー新規登録
@@ -30,7 +30,7 @@ Route::prefix('/service_users')->group(function() {
 
     Route::middleware(['auth:service_users'])->group(function() {
         Route::put('/avatar', \App\Domains\ServiceUser\Controller\UpdateAvatarAction::class);
-        Route::put('/display_name', \App\Domains\ServiceUser\Controller\UpdateDisplayNameAction::class);
+        Route::put('/display-name', \App\Domains\ServiceUser\Controller\UpdateDisplayNameAction::class);
         Route::post('/logout', \App\Domains\ServiceUser\Controller\LogoutAction::class);
         Route::delete('/{service_user:uuid}', \App\Domains\ServiceUser\Controller\DeleteAction::class);
     });

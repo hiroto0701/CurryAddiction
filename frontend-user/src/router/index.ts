@@ -34,7 +34,7 @@ const routes = [
   },
   {
     path: '/privacy-policy',
-    component: () => import('@/views/templates/pages/UnAuthenticatedLayout.vue'),
+    component: () => import('@/views/templates/pages/ConditionalLayout.vue'),
     children: [
       {
         path: '',
@@ -48,11 +48,11 @@ const routes = [
   },
   {
     path: '/',
-    component: () => import('@/views/templates/pages/AuthenticatedLayout.vue'),
+    component: () => import('@/views/templates/pages/MainLayout.vue'),
     children: [
       {
         path: '',
-        component: () => import('@/views/templates/pages/DefaultLayout.vue'),
+        component: () => import('@/views/templates/pages/AuthenticatedLayout.vue'),
         meta: { requiresAuth: true },
         children: [
           {

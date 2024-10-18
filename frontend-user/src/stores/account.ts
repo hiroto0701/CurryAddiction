@@ -141,7 +141,7 @@ export const useAccountStore = defineStore('account', () => {
   async function generateToken(payload: { email: string }): Promise<boolean> {
     try {
       await axios.get('/sanctum/csrf-cookie');
-      await axios.post('/api/service_users/generate_token', {
+      await axios.post('/api/service_users/generate-token', {
         email: payload.email
       });
 
