@@ -1,5 +1,6 @@
 <script setup lang="ts">
 /// <reference types="google.maps" />
+import { Loader } from '@googlemaps/js-api-loader';
 import { ref, onMounted } from 'vue';
 import LocationIcon from '@/views/atoms/icons/LocationIcon.vue';
 
@@ -17,8 +18,18 @@ let map: google.maps.Map;
 let marker: google.maps.marker.AdvancedMarkerElement;
 let infoWindow: google.maps.InfoWindow;
 
+const loader = new Loader({
+  apiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY_DEV,
+  version: 'weekly',
+  libraries: ['places'],
+  region: 'JP',
+  language: 'ja'
+});
+
 function createCustomInfoWindowContent(formattedAddress: string): string {
-  const googleMapsLink = `https://www.google.com/maps?q=${props.officialName}${formattedAddress}`;
+  const encodedName = encodeURIComponent(props.officialName);
+  const encodedAddress = encodeURIComponent(formattedAddress);
+  const googleMapsLink = `https://www.google.com/maps?q=${encodedName} ${encodedAddress}`;
   return `
     <div>
       <h3 class="text-base font-medium">${props.officialName}</h3>
@@ -29,59 +40,64 @@ function createCustomInfoWindowContent(formattedAddress: string): string {
 }
 
 async function initMap() {
-  const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary;
-  const { AdvancedMarkerElement } = (await google.maps.importLibrary(
-    'marker'
-  )) as google.maps.MarkerLibrary;
+  try {
+    const { Map } = (await loader.importLibrary('maps')) as google.maps.MapsLibrary;
+    const { AdvancedMarkerElement } = (await loader.importLibrary(
+      'marker'
+    )) as google.maps.MarkerLibrary;
 
-  const mapOptions = {
-    center: { lat: props.latitude, lng: props.longitude },
-    zoom: 16,
-    mapId: 'DEMO_MAP_ID'
-  };
-  map = new Map(mapElement.value!, mapOptions);
+    const mapOptions: google.maps.MapOptions = {
+      center: { lat: props.latitude, lng: props.longitude },
+      zoom: 16,
+      mapId: 'DEMO_MAP_ID'
+    };
 
-  infoWindow = new google.maps.InfoWindow();
+    if (!mapElement.value) {
+      throw new Error('Map element not found');
+    }
 
-  marker = new AdvancedMarkerElement({
-    position: { lat: props.latitude, lng: props.longitude },
-    map: map
-  });
+    map = new Map(mapElement.value, mapOptions);
 
-  reverseGeocode(props.latitude, props.longitude);
+    infoWindow = new google.maps.InfoWindow();
+
+    marker = new AdvancedMarkerElement({
+      position: { lat: props.latitude, lng: props.longitude },
+      map: map
+    });
+
+    await reverseGeocode(props.latitude, props.longitude);
+  } catch (error) {
+    console.error('Error initializing map:', error);
+    address.value = '地図の初期化に失敗しました';
+  }
 }
 
-function reverseGeocode(lat: number, lng: number) {
+async function reverseGeocode(lat: number, lng: number): Promise<void> {
   const geocoder = new google.maps.Geocoder();
   const latlng = { lat, lng };
 
-  geocoder
-    .geocode({ location: latlng })
-    .then((response) => {
-      if (response.results[0]) {
-        const formattedAddress = response.results[0].formatted_address;
-        address.value = formattedAddress;
-        const content = createCustomInfoWindowContent(formattedAddress);
-        infoWindow.setContent(content);
-        infoWindow.open(map, marker);
-      } else {
-        address.value = '住所が見つかりません';
-        const content = createCustomInfoWindowContent('住所が見つかりません');
-        infoWindow.setContent(content);
-        infoWindow.open(map, marker);
-      }
-    })
-    .catch((e) => {
-      console.error('Geocoder failed due to: ' + e);
-      address.value = 'ジオコーディングに失敗しました';
-      const content = createCustomInfoWindowContent('ジオコーディングに失敗しました');
+  try {
+    const response = await geocoder.geocode({ location: latlng });
+    if (response.results[0]) {
+      const formattedAddress = response.results[0].formatted_address;
+      address.value = formattedAddress;
+      const content = createCustomInfoWindowContent(formattedAddress);
       infoWindow.setContent(content);
       infoWindow.open(map, marker);
-    });
+    } else {
+      throw new Error('No results found');
+    }
+  } catch (error) {
+    console.error('Geocoder failed:', error);
+    address.value = 'ジオコーディングに失敗しました';
+    const content = createCustomInfoWindowContent('ジオコーディングに失敗しました');
+    infoWindow.setContent(content);
+    infoWindow.open(map, marker);
+  }
 }
 
-onMounted(() => {
-  initMap();
+onMounted(async () => {
+  await initMap();
 });
 </script>
 <template>
