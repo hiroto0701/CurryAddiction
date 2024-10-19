@@ -21,7 +21,7 @@ let infoWindow: google.maps.InfoWindow;
 const loader = new Loader({
   apiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY_DEV,
   version: 'weekly',
-  libraries: ['places'],
+  libraries: ['places', 'marker'],
   region: 'JP',
   language: 'ja'
 });
