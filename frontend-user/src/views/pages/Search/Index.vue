@@ -1,5 +1,6 @@
 <script setup lang="ts">
 /// <reference types="google.maps" />
+import { Loader } from '@googlemaps/js-api-loader';
 import { ref, onMounted } from 'vue';
 
 const mapContainer = ref<HTMLElement | null>(null);
@@ -8,70 +9,83 @@ let map: google.maps.Map;
 let markers: google.maps.marker.AdvancedMarkerElement[] = [];
 let infoWindow: google.maps.InfoWindow | null = null;
 
+const loader = new Loader({
+  apiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY_DEV,
+  version: 'weekly',
+  libraries: ['places', 'marker'],
+  region: 'JP',
+  language: 'ja'
+});
+
 async function initMap(position?: GeolocationPosition) {
   if (!mapContainer.value) return;
 
-  const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary;
-  const { AdvancedMarkerElement } = (await google.maps.importLibrary(
-    'marker'
-  )) as google.maps.MarkerLibrary;
+  try {
+    await loader.importLibrary('maps');
+    await loader.importLibrary('marker');
+    await loader.importLibrary('places');
 
-  const defaultPosition = { lat: 35.6812, lng: 139.7671 }; // 東京駅をデフォルト位置にする
-  const center = position
-    ? { lat: position.coords.latitude, lng: position.coords.longitude }
-    : defaultPosition;
+    const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary;
+    const { AdvancedMarkerElement } = (await google.maps.importLibrary(
+      'marker'
+    )) as google.maps.MarkerLibrary;
 
-  // 地図の初期化
-  const mapOptions = {
-    center,
-    zoom: 15,
-    mapTypeControl: true,
-    mapId: 'DEMO_MAP_ID'
-  };
+    const defaultPosition = { lat: 35.6812, lng: 139.7671 }; // 東京駅をデフォルト位置にする
+    const center = position
+      ? { lat: position.coords.latitude, lng: position.coords.longitude }
+      : defaultPosition;
 
-  map = new Map(mapContainer.value, mapOptions);
+    // 地図の初期化
+    const mapOptions = {
+      center,
+      zoom: 15,
+      mapTypeControl: true,
+      mapId: 'DEMO_MAP_ID'
+    };
 
-  // InfoWindow の初期化
-  infoWindow = new google.maps.InfoWindow();
+    map = new Map(mapContainer.value, mapOptions);
 
-  // SearchBox初期化
-  const input = document.getElementById('pac-input') as HTMLInputElement;
-  searchBox.value = new google.maps.places.SearchBox(input);
+    // InfoWindow の初期化
+    infoWindow = new google.maps.InfoWindow();
 
-  // SearchBoxの結果が変更されたときのイベント
-  searchBox.value.addListener('places_changed', () => {
-    const places = searchBox.value?.getPlaces();
+    // SearchBox初期化
+    const input = document.getElementById('pac-input') as HTMLInputElement;
+    searchBox.value = new google.maps.places.SearchBox(input);
 
-    if (!places || places.length === 0) {
-      return;
-    }
+    // SearchBoxの結果が変更されたときのイベント
+    searchBox.value.addListener('places_changed', () => {
+      const places = searchBox.value?.getPlaces();
 
-    // 古いマーカーをクリア
-    markers.forEach((marker) => {
-      marker.map = null;
-    });
-    markers = [];
-
-    const bounds = new google.maps.LatLngBounds();
-
-    places.forEach((place) => {
-      if (!place.geometry || !place.geometry.location) {
-        console.log('Returned place contains no geometry');
+      if (!places || places.length === 0) {
         return;
       }
 
-      // 各場所にAdvancedMarkerElementを作成
-      const marker = new AdvancedMarkerElement({
-        map,
-        position: place.geometry.location,
-        title: place.name
+      // 古いマーカーをクリア
+      markers.forEach((marker) => {
+        marker.map = null;
       });
+      markers = [];
 
-      markers.push(marker);
+      const bounds = new google.maps.LatLngBounds();
 
-      // InfoWindow のコンテンツを作成
-      const googleMapsLink = `https://www.google.com/maps?q=${place.name}${place.formatted_address}`;
-      const content = `
+      places.forEach((place) => {
+        if (!place.geometry || !place.geometry.location) {
+          console.log('Returned place contains no geometry');
+          return;
+        }
+
+        // 各場所にAdvancedMarkerElementを作成
+        const marker = new AdvancedMarkerElement({
+          map,
+          position: place.geometry.location,
+          title: place.name
+        });
+
+        markers.push(marker);
+
+        // InfoWindow のコンテンツを作成
+        const googleMapsLink = `https://www.google.com/maps?q=${place.name}${place.formatted_address}`;
+        const content = `
         <div>
           <h3 class="text-base font-medium">${place.name}</h3>
           <p>${place.formatted_address || ''}</p>
@@ -79,27 +93,30 @@ async function initMap(position?: GeolocationPosition) {
         </div>
       `;
 
-      // マーカーにクリックイベントを追加
-      marker.addListener('click', () => {
-        infoWindow?.setContent(content);
-        infoWindow?.open(map, marker);
+        // マーカーにクリックイベントを追加
+        marker.addListener('click', () => {
+          infoWindow?.setContent(content);
+          infoWindow?.open(map, marker);
+        });
+
+        // 検索結果が1件のみの場合、InfoWindowを自動的に表示
+        if (places.length === 1) {
+          infoWindow?.setContent(content);
+          infoWindow?.open(map, marker);
+        }
+
+        if (place.geometry.viewport) {
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
       });
 
-      // 検索結果が1件のみの場合、InfoWindowを自動的に表示
-      if (places.length === 1) {
-        infoWindow?.setContent(content);
-        infoWindow?.open(map, marker);
-      }
-
-      if (place.geometry.viewport) {
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
-      }
+      map?.fitBounds(bounds);
     });
-
-    map?.fitBounds(bounds);
-  });
+  } catch (error) {
+    console.error('Error initializing Google Maps:', error);
+  }
 }
 
 onMounted(async () => {
