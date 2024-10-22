@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useCommonStore } from '@/stores/common';
-import { usePostForm } from '@/composables/functions/usePostForm';
+import { usePostForm } from '@/composables/usePostForm';
 import {
   convertPrefectureNameToPrefId,
   convertPrefectureNameToRegionId

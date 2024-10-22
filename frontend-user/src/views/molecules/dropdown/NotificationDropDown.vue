@@ -4,7 +4,7 @@ import { ref, onMounted } from 'vue';
 import { Menu } from '@headlessui/vue';
 import { useCommonStore } from '@/stores/common';
 import type { Notification, PaginationStatus } from '@/types/notification';
-import { useFetchNotifications } from '@/composables/functions/useFetchNotifications';
+import { useFetchNotifications } from '@/composables/useFetchNotifications';
 import NotificationButton from '@/views/molecules/buttons/NotificationButton.vue';
 import NotificationList from '@/views/molecules/NotificationList.vue';
 import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue';

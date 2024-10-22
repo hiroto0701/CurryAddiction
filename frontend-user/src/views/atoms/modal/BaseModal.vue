@@ -28,7 +28,6 @@ defineProps<Props>();
   animation-name: slide-in;
   animation-duration: 3s;
   animation-iteration-count: 1;
-  animation-fill-mode: forwards;
 }
 @keyframes slide-in {
   0% {
