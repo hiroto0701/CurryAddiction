@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { useRoute, RouterLink } from 'vue-router';
 import AppLogo from '@/views/atoms/icons/AppLogo.vue';
 import LoginButton from '@/views/molecules/buttons/LoginButton.vue';
+
+const route = useRoute();
 
 const emits = defineEmits<{
   (e: 'openModal'): void;
@@ -14,7 +16,12 @@ const emits = defineEmits<{
     >
       <div class="flex w-fit flex-col gap-5">
         <AppLogo />
-        <LoginButton class="mx-auto" text="ログイン" @click="emits('openModal')" />
+        <LoginButton
+          v-if="route.name !== 'Signup'"
+          class="mx-auto"
+          text="ログイン"
+          @click="emits('openModal')"
+        />
       </div>
       <div class="flex flex-col gap-4">
         <RouterLink to="privacy-policy" class="block w-fit font-body text-sumi-600"

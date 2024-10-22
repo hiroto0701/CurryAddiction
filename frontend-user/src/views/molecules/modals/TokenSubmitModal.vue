@@ -9,7 +9,7 @@ import FloatingLabelTextInputFormItem from '@/views/molecules/formItems/Floating
 import SubmitButton from '@/views/molecules/buttons/SubmitButton.vue';
 
 interface Props {
-  closeModal: () => void;
+  closeAuthModal: () => void;
   email: string;
 }
 const props = defineProps<Props>();
@@ -28,7 +28,7 @@ const emits = defineEmits<{
 }>();
 </script>
 <template>
-  <BaseModal :closeModal>
+  <BaseModal :close-modal="closeAuthModal">
     <ModalBody title="認証コードを送りました" :content="modalContent" />
     <ModalFooter>
       <FloatingLabelTextInputFormItem

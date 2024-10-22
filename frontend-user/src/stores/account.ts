@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useCommonStore } from '@/stores/common';
+import { useAuthModalStore } from '@/stores/auth_modal';
 import type { FavoriteGenre, FavoritePrefecture } from '@/types/favorite';
 
 interface AccountState {
@@ -162,6 +163,8 @@ export const useAccountStore = defineStore('account', () => {
 
   // ログイン
   async function login(payload: { email: string; token: string }): Promise<boolean> {
+    const authModalStore = useAuthModalStore();
+
     try {
       const response = await axios.post('/api/service_users/login', {
         email: payload.email,
@@ -195,6 +198,7 @@ export const useAccountStore = defineStore('account', () => {
               return false;
             } else if (response.data.status === 'pending') {
               state.value.isNewRegistration = true;
+              authModalStore.closeAuthModal();
               router.push({ name: 'Signup' });
               return false;
             } else {

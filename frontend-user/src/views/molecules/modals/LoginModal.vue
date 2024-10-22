@@ -5,7 +5,7 @@ import ModalFooter from '@/views/atoms/modal/ModalFooter.vue';
 import LoginButton from '@/views/molecules/buttons/LoginButton.vue';
 
 interface Props {
-  closeModal: () => void;
+  closeAuthModal: () => void;
 }
 defineProps<Props>();
 
@@ -16,7 +16,7 @@ const emits = defineEmits<{
 }>();
 </script>
 <template>
-  <BaseModal :closeModal>
+  <BaseModal :close-modal="closeAuthModal">
     <ModalBody title="Curry Addiction" :content="modalContent" />
     <ModalFooter>
       <LoginButton text="ログイン" @click="emits('startLogin')" />

@@ -1,7 +1,7 @@
 import { ref, reactive, watch, onMounted, type Ref } from 'vue';
 import type { Genre } from '@/types/genre';
-import { useValidatePost } from '@/composables/functions/useValidatePost';
-import { useCreatePost } from '@/composables/functions/useCreatePost';
+import { useValidatePost } from '@/composables/useValidatePost';
+import { useCreatePost } from '@/composables/useCreatePost';
 import { useCurryGenreStore } from '@/stores/curry_genre';
 
 export function usePostForm() {

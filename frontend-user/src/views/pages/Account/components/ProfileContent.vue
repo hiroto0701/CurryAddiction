@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import type { ServiceUser } from '@/types/serviceUser';
-import { useFetchProfile } from '@/composables/functions/useFetchProfile';
+import { useFetchProfile } from '@/composables/useFetchProfile';
 import GotoSettingPageButton from '@/views/molecules/buttons/GotoSettingPageButton.vue';
 import DisplayNameBrowseItem from '@/views/molecules/browseItems/DisplayNameBrowseItem.vue';
 import HandleNameBrowseItem from '@/views/molecules/browseItems/HandleNameBrowseItem.vue';

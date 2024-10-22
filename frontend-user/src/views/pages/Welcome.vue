@@ -63,7 +63,7 @@ const emits = defineEmits<{
         <img
           src="http://localhost:9000/local-curry_addiction/illust/circle_of_people.svg"
           class="w-36 sm:w-44"
-          alt="人が輪になっている画像"
+          alt="イラスト"
         />
       </div>
     </div>
