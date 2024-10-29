@@ -28,6 +28,7 @@ const tooltipText = computed(() => {
   return route.name === 'PostCreate' || !referrer.value ? 'ホームへ戻る' : '戻る';
 });
 </script>
+
 <template>
   <BottomTooltip :text="tooltipText" position="bottom">
     <router-link

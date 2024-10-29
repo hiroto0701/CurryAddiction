@@ -7,6 +7,7 @@ interface Props {
 
 defineProps<Props>();
 </script>
+
 <template>
   <div>
     <div class="mb-3 flex items-center gap-2">

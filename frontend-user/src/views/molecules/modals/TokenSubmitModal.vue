@@ -27,6 +27,7 @@ const emits = defineEmits<{
   (e: 'doLogin'): void;
 }>();
 </script>
+
 <template>
   <BaseModal :close-modal="closeAuthModal">
     <ModalBody title="認証コードを送りました" :content="modalContent" />

@@ -98,6 +98,7 @@ function paintCalendar() {
 
 onMounted(() => paintCalendar());
 </script>
+
 <template>
   <div
     class="relative"
@@ -125,6 +126,7 @@ onMounted(() => paintCalendar());
     </div>
   </div>
 </template>
+
 <style>
 #ch-tooltip {
   @apply flex select-none items-center justify-center whitespace-nowrap rounded-lg border border-gray-200 bg-white px-2 py-2 font-body text-xs text-sumi-500 shadow-sm;

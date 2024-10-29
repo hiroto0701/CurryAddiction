@@ -3,6 +3,7 @@ import HomePagePlaceholder from '@/views/molecules/noContentPlaceholder/HomePage
 import PostList from '@/views/organisms/PostList.vue';
 import PostListSkeleton from '@/views/organisms/PostListSkeleton.vue';
 </script>
+
 <template>
   <Suspense>
     <template #default>

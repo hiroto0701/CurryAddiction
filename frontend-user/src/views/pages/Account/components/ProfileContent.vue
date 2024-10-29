@@ -40,6 +40,7 @@ watch(
   }
 );
 </script>
+
 <template>
   <div class="mb-12 overflow-hidden rounded-2xl border p-6 md:p-7">
     <div class="flex items-center gap-3.5 py-6">

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import BaseButton from '@/views/atoms/BaseButton.vue';
-import LoadingSpinner from '@/views/atoms/LoadingSpinner.vue';
 
 interface Props {
   readonly text: string;
 }
 defineProps<Props>();
 </script>
+
 <template>
   <BaseButton
     type="button"

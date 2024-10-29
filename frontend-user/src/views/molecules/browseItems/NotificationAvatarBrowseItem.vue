@@ -6,6 +6,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <div class="rounded-full border border-gray-300">
     <div class="h-10 w-10">

@@ -7,6 +7,7 @@ interface Props {
 
 defineProps<Props>();
 </script>
+
 <template>
   <div
     class="fixed left-0 top-0 z-40 flex h-full w-full items-center justify-center bg-sumi-800 bg-opacity-50 px-5 backdrop-blur-sm"
@@ -23,6 +24,7 @@ defineProps<Props>();
     </div>
   </div>
 </template>
+
 <style scoped>
 .modal {
   animation-name: slide-in;

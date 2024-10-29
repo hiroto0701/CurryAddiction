@@ -5,6 +5,7 @@ interface Props {
 
 defineProps<Props>();
 </script>
+
 <template>
   <p class="truncate font-body text-sm text-sumi-500">curry-addiction/{{ handleName }}</p>
 </template>

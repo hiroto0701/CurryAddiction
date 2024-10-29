@@ -8,6 +8,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <Toast class="bg-red-500">
     <ToastBody :message :icon-component="ErrorIcon" />

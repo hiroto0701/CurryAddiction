@@ -4,6 +4,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <div v-show="isLoading" class="flex justify-center" aria-label="読み込み中">
     <div

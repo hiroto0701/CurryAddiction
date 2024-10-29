@@ -3,6 +3,7 @@ import ImgSkeleton from '@/views/molecules/skeletons/ImgSkeleton.vue';
 import IconSkeleton from '@/views/molecules/skeletons/IconSkeleton.vue';
 import TextSkeleton from '@/views/molecules/skeletons/TextSkeleton.vue';
 </script>
+
 <template>
   <div class="h-12"></div>
   <div class="xs:px-7 mx-auto w-full max-w-screen-md animate-pulse px-6 sm:px-10">

@@ -3,6 +3,7 @@ import ImgSkeleton from '@/views/molecules/skeletons/ImgSkeleton.vue';
 import IconSkeleton from '@/views/molecules/skeletons/IconSkeleton.vue';
 import TextSkeleton from '@/views/molecules/skeletons/TextSkeleton.vue';
 </script>
+
 <template>
   <div class="h-80 animate-pulse overflow-hidden rounded-lg border border-gray-200">
     <div class="h-52 w-full border-gray-200">

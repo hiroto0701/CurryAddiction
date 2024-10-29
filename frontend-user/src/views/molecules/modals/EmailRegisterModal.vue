@@ -24,6 +24,7 @@ const emits = defineEmits<{
   (e: 'sendEmail'): void;
 }>();
 </script>
+
 <template>
   <BaseModal :close-modal="closeAuthModal">
     <ModalBody title="メールアドレス入力" :content="modalContent" />

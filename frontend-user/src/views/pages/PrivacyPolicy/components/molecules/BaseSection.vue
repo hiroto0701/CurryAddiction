@@ -7,6 +7,7 @@ interface Props {
 
 defineProps<Props>();
 </script>
+
 <template>
   <section>
     <BaseHeading :level="2">{{ title }}</BaseHeading>

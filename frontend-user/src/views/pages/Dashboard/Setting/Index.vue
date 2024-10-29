@@ -209,6 +209,7 @@ onUnmounted((): void => {
   accountFormStore.resetErrors();
 });
 </script>
+
 <template>
   <DashboardContent title="設定">
     <DashboardSection>

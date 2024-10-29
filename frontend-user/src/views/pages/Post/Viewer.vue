@@ -2,6 +2,7 @@
 import PostDetail from '@/views/pages/Post/components/PostDetail.vue';
 import PostDetailSkeleton from '@/views/pages/Post/components/PostDetailSkeleton.vue';
 </script>
+
 <template>
   <Suspense>
     <template #default>

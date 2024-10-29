@@ -5,6 +5,7 @@ import ErrorToast from '@/views/molecules/toasts/ErrorToast.vue';
 
 const commonStore = useCommonStore();
 </script>
+
 <template>
   <RouterView />
   <SuccessToast v-if="commonStore.state.flashMessage" :message="commonStore.state.flashMessage" />

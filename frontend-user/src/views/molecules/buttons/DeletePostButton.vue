@@ -11,6 +11,7 @@ const emits = defineEmits<{
   (e: 'delete'): void;
 }>();
 </script>
+
 <template>
   <BottomTooltip :text position="bottom">
     <button

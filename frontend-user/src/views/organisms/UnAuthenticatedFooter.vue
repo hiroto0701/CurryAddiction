@@ -9,6 +9,7 @@ const emits = defineEmits<{
   (e: 'openModal'): void;
 }>();
 </script>
+
 <template>
   <footer class="mt-auto bg-sumi-50 py-12">
     <div

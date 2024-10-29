@@ -53,6 +53,7 @@ function getTextColorClass(routeName: string): string {
   return router.currentRoute.value.name === routeName ? 'text-sumi-900' : 'text-sumi-500';
 }
 </script>
+
 <template>
   <SideBar v-model="isMenuOpen" position="left" :menu-component="HamburgerMenuButton">
     <template #default="{ close }">

@@ -14,6 +14,7 @@ const button = tv({
   }
 });
 </script>
+
 <template>
   <BaseButton type="button" :class="button()" text="投稿する" />
 </template>

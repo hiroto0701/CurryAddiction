@@ -10,6 +10,7 @@ defineProps<Props>();
 
 const value = defineModel<string>();
 </script>
+
 <template>
   <FloatingLabelFormItem :label :type :is-error v-model="value" />
 </template>

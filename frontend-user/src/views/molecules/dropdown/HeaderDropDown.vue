@@ -88,6 +88,7 @@ const menuItems: MenuItem[] = [
   { label: 'ログアウト', icon: LogoutIcon, event: 'logout' }
 ];
 </script>
+
 <template>
   <Menu as="div" class="relative" v-slot="{ open }">
     <BottomTooltip :open text="メニュー" position="bottom">

@@ -15,6 +15,7 @@ function navigateAndClose(close: () => void): void {
   close();
 }
 </script>
+
 <template>
   <MenuItem class="flex items-center gap-x-2 px-4 text-sm" v-slot="{ close }">
     <button
