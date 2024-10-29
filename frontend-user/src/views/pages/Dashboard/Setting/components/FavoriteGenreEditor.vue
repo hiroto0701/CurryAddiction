@@ -13,6 +13,7 @@ const emits = defineEmits<{
   (e: 'cancel'): void;
 }>();
 </script>
+
 <template>
   <div class="flex flex-col gap-5">
     <div class="grid grid-cols-2 gap-4">

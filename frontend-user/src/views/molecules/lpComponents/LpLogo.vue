@@ -7,6 +7,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <div class="flex flex-col items-center justify-center gap-4">
     <LogoIcon class="w-32" />

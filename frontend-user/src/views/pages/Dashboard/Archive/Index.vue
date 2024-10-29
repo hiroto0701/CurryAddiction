@@ -4,6 +4,7 @@ import ArchivePagePlaceholder from '@/views/molecules/noContentPlaceholder/Archi
 import PostListSkeleton from '@/views/organisms/PostListSkeleton.vue';
 import PostList from '@/views/organisms/PostList.vue';
 </script>
+
 <template>
   <DashboardContent title="保存した投稿">
     <Suspense>

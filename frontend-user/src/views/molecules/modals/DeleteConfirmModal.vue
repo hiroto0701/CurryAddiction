@@ -19,6 +19,7 @@ const emits = defineEmits<{
   (e: 'cancel'): void;
 }>();
 </script>
+
 <template>
   <BaseModal :closeModal>
     <ModalBody :title="modalTitle" :content="modalContent" />

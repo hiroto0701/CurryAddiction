@@ -10,6 +10,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <router-link
     :to="{ name: 'UserPage', params: { username: handleName } }"

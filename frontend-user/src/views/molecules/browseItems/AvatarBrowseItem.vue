@@ -7,6 +7,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <div class="relative rounded-full border border-gray-300">
     <AvatarIcon :preview :avatar-url />

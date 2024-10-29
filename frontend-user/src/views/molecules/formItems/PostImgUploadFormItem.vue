@@ -25,6 +25,7 @@ const emits = defineEmits<{
   (e: 'delete'): void;
 }>();
 </script>
+
 <template>
   <FormLayout :label :required :iconComponent>
     <div class="flex gap-2">

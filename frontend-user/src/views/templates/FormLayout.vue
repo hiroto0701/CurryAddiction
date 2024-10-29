@@ -8,6 +8,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <div class="mt-8">
     <label class="mb-3 flex items-center gap-2">

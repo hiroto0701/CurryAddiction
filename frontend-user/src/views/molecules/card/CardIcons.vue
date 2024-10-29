@@ -26,6 +26,7 @@ function toggleLike(): void {
   emits('like');
 }
 </script>
+
 <template>
   <div class="flex h-fit justify-between px-1.5 py-1">
     <div

@@ -7,6 +7,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <span class="mr-1 font-semibold text-sumi-900 hover:underline">
     <router-link :to="{ name: 'UserPage', params: { username: handleName } }" class="">

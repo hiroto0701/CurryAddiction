@@ -14,6 +14,7 @@ function navigateAndClose(close: () => void): void {
   close();
 }
 </script>
+
 <template>
   <router-link
     :to="{ name: 'UserPage', params: { username: handleName } }"

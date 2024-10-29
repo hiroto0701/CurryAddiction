@@ -5,6 +5,7 @@ const emits = defineEmits<{
   (e: 'close'): void;
 }>();
 </script>
+
 <template>
   <button
     class="group flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-200"

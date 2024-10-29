@@ -14,6 +14,7 @@ const className = computed(() => {
     : 'w-full border-b border-gray-200 pb-2 font-body text-lg text-sumi-800';
 });
 </script>
+
 <template>
   <component :is="tag" :class="className">
     <slot />

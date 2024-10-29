@@ -61,6 +61,7 @@ async function doLogin(): Promise<void> {
   }
 }
 </script>
+
 <template>
   <main>
     <div class="mx-auto w-full max-w-[600px] px-6 py-10 sm:px-10">

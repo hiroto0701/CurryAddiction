@@ -5,6 +5,7 @@ const emit = defineEmits<{
   (e: 'edit'): void;
 }>();
 </script>
+
 <template>
   <RegionSettingButton
     class="inline-flex items-center justify-center border px-4 py-3 text-sm"

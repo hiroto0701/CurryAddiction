@@ -8,8 +8,10 @@ interface Props {
   readonly registeredAt: string;
   readonly postSummary: number;
 }
+
 defineProps<Props>();
 </script>
+
 <template>
   <div class="leading-normal">
     <div class="flex min-h-14 items-center">

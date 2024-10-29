@@ -215,6 +215,7 @@ watch(
   { deep: true }
 );
 </script>
+
 <template>
   <div class="relative w-full">
     <PostFilterSideBar

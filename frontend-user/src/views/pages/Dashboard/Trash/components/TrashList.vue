@@ -117,6 +117,7 @@ async function doRestore() {
   }
 }
 </script>
+
 <template>
   <div class="grid grid-cols-1 gap-10" v-if="posts.length">
     <p class="font-body text-sm text-utility">

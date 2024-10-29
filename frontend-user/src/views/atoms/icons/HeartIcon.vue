@@ -5,6 +5,7 @@ interface Props {
 
 defineProps<Props>();
 </script>
+
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -22,6 +23,7 @@ defineProps<Props>();
     />
   </svg>
 </template>
+
 <style scoped>
 .heart-beat {
   animation: heartBeat 0.25s;

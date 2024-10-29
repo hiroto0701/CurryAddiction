@@ -16,6 +16,7 @@ const emit = defineEmits<{
   (e: 'load', nextPage: number | null): number;
 }>();
 </script>
+
 <template>
   <MenuItems
     class="flex w-72 flex-col items-center justify-center rounded bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5"

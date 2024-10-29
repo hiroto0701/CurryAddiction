@@ -7,6 +7,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <RouterLink :to="{ name: 'Setting' }">
     <BaseButton

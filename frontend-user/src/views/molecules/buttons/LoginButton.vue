@@ -8,6 +8,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <BaseButton
     type="submit"

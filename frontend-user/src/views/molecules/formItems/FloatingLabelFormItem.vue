@@ -12,6 +12,7 @@ defineProps<Props>();
 const value = defineModel<string>();
 const isFocused = ref<boolean>(false);
 </script>
+
 <template>
   <div class="relative w-full">
     <label

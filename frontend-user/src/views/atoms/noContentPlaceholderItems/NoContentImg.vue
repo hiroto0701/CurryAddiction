@@ -4,6 +4,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <img :src alt="コンテンツが空の時イラスト" />
 </template>

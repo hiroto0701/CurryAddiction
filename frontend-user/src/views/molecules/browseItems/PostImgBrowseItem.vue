@@ -4,6 +4,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <img :src="postImg" alt="投稿画像" />
 </template>

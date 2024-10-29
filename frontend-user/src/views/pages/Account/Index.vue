@@ -23,6 +23,7 @@ onErrorCaptured((err: unknown) => {
   return false;
 });
 </script>
+
 <template>
   <template v-if="!error">
     <Suspense>

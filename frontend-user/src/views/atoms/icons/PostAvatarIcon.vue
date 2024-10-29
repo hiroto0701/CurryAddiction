@@ -14,6 +14,7 @@ const avatar = computed((): string => {
   }
 });
 </script>
+
 <template>
   <div class="w-7">
     <img

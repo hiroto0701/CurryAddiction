@@ -12,6 +12,7 @@ defineProps<Props>();
 
 const emits = defineEmits(['restore', 'delete']);
 </script>
+
 <template>
   <div class="flex-1">
     <StoreNameBrowseItem

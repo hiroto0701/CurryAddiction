@@ -6,6 +6,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <div class="rounded-full border border-gray-300">
     <PostAvatarIcon :avatar-url />

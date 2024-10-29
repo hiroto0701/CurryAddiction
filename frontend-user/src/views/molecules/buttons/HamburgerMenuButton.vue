@@ -24,6 +24,7 @@ const menuButton = tv({
   ]
 });
 </script>
+
 <template>
   <button :class="menuButton()" aria-label="メニューを開く" @click="emit('toggleMenu')">
     <MenuBarIcon class="text-sumi-900" />

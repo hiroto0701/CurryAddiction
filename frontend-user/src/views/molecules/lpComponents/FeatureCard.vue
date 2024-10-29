@@ -8,6 +8,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <div class="border-sumi-150 rounded-xl border p-7">
     <div class="flex items-center justify-center">
