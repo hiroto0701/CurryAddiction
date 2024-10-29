@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Support\Facades\App;
 
 class FileViewAction extends Controller
 {
@@ -51,14 +52,25 @@ class FileViewAction extends Controller
             throw new NotFoundHttpException();
         }
 
-        return response(
-            Storage::disk('s3')->get($uploadfile->path),
-            Response::HTTP_OK,
-            [
-                'Content-Type' => $uploadfile->content_type,
-                'Content-description' => 'inline;',
-            ]
-        );
+        if (App::environment('local')) {
+            return response(
+                Storage::disk('s3')->get($uploadfile->path),
+                Response::HTTP_OK,
+                [
+                    'Content-Type' => $uploadfile->content_type,
+                    'Content-description' => 'inline;',
+                ]
+            );
+        } else {
+            return response(
+                Storage::disk('r2')->get($uploadfile->path),
+                Response::HTTP_OK,
+                [
+                    'Content-Type' => $uploadfile->content_type,
+                    'Content-description' => 'inline;',
+                ]
+            );
+        }
     }
 
     /**
@@ -77,13 +89,24 @@ class FileViewAction extends Controller
             throw new NotFoundHttpException();
         }
 
-        return response(
-            Storage::disk('s3')->get($uploadfile->path),
-            Response::HTTP_OK,
-            [
-                'Content-Type' => $uploadfile->content_type,
-                'Content-description' => 'inline;',
-            ]
-        );
+        if (App::environment('local')) {
+            return response(
+                Storage::disk('s3')->get($uploadfile->path),
+                Response::HTTP_OK,
+                [
+                    'Content-Type' => $uploadfile->content_type,
+                    'Content-description' => 'inline;',
+                ]
+            );
+        } else {
+            return response(
+                Storage::disk('r2')->get($uploadfile->path),
+                Response::HTTP_OK,
+                [
+                    'Content-Type' => $uploadfile->content_type,
+                    'Content-description' => 'inline;',
+                ]
+            );
+        }
     }
 }

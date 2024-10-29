@@ -52,4 +52,11 @@ $app->singleton(
 |
 */
 
+switch ($_SERVER['SERVER_NAME'] ?? 'localhost') {
+    case 'https://curry-addiction.com/':
+        $app->loadEnvironmentFrom('.env.production'); // 本番環境用のenvファイル
+        break;
+}
+
+
 return $app;

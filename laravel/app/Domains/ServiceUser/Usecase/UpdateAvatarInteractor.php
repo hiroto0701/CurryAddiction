@@ -12,6 +12,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\App;
 
 class UpdateAvatarInteractor
 {
@@ -34,7 +35,11 @@ class UpdateAvatarInteractor
                 $uploadfile->path = $uploadDir . $uploadfile->uuid . '.' . $command->getFileExtension();
                 $uploadfile->content_type = $command->getContentType();
                 $uploadfile->uploaded_at = Carbon::now();
-                Storage::disk('s3')->put($uploadfile->path, $command->getFileContent());
+                if (App::environment('local')) {
+                    Storage::disk('s3')->put($uploadfile->path, $command->getFileContent());
+                } else {
+                    Storage::disk('s3')->put($uploadfile->path, $command->getFileContent());
+                }
                 $uploadfile->save();
             }
             $service_user->avatar_id = $uploadfile->id;
