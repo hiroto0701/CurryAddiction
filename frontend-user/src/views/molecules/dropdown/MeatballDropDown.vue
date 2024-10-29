@@ -59,6 +59,7 @@ function getTextColorClass(routeName: string): string {
   return router.currentRoute.value.name === routeName ? 'text-sumi-900' : 'text-sumi-500';
 }
 </script>
+
 <template>
   <Menu as="div" class="fixed bottom-9 left-3 z-40 md:left-14" v-slot="{ open }">
     <TopTooltip :open text="メニュー" position="top">

@@ -6,6 +6,7 @@ const router = useRouter();
 
 const isSearchPage = computed(() => router.currentRoute.value.meta.group === 'Search');
 </script>
+
 <template>
   <svg
     v-if="isSearchPage"

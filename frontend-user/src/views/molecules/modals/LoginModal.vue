@@ -15,6 +15,7 @@ const emits = defineEmits<{
   (e: 'startLogin'): void;
 }>();
 </script>
+
 <template>
   <BaseModal :close-modal="closeAuthModal">
     <ModalBody title="Curry Addiction" :content="modalContent" />

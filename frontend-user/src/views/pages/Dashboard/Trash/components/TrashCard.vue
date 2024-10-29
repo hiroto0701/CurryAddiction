@@ -15,6 +15,7 @@ const emits = defineEmits<{
   (e: 'restore'): void;
 }>();
 </script>
+
 <template>
   <div class="flex gap-5 sm:gap-7">
     <TrashCardPreview :src="src" :store-name="storeName" :comment="comment" />

@@ -11,6 +11,7 @@ const emits = defineEmits<{
   (e: 'openModal'): void;
 }>();
 </script>
+
 <template>
   <section>
     <LpLogo title="Curry Addiction" sub-title="カレー好きのためのSNS" />

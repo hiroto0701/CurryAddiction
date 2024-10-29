@@ -10,6 +10,7 @@ const emits = defineEmits<{
   (e: 'cancel'): void;
 }>();
 </script>
+
 <template>
   <div class="flex items-center gap-2">
     <UpdateButton

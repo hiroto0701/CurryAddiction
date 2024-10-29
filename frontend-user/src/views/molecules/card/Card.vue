@@ -25,6 +25,7 @@ const emits = defineEmits<{
   (e: 'handlePost'): void;
 }>();
 </script>
+
 <template>
   <article class="overflow-hidden rounded-lg border border-gray-200">
     <div class="flex h-14 items-center justify-between border-b border-gray-200 bg-white p-3">

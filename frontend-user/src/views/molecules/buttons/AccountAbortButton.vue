@@ -17,6 +17,7 @@ const button = tv({
   }
 });
 </script>
+
 <template>
   <BaseButton :class="button()" text="作成せずに終了する" />
 </template>

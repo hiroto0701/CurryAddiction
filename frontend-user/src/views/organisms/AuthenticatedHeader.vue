@@ -43,6 +43,7 @@ function doLogout(): void {
   });
 }
 </script>
+
 <template>
   <div>
     <MainHeader class="bg-curry py-4">

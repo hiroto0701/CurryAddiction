@@ -16,6 +16,7 @@ const emits = defineEmits<{
   (e: 'cancel'): void;
 }>();
 </script>
+
 <template>
   <BaseModal :closeModal>
     <ModalBody title="アカウントの作成をやめますか？" :content="modalContent" />

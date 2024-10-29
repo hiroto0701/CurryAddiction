@@ -3,6 +3,7 @@ import { RouterLink } from 'vue-router';
 import EditIcon from '@/views/atoms/icons/EditIcon.vue';
 import BottomTooltip from '@/views/molecules/tooltips/BottomTooltip.vue';
 </script>
+
 <template>
   <BottomTooltip text="投稿を編集" position="bottom">
     <router-link

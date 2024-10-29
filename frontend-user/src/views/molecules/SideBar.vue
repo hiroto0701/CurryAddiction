@@ -48,6 +48,7 @@ const overlay = tv({
   }
 });
 </script>
+
 <template>
   <component :is="menuComponent" @toggle-menu="openMenu" />
   <aside :class="sidebar({ isOpen, position })" style="width: 258px">

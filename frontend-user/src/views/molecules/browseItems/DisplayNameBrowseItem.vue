@@ -5,6 +5,7 @@ interface Props {
 
 defineProps<Props>();
 </script>
+
 <template>
   <p class="truncate font-body">{{ displayName }}</p>
 </template>

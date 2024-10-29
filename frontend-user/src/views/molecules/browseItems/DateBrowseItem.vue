@@ -58,6 +58,7 @@ const displayDate = computed(() => {
   return diffInDays < 365 ? relativeTime.value : fullDate.value;
 });
 </script>
+
 <template>
   <Date class="text-utility" :date="props.date" :formatted-date="displayDate" />
 </template>

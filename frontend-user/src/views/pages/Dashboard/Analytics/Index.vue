@@ -9,6 +9,7 @@ import Analytics from '@/views/pages/Dashboard/Analytics/components/Analytics.vu
 
 const accountStore = useAccountStore();
 </script>
+
 <template>
   <DashboardContent title="投稿ダッシュボード">
     <DashboardSection>

@@ -7,6 +7,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <div class="relative flex items-center gap-2.5 px-3 py-1">
     <LocationIcon />

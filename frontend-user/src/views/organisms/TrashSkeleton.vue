@@ -2,6 +2,7 @@
 import IconSkeleton from '@/views/molecules/skeletons/IconSkeleton.vue';
 import TextSkeleton from '@/views/molecules/skeletons/TextSkeleton.vue';
 </script>
+
 <template>
   <div class="flex animate-pulse gap-5 sm:gap-7">
     <div class="h-[110px] w-[90px] rounded-lg border border-gray-200 bg-slate-200"></div>

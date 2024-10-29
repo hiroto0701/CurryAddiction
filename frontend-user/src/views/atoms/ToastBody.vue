@@ -16,6 +16,7 @@ const errorMessage = tv({
   base: 'font-body text-sm text-white'
 });
 </script>
+
 <template>
   <component :is="iconComponent" :class="errorIcon()" />
   <p :class="errorMessage()">{{ message }}</p>

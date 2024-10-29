@@ -15,6 +15,7 @@ const avatar = computed((): string => {
   }
 });
 </script>
+
 <template>
   <img
     v-show="preview"

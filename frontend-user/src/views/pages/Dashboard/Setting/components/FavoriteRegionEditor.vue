@@ -44,6 +44,7 @@ const emits = defineEmits<{
   (e: 'cancel'): void;
 }>();
 </script>
+
 <template>
   <div class="flex flex-col gap-5">
     <details v-for="region in groupedPrefectures" :key="region.regionId">

@@ -7,8 +7,10 @@ interface Props {
   readonly src: string;
   readonly comment?: string;
 }
+
 defineProps<Props>();
 </script>
+
 <template>
   <div class="select-none opacity-80">
     <aside

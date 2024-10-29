@@ -54,6 +54,7 @@ const groupedPrefectures = computed((): GroupedRegion[] => {
   return Object.values(groupedByRegion).sort((a, b) => a.regionId - b.regionId);
 });
 </script>
+
 <template>
   <SideBar v-model="isMenuOpen" position="right" :menu-component="PostFilterButton">
     <template #default="{ close }">

@@ -6,6 +6,7 @@ import BaseSection from '@/views/pages/PrivacyPolicy/components/molecules/BaseSe
 import BaseUnorderedList from '@/views/pages/PrivacyPolicy/components/molecules/BaseUnOrderedList.vue';
 import PrivacyPolicySection from '@/views/pages/PrivacyPolicy/components/organisms/PrivacyPolicySection.vue';
 </script>
+
 <template>
   <div class="flex flex-col gap-12">
     <BaseHeading :level="1">プライバシーポリシー</BaseHeading>

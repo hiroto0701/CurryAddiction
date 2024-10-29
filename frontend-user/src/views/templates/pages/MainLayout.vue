@@ -13,6 +13,7 @@ onMounted(() => {
   curryGenreStore.fetchGenres();
 });
 </script>
+
 <template>
   <RouterView />
   <MeatballDropDown

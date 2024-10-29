@@ -6,6 +6,7 @@ const router = useRouter();
 
 const isHomePage = computed(() => router.currentRoute.value.name === 'Home');
 </script>
+
 <template>
   <svg
     v-if="isHomePage"

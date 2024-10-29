@@ -11,6 +11,7 @@ interface Props {
 
 defineProps<Props>();
 </script>
+
 <template>
   <BaseSection :title="title">
     <BaseParagraph v-for="(paragraph, index) in paragraphs" :key="index">

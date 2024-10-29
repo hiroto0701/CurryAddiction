@@ -100,6 +100,7 @@ onMounted(async () => {
   await initMap();
 });
 </script>
+
 <template>
   <div>
     <div class="mb-3 flex items-center gap-2">
