@@ -9,6 +9,8 @@
 
 ## 使用技術
 
+### dev
+
 - Frontend
 
   - Vue.js(Composition API)
@@ -27,6 +29,23 @@
   - Docker
   - Docker Compose
   - MinIO(an alternative to Amazon S3)
+
+### production
+
+- Frontend
+  - Vue.js(Firebase hosting)
+
+- Backend(API)
+  - Laravel(GCP Cloud run)
+
+- DB
+  - Postgresql(GCP Cloud SQL)
+
+- Object Storage
+  - Cloudflare R2
+
+- Session Management
+  - Redis(GCP Memorystore for Redis)
 
 ## ローカルで使ってみたい方へ
 
