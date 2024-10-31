@@ -6,6 +6,7 @@ const router = useRouter();
 
 const isPostPage = computed(() => router.currentRoute.value.name === 'PostCreate');
 </script>
+
 <template>
   <svg
     v-if="isPostPage"

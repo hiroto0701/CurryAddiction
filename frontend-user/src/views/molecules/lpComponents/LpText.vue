@@ -4,6 +4,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <p class="flex justify-center font-body leading-loose text-sumi-800">
     {{ text }}

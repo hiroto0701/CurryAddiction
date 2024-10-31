@@ -5,6 +5,7 @@ import UnAuthenticatedLayout from '@/views/templates/pages/UnAuthenticatedLayout
 
 const accountStore = useAccountStore();
 </script>
+
 <template>
   <AuthenticatedLayout v-if="accountStore.isAuthenticated" />
   <UnAuthenticatedLayout v-else />

@@ -17,6 +17,7 @@ const storeName = ref<string>(props.notification.notified_target.store_name);
 const slug = ref<string>(props.notification.notified_target.slug);
 const notifiedAt = ref<string>(props.notification.created_at);
 </script>
+
 <template>
   <MenuItem class="border-t border-gray-200 px-4 py-3 first:border-none" v-slot="{ close }">
     <div class="flex justify-between">

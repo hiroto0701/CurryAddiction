@@ -30,6 +30,7 @@ const itemStyles = tv({
   base: 'peer flex aspect-square w-8 items-center justify-center rounded-full transition-opacity duration-500 lg:hover:bg-gray-100'
 });
 </script>
+
 <template>
   <div class="flex items-center gap-1">
     <template v-for="item in navItems" :key="item.name">

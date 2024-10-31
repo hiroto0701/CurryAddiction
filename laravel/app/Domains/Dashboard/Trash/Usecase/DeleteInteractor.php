@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\UploadFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\App;
 
 class DeleteInteractor
 {
@@ -29,7 +30,11 @@ class DeleteInteractor
             // 画像ファイルの削除
             $uploadFile = UploadFile::find($post->post_img_id);
             if ($uploadFile) {
-                Storage::disk('s3')->delete($uploadFile->path);
+                if (App::environment('local')) {
+                    Storage::disk('s3')->delete($uploadFile->path);
+                } else {
+                    Storage::disk('r2')->delete($uploadFile->path);
+                }
                 $uploadFile->delete();
             }
 

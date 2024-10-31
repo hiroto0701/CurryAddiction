@@ -4,6 +4,7 @@ import LikePagePlaceholder from '@/views/molecules/noContentPlaceholder/LikePage
 import PostListSkeleton from '@/views/organisms/PostListSkeleton.vue';
 import PostList from '@/views/organisms/PostList.vue';
 </script>
+
 <template>
   <DashboardContent title="いいねした投稿">
     <Suspense>

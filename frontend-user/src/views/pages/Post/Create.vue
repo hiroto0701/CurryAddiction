@@ -106,6 +106,7 @@ async function doCreate() {
   }
 }
 </script>
+
 <template>
   <RegisterForm>
     <StoreNameFormItem

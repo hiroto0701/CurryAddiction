@@ -11,6 +11,7 @@ const emit = defineEmits<{
   (e: 'edit'): void;
 }>();
 </script>
+
 <template>
   <DisplayNameBrowseItem :display-name class="mt-3 text-sm text-utility" />
   <EditDisplayNameButton

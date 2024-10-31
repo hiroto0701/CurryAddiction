@@ -9,6 +9,7 @@ function pageTop(): void {
   });
 }
 </script>
+
 <template>
   <div class="fixed bottom-9 right-3 z-40 md:right-14">
     <TopTooltip text="ページトップへ" position="top">

@@ -5,6 +5,7 @@ import AvatarBrowseItem from '@/views/molecules/browseItems/AvatarBrowseItem.vue
 
 const accountStore = useAccountStore();
 </script>
+
 <template>
   <router-link
     :to="{ name: 'UserPage', params: { username: accountStore.state.handle_name } }"

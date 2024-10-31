@@ -12,6 +12,7 @@
     <span class="bubble10 absolute h-0.5 w-0.5 rounded-full bg-orange-500 opacity-0"></span>
   </div>
 </template>
+
 <style scoped>
 .bubble01 {
   animation: fadeOut01 0.5s;

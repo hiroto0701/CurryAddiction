@@ -8,6 +8,7 @@ const emit = defineEmits<{
   (e: 'toggleMenu'): void;
 }>();
 </script>
+
 <template>
   <button
     class="group relative mb-5 ml-auto mr-0 flex aspect-square w-9 items-center justify-center rounded-full transition-opacity duration-500 hover:bg-gray-100"

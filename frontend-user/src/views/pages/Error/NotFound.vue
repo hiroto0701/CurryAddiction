@@ -2,6 +2,7 @@
 import { RouterLink } from 'vue-router';
 import BaseButton from '@/views/atoms/BaseButton.vue';
 </script>
+
 <template>
   <div
     class="xs:px-7 mx-auto flex w-full max-w-screen-md flex-col items-center justify-center gap-4 px-6 py-20 sm:px-10"

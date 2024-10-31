@@ -53,6 +53,7 @@ onMounted(() => {
   loadNotifications();
 });
 </script>
+
 <template>
   <Menu class="relative flex items-center justify-center" as="div" v-slot="{ open }">
     <BottomTooltip :open text="お知らせ" position="bottom">

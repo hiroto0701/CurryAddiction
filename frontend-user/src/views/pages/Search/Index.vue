@@ -137,6 +137,7 @@ onMounted(async () => {
   }
 });
 </script>
+
 <template>
   <h1 class="font-body text-2xl font-medium">店舗検索</h1>
   <input

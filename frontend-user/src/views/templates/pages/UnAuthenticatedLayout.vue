@@ -9,6 +9,7 @@ import UnAuthenticatedFooter from '@/views/organisms/UnAuthenticatedFooter.vue';
 
 const authModalStore = useAuthModalStore();
 </script>
+
 <template>
   <div class="flex h-screen flex-col">
     <UnAuthenticatedHeader />

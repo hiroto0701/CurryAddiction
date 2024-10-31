@@ -16,6 +16,7 @@ const genreName = computed<string>(() => {
   return genre?.name || 'その他';
 });
 </script>
+
 <template>
   <div class="flex h-fit items-center gap-2.5">
     <GenreIcon />

@@ -17,6 +17,7 @@ function navigateAndClose(close: () => void): void {
   close();
 }
 </script>
+
 <template>
   <p>
     <NotificationUserNameLink :display-name :handle-name @click="navigateAndClose(close)" />さんが

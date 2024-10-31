@@ -6,6 +6,7 @@
     <slot />
   </div>
 </template>
+
 <style scoped>
 .toast {
   animation-name: slide-in;

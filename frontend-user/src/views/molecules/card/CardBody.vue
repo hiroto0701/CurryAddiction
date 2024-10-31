@@ -18,6 +18,7 @@ const emits = defineEmits<{
   (e: 'archive'): void;
 }>();
 </script>
+
 <template>
   <div class="flex h-28 flex-col justify-between pb-2">
     <CardIcons :is-liked :is-archived @like="emits('like')" @archive="emits('archive')" />

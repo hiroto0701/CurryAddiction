@@ -24,6 +24,7 @@ const button = tv({
   }
 });
 </script>
+
 <template>
   <BaseButton :class="button({ disabled: isLoading })" :text="text" :disabled="isLoading">
     <LoadingSpinner :is-loading="isLoading" />

@@ -19,7 +19,13 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'https://curry-addiction.com',
+
+        // 開発環境用
+        'http://localhost:8080',
+        'http://localhost:8081',
+    ],
 
     'allowed_origins_patterns' => [],
 

@@ -13,6 +13,7 @@ defineProps<Props>();
 
 const model = defineModel<string>();
 </script>
+
 <template>
   <FormLayout :label :required :iconComponent>
     <textarea

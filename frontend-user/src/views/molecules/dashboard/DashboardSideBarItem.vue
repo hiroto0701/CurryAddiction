@@ -12,6 +12,7 @@ interface Props {
 
 defineProps<Props>();
 </script>
+
 <template>
   <router-link
     :to="to"

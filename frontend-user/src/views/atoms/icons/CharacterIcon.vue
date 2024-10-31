@@ -4,6 +4,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <img :src alt="" class="aspect-square w-5" />
 </template>

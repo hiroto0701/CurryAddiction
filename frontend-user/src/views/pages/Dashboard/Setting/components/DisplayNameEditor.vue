@@ -19,6 +19,7 @@ const emits = defineEmits<{
   (e: 'cancel'): void;
 }>();
 </script>
+
 <template>
   <div class="relative">
     <DisplayNameFormItem v-model="model" :is-error />

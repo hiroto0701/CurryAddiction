@@ -6,6 +6,7 @@ import NoContentPlaceholder from '@/views/atoms/noContentPlaceholderItems/NoCont
 const message: string = `ようこそ、カレーの大冒険へ！
                         お気に入りのカレーをシェアしてカレー業界を盛り上げよう！`;
 </script>
+
 <template>
   <div class="flex w-full flex-col items-center justify-center py-16">
     <NoContentImg

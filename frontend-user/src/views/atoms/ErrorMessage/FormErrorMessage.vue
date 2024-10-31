@@ -5,6 +5,7 @@ interface Props {
 }
 defineProps<Props>();
 </script>
+
 <template>
   <div>
     <p v-show="errors" class="font-body text-xs text-red-400">

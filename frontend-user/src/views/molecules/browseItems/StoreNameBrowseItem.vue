@@ -7,6 +7,7 @@ interface Props {
 
 defineProps<Props>();
 </script>
+
 <template>
   <div class="flex h-fit items-center gap-2.5">
     <StoreIcon />
