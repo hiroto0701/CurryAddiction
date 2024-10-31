@@ -18,7 +18,9 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.19",
     "axios": "^1.6.7",
+    "dayjs": "^1.11.13",
     "pinia": "^2.1.7",
+    "tailwind-variants": "^0.2.1",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { useCommonStore } from '@/stores/common'
+
+const commonStore = useCommonStore()
 </script>
 
 <template>
