@@ -39,13 +39,13 @@
   - Laravel(GCP Cloud run)
 
 - DB
-  - Postgresql(GCP Cloud SQL)
+  - Postgresql(AWS RDS)
 
 - Object Storage
   - Cloudflare R2
 
 - Session Management
-  - Redis(GCP Memorystore for Redis)
+  - Redis(upStash)
 
 ## ローカルで使ってみたい方へ
 
