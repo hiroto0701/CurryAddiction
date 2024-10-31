@@ -9,10 +9,10 @@ use App\Models\Post;
 use App\Models\UploadFile;
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\App;
 
 class CreateInteractor
 {
@@ -61,7 +61,7 @@ class CreateInteractor
                 if (App::environment('local')) {
                     Storage::disk('s3')->put($uploadfile->path, $command->getFileContent());
                 } else {
-                    Storage::disk('s3')->put($uploadfile->path, $command->getFileContent());
+                    Storage::disk('r2')->put($uploadfile->path, $command->getFileContent());
                 }
                 $uploadfile->save();
             }
