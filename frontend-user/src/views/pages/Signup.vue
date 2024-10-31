@@ -72,7 +72,7 @@ async function doLogin(): Promise<void> {
           <div
             class="justify-stat mt-5 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-0"
           >
-            <div class="font-body text-sumi-600">curry-addiction /</div>
+            <div class="font-body text-sumi-600">curry-addiction.com /</div>
             <div class="relative w-full flex-1">
               <HandleNameFormItem
                 class="w-full sm:ml-1"
