@@ -1,7 +1,13 @@
+<script setup lang="ts">
+import { useStorageUrl } from '@/composables/useStorageUrl';
+
+const { getStorageUrl } = useStorageUrl();
+</script>
+
 <template>
   <img
     class="aspect-square"
-    src="http://localhost:9000/local-curry_addiction/logo/logo.svg"
+    :src="getStorageUrl('/logo/logo.svg')"
     alt="アプリケーションロゴ画像"
   />
 </template>
