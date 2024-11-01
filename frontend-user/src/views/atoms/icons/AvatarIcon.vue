@@ -12,7 +12,7 @@ const props = defineProps<Props>();
 
 const avatar = computed((): string => {
   if (props.avatarUrl === null) {
-    return getStorageUrl('/logo/avatar/default_avatar.jpg');
+    return getStorageUrl('/avatar/default_avatar.jpg');
   } else {
     return props.avatarUrl;
   }
