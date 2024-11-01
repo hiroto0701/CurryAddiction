@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useStorageUrl } from '@/composables/useStorageUrl';
 import CameraIcon from '@/views/atoms/icons/CameraIcon.vue';
 import HeartIcon from '@/views/atoms/icons/HeartIcon.vue';
 import SearchIcon from '@/views/atoms/icons/SearchIcon.vue';
@@ -6,6 +7,8 @@ import LoginButton from '@/views/molecules/buttons/LoginButton.vue';
 import LpLogo from '@/views/molecules/lpComponents/LpLogo.vue';
 import LpText from '@/views/molecules/lpComponents/LpText.vue';
 import FeatureCard from '@/views/molecules/lpComponents/FeatureCard.vue';
+
+const { getStorageUrl } = useStorageUrl();
 
 const emits = defineEmits<{
   (e: 'openModal'): void;
@@ -62,7 +65,7 @@ const emits = defineEmits<{
       </div>
       <div class="-mt-4 flex justify-end sm:mt-6">
         <img
-          src="http://localhost:9000/local-curry_addiction/illust/circle_of_people.svg"
+          :src="getStorageUrl('/illust/circle_of_people.svg')"
           class="w-36 sm:w-44"
           alt="イラスト"
         />

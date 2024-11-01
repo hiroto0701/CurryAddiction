@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useStorageUrl } from '@/composables/useStorageUrl';
 import type { PaginationStatus } from '@/types/post';
 import CharacterIcon from '@/views/atoms/icons/CharacterIcon.vue';
 import PaginationItem from '@/views/atoms/PaginationItem.vue';
+
+const { getStorageUrl } = useStorageUrl();
 
 interface Props {
   readonly paginationStatus: PaginationStatus | null;
@@ -90,7 +93,7 @@ function doNext(): void {
       class="mb-2 flex items-center gap-2 font-body text-sm text-sumi-600"
       v-if="paginationStatus.total !== null"
     >
-      <CharacterIcon src="http://localhost:9000/local-curry_addiction/illust/hungry-man.svg" />
+      <CharacterIcon :src="getStorageUrl('/illust/hungry-man.svg')" />
       全{{ paginationStatus.total }}件中 {{ paginationStatus.from || 0 }}件～{{
         paginationStatus.to || 0
       }}件を表示中
@@ -99,9 +102,9 @@ function doNext(): void {
       class="flex items-center gap-2 font-body text-sm text-sumi-600"
       v-if="paginationStatus.current_page !== null"
     >
-      <CharacterIcon
-        src="http://localhost:9000/local-curry_addiction/illust/hands-up-woman.svg"
-      />{{ paginationStatus.current_page }}ページ目
+      <CharacterIcon :src="getStorageUrl('/illust/hands-up-woman.svg')" />{{
+        paginationStatus.current_page
+      }}ページ目
     </p>
     <ul
       v-if="visiblePages.length"

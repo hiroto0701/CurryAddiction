@@ -46,7 +46,7 @@ let marker: google.maps.marker.AdvancedMarkerElement | null = null;
 let infoWindow: google.maps.InfoWindow | null = null;
 
 const loader = new Loader({
-  apiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY_DEV,
+  apiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY,
   version: 'weekly',
   libraries: ['places', 'marker'],
   region: 'JP',
@@ -71,7 +71,7 @@ async function initMap(position?: GeolocationPosition) {
       center,
       zoom: 15,
       mapTypeControl: true,
-      mapId: 'DEMO_MAP_ID'
+      mapId: 'import.meta.env.VITE_GOOGLE_MAP_ID'
     };
 
     map = new google.maps.Map(mapContainer.value, mapOptions);

@@ -14,13 +14,13 @@ import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCGBDpw868I0RuRL90NJ7gy1L3NISpalow',
-  authDomain: 'curryaddiction-8772e.firebaseapp.com',
-  projectId: 'curryaddiction-8772e',
-  storageBucket: 'curryaddiction-8772e.appspot.com',
-  messagingSenderId: '964769376449',
-  appId: '1:964769376449:web:703c92df84d25f10b44c40',
-  measurementId: 'G-EQD1QTC5GV'
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_API_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
