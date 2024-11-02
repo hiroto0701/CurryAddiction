@@ -1,6 +1,6 @@
 # CurryAddiction
 
-https://curry-addiciton.com
+[https://curry-addiciton.com](https://curry-addiction.com/)
 
 ## サービス概要
 
