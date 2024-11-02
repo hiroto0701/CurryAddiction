@@ -1,6 +1,6 @@
 # CurryAddiction
 
-ここに URL を記載。
+https://curry-addiciton.com
 
 ## サービス概要
 
