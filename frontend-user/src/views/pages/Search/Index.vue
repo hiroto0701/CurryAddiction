@@ -40,7 +40,7 @@ async function initMap(position?: GeolocationPosition) {
       center,
       zoom: 15,
       mapTypeControl: true,
-      mapId: 'import.meta.env.VITE_GOOGLE_MAP_ID'
+      mapId: import.meta.env.VITE_GOOGLE_MAP_ID
     };
 
     map = new Map(mapContainer.value, mapOptions);

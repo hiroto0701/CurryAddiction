@@ -12,7 +12,7 @@ const message: string = `ようこそ、カレーの大冒険へ！
 
 <template>
   <div class="flex w-full flex-col items-center justify-center py-16">
-    <NoContentImg class="aspect-square w-52" :src="getStorageUrl('illust/everyone.svg')" />
+    <NoContentImg class="aspect-square w-52" :src="getStorageUrl('/illust/everyone.svg')" />
     <NoContentHeading text="まだ投稿がありません。" />
     <NoContentPlaceholder class="text-center" :text="message" />
   </div>

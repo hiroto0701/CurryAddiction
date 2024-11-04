@@ -63,8 +63,8 @@ async function doLogin(): Promise<void> {
 </script>
 
 <template>
-  <main>
-    <div class="mx-auto w-full max-w-[600px] px-6 py-10 sm:px-10">
+  <div>
+    <div class="mx-auto w-full max-w-[600px] px-6 sm:px-10">
       <LpLogo title="Curry Addiction" sub-title="アカウントを作成します" />
       <div class="mx-auto mt-5 flex flex-col items-center rounded-3xl bg-slate-100 p-6">
         <h2 class="mx-auto w-fit font-body text-lg text-sumi-900">ハンドルネームを決めましょう</h2>
@@ -117,5 +117,5 @@ async function doLogin(): Promise<void> {
         :closeModal="closeModal"
       />
     </Teleport>
-  </main>
+  </div>
 </template>

@@ -21,6 +21,9 @@ return [
 
     'allowed_origins' => [
         'https://curry-addiction.com',
+        'https://www.curry-addiction.com',
+        'https://staging-api.curry-addiction.com',  // ステージング環境
+        'https://api.curry-addiction.com',          // 本番環境
 
         // 開発環境用
         'http://localhost:8080',

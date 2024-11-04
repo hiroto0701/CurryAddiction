@@ -13,7 +13,7 @@ const authModalStore = useAuthModalStore();
 <template>
   <div class="flex h-screen flex-col">
     <UnAuthenticatedHeader />
-    <main class="xs:px-7 mx-auto w-full max-w-screen-md px-6 py-20 sm:px-10">
+    <main class="xs:px-7 mx-auto w-full max-w-screen-md px-6 py-10 sm:px-10">
       <RouterView @open-modal="authModalStore.openAuthModal('login')" />
     </main>
 
