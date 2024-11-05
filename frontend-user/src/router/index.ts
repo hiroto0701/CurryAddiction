@@ -11,8 +11,7 @@ const routes = [
         path: '',
         name: 'Welcome',
         meta: {
-          title: '',
-          disableScroll: true
+          title: ''
         },
         component: () => import('@/views/pages/Welcome.vue')
       }
@@ -189,10 +188,6 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior(_, from) {
-    if (from.meta.disableScroll) {
-      return false;
-    }
-
     // ページ遷移のタイミングで一律最上部にスクロール
     return { top: 0 };
   }
