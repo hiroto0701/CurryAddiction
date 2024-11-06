@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useStorageUrl } from '@/composables/useStorageUrl';
+
+const { getStorageUrl } = useStorageUrl();
 
 interface Props {
   readonly avatarUrl: string | null;
@@ -8,7 +11,7 @@ const prop = defineProps<Props>();
 
 const avatar = computed((): string => {
   if (prop.avatarUrl === null) {
-    return '../../../../public/icon/default_avatar.jpg';
+    return getStorageUrl('/avatar/default_avatar.jpg');
   } else {
     return prop.avatarUrl;
   }
