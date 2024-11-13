@@ -81,7 +81,7 @@ function getTextColorClass(routeName: string): string {
       leave-to-class="transform opacity-0 scale-95"
     >
       <MenuItems
-        class="absolute top-[-11rem] z-10 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5"
+        class="absolute top-[-13.5rem] z-10 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5"
       >
         <DropDownMenuItem
           v-for="item in menuItems"
