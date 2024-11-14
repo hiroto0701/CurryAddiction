@@ -39,7 +39,7 @@
   - Laravel(GCP Cloud run)
 
 - DB
-  - Postgresql(AWS RDS)
+  - Postgresql(Supabase)
 
 - Object Storage
   - Cloudflare R2
