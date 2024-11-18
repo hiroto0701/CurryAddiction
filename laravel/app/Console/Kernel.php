@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('app:hard-delete-old-posts')->daily()->timezone('Asia/Tokyo');
-        $schedule->command('app:cleanup-pending-service-users')->everyFiveSeconds()->timezone('Asia/Tokyo');
+        $schedule->command('app:cleanup-pending-service-users')->daily()->timezone('Asia/Tokyo');
     }
 
     /**
