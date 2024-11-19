@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\ServiceUser;
 use App\Models\UploadFile;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -16,9 +17,21 @@ use Illuminate\Support\Facades\App;
 
 class FileViewAction extends Controller
 {
-
+    private const CACHE_TTL = 3600;
     public const TYPE_AVATAR = 1;
     public const TYPE_POST_IMG = 2;
+
+    private const TYPE_CONFIG = [
+        self::TYPE_AVATAR => [
+            'model' => ServiceUser::class,
+            'foreign_key' => 'avatar_id',
+        ],
+        self::TYPE_POST_IMG => [
+            'model' => Post::class,
+            'foreign_key' => 'post_img_id',
+            'with_trashed' => true,
+        ],
+    ];
 
     /**
      * @throws NotFoundHttpException
@@ -27,86 +40,47 @@ class FileViewAction extends Controller
      */
     public function __invoke(int $type, string $uuid): Response
     {
-        if ($type === self::TYPE_AVATAR) {
-            return $this->viewAvatar($uuid, 'avatar_id');
-        } else if ($type === self::TYPE_POST_IMG) {
-            return $this->viewPostImg($uuid, 'post_img_id');
+        if (!isset(self::TYPE_CONFIG[$type])) {
+            throw new NotFoundHttpException();
         }
 
-        throw new NotFoundHttpException();
+        return $this->viewFile($uuid, self::TYPE_CONFIG[$type]);
     }
 
     /**
      * @throws NotFoundHttpException
-     * @throws AccessDeniedHttpException
      * @throws FileNotFoundException
      */
-    protected function viewAvatar(string $uuid, string $foreignKey): Response
+    protected function viewFile(string $uuid, array $config): Response
     {
-        $uploadfile = UploadFile::where('uuid', $uuid)->first();
-        if ($uploadfile === null) {
-            throw new NotFoundHttpException();
-        }
-        $service_user = ServiceUser::where($foreignKey, $uploadfile->id)->first();
-        if ($service_user === null) {
-            throw new NotFoundHttpException();
-        }
+        // キャッシュキーの生成
+        $cacheKey = "file_view_{$uuid}";
 
-        if (App::environment('local')) {
-            return response(
-                Storage::disk('s3')->get($uploadfile->path),
-                Response::HTTP_OK,
-                [
-                    'Content-Type' => $uploadfile->content_type,
-                    'Content-description' => 'inline;',
-                ]
-            );
-        } else {
-            return response(
-                Storage::disk('r2')->get($uploadfile->path),
-                Response::HTTP_OK,
-                [
-                    'Content-Type' => $uploadfile->content_type,
-                    'Content-description' => 'inline;',
-                ]
-            );
-        }
-    }
+        return Cache::remember($cacheKey, self::CACHE_TTL, function () use ($uuid, $config) {
+            $uploadFile = UploadFile::where('uuid', $uuid)->first();
+            if ($uploadFile === null) {
+                throw new NotFoundHttpException();
+            }
 
-    /**
-     * @throws NotFoundHttpException
-     * @throws AccessDeniedHttpException
-     * @throws FileNotFoundException
-     */
-    protected function viewPostImg(string $uuid, string $foreignKey): Response
-    {
-        $uploadfile = UploadFile::where('uuid', $uuid)->first();
-        if ($uploadfile === null) {
-            throw new NotFoundHttpException();
-        }
-        $post = Post::withTrashed()->where($foreignKey, $uploadfile->id)->first();
-        if ($post === null) {
-            throw new NotFoundHttpException();
-        }
+            $query = $config['model']::query();
+            if ($config['with_trashed'] ?? false) {
+                $query->withTrashed();
+            }
 
-        if (App::environment('local')) {
-            return response(
-                Storage::disk('s3')->get($uploadfile->path),
-                Response::HTTP_OK,
-                [
-                    'Content-Type' => $uploadfile->content_type,
-                    'Content-description' => 'inline;',
-                ]
-            );
-        } else {
-            return response(
-                Storage::disk('r2')->get($uploadfile->path),
-                Response::HTTP_OK,
-                [
-                    'Content-Type' => $uploadfile->content_type,
-                    'Content-description' => 'inline;',
-                ]
-            );
-        }
+            $record = $query->where($config['foreign_key'], $uploadFile->id)->first();
+            if ($record === null) {
+                throw new NotFoundHttpException();
+            }
+
+            $disk = App::environment('local') ? 's3' : 'r2';
+            $content = Storage::disk($disk)->get($uploadFile->path);
+
+            return response($content, Response::HTTP_OK, [
+                'Content-Type' => $uploadFile->content_type,
+                'Content-Disposition' => 'inline',
+                'Cache-Control' => 'public, max-age=3600',
+                'Expires' => gmdate('D, d M Y H:i:s \G\M\T', time() + 3600),
+            ]);
+        });
     }
 }
