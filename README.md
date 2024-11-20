@@ -1,6 +1,6 @@
 # CurryAddiction
 
-[https://curry-addiciton.com](https://curry-addiction.com/)
+URLを記載する
 
 ## サービス概要
 
