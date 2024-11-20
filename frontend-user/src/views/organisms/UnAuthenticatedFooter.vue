@@ -25,20 +25,24 @@ const emits = defineEmits<{
         />
       </div>
       <div class="flex flex-col gap-4">
-        <RouterLink to="privacy-policy" class="block w-fit font-body text-sumi-600"
-          >プライバシーポリシー</RouterLink
-        >
+        <router-link :to="{ name: 'Terms' }" class="font-body text-sumi-600">
+          利用規約
+        </router-link>
+
+        <router-link :to="{ name: 'PrivacyPolicy' }" class="font-body text-sumi-600">
+          プライバシーポリシー
+        </router-link>
         <a
           class="block w-fit font-body text-sumi-600"
           href="https://forms.gle/JZk6xHmwX98snLbw6"
           target="_blank"
           rel="noopener noreferrer"
-          >お問い合わせ</a
-        >
+          >お問い合わせ
+        </a>
       </div>
     </div>
-    <small class="mx-auto mt-5 block w-fit select-none text-center font-body text-sumi-600"
-      >&copy; 2024 Curry Addiction</small
-    >
+    <small class="mx-auto mt-5 block w-fit select-none text-center font-body text-sumi-600">
+      &copy; 2024 Curry Addiction
+    </small>
   </footer>
 </template>

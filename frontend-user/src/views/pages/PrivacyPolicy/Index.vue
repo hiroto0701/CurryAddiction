@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import BaseHeading from '@/views/pages/PrivacyPolicy/components/atoms/BaseHeading.vue';
-import BaseParagraph from '@/views/pages/PrivacyPolicy/components/atoms/BaseParagraph.vue';
-import BaseLink from '@/views/pages/PrivacyPolicy/components/atoms/BaseLink.vue';
-import BaseSection from '@/views/pages/PrivacyPolicy/components/molecules/BaseSection.vue';
-import BaseUnorderedList from '@/views/pages/PrivacyPolicy/components/molecules/BaseUnOrderedList.vue';
-import PrivacyPolicySection from '@/views/pages/PrivacyPolicy/components/organisms/PrivacyPolicySection.vue';
+import BaseHeading from '@/views/atoms/document/BaseHeading.vue';
+import BaseParagraph from '@/views/atoms/document/BaseParagraph.vue';
+import BaseLink from '@/views/atoms/document/BaseLink.vue';
+import BaseSection from '@/views/molecules/document/BaseSection.vue';
+import BaseUnorderedList from '@/views/molecules/document/BaseUnOrderedList.vue';
+import DocumentSection from '@/views/organisms/DocumentSection.vue';
 </script>
 
 <template>
@@ -14,7 +14,7 @@ import PrivacyPolicySection from '@/views/pages/PrivacyPolicy/components/organis
       本サービスは、以下のプライバシーポリシーを定め、個人の情報に関する保護法（平成十五年法律第五十七号、以下「個人情報保護法」）を遵守すると共に、適切なプライバシー情報の保護に努めます。
     </BaseParagraph>
 
-    <PrivacyPolicySection
+    <DocumentSection
       title="第1条（プライバシー情報の定義）"
       :paragraphs="[
         'プライバシー情報とは、個人情報、履歴情報および特性情報を言います。',
@@ -23,7 +23,7 @@ import PrivacyPolicySection from '@/views/pages/PrivacyPolicy/components/organis
       ]"
     />
 
-    <PrivacyPolicySection
+    <DocumentSection
       title="第2条（プライバシー情報の収集方法）"
       :paragraphs="[
         '本サービスは、アカウントの有効性の確認やアカウントの保護のため、登録ユーザーが利用登録をする際にメールアドレスなどのプライバシー情報をお尋ねすることがあります。',
@@ -32,7 +32,7 @@ import PrivacyPolicySection from '@/views/pages/PrivacyPolicy/components/organis
       ]"
     />
 
-    <PrivacyPolicySection
+    <DocumentSection
       title="第3条（プライバシー情報を収集・利用する目的）"
       :paragraphs="['本サービスにおいてプライバシー情報を収集・利用する目的は、以下のとおりです。']"
       :list="[
@@ -44,14 +44,14 @@ import PrivacyPolicySection from '@/views/pages/PrivacyPolicy/components/organis
       ]"
     />
 
-    <PrivacyPolicySection
+    <DocumentSection
       title="第4条（プライバシー情報の安全管理措置）"
       :paragraphs="[
         '運営者は、個人情報の正確性及び安全性を確保するために、セキュリティ対策をはじめとする安全対策を実施し、個人情報の漏えい、滅失またはき損の防止及び是正に努めます。'
       ]"
     />
 
-    <PrivacyPolicySection
+    <DocumentSection
       title="第5条（プライバシー情報の第三者提供）"
       :paragraphs="[
         '運営者は、次に掲げる場合を除いて、予め登録ユーザーの同意を得ることなく、第三者に個人情報を提供することはありません。ただし、個人情報保護法その他の法令で認められる場合を除きます。'
@@ -93,16 +93,16 @@ import PrivacyPolicySection from '@/views/pages/PrivacyPolicy/components/organis
         </BaseLink>
         をご確認ください。
       </BaseParagraph>
-    </PrivacyPolicySection>
+    </DocumentSection>
 
-    <PrivacyPolicySection
+    <DocumentSection
       title="第6条（本サービス）"
       :paragraphs="[
         '本サービスは個人により運営されています。そのため、運営者の判断により、予告なくサービスの提供を終了することがあります。'
       ]"
     />
 
-    <PrivacyPolicySection
+    <DocumentSection
       title="第7条（プライバシーポリシーの変更）"
       :paragraphs="[
         '本ポリシーの内容は、登録ユーザーに通知することなく、変更できるものとします。運営者が別途定める場合を除いて、変更後のプライバシーポリシーは、本ページに掲載したときから効力を生じるものとします。'

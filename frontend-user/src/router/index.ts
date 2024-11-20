@@ -46,6 +46,20 @@ const routes = [
     ]
   },
   {
+    path: '/terms',
+    component: () => import('@/views/templates/pages/ConditionalLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Terms',
+        meta: {
+          title: '利用規約'
+        },
+        component: () => import('@/views/pages/Terms/Index.vue')
+      }
+    ]
+  },
+  {
     path: '/',
     component: () => import('@/views/templates/pages/MainLayout.vue'),
     children: [
@@ -187,7 +201,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-  scrollBehavior(_, from) {
+  scrollBehavior() {
     // ページ遷移のタイミングで一律最上部にスクロール
     return { top: 0 };
   }

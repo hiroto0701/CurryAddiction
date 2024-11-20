@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseHeading from '@/views/pages/PrivacyPolicy/components/atoms/BaseHeading.vue';
+import BaseHeading from '@/views/atoms/document/BaseHeading.vue';
 
 interface Props {
   title: string;
