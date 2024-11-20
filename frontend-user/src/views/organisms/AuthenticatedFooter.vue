@@ -49,7 +49,7 @@ function doLogout(): void {
         </router-link>
         <a
           class="font-body text-sumi-600"
-          href="https://forms.gle/roKqweFnKA8vMcSR9"
+          href="https://forms.gle/JZk6xHmwX98snLbw6"
           target="_blank"
           rel="noopener noreferrer"
           >お問い合わせ
