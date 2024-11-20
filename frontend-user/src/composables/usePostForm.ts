@@ -1,13 +1,15 @@
 import { ref, reactive, watch, onMounted, type Ref } from 'vue';
+import imageCompression from 'browser-image-compression';
 import type { Genre } from '@/types/genre';
 import { useValidatePost } from '@/composables/useValidatePost';
+import { useCommonStore } from '@/stores/common';
 import { useCreatePost } from '@/composables/useCreatePost';
 import { useCurryGenreStore } from '@/stores/curry_genre';
 
 export function usePostForm() {
+  const commonStore = useCommonStore();
   const { errors, validate } = useValidatePost();
   const { createPost } = useCreatePost();
-
   const curryGenreStore = useCurryGenreStore();
 
   const storeName = ref<string>('');
@@ -45,10 +47,36 @@ export function usePostForm() {
     ];
   });
 
-  function handleFileSelected(target: HTMLInputElement) {
-    if (target.files && target.files.length > 0) {
-      fileInfo.value = target.files[0];
-      preview.value = URL.createObjectURL(fileInfo.value);
+  async function handleFileSelected(target: HTMLInputElement) {
+    const compressionOptions = {
+      maxSizeMB: 1, // 最大1MB
+      maxWidthOrHeight: 1920, // 縦横最大1920px
+      useWebWorker: true,
+      initialQuality: 0.7 // 70%くらいの品質にする
+    };
+
+    if (!target.files || target.files.length === 0) return;
+
+    try {
+      const originalFile = target.files[0];
+
+      if (!originalFile.type.startsWith('image/')) {
+        fileInfo.value = originalFile;
+        preview.value = URL.createObjectURL(originalFile);
+        return;
+      }
+
+      // 画像を圧縮
+      const compressedFile = await imageCompression(originalFile, compressionOptions);
+
+      fileInfo.value = compressedFile;
+      preview.value = URL.createObjectURL(compressedFile);
+    } catch (error) {
+      console.error('画像の圧縮中にエラーが発生しました:', error);
+      commonStore.setErrorMessage('画像の処理に失敗しました');
+      setTimeout(() => {
+        commonStore.clearErrorMessage();
+      }, 4000);
     }
   }
 
