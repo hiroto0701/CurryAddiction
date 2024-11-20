@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import BaseParagraph from '@/views/pages/PrivacyPolicy/components/atoms/BaseParagraph.vue';
-import BaseSection from '@/views/pages/PrivacyPolicy/components/molecules/BaseSection.vue';
-import BaseOrderedList from '@/views/pages/PrivacyPolicy/components/molecules/BaseOrderedList.vue';
+import BaseParagraph from '@/views/atoms/document/BaseParagraph.vue';
+import BaseSection from '@/views/molecules/document/BaseSection.vue';
+import BaseOrderedList from '@/views/molecules/document/BaseOrderedList.vue';
 
 interface Props {
   title: string;
