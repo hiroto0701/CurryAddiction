@@ -25,9 +25,13 @@ const emits = defineEmits<{
         />
       </div>
       <div class="flex flex-col gap-4">
-        <RouterLink to="privacy-policy" class="block w-fit font-body text-sumi-600"
-          >プライバシーポリシー</RouterLink
-        >
+        <router-link :to="{ name: 'PrivacyPolicy' }" class="font-body text-sumi-600">
+          プライバシーポリシー
+        </router-link>
+
+        <router-link :to="{ name: 'Terms' }" class="font-body text-sumi-600">
+          利用規約
+        </router-link>
         <a
           class="block w-fit font-body text-sumi-600"
           href="https://forms.gle/JZk6xHmwX98snLbw6"

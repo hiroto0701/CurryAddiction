@@ -47,6 +47,10 @@ function doLogout(): void {
         <router-link :to="{ name: 'PrivacyPolicy' }" class="font-body text-sumi-600">
           プライバシーポリシー
         </router-link>
+
+        <router-link :to="{ name: 'Terms' }" class="font-body text-sumi-600">
+          利用規約
+        </router-link>
         <a
           class="font-body text-sumi-600"
           href="https://forms.gle/JZk6xHmwX98snLbw6"
