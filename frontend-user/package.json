@@ -19,6 +19,7 @@
     "@googlemaps/js-api-loader": "^1.16.8",
     "@headlessui/vue": "^1.7.19",
     "axios": "^1.6.7",
+    "browser-image-compression": "^2.0.2",
     "cal-heatmap": "^4.2.4",
     "dayjs": "^1.11.11",
     "firebase": "^10.14.1",
