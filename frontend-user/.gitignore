@@ -30,3 +30,7 @@ coverage
 *.tsbuildinfo
 
 .env.*
+
+# firebase関連
+.firebase
+.firebaserc
