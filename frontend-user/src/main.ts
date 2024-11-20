@@ -10,6 +10,7 @@ import type { Dayjs } from 'dayjs';
 import ja from 'dayjs/locale/ja';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import { useAccountStore } from '@/stores/account';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 
@@ -36,6 +37,11 @@ axios.interceptors.response.use(
     if ([403, 404].includes(error.response.status)) {
       // 一律404画面を表示する
       router.replace({ name: 'ErrorNotFound' });
+    } else if ([401].includes(error.response.status)) {
+      // 認証エラー時はWelcomeページへリダイレクト
+      const accountStore = useAccountStore();
+      accountStore.resetData();
+      router.replace({ name: 'Welcome' });
     }
     return Promise.reject(error);
   }
