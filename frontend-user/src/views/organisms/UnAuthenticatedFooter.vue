@@ -25,12 +25,12 @@ const emits = defineEmits<{
         />
       </div>
       <div class="flex flex-col gap-4">
-        <router-link :to="{ name: 'PrivacyPolicy' }" class="font-body text-sumi-600">
-          プライバシーポリシー
-        </router-link>
-
         <router-link :to="{ name: 'Terms' }" class="font-body text-sumi-600">
           利用規約
+        </router-link>
+
+        <router-link :to="{ name: 'PrivacyPolicy' }" class="font-body text-sumi-600">
+          プライバシーポリシー
         </router-link>
         <a
           class="block w-fit font-body text-sumi-600"
