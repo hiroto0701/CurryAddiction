@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import axios from 'axios';
+import imageCompression from 'browser-image-compression';
 import { ref, computed, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAccountStore } from '@/stores/account';
@@ -59,11 +60,38 @@ function closeModal(): void {
   document.body.style.overflow = 'auto';
 }
 
-function handleFileSelected(event: Event): void {
+async function handleFileSelected(event: Event) {
+  const compressionOptions = {
+    maxSizeMB: 1, // 最大1MB
+    maxWidthOrHeight: 1920, // 縦横最大1920px
+    useWebWorker: true,
+    initialQuality: 0.7 // 70%くらいの品質にする
+  };
+
   const target = event.target as HTMLInputElement;
-  if (target.files && target.files.length > 0) {
-    fileInfo.value = target.files[0];
-    preview.value = URL.createObjectURL(fileInfo.value);
+
+  if (!target.files || target.files.length === 0) return;
+
+  try {
+    const originalFile = target.files[0];
+
+    if (!originalFile.type.startsWith('image/')) {
+      fileInfo.value = originalFile;
+      preview.value = URL.createObjectURL(originalFile);
+      return;
+    }
+
+    // 画像を圧縮
+    const compressedFile = await imageCompression(originalFile, compressionOptions);
+
+    fileInfo.value = compressedFile;
+    preview.value = URL.createObjectURL(compressedFile);
+  } catch (error) {
+    console.error('画像の圧縮中にエラーが発生しました:', error);
+    commonStore.setErrorMessage('画像の処理に失敗しました');
+    setTimeout(() => {
+      commonStore.clearErrorMessage();
+    }, 4000);
   }
 }
 
