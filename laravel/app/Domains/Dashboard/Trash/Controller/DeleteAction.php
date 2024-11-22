@@ -6,6 +6,7 @@ namespace App\Domains\Dashboard\Trash\Controller;
 
 use App\Domains\Dashboard\Trash\Usecase\DeleteInteractor;
 use App\Http\Controllers\Controller;
+use App\Models\OperationLog;
 use App\Models\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
@@ -26,6 +27,9 @@ class DeleteAction extends Controller
     {
         try {
             $this->interactor->handle($post);
+
+            $this->addOperationLog(OperationLog::OPERATION_TYPE_DELETE, "投稿ID", $post->id);
+
             return response()->json([
                 'success' => true,
                 'message' => '投稿を完全に削除しました。'

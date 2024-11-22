@@ -8,7 +8,6 @@ use App\Domains\Post\Usecase\DeleteInteractor;
 use App\Http\Controllers\Controller;
 use App\Models\OperationLog;
 use App\Models\Post;
-use App\Models\User;
 use App\Traits\OperationLogTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
