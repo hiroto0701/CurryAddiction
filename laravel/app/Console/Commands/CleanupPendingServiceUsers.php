@@ -2,12 +2,18 @@
 
 namespace App\Console\Commands;
 
+use App\Models\OperationLog;
 use App\Models\ServiceUser;
+use App\Traits\OperationLogTrait;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class CleanupPendingServiceUsers extends Command
 {
+    use OperationLogTrait;
+
+    public const OPERATION_OVERVIEW = 'タスクスケジューラ―によるサービス利用者削除（物理削除）';
+
     /**
      * The name and signature of the console command.
      *
@@ -41,6 +47,8 @@ class CleanupPendingServiceUsers extends Command
             }
             $serviceUser->forceDelete();
             $deletedCount++;
+
+            $this->addOperationLog(OperationLog::OPERATION_TYPE_DELETE, "ユーザーID", $serviceUser->user_id);
         }
 
         $this->info("Deleted {$deletedCount} pending service users and their associated users older than 24 hours.");
