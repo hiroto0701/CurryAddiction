@@ -13,6 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// TODO
-// ミドルウェアの設定
 Route::get('/file/view/{type}/{uuid}', \App\Http\Controllers\FileViewAction::class)->name('file.view');
