@@ -19,8 +19,11 @@ RUN apt-get update && \
     vim \
     libpq-dev \
     libicu-dev \
+    libmagickwand-dev \  
     && git clone https://github.com/phpredis/phpredis.git /usr/src/php/ext/redis \
-    && docker-php-ext-install pdo_pgsql bcmath intl redis
+    && docker-php-ext-install pdo_pgsql bcmath intl redis \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php

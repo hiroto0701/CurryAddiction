@@ -72,8 +72,7 @@ class FileViewAction extends Controller
                 throw new NotFoundHttpException();
             }
 
-            $disk = App::environment('local') ? 's3' : 'r2';
-            $content = Storage::disk($disk)->get($uploadFile->path);
+            $content =  Storage::disk(App::environment('local') ? 's3' : 'r2')->get($uploadFile->path);
 
             return response($content, Response::HTTP_OK, [
                 'Content-Type' => $uploadFile->content_type,

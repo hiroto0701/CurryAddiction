@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Imagick\Driver;
 
 class CreateInteractor
 {
@@ -51,18 +53,19 @@ class CreateInteractor
             if (!empty($command->getFileContent())) {
                 $uploadDir = sprintf(config('constant.upload_files_path_format.post_img'), User::AuthId());
 
+                // webpに変換するためにImageManagerのインスタンスを作成
+                $manager = new ImageManager(new Driver());
+                $image = $manager->read($command->getFileContent());
+                $webpEncoded = $image->toWebp(60);
+
                 $uploadfile = new UploadFile();
                 $uploadfile->type = UploadFile::TYPE_POST_IMG;
                 $uploadfile->user_id = $command->getUserId();
                 $uploadfile->uuid = Str::uuid();
                 $uploadfile->path = $uploadDir . $uploadfile->uuid . '.' . $command->getFileExtension();
-                $uploadfile->content_type = $command->getContentType();
+                $uploadfile->content_type = 'image/webp';
                 $uploadfile->uploaded_at = Carbon::now();
-                if (App::environment('local')) {
-                    Storage::disk('s3')->put($uploadfile->path, $command->getFileContent());
-                } else {
-                    Storage::disk('r2')->put($uploadfile->path, $command->getFileContent());
-                }
+                Storage::disk(App::environment('local') ? 's3' : 'r2')->put($uploadfile->path, $webpEncoded);
                 $uploadfile->save();
             }
             $post->post_img_id = $uploadfile->id;

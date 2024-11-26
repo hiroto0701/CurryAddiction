@@ -30,11 +30,7 @@ class DeleteInteractor
             // 画像ファイルの削除
             $uploadFile = UploadFile::find($post->post_img_id);
             if ($uploadFile) {
-                if (App::environment('local')) {
-                    Storage::disk('s3')->delete($uploadFile->path);
-                } else {
-                    Storage::disk('r2')->delete($uploadFile->path);
-                }
+                Storage::disk(App::environment('local') ? 's3' : 'r2')->delete($uploadFile->path);
                 $uploadFile->delete();
             }
 
