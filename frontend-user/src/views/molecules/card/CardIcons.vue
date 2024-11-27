@@ -16,6 +16,7 @@ const emits = defineEmits<{
 }>();
 
 const localLikeState = ref<boolean>(props.isLiked);
+const localArchiveState = ref<boolean>(props.isArchived);
 
 const showLikeAnimation = computed((): boolean => {
   return !props.isLiked && localLikeState.value;
@@ -24,6 +25,11 @@ const showLikeAnimation = computed((): boolean => {
 function toggleLike(): void {
   localLikeState.value = !localLikeState.value;
   emits('like');
+}
+
+function toggleArchive(): void {
+  localArchiveState.value = !localArchiveState.value;
+  emits('archive');
 }
 </script>
 
@@ -48,12 +54,12 @@ function toggleLike(): void {
       <LikedAnimationDots v-show="showLikeAnimation" />
     </div>
     <div
-      @click.stop="emits('archive')"
+      @click.stop="toggleArchive"
       class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-opacity duration-500 md:hover:bg-gray-100"
     >
       <ArchiveIcon
         class="cursor-pointer text-gray-700"
-        :class="{ 'fill-gray-700': props.isArchived }"
+        :class="{ 'fill-gray-700': localArchiveState }"
       />
     </div>
   </div>
