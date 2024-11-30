@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,11 +18,14 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Genre::truncate();
 
         $this->call([
-            \Database\Seeders\Dev\AccountSeeder::class,
-            \Database\Seeders\Dev\MailTemplateSeeder::class,
-            \Database\Seeders\Dev\CurryGenreSeeder::class,
-            \Database\Seeders\Dev\RegionSeeder::class,
-            \Database\Seeders\Dev\PrefectureSeeder::class,
+            App::environment('local')
+                ? \Database\Seeders\Dev\AccountSeeder::class
+                : \Database\Seeders\Production\AccountSeeder::class,
+            \Database\Seeders\Common\MailTemplateSeeder::class,
+            \Database\Seeders\Common\CurryGenreSeeder::class,
+            \Database\Seeders\Common\RegionSeeder::class,
+            \Database\Seeders\Common\PrefectureSeeder::class,
         ]);
+
     }
 }
