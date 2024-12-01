@@ -46,6 +46,10 @@
 
 - Session Management
   - Redis(upStash)
+ 
+### DNS
+cloudflareのネームサーバーを使用しDNSレコードを一括管理。
+ネームサーバーかつCDNとしてcloudflareを活用。
 
 ## ローカルで使ってみたい方へ
 
