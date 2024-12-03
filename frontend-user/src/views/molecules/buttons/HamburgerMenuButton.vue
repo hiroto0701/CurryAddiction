@@ -7,7 +7,7 @@ const emit = defineEmits<{
 }>();
 
 const menuButton = tv({
-  base: 'fixed right-3 top-8 flex h-12 w-12 items-center justify-center rounded-full border border-gray-300 bg-white opacity-70 shadow-sm duration-300',
+  base: 'fixed right-3 top-8 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-gray-300 bg-white opacity-70 shadow-sm duration-300',
   variants: {
     visibility: {
       hidden: 'md:hidden'
