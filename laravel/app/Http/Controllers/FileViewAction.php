@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\App;
 
 class FileViewAction extends Controller
 {
-    private const CACHE_TTL = 3600;
     public const TYPE_AVATAR = 1;
     public const TYPE_POST_IMG = 2;
 
@@ -56,7 +55,7 @@ class FileViewAction extends Controller
         // キャッシュキーの生成
         $cacheKey = "file_view_{$uuid}";
 
-        return Cache::remember($cacheKey, self::CACHE_TTL, function () use ($uuid, $config) {
+        return Cache::remember($cacheKey, now()->addHours(24), function () use ($uuid, $config) {
             $uploadFile = UploadFile::where('uuid', $uuid)->first();
             if ($uploadFile === null) {
                 throw new NotFoundHttpException();
