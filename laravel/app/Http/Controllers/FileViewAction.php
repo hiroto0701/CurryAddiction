@@ -76,7 +76,7 @@ class FileViewAction extends Controller
             return response($content, Response::HTTP_OK, [
                 'Content-Type' => $uploadFile->content_type,
                 'Content-Disposition' => 'inline',
-                'Cache-Control' => 'public, max-age=3600',
+                'Cache-Control' => 'public, max-age=86400',
                 'Expires' => gmdate('D, d M Y H:i:s \G\M\T', time() + 3600),
             ]);
         });
