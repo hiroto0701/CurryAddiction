@@ -1,6 +1,7 @@
 # CurryAddiction
 
 [https://curry-addiction.com/](https://curry-addiction.com/)
+※ 現在API停止中
 
 ## サービス概要
 
