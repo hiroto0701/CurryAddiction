@@ -1,4 +1,4 @@
-# CurryAddiction
+![curry-addiction com_](https://github.com/user-attachments/assets/48596455-444d-45d4-b9c6-9e1517086031)# CurryAddiction
 
 [https://curry-addiction.com/](https://curry-addiction.com/)
 ※ 現在API停止中
@@ -7,6 +7,10 @@
 
 カレー界隈を盛り上げるための Web アプリケーションです。<br>
 お気に入りのカレーを共有・発見することでユーザーをカレー依存症にしようという考えのもと開発を始めました。
+
+## サイトイメージ
+### トップページ（LP）
+![curry-addiction com_](https://github.com/user-attachments/assets/b06721f2-ee49-4a40-b5f7-ec4ddfcfa2d3)
 
 ## 主な機能
 
