@@ -1,4 +1,4 @@
-![curry-addiction com_](https://github.com/user-attachments/assets/48596455-444d-45d4-b9c6-9e1517086031)# CurryAddiction
+# CurryAddiction
 
 [https://curry-addiction.com/](https://curry-addiction.com/)
 ※ 現在API停止中
